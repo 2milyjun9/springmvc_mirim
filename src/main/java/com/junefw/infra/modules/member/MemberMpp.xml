@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junefw.infra.modules.member.MemberMpp">
+
+	<resultMap id="resultMapObj"
+		type="com.junefw.infra.modules.member.Member"></resultMap>
+
+	<select id="selectList" resultMap="resultMapObj">
+		<!-- select a. ifmmSeq ,a. ifmmName ,a. ifmmId ,a. ifmmNickname ,a. ifmmDob 
+			,a. ifmmGrade ,b. ifmpNumber ,a.regDatetime ,a.ifmmDormancyNy from infrMember 
+			a left join infrmemberPhone b on b.ifmpDefaultNy = 1 and b.ifmmSeq = a.ifmmSeq; -->
+		select
+		a.ifmmSeq
+		,a.ifmmAdminNy
+		,a.ifmmDormancyNy
+		,a.ifmmName
+		,a.ifmmNickname
+		,a.ifmmPhoto
+		,a.ifmmId
+		,a.ifmmpassword
+		,a.ifmmGrade
+		,a.ifmmGenderCd
+		,a.ifmmDob
+		,a.ifmmSaveCd
+		,a.ifmmFavoriteColor
+		,a.ifmmEmailConsentNy
+		,a.ifmmSmsConsentNy
+		,a.ifmmPushConsentNy
+		,a.regDateTime
+		,a.modDateTime
+		,a.modSeq
+		,b.ifmaTypeCd
+		,b.ifmaTitle
+		,b.ifmaAddress1
+		,b.ifmaAddress2
+		,b.ifmaZipCode
+		,c.ifaoTypeCd
+		,c.ifaoSnsTypeCd
+		,c.ifaoTitle
+		,c.ifaoUrl
+		,d.ifmeTypeCd
+		,d.ifmeEmailFull
+		,e.ifjqQuestionCd
+		,e.ifjqAnswer
+		,f.ifnaSeq
+		,g.ifnaName
+		,h.ifmpTypeCd
+		,h.ifmpDeviceCd
+		,h.ifmpTelecomCd
+		,h.ifmpNumber
+		from
+		infrMember a
+		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq
+		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq
+		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq
+		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
+		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq
+		left join infrNationality g on g.ifnaSeq = f.ifnaSeq
+		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq
+		where 1=1
+		and a.ifmmDelNy = 0
+	</select>
+
+	<insert id="insert">
+		insert into infrMember(
+		ifmmId
+		,ifmmName
+		,ifmmDelny
+		)
+		values (
+		#{ifmmId}
+		,#{ifmmName}
+		,0
+		)
+	</insert>
+
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+		a.ifmmSeq
+		, a.ifmmName
+		,
+		a.ifmmId
+		, a.ifmmNickname
+		, a.ifmmGrade
+		, a.ifmmDob
+		from
+		infrMember a
+		where
+		1 = 1
+		and ifmmDelNy = 0
+		and ifmmSeq = #{ifmmSeq}
+	</select>
+
+	<update id="update">
+		UPDATE infrMember SET
+		ifmmName = #{ifmmName}
+		where 1 =
+		1
+		and ifmmSeq = #{ifmmSeq}
+	</update>
+
+</mapper>
