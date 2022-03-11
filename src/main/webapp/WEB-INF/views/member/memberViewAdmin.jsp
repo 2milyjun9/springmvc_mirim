@@ -375,7 +375,7 @@ body {
 								<th class="table-secondary">아이디</th>
 								<td><c:out value="${item.ifmmId}" /></td>
 								<th class="table-secondary">비밀번호</th>
-											<td><c:out value="${item.ifmmpassword}" /></td>
+											<td><c:out value="${item.ifmmPassword}" /></td>
 							</tr>
 							<tr>
 								<th class="table-secondary">성별</th>

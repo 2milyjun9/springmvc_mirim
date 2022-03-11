@@ -376,52 +376,55 @@ body {
 
 
 	<!-- 모바일버전테이블//웹감춤 -->
-	<!-- 					<div class=" d-lg-block d-xl-none">
-						<div style="width: 90%; float: none; margin: 0 auto">
-							<div class="table-responsive">
-								<table class="table table-striped table-hover"
-									data-toggle="table" data-toolbar=".toolbar"
-									data-sortable="false" data-height="460">
-									<thead>
-										<tr>
-											<div class="m_check_wrap">
-												<th><input type="checkbox" id="allCheck"
-													onclick="allCheck(event)"> <label for="allCheck">
-														No. </label></th>
-											</div>
+	<div class=" d-lg-block d-xl-none">
+		<div style="width: 90%; float: none; margin: 0 auto">
+			<div class="table-responsive">
+				<table class="table table-striped table-hover" data-toggle="table"
+					data-toolbar=".toolbar" data-sortable="false" data-height="460">
+					<thead>
+						<tr>
+							<th onclick=sortContent(0) scope="col">No</th>
+							<th onclick=sortContent(0) scope="col">이름 <i
+								class="fas fa-sort"> </i></th>
+							<th onclick=sortContent(0) scope="col">아이디 <i
+								class="fas fa-sort"> </i></th>
+							<th onclick=sortContent(0) scope="col">생년월일 <i
+								class="fas fa-sort"> </i>
+							</th>
+							<th onclick=sortContent(0) scope="col">연락처 <i
+								class="fas fa-sort"> </i></th>
+						</tr>
+					</thead>
+					<c:choose>
+						<c:when test="${fn:length(list) eq 0}">
+							<tr>
+								<td class="text-center" colspan="9">There is no data!</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${list}" var="item" varStatus="status">
 
-											<th onclick=sortContent(0) scope="col">이름 <i
-												class="fas fa-sort"> </i></th>
-											<th onclick=sortContent(0) scope="col">아이디 <i
-												class="fas fa-sort"> </i></th>
-											<th onclick=sortContent(0) scope="col">생년월일 <i
-												class="fas fa-sort"> </i>
-											</th>
-											<th onclick=sortContent(0) scope="col">연락처 <i
-												class="fas fa-sort"> </i></th>
+								<tbody id="mainTable_tbody">
+									<tr>
+										<td scope="row"><c:out value="${item.ifmmSeq}" /></td>
+										<td><a
+											href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+												<c:out value="${item.ifmmName}" />
+										</a></td>
+										<td><c:out value="${item.ifmmId}" /></td>
+										<td><c:out value="${item.ifmmDob}" /></td>
+										<td><c:out value="${item.ifmpNumber}" /></td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</table>
+			</div>
+		</div>
+	</div>
 
-										</tr>
-									</thead>
-									<tbody id="mainTable_tbody">
-										<tr>
-											<td scope="row">
-												<div class="m_check_wrap">
-													<input type="checkbox" class="check_all_list" id="agree1"
-														onclick="checkAllList(event)"> <label for="agree1">&nbsp;1</label>
-												</div>
-											</td>
-											<td><a href="./memberView.html">정미림 </a></td>
-											<td>mija345</td>
-											<td>19910907</td>
-											<td>010-9245-6252</td>
 
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
- -->
 
 	<div class="row text-center" style="width: 100%">
 		<div style="width: 100%; float: none; margin: 0 auto">

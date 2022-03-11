@@ -66,10 +66,10 @@ public class MemberController {
 		return "member/memberEditUser";
 	}
 
-	@RequestMapping(value = "/member/memberInst1")
-	public String memberInst1(Model model, Member dto) throws Exception {
+	@RequestMapping(value = "/member/memberInstUser")
+	public String memberInstUser(Model model, Member dto) throws Exception {
 		service.insert(dto);
-		return "";
+		return "redirect:/code/memberEditUser"; 
 	}
 
 	@RequestMapping(value = "/member/memberEditXdmin")
@@ -77,10 +77,10 @@ public class MemberController {
 		return "member/memberEditXdmin";
 	}
 
-	@RequestMapping(value = "/member/memberInst2")
-	public String memberInst2(Model model, Member dto) throws Exception {
+	@RequestMapping(value = "/member/memberInstXdmin")
+	public String memberInstXdmin(Model model, Member dto) throws Exception {
 		service.insert(dto);
-		return "";
+		return "redirect:/code/memberEditXdmin"; 
 	}
 
 	@RequestMapping(value = "/member/memberViewAdmin")
@@ -93,7 +93,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberFormAdmin")
 	public String memberFormAdmin(MemberVo vo, Model model) throws Exception {
 		Member rt = service.selectOne(vo);
-		model.addAttribute("rt", rt);
+		model.addAttribute("item", rt);
 		return "member/memberFormAdmin";
 	}
 
@@ -107,7 +107,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberFormUser")
 	public String memberFormUser(MemberVo vo, Model model) throws Exception {
 		Member rt = service.selectOne(vo);
-		model.addAttribute("rt", rt);
+		model.addAttribute("item", rt);
 		return "member/memberFormUser";
 		}
 }

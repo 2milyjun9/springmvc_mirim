@@ -4,96 +4,111 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.junefw.infra.modules.code.CodeMpp">
 
-    <resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap>
+<resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap>	
 
 	<select id="selectList" resultMap="resultMapObj">
-		select
-			 a.ifcgSeq
-		 	, a.ifcgName
-		 	, a.ifcgDelNy
-		 from 
-			 infrCodegroup a 
-		 where 1 = 1 
-			 and ifcgDelNy = 0	
-	</select>
+		SELECT
+		a.ifcgSeq
+		, a.ifcgName
+		, a.ifcgDelNy
+		FROM
+		infrCodegroup a
+		WHERE 1 = 1
+		<!-- 마이바티스 검색 추출형태 -->
+		<choose>
+			<when test="shIfcgDelNy == 1">AND ifcgDelNy = 1 </when>   <!-- 1이들어오면 1만검색 -->
+			<when test="shIfcgDelNy == 0">AND ifcgDelNy = 0 </when>   <!-- 0이들어오면 0만검색 -->
+		</choose>
+		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
 	
-	 <insert id="insert">
-      insert into infrCodeGroup(
-      ifcgName
-      , ifcgDelNy
-      ) values (
-      #{ifcgName}
-      ,0
-      )
-   </insert>
-   
-   	<select id="selectOne" resultMap="resultMapObj">
-		select
-			 a.ifcgSeq
-		 	, a.ifcgName
-		 	, a.ifcgDelNy
-		 from 
-			 infrCodegroup a 
-		 where 1 = 1 
-			 and ifcgDelNy = 0	
-			 and ifcgSeq = #{ifcgSeq}
 	</select>
-  
-  
-     	<update id="update">
-		UPDATE  infrCodeGroup SET 
-			 ifcgName = #{ifcgName}
-		 where 1 = 1 
-			 and ifcgSeq = #{ifcgSeq}
+
+	<insert id="insert">
+		insert into infrCodeGroup(
+		ifcgName
+		, ifcgDelNy
+		) values
+		(
+		#{ifcgName}
+		,0
+		)
+	</insert>
+
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+		a.ifcgSeq
+		, a.ifcgName
+		,
+		a.ifcgDelNy
+		from
+		infrCodegroup a
+		where 1 = 1
+		and ifcgDelNy = 0
+		and ifcgSeq
+		= #{ifcgSeq}
+	</select>
+
+
+	<update id="update">
+		UPDATE infrCodeGroup SET
+		ifcgName = #{ifcgName}
+		where 1
+		= 1
+		and ifcgSeq = #{ifcgSeq}
 	</update>
-	
-	
-	
-		<select id="selectListCode" resultMap="resultMapObj">
-		select
-			 a.ifcdSeq
-		 	, a.ifcdName
-		 	, a.ifcdDelNy
-		 from 
-			 infrCode a 
-		 where 1 = 1 
-		 			 and ifcdDelNy = 0	
+
+<!-- ************infrCode************ -->
+
+	<select id="selectListCode" resultMap="resultMapObj">
+		SELECT
+		a.ifcdSeq
+		,a.ifcdName
+		,a.ifcdDelNy
+		FROM
+		infrCode a
+		where 1 = 1
+		AND ifcdDelNy = 0
+		<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq} </if>
+		order by a.ifcgSeq
 	</select>
-	
+
 	<insert id="insertCode">
-      insert into infrCode(
-    	ifcdName
-      , ifcdDelNy
-      , ifcgSeq
-      ) values (
-      #{ifcdName}
-      ,0
-      ,#{ifcgSeq}
-      )
-   </insert>
-   
-      	<select id="selectOneCode" resultMap="resultMapObj">
+		insert into infrCode(
+		ifcdName
+		, ifcdDelNy
+		, ifcgSeq
+		)
+		values (
+		#{ifcdName}
+		,0
+		,#{ifcgSeq}
+		)
+	</insert>
+
+	<select id="selectOneCode" resultMap="resultMapObj">
 		select
-			 a.ifcdSeq
-		 	, a.ifcdName
-		 	, a.ifcdDelNy
-		 from 
-			 infrCode a 
-		 where 1 = 1 
-			 and ifcdDelNy = 0	
-			 and ifcdSeq = #{ifcdSeq}
+		a.ifcdSeq
+		, a.ifcdName
+		, a.ifcdDelNy
+		from
+		infrCode a
+		where 1 = 1
+		and ifcdDelNy = 0
+		and ifcdSeq =
+		#{ifcdSeq}
 	</select>
-   
-	     	<update id="updateCode">
-		UPDATE  infrCode SET 
-			 ifcdName = #{ifcdName}
-		 where 1 = 1 
-			 and ifcdSeq = #{ifcdSeq}
+
+	<update id="updateCode">
+		UPDATE infrCode SET
+		ifcdName = #{ifcdName}
+		where 1 = 1
+		and ifcdSeq = #{ifcdSeq}
 	</update>
-	
-	
+
+
 </mapper>
 
 

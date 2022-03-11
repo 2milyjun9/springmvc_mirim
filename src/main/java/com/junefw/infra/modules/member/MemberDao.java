@@ -14,6 +14,7 @@ public class MemberDao {
 //   @Resource(name = "sqlSession")
 	private SqlSession sqlSession;
 
+	// 테스트 ***************************
 	private static String namespace = "com.junefw.infra.modules.member.MemberMpp";
 
 	public List<Member> selectList() {
@@ -31,5 +32,10 @@ public class MemberDao {
 	public int update(Member dto) {
 		return sqlSession.update(namespace + ".update", dto);
 	}
-
-}
+	
+	// 두리안 ****************************
+	
+	
+	
+	
+	}

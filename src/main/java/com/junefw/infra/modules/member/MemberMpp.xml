@@ -9,10 +9,8 @@
 	<resultMap id="resultMapObj"
 		type="com.junefw.infra.modules.member.Member"></resultMap>
 
+	<!-- **********************테스트******************** -->
 	<select id="selectList" resultMap="resultMapObj">
-		<!-- select a. ifmmSeq ,a. ifmmName ,a. ifmmId ,a. ifmmNickname ,a. ifmmDob 
-			,a. ifmmGrade ,b. ifmpNumber ,a.regDatetime ,a.ifmmDormancyNy from infrMember 
-			a left join infrmemberPhone b on b.ifmpDefaultNy = 1 and b.ifmmSeq = a.ifmmSeq; -->
 		select
 		a.ifmmSeq
 		,a.ifmmAdminNy
@@ -21,7 +19,7 @@
 		,a.ifmmNickname
 		,a.ifmmPhoto
 		,a.ifmmId
-		,a.ifmmpassword
+		,a.ifmmPassword
 		,a.ifmmGrade
 		,a.ifmmGenderCd
 		,a.ifmmDob
@@ -64,7 +62,7 @@
 		where 1=1
 		and a.ifmmDelNy = 0
 	</select>
-
+	
 	<insert id="insert">
 		insert into infrMember(
 		ifmmId
@@ -82,8 +80,7 @@
 		select
 		a.ifmmSeq
 		, a.ifmmName
-		,
-		a.ifmmId
+		,a.ifmmId
 		, a.ifmmNickname
 		, a.ifmmGrade
 		, a.ifmmDob
@@ -103,4 +100,59 @@
 		and ifmmSeq = #{ifmmSeq}
 	</update>
 
+	<!-- **********************두리안********************* -->
+
+
+	<insert id="insertUser">
+		insert into infrMember(
+		,ifmmName
+		,ifmmId
+		,ifmmPassword
+		,ifmmGenderCd
+		,ifmmDelny
+		,ifmmSaveCd
+		,ifmmMarriageCd
+		,ifmmMarriageDate
+		,ifmmChildrenNum
+		,ifmmFavoriteColor
+		,ifmmRecommenderSeq
+		,ifmmEmailConsentNy
+		,ifmmSmsConsentNy
+		,ifmmPushConsentNy
+		,ifmmDesc
+		,ifmmDelNY
+		regIp
+		regSeq
+		regDevice
+		regDateTime
+		regDateTimeSvr
+		)
+		values (
+		,#{ifmmName}
+		,#{ifmmId}
+		,#{ifmmPassword}
+		,#{ifmmGenderCd}
+		,0
+		,#{ifmmSaveCd}
+		,#{ifmmMarriageCd}
+		,#{vfmmMarriageDate}
+		,#{ifmmChildrenNum}
+		,#{ifmmFavoriteColor}
+		,#{ifmmRecommenderSeq}
+		,#{ifmmEmailConsentNy}
+		,#{ifmmSmsConsentNy}
+		,#{ifmmPushConsentNy}
+		,#{ifmmRecommenderSeq}
+		,#{ifmmDesc}
+		,#{ifmmDelNY}
+		,#{regIp}
+		,#{regSeq}
+		,#{regDevice}
+		,now()
+		,now()
+		)
+	</insert>
+
+
 </mapper>
+

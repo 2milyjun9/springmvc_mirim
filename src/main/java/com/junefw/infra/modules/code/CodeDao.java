@@ -12,12 +12,15 @@ public class CodeDao {
 	
 	@Inject
 	//	@Resource(name = "sqlSession")
-	//코드그룹
+
 	private SqlSession sqlSession;
 	private static String namespace = "com.junefw.infra.modules.code.CodeMpp";
 	
-	public List<Code> selectList(){   //코드객체 묶은 리스트
-	return sqlSession.selectList(namespace + ".selectList", "");}
+	//코드그룹
+	 public List<Code> selectList(CodeVo vo){ //코드객체 묶은 리스트 
+		 return sqlSession.selectList(namespace + ".selectList", vo);}
+	/*	public List<Code> selectList(CodeVo vo) 
+	{ List<Code> list=sqlSession.selectList(namespace + ".selectList", "");return list;}  */
 	public int insert(Code dto) { return sqlSession.insert(namespace+ ".insert", dto);}
 	// 코드객체 하나
 	public Code selectOne(CodeVo vo){return sqlSession.selectOne(namespace+".selectOne", vo);}
@@ -26,8 +29,8 @@ public class CodeDao {
 	
 	
 	//코드
-	public List<Code> selectListCode(){ List<Code> list=sqlSession.selectList(namespace + ".selectListCode", "");
-	return list;}
+	public List<Code> selectListCode(CodeVo vo)
+	{ List<Code> list=sqlSession.selectList(namespace + ".selectListCode", vo); return list;}
 	public int insertCode(Code dto) { return sqlSession.insert(namespace+ ".insertCode", dto);}
 	public Code selectOneCode(CodeVo vo){return sqlSession.selectOne(namespace+".selectOneCode", vo);}
 	public int updateCode(Code dto) { return sqlSession.update(namespace+ ".updateCode", dto);}

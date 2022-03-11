@@ -14,9 +14,9 @@ public class CodeController {
 	CodeServiceImpl service;
 
 	@RequestMapping(value = "/code/codeGroupList")
-	public String codeGroupList(Model model) throws Exception {
-
-		List<Code> list = service.selectList();
+	public String codeGroupList(CodeVo vo, Model model) throws Exception {
+		List<Code> list = service.selectList(vo);
+		
 		model.addAttribute("list", list);
 		return "code/codeGroupList";
 	}
@@ -28,9 +28,8 @@ public class CodeController {
 
 	@RequestMapping(value = "/code/codeGroupInst")
 	public String codeGroupInst(Code dto) throws Exception {
-		System.out.println();
 		service.insert(dto);
-		return "";
+		return "redirect:/code/codeGroupList"; 
 	}
 
 	@RequestMapping(value = "/code/codeGroupView") // 브라우저창에 입력하는 주소 ?ifcgSeq=4
@@ -56,21 +55,26 @@ public class CodeController {
 	public String codeGroupUpdt(Code dto) throws Exception {
 
 		service.update(dto);
-		return "";
+		 return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
+
 	}
 
-	// -------------------------
-	// code
+	// -----------------------------------------------------------------------------infrCode
 	@RequestMapping(value = "/code/codeList")
-	public String codeList(Model model) throws Exception {
-		List<Code> list = service.selectListCode();
+	public String codeList(CodeVo vo, Model model) throws Exception {
+		
+		List<Code> list = service.selectListCode(vo);
 		model.addAttribute("list", list);
+		
+		List<Code> listCodeGroup = service.selectList(vo);
+		model.addAttribute("listCodeGroup", listCodeGroup);
+		
 		return "code/codeList";
 	}
 
 	@RequestMapping(value = "/code/codeForm")
-	public String codeForm(Model model) throws Exception {
-		List<Code> list = service.selectList();
+	public String codeForm(CodeVo vo,Model model) throws Exception {
+		List<Code> list = service.selectList(vo);
 		model.addAttribute("list", list);
 		return "code/codeForm";
 	}
@@ -78,7 +82,7 @@ public class CodeController {
 	@RequestMapping(value = "/code/codeInst")
 	public String codeInst(Code dto) throws Exception {
 		service.insertCode(dto);
-		return "";
+		return "redirect:/code/codeList"; 
 	}
 
 	@RequestMapping(value = "/code/codeView")
@@ -98,7 +102,8 @@ public class CodeController {
 	@RequestMapping(value = "/code/codeUpdt")
 	public String codeUpdt(Code dto) throws Exception {
 		service.updateCode(dto);
-		return "";
+		 return "redirect:/code/codeView?ifcdSeq=" + dto.getIfcdSeq();
+
 	}
 
 }
