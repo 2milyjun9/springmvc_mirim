@@ -10,7 +10,8 @@
 		type="com.junefw.infra.modules.member.Member"></resultMap>
 
 	<!-- **********************테스트******************** -->
-	<select id="selectList" resultMap="resultMapObj">
+<!-- http://localhost:8080/infra/member/memberListTest-->
+	<select id="selectList" resultMap="resultMapObj">   
 		select
 		a.ifmmSeq
 		,a.ifmmAdminNy
@@ -28,6 +29,7 @@
 		,a.ifmmEmailConsentNy
 		,a.ifmmSmsConsentNy
 		,a.ifmmPushConsentNy
+		,a.ifmmDelNy
 		,a.regDateTime
 		,a.modDateTime
 		,a.modSeq
@@ -52,17 +54,34 @@
 		,h.ifmpNumber
 		from
 		infrMember a
-		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq
-		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq
-		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq
+		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
+		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq and ifaoDefaultNy = 1
+		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq and ifmeDefaultNy = 1
 		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
-		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq
-		left join infrNationality g on g.ifnaSeq = f.ifnaSeq
-		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq
-		where 1=1
-		and a.ifmmDelNy = 0
+		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
+		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
+		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		where
+		1=1
+		<choose>
+			<when test="shIfmmDelNy == 1">AND ifmmDelNy = 1 </when>   
+			<when test="shIfmmDelNy == 0">AND ifmmDelNy = 0 </when>  
+		</choose>
+		<choose>
+			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
+			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
+		</choose>
+		<if test="shIfmmName != null and !shIfmmName.equals('')">
+			AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
+		<choose>
+			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
+			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>
+ 
+		</choose>
 	</select>
-	
+
 	<insert id="insert">
 		insert into infrMember(
 		ifmmId
@@ -76,6 +95,8 @@
 		)
 	</insert>
 
+
+<!-- http://localhost:8080/infra/member/memberFormTest  -->
 	<select id="selectOne" resultMap="resultMapObj">
 		select
 		a.ifmmSeq
@@ -100,10 +121,138 @@
 		and ifmmSeq = #{ifmmSeq}
 	</update>
 
-	<!-- **********************두리안********************* -->
+	<!-- **********************두리안(멤버리스트셀렉은동일)********************* -->
+
+<select id="memberList" resultMap="resultMapObj">
+		select
+		a.ifmmSeq
+		,a.ifmmAdminNy
+		,a.ifmmDormancyNy
+		,a.ifmmName
+		,a.ifmmNickname
+		,a.ifmmPhoto
+		,a.ifmmId
+		,a.ifmmPassword
+		,a.ifmmGrade
+		,a.ifmmGenderCd
+		,a.ifmmDob
+		,a.ifmmSaveCd
+		,a.ifmmFavoriteColor
+		,a.ifmmEmailConsentNy
+		,a.ifmmSmsConsentNy
+		,a.ifmmPushConsentNy
+		,a.ifmmDelNy
+		,a.regDateTime
+		,a.modDateTime
+		,a.modSeq
+		,b.ifmaTypeCd
+		,b.ifmaTitle
+		,b.ifmaAddress1
+		,b.ifmaAddress2
+		,b.ifmaZipCode
+		,c.ifaoTypeCd
+		,c.ifaoSnsTypeCd
+		,c.ifaoTitle
+		,c.ifaoUrl
+		,d.ifmeTypeCd
+		,d.ifmeEmailFull
+		,e.ifjqQuestionCd
+		,e.ifjqAnswer
+		,f.ifnaSeq
+		,g.ifnaName
+		,h.ifmpTypeCd
+		,h.ifmpDeviceCd
+		,h.ifmpTelecomCd
+		,h.ifmpNumber
+		from
+		infrMember a
+		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
+		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq and ifaoDefaultNy = 1
+		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq and ifmeDefaultNy = 1
+		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
+		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
+		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
+		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		where
+		1=1
+		<choose>
+			<when test="shIfmmDelNy == 1">AND ifmmDelNy = 1 </when>   
+			<when test="shIfmmDelNy == 0">AND ifmmDelNy = 0 </when>  
+		</choose>
+		<choose>
+			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
+			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
+		</choose>
+		<if test="shIfmmName != null and !shIfmmName.equals('')">
+			AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
+		<choose>
+			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
+			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>
+ 
+		</choose>
+	</select>
 
 
-	<insert id="insertUser">
+
+	<select id="memberViewAdmin" resultMap="resultMapObj">   <!-- 멤버뷰 -->
+		select
+		a.ifmmSeq
+		,a.ifmmAdminNy
+		,a.ifmmDormancyNy
+		,a.ifmmName
+		,a.ifmmNickname
+		,a.ifmmPhoto
+		,a.ifmmId
+		,a.ifmmPassword
+		,a.ifmmGrade
+		,a.ifmmGenderCd
+		,a.ifmmDob
+		,a.ifmmSaveCd
+		,a.ifmmFavoriteColor
+		,a.ifmmEmailConsentNy
+		,a.ifmmSmsConsentNy
+		,a.ifmmPushConsentNy
+		,a.ifmmDelNy
+		,a.regDateTime
+		,a.modDateTime
+		,a.modSeq
+		,b.ifmaTypeCd
+		,b.ifmaTitle
+		,b.ifmaAddress1
+		,b.ifmaAddress2
+		,b.ifmaZipCode
+ 		,c.ifaoTypeCd
+		,c.ifaoSnsTypeCd
+		,c.ifaoTitle
+		,c.ifaoUrl
+		,d.ifmeTypeCd
+		,d.ifmeEmailFull
+		,e.ifjqQuestionCd
+		,e.ifjqAnswer
+		,f.ifnaSeq
+		,g.ifnaName
+		,h.ifmpTypeCd
+		,h.ifmpDeviceCd
+		,h.ifmpTelecomCd
+		,h.ifmpNumber 
+		from
+	infrMember a
+		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
+		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq and ifaoDefaultNy = 1
+		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq and ifmeDefaultNy = 1
+		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
+		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
+		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
+		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		where
+		1=1
+		and a.ifmmSeq = #{ifmmSeq}
+	</select>
+
+
+	<insert id="insertMemberUser">
 		insert into infrMember(
 		,ifmmName
 		,ifmmId
@@ -121,11 +270,11 @@
 		,ifmmPushConsentNy
 		,ifmmDesc
 		,ifmmDelNY
-		regIp
-		regSeq
-		regDevice
-		regDateTime
-		regDateTimeSvr
+		,regIp
+		,regSeq
+		,regDevice
+		,regDateTime
+		,regDateTimeSvr
 		)
 		values (
 		,#{ifmmName}

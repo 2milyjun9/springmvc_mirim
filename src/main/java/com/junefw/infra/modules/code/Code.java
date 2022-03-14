@@ -5,6 +5,7 @@ public class Code {
 	
 	private String ifcgSeq;
 	private String ifcgName;
+	private String ifcgNameEng;
 	private String ifcgDelNy;
 	
 	private String ifcdSeq;
@@ -46,6 +47,12 @@ public class Code {
 	}
 	public void setIfcdDelNy(String ifcdDelNy) {
 		this.ifcdDelNy = ifcdDelNy;
+	}
+	public String getIfcgNameEng() {
+		return ifcgNameEng;
+	}
+	public void setIfcgNameEng(String ifcgNameEng) {
+		this.ifcgNameEng = ifcgNameEng;
 	}
 
 	

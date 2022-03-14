@@ -7,17 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.junefw.infra.modules.code.CodeVo;
+
 @Controller
 public class MemberController {
 
 	@Autowired
 	MemberServiceImpl service;
 
-// 테스트 ************************************************************
-
+// ***************************************************** 테스트
 	@RequestMapping(value = "/member/memberListTest")
-	public String memberListTest(Model model) throws Exception {
-		List<Member> list = service.selectList();
+	public String memberListTest(MemberVo vo, Model model) throws Exception {
+		List<Member> list = service.selectList(vo);
 		model.addAttribute("list", list);
 		return "member/memberListTest";
 	}
@@ -53,14 +54,60 @@ public class MemberController {
 		return "";
 	}
 
-//두리안 *******************************************************************
+// ******************************두리안 어드민 (회원) ******************************** 
 	@RequestMapping(value = "/member/memberList")
-	public String memberListT(Model model) throws Exception {
-		List<Member> list = service.selectList();
+	public String memberList(MemberVo vo, Model model) throws Exception {
+		List<Member> list = service.memberList(vo);
 		model.addAttribute("list", list);
 		return "member/memberList";
 	}
 
+	@RequestMapping(value = "/member/memberViewAdmin")
+	public String memberViewAdmin(MemberVo vo, Model model) throws Exception {
+		Member rt = service.memberViewAdmin(vo);
+		model.addAttribute("item", rt);
+		return "member/memberViewAdmin";
+	}
+
+	@RequestMapping(value = "/member/memberEditAdmin")
+	public String memberEditXdmin(Model model) throws Exception {
+		return "member/memberEditAdmin";
+	}
+
+	@RequestMapping(value = "/member/memberInstAdmin")
+	public String memberInstAdmin(Model model, Member dto) throws Exception {
+		service.insert(dto);
+		return "redirect:/code/memberEditAdmin";
+	}
+
+	@RequestMapping(value = "/member/memberFormAdmin")
+	public String memberFormAdmin(MemberVo vo, Model model) throws Exception {
+		Member rt = service.memberViewAdmin(vo);
+		model.addAttribute("item", rt);
+		return "member/memberFormAdmin";
+	}
+
+	@RequestMapping(value = "/member/memberInst2Admin")
+	public String memberInst2Admin(Model model, Member dto) throws Exception {
+		service.insert(dto);
+		return "redirect:/code/memberFormAdmin";
+	}
+
+	// *************************두리안 사용자 (회원)*************************************
+
+	
+	/*
+	 * @RequestMapping(value = "/member/memberFormUser") public String
+	 * memberFormUser(MemberVo vo, Model model) throws Exception { Member rt =
+	 * service.memberViewUser(vo); model.addAttribute("item", rt); return
+	 * "member/memberFormUser"; }
+	 * 
+	 * 
+	 * @RequestMapping(value = "/member/memberViewUser") public String
+	 * memberViewUser(MemberVo vo, Model model) throws Exception { Member rt =
+	 * service.memberViewUser(vo); model.addAttribute("item", rt); return
+	 * "member/memberViewUser"; }
+	 */
 	@RequestMapping(value = "/member/memberEditUser")
 	public String memberEditUser(Model model) throws Exception {
 		return "member/memberEditUser";
@@ -69,45 +116,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberInstUser")
 	public String memberInstUser(Model model, Member dto) throws Exception {
 		service.insert(dto);
-		return "redirect:/code/memberEditUser"; 
+		return "redirect:/code/memberEditUser";
 	}
 
-	@RequestMapping(value = "/member/memberEditXdmin")
-	public String memberEditXdmin(Model model) throws Exception {
-		return "member/memberEditXdmin";
-	}
-
-	@RequestMapping(value = "/member/memberInstXdmin")
-	public String memberInstXdmin(Model model, Member dto) throws Exception {
-		service.insert(dto);
-		return "redirect:/code/memberEditXdmin"; 
-	}
-
-	@RequestMapping(value = "/member/memberViewAdmin")
-	public String memberViewAdmin(MemberVo vo, Model model) throws Exception {
-		Member rt = service.selectOne(vo);
-		model.addAttribute("item", rt);
-		return "member/memberViewAdmin";
-	}
-
-	@RequestMapping(value = "/member/memberFormAdmin")
-	public String memberFormAdmin(MemberVo vo, Model model) throws Exception {
-		Member rt = service.selectOne(vo);
-		model.addAttribute("item", rt);
-		return "member/memberFormAdmin";
-	}
-
-	@RequestMapping(value = "/member/memberViewUser")
-	public String memberViewUser(MemberVo vo, Model model) throws Exception {
-		Member rt = service.selectOne(vo);
-		model.addAttribute("item", rt);
-		return "member/memberViewUser";
-	}
-
-	@RequestMapping(value = "/member/memberFormUser")
-	public String memberFormUser(MemberVo vo, Model model) throws Exception {
-		Member rt = service.selectOne(vo);
-		model.addAttribute("item", rt);
-		return "member/memberFormUser";
-		}
 }

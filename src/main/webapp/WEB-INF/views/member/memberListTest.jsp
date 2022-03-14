@@ -21,6 +21,7 @@
 		 | <c:out value="${item.ifmmNickname}"/> 	 
 		 | <c:out value="${item.ifmmGrade}"/> 
 		 | <c:out value="${item.ifmmDob}"/> 
+		 		 | <c:out value="${item.ifmaAddress1}"/> 
 		<br>
 		</c:forEach>
 	</c:otherwise>

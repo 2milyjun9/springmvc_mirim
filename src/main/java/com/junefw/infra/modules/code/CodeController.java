@@ -53,10 +53,8 @@ public class CodeController {
 
 	@RequestMapping(value = "/code/codeGroupUpdt")
 	public String codeGroupUpdt(Code dto) throws Exception {
-
 		service.update(dto);
 		 return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
-
 	}
 
 	// -----------------------------------------------------------------------------infrCode

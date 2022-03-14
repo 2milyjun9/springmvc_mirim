@@ -5,105 +5,105 @@ public class Member {
 	
 	/* infrmember */
 	private String ifmmSeq;
-	private String ifmmAdminNy="";
-	private String ifmmId = "";
-	private String ifmmName= "";
-	private char ifmmNickname;
-	private int ifmmGrade;
-	private String ifmmDob="";
-	private String ifmmPhoto="";
-	private String ifmmPassword="";
-	private String ifmmPwdModDate="";
-	private String ifmmGenderCd="";
-	private String ifmmSaveCd="";
-	private String ifmmMarriageCd="";
-	private String ifmmMarriageDate="";
-	private String ifmmChildrenNum="";
-	private String ifmmFavoriteColor="";
-	private String ifmmRecommenderSeq="";
-	private String ifmmEmailConsentNy="";
-	private String ifmmSmsConsentNy="";
-	private String ifmmPushConsentNy="";
-	private String ifmmDormancyNy="";
-	private String ifmmDelNY="";
-	private String regIp="";
-	private String regSeq="";
-	private String regDevice="";
-	private String regDateTime="";
-	private String regDateTimeSvr="";
-	private String modIp="";
-	private String modSeq="";
-	private String modDevice="";
-	private String modDateTime="";
-	private String modDateTimeSvr="";
+	private String ifmmAdminNy;
+	private String ifmmId ;
+	private String ifmmName;
+	private String ifmmNickname;
+	private Integer ifmmGrade;
+	private String ifmmDob;
+	private String ifmmPhoto;
+	private String ifmmPassword;
+	private String ifmmPwdModDate;
+	private String ifmmGenderCd;
+	private String ifmmSaveCd;
+	private String ifmmMarriageCd;
+	private String ifmmMarriageDate;
+	private String ifmmChildrenNum;
+	private String ifmmFavoriteColor;
+	private String ifmmRecommenderSeq;
+	private String ifmmEmailConsentNy;
+	private String ifmmSmsConsentNy;
+	private String ifmmPushConsentNy;
+	private String ifmmDormancyNy;
+	private String ifmmDelNY;
+	private String regIp;
+	private String regSeq;
+	private String regDevice;
+	private String regDateTime;
+	private String regDateTimeSvr;
+	private String modIp;
+	private String modSeq;
+	private String modDevice;
+	private String modDateTime;
+	private String modDateTimeSvr;
 	
 	/* infrmemberphone */
 	private String ifmpSeq;
-	private String ifmpDefaultNy="";
-	private String ifmpTypeCd="";
-	private String ifmpDeviceCd="";
-	private String ifmpTelecomCd="";
-	private String ifmpNumber="";
-	private String ifmpDelNY="";
+	private String ifmpDefaultNy;
+	private String ifmpTypeCd;
+	private String ifmpDeviceCd;
+	private String ifmpTelecomCd;
+	private String ifmpNumber;
+	private String ifmpDelNy;
 		
 	
 	/* infrmemberemail */
 	private String ifmeSeq;
-	private String ifmeDefaultNy="";
-	private String ifmeTypeCd="";
-	private String ifmeEmailFull="";
-	private String ifmeEmailAccount="";
-	private String ifmeEmailDomain="";
-	private String ifmeEmailDomainCd="";
-	private String ifmeDelNY="";
+	private String ifmeDefaultNy;
+	private String ifmeTypeCd;
+	private String ifmeEmailFull;
+	private String ifmeEmailAccount;
+	private String ifmeEmailDomain;
+	private String ifmeEmailDomainCd;
+	private String ifmeDelNy;
 
 	/*infrmemberaddress*/
-	private int ifmaSeq;
-	private String ifmaDefaultNy="";
-	private String ifmaTypeCd="";
-	private String ifmaTitle="";
-	private String ifmaAddress1="";
-	private String ifmaAddress2="";
-	private String ifmaZipcode="";
-	private String ifmaDelNY="";
+	private String ifmaSeq;
+	private String ifmaDefaultNy;
+	private String ifmaTypeCd;
+	private String ifmaTitle;
+	private String ifmaAddress1;
+	private String ifmaAddress2;
+	private String ifmaZipcode;
+	private String ifmaDelNy;
 	
 	/*infrmemberaddressonline*/
 	private String ifaoSeq;
-	private String ifaoTypeCd="";
-	private String ifaoDefaultNy="";
-	private String ifaoSnsTypeCd="";
-	private String ifaoUrl="";
-	private String ifaoTitle="";
+	private String ifaoTypeCd;;
+	private String ifaoDefaultNy;
+	private String ifaoSnsTypeCd;
+	private String ifaoUrl;
+	private String ifaoTitle;
 	
 	/*infrmemberhobby*/
 	private int ifmhSeq;
-	private String ifmhHobbyCd="";
-	private String ifmhUseNy="";
-	private String ifmhOrder="";
-	private String ifmhDelNY="";
+	private String ifmhHobbyCd;
+	private String ifmhUseNy;
+	private String ifmhOrder;
+	private String ifmhDelNy;
 	
 	/*infrmemberjoinqna*/
 	private String ifjqSeq;
-	private String ifjqQuestionCd="";
-	private String ifjqAnswer="";
-	private String ifjqDelNY="";
+	private String ifjqQuestionCd;
+	private String ifjqAnswer;
+	private String ifjqDelNy;
 	
 	/*infrmembernationality*/
 	private String ifmnSeq;
-	private String ifmnDefaultNy="";
-	private String ifmnDelNY="";
+	private String ifmnDefaultNy;
+	private String ifmnDelNy;
 	
 	/*infrnationality*/
 	private String ifnaSeq;
-	private String ifnaName="";
-	private String ifnaNameKor="";
-	private String ifnaNameEng="";
-	private String ifnaCode2Char="";
-	private String ifnaCode3Char="";
-	private String ifnaUseNy="";
-	private String ifnaOrder="";
-	private String ifnaDesc="";
-	private String ifnaDelNY="";
+	private String ifnaName;
+	private String ifnaNameKor;
+	private String ifnaNameEng;
+	private String ifnaCode2Char;
+	private String ifnaCode3Char;
+	private String ifnaUseNy;
+	private String ifnaOrder;
+	private String ifnaDesc;
+	private String ifnaDelNy;
 	public String getIfmmSeq() {
 		return ifmmSeq;
 	}
@@ -128,16 +128,16 @@ public class Member {
 	public void setIfmmName(String ifmmName) {
 		this.ifmmName = ifmmName;
 	}
-	public char getIfmmNickname() {
+	public String getIfmmNickname() {
 		return ifmmNickname;
 	}
-	public void setIfmmNickname(char ifmmNickname) {
+	public void setIfmmNickname(String ifmmNickname) {
 		this.ifmmNickname = ifmmNickname;
 	}
-	public int getIfmmGrade() {
+	public Integer getIfmmGrade() {
 		return ifmmGrade;
 	}
-	public void setIfmmGrade(int ifmmGrade) {
+	public void setIfmmGrade(Integer ifmmGrade) {
 		this.ifmmGrade = ifmmGrade;
 	}
 	public String getIfmmDob() {
@@ -332,11 +332,11 @@ public class Member {
 	public void setIfmpNumber(String ifmpNumber) {
 		this.ifmpNumber = ifmpNumber;
 	}
-	public String getIfmpDelNY() {
-		return ifmpDelNY;
+	public String getIfmpDelNy() {
+		return ifmpDelNy;
 	}
-	public void setIfmpDelNY(String ifmpDelNY) {
-		this.ifmpDelNY = ifmpDelNY;
+	public void setIfmpDelNy(String ifmpDelNy) {
+		this.ifmpDelNy = ifmpDelNy;
 	}
 	public String getIfmeSeq() {
 		return ifmeSeq;
@@ -380,16 +380,16 @@ public class Member {
 	public void setIfmeEmailDomainCd(String ifmeEmailDomainCd) {
 		this.ifmeEmailDomainCd = ifmeEmailDomainCd;
 	}
-	public String getIfmeDelNY() {
-		return ifmeDelNY;
+	public String getIfmeDelNy() {
+		return ifmeDelNy;
 	}
-	public void setIfmeDelNY(String ifmeDelNY) {
-		this.ifmeDelNY = ifmeDelNY;
+	public void setIfmeDelNy(String ifmeDelNy) {
+		this.ifmeDelNy = ifmeDelNy;
 	}
-	public int getIfmaSeq() {
+	public String getIfmaSeq() {
 		return ifmaSeq;
 	}
-	public void setIfmaSeq(int ifmaSeq) {
+	public void setIfmaSeq(String ifmaSeq) {
 		this.ifmaSeq = ifmaSeq;
 	}
 	public String getIfmaDefaultNy() {
@@ -428,11 +428,11 @@ public class Member {
 	public void setIfmaZipcode(String ifmaZipcode) {
 		this.ifmaZipcode = ifmaZipcode;
 	}
-	public String getIfmaDelNY() {
-		return ifmaDelNY;
+	public String getIfmaDelNy() {
+		return ifmaDelNy;
 	}
-	public void setIfmaDelNY(String ifmaDelNY) {
-		this.ifmaDelNY = ifmaDelNY;
+	public void setIfmaDelNy(String ifmaDelNy) {
+		this.ifmaDelNy = ifmaDelNy;
 	}
 	public String getIfaoSeq() {
 		return ifaoSeq;
@@ -494,11 +494,11 @@ public class Member {
 	public void setIfmhOrder(String ifmhOrder) {
 		this.ifmhOrder = ifmhOrder;
 	}
-	public String getIfmhDelNY() {
-		return ifmhDelNY;
+	public String getIfmhDelNy() {
+		return ifmhDelNy;
 	}
-	public void setIfmhDelNY(String ifmhDelNY) {
-		this.ifmhDelNY = ifmhDelNY;
+	public void setIfmhDelNy(String ifmhDelNy) {
+		this.ifmhDelNy = ifmhDelNy;
 	}
 	public String getIfjqSeq() {
 		return ifjqSeq;
@@ -518,11 +518,11 @@ public class Member {
 	public void setIfjqAnswer(String ifjqAnswer) {
 		this.ifjqAnswer = ifjqAnswer;
 	}
-	public String getIfjqDelNY() {
-		return ifjqDelNY;
+	public String getIfjqDelNy() {
+		return ifjqDelNy;
 	}
-	public void setIfjqDelNY(String ifjqDelNY) {
-		this.ifjqDelNY = ifjqDelNY;
+	public void setIfjqDelNy(String ifjqDelNy) {
+		this.ifjqDelNy = ifjqDelNy;
 	}
 	public String getIfmnSeq() {
 		return ifmnSeq;
@@ -536,11 +536,11 @@ public class Member {
 	public void setIfmnDefaultNy(String ifmnDefaultNy) {
 		this.ifmnDefaultNy = ifmnDefaultNy;
 	}
-	public String getIfmnDelNY() {
-		return ifmnDelNY;
+	public String getIfmnDelNy() {
+		return ifmnDelNy;
 	}
-	public void setIfmnDelNY(String ifmnDelNY) {
-		this.ifmnDelNY = ifmnDelNY;
+	public void setIfmnDelNy(String ifmnDelNy) {
+		this.ifmnDelNy = ifmnDelNy;
 	}
 	public String getIfnaSeq() {
 		return ifnaSeq;
@@ -596,12 +596,14 @@ public class Member {
 	public void setIfnaDesc(String ifnaDesc) {
 		this.ifnaDesc = ifnaDesc;
 	}
-	public String getIfnaDelNY() {
-		return ifnaDelNY;
+	public String getIfnaDelNy() {
+		return ifnaDelNy;
 	}
-	public void setIfnaDelNY(String ifnaDelNY) {
-		this.ifnaDelNY = ifnaDelNY;
+	public void setIfnaDelNy(String ifnaDelNy) {
+		this.ifnaDelNy = ifnaDelNy;
 	}
-}
-
 	
+	
+	
+	
+}

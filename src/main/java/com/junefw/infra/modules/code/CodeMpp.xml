@@ -13,6 +13,7 @@
 		SELECT
 		a.ifcgSeq
 		, a.ifcgName
+		, a.ifcgNameEng
 		, a.ifcgDelNy
 		FROM
 		infrCodegroup a
@@ -23,7 +24,10 @@
 			<when test="shIfcgDelNy == 0">AND ifcgDelNy = 0 </when>   <!-- 0이들어오면 0만검색 -->
 		</choose>
 		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
-	
+		<choose>
+			<when test="shOption == 1">AND ifcgName LIKE  concat('%',#{shValue},'%')</when>   
+			<when test="shOption == 2">AND ifcgNameEng LIKE  concat('%',#{shValue},'%')</when>  
+		</choose>
 	</select>
 
 	<insert id="insert">
@@ -41,8 +45,7 @@
 		select
 		a.ifcgSeq
 		, a.ifcgName
-		,
-		a.ifcgDelNy
+		, a.ifcgDelNy
 		from
 		infrCodegroup a
 		where 1 = 1

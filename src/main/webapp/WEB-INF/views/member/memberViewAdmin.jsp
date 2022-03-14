@@ -267,20 +267,7 @@ body {
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2">&nbsp;회원정보</h1>
-
-			<div class="btn-toolbar mb-2 mb-md-0">
-				<div class="btn-group me-2">
-					<label for="numbers"></label> <select id="회원조회">
-						<option value="이름">이름</option>
-						<option value="아이디">아이디</option>
-						<option value="닉네임">닉네임</option>
-						<option value="생년월일">생년월일</option>
-						<option value="휴대폰번호">휴대폰번호</option>
-					</select>
-				</div>
-				<input type="search" placeholder="회원조회" aria-label="Search">
-				<button class="btn btn-outline-primary" type="submit">Search</button>
-			</div>
+				
 
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
@@ -315,6 +302,8 @@ body {
 						</tr>
 					</thead>
 					<tbody>
+								<div class="btn-toolbar mb-2 mb-md-0">
+				<div class="btn-group me-2">
 						<tr>
 							<th scope="row">이름</th>
 							<td><a href="/infra/member/memberEditAdmin"><c:out
@@ -375,12 +364,11 @@ body {
 								<th class="table-secondary">아이디</th>
 								<td><c:out value="${item.ifmmId}" /></td>
 								<th class="table-secondary">비밀번호</th>
-											<td><c:out value="${item.ifmmPassword}" /></td>
+								<td><c:out value="${item.ifmmPassword}" /></td>
 							</tr>
 							<tr>
 								<th class="table-secondary">성별</th>
-								<td scope="row">
-								<c:if test="${item.ifmmGenderCd eq 3}">
+								<td scope="row"><c:if test="${item.ifmmGenderCd eq 3}">
 										<c:out value="남성" />
 									</c:if> <c:if test="${item.ifmmGenderCd eq 4}">
 										<c:out value="여성" />
@@ -390,8 +378,12 @@ body {
 							</tr>
 							<tr>
 								<th class="table-secondary">연락처</th>
-								<td><c:out value="${item.ifmpTelecomCd}" /> <c:out
-										value="${item.ifmpNumber}" />
+							<%-- 	<td><c:if test="${item.ifmpTelecomeCd eq 28}"> <c:out value="SKT" /> </c:if> 
+								<c:if test="${item.ifmpTelecomeCd eq 29}"> <c:out value="KT" /> 	</c:if>
+								 <c:if test="${item.ifmpTelecomeCd eq 30}"> <c:out value="LGU" /> </c:if>
+								<c:if test="${item.ifmpTelecomeCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
+							 --%>
+									<td><c:out value="${item.ifmpNumber}" />
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
 
@@ -510,7 +502,11 @@ body {
 					</tr>
 					<tr>
 						<th class="table-secondary">SNS/블로그</th>
-						<td><c:out value="${item.ifaoSnsTypeCd}" /></td>
+				
+						<td><c:if test="${item.ifaoSnsTypeCd eq 34}"> <c:out value="페이스북" /> </c:if> 
+								<c:if test="${item.ifaoSnsTypeCd eq 35}"> <c:out value="인스타그램" /> 	</c:if>
+								 <c:if test="${item.ifaoSnsTypeCd eq 36}"> <c:out value="트위터" /> </c:if>
+								<c:if test="${item.ifaoSnsTypeCd eq 37}"> 	<c:out value="카톡" /> 	</c:if></td>
 						<th class="table-secondary">계정/주소</th>
 						<td><c:out value="${item.ifaoUrl}" /></td>
 						<th class="table-secondary">블로그명</th>
@@ -520,9 +516,11 @@ body {
 						<th class="table-secondary">개인정보유효기간</th>
 						<td><c:out value="${item.ifmmSaveCd}" /></td>
 						<th class="table-secondary">모바일마케팅동의</th>
-						<td><c:out value="${item.ifmmSmsConsentNy}" /></td>
+							<td><c:if test="${item.ifmmSmsConsentNy eq 1}"> <c:out value="동의" /> </c:if> 
+								<c:if test="${item.ifmmSmsConsentNy eq 0}"> <c:out value="거절" /> </c:if> </td>
 						<th class="table-secondary">이메일마케팅동의</th>
-						<td><c:out value="${item.ifmmEmailConsentNy}" /></td>
+							<td><c:if test="${item.ifmmEmailConsentNy eq 1}"> <c:out value="동의" /> </c:if> 
+								<c:if test="${item.ifmmEmailConsentNy eq 0}"> <c:out value="거절" /> </c:if> </td>
 					</tr>
 				</table>
 			</div>

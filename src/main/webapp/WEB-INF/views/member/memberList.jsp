@@ -264,19 +264,7 @@ body {
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">회원조회</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group me-2">
-							<label for="numbers"></label> <select id="회원조회">
-								<option value="이름">이름</option>
-								<option value="아이디">아이디</option>
-								<option value="닉네임">닉네임</option>
-								<option value="생년월일">생년월일</option>
-								<option value="휴대폰번호">연락처</option>
-							</select>
-						</div>
-						<input type="search" placeholder="회원조회" aria-label="Search">
-						<button class="btn btn-outline-primary" type="submit">Search</button>
-					</div>
+
 
 					<!-- 웹버전기본정보테이블//모바일감춤 -->
 					<div class="d-none d-xl-block ">
@@ -285,233 +273,260 @@ body {
 						</div>
 					</div>
 				</div>
-		</div>
-	</div>
-	</main>
+			</main>
 
 
-	<!-- 웹버전기본정보테이블//모바일감춤 -->
-	<div class="d-none d-xl-block ">
-		<div style="width: 75%; float: none; margin: 0 auto">
-			<div class="table-responsive">
-				<table class="table table-striped table-hover" data-toggle="table"
-					data-toolbar=".toolbar" data-sortable="false" data-height="460">
-					<thead>
-						<tr>
-							<div class="m_check_wrap">
-								<th><input type="checkbox" id="allCheck"
-									onclick="allCheck(event)"> <label for="allCheck">
-										No. </label></th>
+			<!-- 웹버전기본정보테이블//모바일감춤 -->
+			<div class="d-none d-xl-block ">
+				<div style="width: 75%; float: none; margin: 0 auto">
+
+					<form id="" name="" method="get" action="/infra/member/memberList">
+
+						<select name="shIfmmDelNy">
+							<option value="">::삭제여부::
+							<option value="1">Y
+							<option value="0">N
+						</select> <select name="shIfmmDormancyNy">
+							<option value="">::휴먼여부::
+							<option value="0">Y
+							<option value="1">N
+						</select> <select name="shMemberOption">
+							<option value="">::검색구문::
+							<option value="1">이름
+							<option value="2">아이디
+							<option value="3">닉네임
+							<option value="4">연락처
+						</select> <input type="text" name="shMemberValue">
+						<!-- <input type="reset" name="reset"> -->
+						<button class="btn btn-outline-primary" type="submit"
+							name="search">Search</button>
+
+						<br> <br> <br>
+
+						<div class="table-responsive">
+							<table class="table table-striped table-hover"
+								data-toggle="table" data-toolbar=".toolbar"
+								data-sortable="false" data-height="460">
+								<thead>
+									<tr>
+										<div class="m_check_wrap">
+											<th><input type="checkbox" id="allCheck"
+												onclick="allCheck(event)"> <label for="allCheck">
+													No. </label></th>
+										</div>
+
+										<th onclick=sortContent(0) scope="col">이름 <i
+											class="fas fa-sort"> </i></th>
+										<th onclick=sortContent(0) scope="col">아이디 <i
+											class="fas fa-sort"> </i></th>
+										<th onclick=sortContent(0) scope="col">닉네임 <i
+											class="fas fa-sort"> </i>
+										</th>
+										<th onclick=sortContent(0) scope="col">생년월일 <i
+											class="fas fa-sort"> </i>
+										</th>
+										<th onclick=sortContent(0) scope="col">연락처 <i
+											class="fas fa-sort"> </i></th>
+										<th onclick=sortContent(0) scope="col">가입일<i
+											class="fas fa-sort"> </i></th>
+										<th onclick=sortContent(0) scope="col">상태</th>
+									</tr>
+								</thead>
+
+								<c:choose>
+									<c:when test="${fn:length(list) eq 0}">
+										<tr>
+											<td class="text-center" colspan="9">There is no data!</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${list}" var="item" varStatus="status">
+
+											<tbody id="mainTable_tbody">
+												<tr>
+													<td scope="row">
+														<div class="m_check_wrap">
+															<input type="checkbox" class="check_all_list" id="agree1"
+																onclick="checkAllList(event)"> <label
+																for="agree1"><c:out value="${item.ifmmSeq}" /></label>
+														</div>
+													</td>
+													<td><a
+														href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+															<c:out value="${item.ifmmName}" />
+													</a></td>
+													<td><c:out value="${item.ifmmId}" /></td>
+													<td><c:out value="${item.ifmmNickname}" /></td>
+													<td><c:out value="${item.ifmmDob}" /></td>
+													<td><c:out value="${item.ifmpNumber}" /></td>
+													<td><c:out value="${item.regDateTime}" /></td>
+													<td><c:if test="${item.ifmmDormancyNy eq 0}">
+															<c:out value="활성" />
+														</c:if> <c:if test="${item.ifmmDormancyNy eq 1}">
+															<c:out value="휴먼" />
+														</c:if></td>
+
+													<%-- 			<td><select class="form-select form-select-sm"
+												aria-label="Disabled select example">
+													<option value="1">
+														<c:if test="${item.ifmmDormancyNy eq 0}">
+															<c:out value="활성" />
+														</c:if>
+													</option>
+													<option value="2">
+														<c:if test="${item.ifmmDormancyNy eq 1}">
+															<c:out value="휴먼" />
+														</c:if>
+													</option>
+											</select></td> --%>
+												</tr>
+											</tbody>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+
+
+			<!-- 모바일버전테이블//웹감춤 -->
+			<div class=" d-lg-block d-xl-none">
+				<div style="width: 90%; float: none; margin: 0 auto">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover" data-toggle="table"
+							data-toolbar=".toolbar" data-sortable="false" data-height="460">
+							<thead>
+								<tr>
+									<th onclick=sortContent(0) scope="col">No</th>
+									<th onclick=sortContent(0) scope="col">이름 <i
+										class="fas fa-sort"> </i></th>
+									<th onclick=sortContent(0) scope="col">아이디 <i
+										class="fas fa-sort"> </i></th>
+									<th onclick=sortContent(0) scope="col">생년월일 <i
+										class="fas fa-sort"> </i>
+									</th>
+									<th onclick=sortContent(0) scope="col">연락처 <i
+										class="fas fa-sort"> </i></th>
+								</tr>
+							</thead>
+							<c:choose>
+								<c:when test="${fn:length(list) eq 0}">
+									<tr>
+										<td class="text-center" colspan="9">There is no data!</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${list}" var="item" varStatus="status">
+
+										<tbody id="mainTable_tbody">
+											<tr>
+												<td scope="row"><c:out value="${item.ifmmSeq}" /></td>
+												<td><a
+													href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+														<c:out value="${item.ifmmName}" />
+												</a></td>
+												<td><c:out value="${item.ifmmId}" /></td>
+												<td><c:out value="${item.ifmmDob}" /></td>
+												<td><c:out value="${item.ifmpNumber}" /></td>
+											</tr>
+										</tbody>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="row text-center" style="width: 100%">
+				<div style="width: 100%; float: none; margin: 0 auto">
+
+					<!-- Button trigger modal -->
+
+
+					<button type="button" class="btn btn-sm btn-outline-success"
+						onclick="showPopup();">회원추가</button>
+					<button type="button" class="btn btn-sm btn-outline-primary"
+						data-bs-toggle="modal" data-bs-target="#저장">저장</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="저장" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">
+										<i class="fas fa-exclamation-circle"></i>저장 확인!
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">정말 저장하시겠습니까?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">취소</button>
+									<a href="memberList.html">
+										<button type="button" class="btn btn-primary">저장</button>
+									</a>
+								</div>
 							</div>
-
-							<th onclick=sortContent(0) scope="col">이름 <i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">아이디 <i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">닉네임 <i
-								class="fas fa-sort"> </i>
-							</th>
-							<th onclick=sortContent(0) scope="col">생년월일 <i
-								class="fas fa-sort"> </i>
-							</th>
-							<th onclick=sortContent(0) scope="col">연락처 <i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">가입일<i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">회원상태</th>
-						</tr>
-					</thead>
-
-					<c:choose>
-						<c:when test="${fn:length(list) eq 0}">
-							<tr>
-								<td class="text-center" colspan="9">There is no data!</td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${list}" var="item" varStatus="status">
-
-								<tbody id="mainTable_tbody">
-									<tr>
-										<td scope="row">
-											<div class="m_check_wrap">
-												<input type="checkbox" class="check_all_list" id="agree1"
-													onclick="checkAllList(event)"> <label for="agree1"><c:out
-														value="${item.ifmmSeq}" /></label>
-											</div>
-										</td>
-										<td><a
-											href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-												<c:out value="${item.ifmmName}" />
-										</a></td>
-										<td><c:out value="${item.ifmmId}" /></td>
-										<td><c:out value="${item.ifmmNickname}" /></td>
-										<td><c:out value="${item.ifmmDob}" /></td>
-										<td><c:out value="${item.ifmpNumber}" /></td>
-										<td><c:out value="${item.regDateTime}" /></td>
-										<td><select class="form-select form-select-sm"
-											aria-label="Disabled select example">
-												<option value="1">
-													<c:if test="${item.ifmmDormancyNy eq 0}">
-														<c:out value="활성" />
-													</c:if>
-												</option>
-												<option value="2">
-													<c:if test="${item.ifmmDormancyNy eq 1}">
-														<c:out value="휴먼" />
-													</c:if>
-												</option>
-										</select></td>
-									</tr>
-								</tbody>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</table>
-			</div>
-		</div>
-	</div>
-
-
-
-
-	<!-- 모바일버전테이블//웹감춤 -->
-	<div class=" d-lg-block d-xl-none">
-		<div style="width: 90%; float: none; margin: 0 auto">
-			<div class="table-responsive">
-				<table class="table table-striped table-hover" data-toggle="table"
-					data-toolbar=".toolbar" data-sortable="false" data-height="460">
-					<thead>
-						<tr>
-							<th onclick=sortContent(0) scope="col">No</th>
-							<th onclick=sortContent(0) scope="col">이름 <i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">아이디 <i
-								class="fas fa-sort"> </i></th>
-							<th onclick=sortContent(0) scope="col">생년월일 <i
-								class="fas fa-sort"> </i>
-							</th>
-							<th onclick=sortContent(0) scope="col">연락처 <i
-								class="fas fa-sort"> </i></th>
-						</tr>
-					</thead>
-					<c:choose>
-						<c:when test="${fn:length(list) eq 0}">
-							<tr>
-								<td class="text-center" colspan="9">There is no data!</td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${list}" var="item" varStatus="status">
-
-								<tbody id="mainTable_tbody">
-									<tr>
-										<td scope="row"><c:out value="${item.ifmmSeq}" /></td>
-										<td><a
-											href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-												<c:out value="${item.ifmmName}" />
-										</a></td>
-										<td><c:out value="${item.ifmmId}" /></td>
-										<td><c:out value="${item.ifmmDob}" /></td>
-										<td><c:out value="${item.ifmpNumber}" /></td>
-									</tr>
-								</tbody>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</table>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div class="row text-center" style="width: 100%">
-		<div style="width: 100%; float: none; margin: 0 auto">
-
-			<!-- Button trigger modal -->
-
-			<a href="/infra/member/memberFormTest">
-				<button type="button" class="btn btn-sm btn-outline-success">
-					회원추가</button>
-			</a>
-
-			<button type="button" class="btn btn-sm btn-outline-primary"
-				data-bs-toggle="modal" data-bs-target="#저장">저장</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="저장" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								<i class="fas fa-exclamation-circle"></i>저장 확인!
-							</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">정말 저장하시겠습니까?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<a href="memberList.html">
-								<button type="button" class="btn btn-primary">저장</button>
-							</a>
 						</div>
 					</div>
+
+
+					<button type="button" class="btn btn-sm btn-outline-danger"
+						data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="삭제" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">
+										<i class="fas fa-exclamation-circle"></i>삭제 확인!
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">정말 삭제하시겠습니까?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">취소</button>
+									<a href="memberList.html">
+										<button type="button" class="btn btn-primary">확인</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 
+			<br> <br>
 
-			<button type="button" class="btn btn-sm btn-outline-danger"
-				data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled"><a class="page-link">Previous</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">4</a></li>
+					<li class="page-item"><a class="page-link" href="#">5</a></li>
 
-			<!-- Modal -->
-			<div class="modal fade" id="삭제" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								<i class="fas fa-exclamation-circle"></i>삭제 확인!
-							</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">정말 삭제하시겠습니까?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<a href="memberList.html">
-								<button type="button" class="btn btn-primary">확인</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 
-		</div>
-	</div>
-
-	<br>
-	<br>
-
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link">Previous</a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">4</a></li>
-			<li class="page-item"><a class="page-link" href="#">5</a></li>
-
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
-
-	<script type="text/javascript">
+			<script type="text/javascript">
 		/* globals Chart:false, feather:false */
 
 		(function() {
@@ -524,26 +539,26 @@ body {
 	</script>
 
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
-	<!-- 			<script src="dashboard.js"></script> -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+				integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+				integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+				crossorigin="anonymous"></script>
+			<!-- 			<script src="dashboard.js"></script> -->
 
 
-	<!-- 기본템플릿 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous">
+			<!-- 기본템플릿 -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+				crossorigin="anonymous">
 	</script>
 
-	<!-- 정렬 -->
-	<script>
+			<!-- 정렬 -->
+			<script>
 		$(function() {
 			$('#sortable').change(function() {
 				$('#table').bootstrapTable('refreshOptions', {
@@ -607,7 +622,7 @@ body {
 		}
 	</script>
 
-	<script type="text/javascript">   //전체선택
+			<script type="text/javascript">   //전체선택
 		function allCheck(e) {
 			if (e.target.checked) {
 				document.querySelectorAll(".check_all_list").forEach(
@@ -636,10 +651,15 @@ body {
 			}
 	</script>
 
-	<!-- 팝업 -->
-	<script language="javascript">
+			<!-- 팝업 -->
+			<script language="javascript">
   function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
   </script>
 
+			<!-- 팝업 -->
+			<script language="javascript">
+  function showPopup() { window.open("/infra/member/memberFormAdmin", "회원추가", "width=500, height=300, left=200, top=50"); }
+  </script>
 </body>
 </html>
+

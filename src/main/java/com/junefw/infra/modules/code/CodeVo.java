@@ -5,6 +5,7 @@ public class CodeVo {
 	//조건검색할떈 여기, 저장은 기본 코드.java파일 
 	//VO  (셀렉의 where의 부분정도로 생각하면됨)
 	
+	
 	//infrCodeGroup
 	private String ifcgSeq;
 	
@@ -17,6 +18,10 @@ public class CodeVo {
 	
 	//infrCode Search
 	private String shIfcgSeq;
+	
+	//common
+	private String shOption;
+	private String shValue;
 	
 	//--------------------------------------------------------------------------------
 
@@ -58,6 +63,22 @@ public class CodeVo {
 
 	public void setShIfcgSeq(String shIfcgSeq) {
 		this.shIfcgSeq = shIfcgSeq;
+	}
+
+	public String getShOption() {
+		return shOption;
+	}
+
+	public void setShOption(String shOption) {
+		this.shOption = shOption;
+	}
+
+	public String getShValue() {
+		return shValue;
+	}
+
+	public void setShValue(String shValue) {
+		this.shValue = shValue;
 	}
 	
 	
