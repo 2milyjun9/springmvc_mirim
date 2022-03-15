@@ -7,7 +7,32 @@
 
 <mapper namespace="com.junefw.infra.modules.code.CodeMpp">
 
-<resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap>	
+	<resultMap id="resultMapObj"
+		type="com.junefw.infra.modules.code.Code"></resultMap>
+
+	<!-- infrCodeGroup -->
+
+	<sql id="selectCommon">
+		FROM
+		infrCodegroup a
+		WHERE 1 = 1
+		<choose>
+			<when test="shIfcgDelNy == 1">AND ifcgDelNy = 1 </when>   <!-- 1이들어오면 1만검색 -->
+			<when test="shIfcgDelNy == 0">AND ifcgDelNy = 0 </when>   <!-- 0이들어오면 0만검색 -->
+		</choose>
+		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+		<choose>
+			<when test="shOption == 1">AND ifcgName LIKE concat('%',#{shValue},'%')</when>
+			<when test="shOption == 2">AND ifcgNameEng LIKE concat('%',#{shValue},'%')
+			</when>
+		</choose>
+	</sql>
+
+	<select id="selectOneCount" resultType="Integer">   <!-- selectCommon 사용 / 페이징 -->
+		select
+		count(*)
+		<include refid="selectCommon"/>
+	</select>
 
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT
@@ -15,19 +40,8 @@
 		, a.ifcgName
 		, a.ifcgNameEng
 		, a.ifcgDelNy
-		FROM
-		infrCodegroup a
-		WHERE 1 = 1
-		<!-- 마이바티스 검색 추출형태 -->
-		<choose>
-			<when test="shIfcgDelNy == 1">AND ifcgDelNy = 1 </when>   <!-- 1이들어오면 1만검색 -->
-			<when test="shIfcgDelNy == 0">AND ifcgDelNy = 0 </when>   <!-- 0이들어오면 0만검색 -->
-		</choose>
-		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
-		<choose>
-			<when test="shOption == 1">AND ifcgName LIKE  concat('%',#{shValue},'%')</when>   
-			<when test="shOption == 2">AND ifcgNameEng LIKE  concat('%',#{shValue},'%')</when>  
-		</choose>
+		<include refid="selectCommon" />
+		limit  #{startRnumForMysql} , #{rowNumToShow}
 	</select>
 
 	<insert id="insert">
@@ -45,7 +59,8 @@
 		select
 		a.ifcgSeq
 		, a.ifcgName
-		, a.ifcgDelNy
+		,
+		a.ifcgDelNy
 		from
 		infrCodegroup a
 		where 1 = 1
@@ -63,7 +78,7 @@
 		and ifcgSeq = #{ifcgSeq}
 	</update>
 
-<!-- ************infrCode************ -->
+	<!-- ************infrCode************ -->
 
 	<select id="selectListCode" resultMap="resultMapObj">
 		SELECT
@@ -73,7 +88,8 @@
 		FROM
 		infrCode a
 		where 1 = 1
-		AND ifcdDelNy = 0
+		AND
+		ifcdDelNy = 0
 		<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq} </if>
 		order by a.ifcgSeq
 	</select>

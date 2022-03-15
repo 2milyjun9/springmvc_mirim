@@ -17,7 +17,9 @@ public class CodeDao {
 	private static String namespace = "com.junefw.infra.modules.code.CodeMpp";
 	
 	//코드그룹
-	 public List<Code> selectList(CodeVo vo){ //코드객체 묶은 리스트 
+	public int selectOneCount(CodeVo vo){return sqlSession.selectOne(namespace+".selectOneCount", vo);}
+	
+	public List<Code> selectList(CodeVo vo){ //코드객체 묶은 리스트 
 		 return sqlSession.selectList(namespace + ".selectList", vo);}
 	/*	public List<Code> selectList(CodeVo vo) 
 	{ List<Code> list=sqlSession.selectList(namespace + ".selectList", "");return list;}  */
@@ -26,7 +28,6 @@ public class CodeDao {
 	public Code selectOne(CodeVo vo){return sqlSession.selectOne(namespace+".selectOne", vo);}
 	public int update(Code dto) { return sqlSession.update(namespace+ ".update", dto);}
 
-	
 	
 	//코드
 	public List<Code> selectListCode(CodeVo vo)

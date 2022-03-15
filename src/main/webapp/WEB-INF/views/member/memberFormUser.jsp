@@ -85,8 +85,8 @@ body {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 
-				<a href="./main(Autionary).html"><img
-					src="../../../images/xdmin/logoA2.png"
+				<a href="./main(Autionary).html">
+					<img src="../../../resources/common/xdmin/images/logoA2.png"
 					class="rounded mx-auto d-block" alt="..." width="200px"
 					height="100px"></a> <br> <br>
 				<br>

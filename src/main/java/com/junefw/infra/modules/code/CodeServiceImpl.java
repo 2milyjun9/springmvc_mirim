@@ -14,39 +14,43 @@ public class CodeServiceImpl implements CodeService{
 	
 	//코드그룹
 	@Override
+	public int selectOneCount(CodeVo vo) throws Exception {
+		return dao.selectOneCount(vo);
+	}
+	@Override
 	public List<Code> selectList(CodeVo vo) throws Exception {
-		return dao.selectList(vo); }
-	
+		return dao.selectList(vo); 
+		}
 	@Override
 	public int insert(Code dto) throws Exception {
-		return dao.insert(dto);}
-
+		return dao.insert(dto);
+		}
 	@Override
 	public Code selectOne(CodeVo vo) throws Exception {
-		return dao.selectOne(vo);}
-
+		return dao.selectOne(vo);
+		}
 	@Override
 	public int update(Code dto) throws Exception {
-		return dao.update(dto);}
+		return dao.update(dto);
+		}
 
 	//코드
-	
-	
 	@Override
 	public List<Code> selectListCode(CodeVo vo) throws Exception {
-		return dao.selectListCode(vo);}
-
+		return dao.selectListCode(vo);
+		}
 	@Override
 	public int insertCode(Code dto) throws Exception {
-		return dao.insertCode(dto);}
-	
+		return dao.insertCode(dto);
+		}
 	@Override
 	public Code selectOneCode(CodeVo vo) throws Exception {
-		return dao.selectOneCode(vo);}
-
+		return dao.selectOneCode(vo);
+		}
 	@Override
 	public int updateCode(Code dto) throws Exception {
-		return dao.updateCode(dto);}
+		return dao.updateCode(dto);
+		}
 
 	
 

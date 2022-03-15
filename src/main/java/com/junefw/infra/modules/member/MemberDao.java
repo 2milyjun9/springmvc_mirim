@@ -7,7 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.junefw.infra.modules.code.CodeVo;
+
+
 
 @Repository
 public class MemberDao {
@@ -33,6 +34,7 @@ public class MemberDao {
 	}
 	
 	// 두리안 어드민 ****************************
+	public int selectOneCount(MemberVo vo){return sqlSession.selectOne(namespace+".selectOneCount", vo);}
 	
 	public List<Member> memberList(MemberVo vo) {
 		return sqlSession.selectList(namespace + ".memberList", vo);
