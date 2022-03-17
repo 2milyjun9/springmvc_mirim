@@ -15,9 +15,11 @@ public class CodeVo {
 	
 	//infrCode
 	private String ifcdSeq;
-	
+
 	//infrCode Search
-	private String shIfcgSeq;
+	private String shIfcdName;
+	private Integer shIfcdDelNy;  
+	private String shIfcgSeq;  
 	
 	//common
 	private String shOption;
@@ -127,13 +129,23 @@ public void setIfcdSeq(String ifcdSeq) {
 }
 
 
-public String getShIfcgSeq() {
-	return shIfcgSeq;
+public String getShIfcdName() {
+	return shIfcdName;
 }
 
 
-public void setShIfcgSeq(String shIfcgSeq) {
-	this.shIfcgSeq = shIfcgSeq;
+public void setShIfcdName(String shIfcdName) {
+	this.shIfcdName = shIfcdName;
+}
+
+
+public Integer getShIfcdDelNy() {
+	return shIfcdDelNy;
+}
+
+
+public void setShIfcdDelNy(Integer shIfcdDelNy) {
+	this.shIfcdDelNy = shIfcdDelNy;
 }
 
 
@@ -265,6 +277,23 @@ public int getStartRnumForMysql() {
 public void setStartRnumForMysql(int startRnumForMysql) {
 	this.startRnumForMysql = startRnumForMysql;
 }
-	
+
+
+public String getShIfcgSeq() {
+	return shIfcgSeq;
+}
+
+
+public void setShIfcgSeq(String shIfcgSeq) {
+	this.shIfcgSeq = shIfcgSeq;
+}
+
+
+
+
+// --------------------------------------------------------------------------------
+
+
+
 }
 

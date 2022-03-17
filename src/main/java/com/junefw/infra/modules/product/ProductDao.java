@@ -1,0 +1,42 @@
+package com.junefw.infra.modules.product;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+
+
+@Repository
+public class ProductDao {
+
+	@Inject
+//   @Resource(name = "sqlSession")
+	private SqlSession sqlSession;
+
+	//  **********auctProduct (관리자) *****************
+	private static String namespace = "com.junefw.infra.modules.product.ProductMpp";
+
+	public List<Product> productListAdmin(ProductVo vo) {   // 상품리스트
+		return sqlSession.selectList(namespace + ".productListAdmin", vo);
+	}
+	
+	public Product productViewAdmin(ProductVo vo) {   //상품뷰
+		return sqlSession.selectOne(namespace + ".productView", vo);
+	}
+	public int insertProductAdmin(Product dto) {  //상품등록
+		return sqlSession.insert(namespace + ".insertProduct", dto);
+	}
+	public int updateProductAdmin(Product dto) {   //상품수정
+		return sqlSession.update(namespace + ".updateProductAdmin", dto);
+	}
+	public int productOneCount(ProductVo vo) {   //상품검색
+		return sqlSession.selectOne(namespace+".productOneCount", vo);
+	}
+	
+	//  **********auctProduct (사용자) *****************
+	
+	
+}

@@ -18,7 +18,6 @@ public class CodeDao {
 	
 	//코드그룹
 	public int selectOneCount(CodeVo vo){return sqlSession.selectOne(namespace+".selectOneCount", vo);}
-	
 	public List<Code> selectList(CodeVo vo){ //코드객체 묶은 리스트 
 		 return sqlSession.selectList(namespace + ".selectList", vo);}
 	/*	public List<Code> selectList(CodeVo vo) 
@@ -30,6 +29,7 @@ public class CodeDao {
 
 	
 	//코드
+	public int selectOneCodeCount(CodeVo vo){return sqlSession.selectOne(namespace+".selectOneCodeCount", vo);}
 	public List<Code> selectListCode(CodeVo vo)
 	{ List<Code> list=sqlSession.selectList(namespace + ".selectListCode", vo); return list;}
 	public int insertCode(Code dto) { return sqlSession.insert(namespace+ ".insertCode", dto);}

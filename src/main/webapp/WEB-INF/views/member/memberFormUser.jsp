@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
 
-
-<form method="post" action="/infra/member/memberInst">
 
 
 
@@ -80,136 +79,154 @@ body {
 </head>
 <body>
 
+	<form method="post" action="/infra/member/memberInstUser">
 
-	<div class="container">
-		<div class="input-form-backgroud row">
-			<div class="input-form col-md-12 mx-auto">
 
-				<a href="./main(Autionary).html">
-					<img src="../../../resources/common/xdmin/images/logoA2.png"
-					class="rounded mx-auto d-block" alt="..." width="200px"
-					height="100px"></a> <br> <br>
-				<br>
-				<form class="validation-form" novalidate>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="name">이름</label> <input type="text"
-								class="form-control" id="name" placeholder="" value="" required>
-							<div class="invalid-feedback">이름을 입력해주세요.</div>
+		<div class="container">
+			<div class="input-form-backgroud row">
+				<div class="input-form col-md-12 mx-auto">
+					<a href="../main.jsp"> 
+					<img
+						src="/resources/xdmin/images/logoA2.png"
+				
+						class="rounded mx-auto d-block" alt="..." width="200px"
+						height="100px"></a> <br> <br> <br>
+					<form class="validation-form" novalidate>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>이름</label> <input type="text" class="form-control"
+									name="ifmmName" placeholder="" value="" required>
+								<div class="invalid-feedback">이름을 입력해주세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>아이디</label> <input type="text" class="form-control"
+									name="ifmmId" placeholder="" value="" required>
+								<div class="invalid-feedback">아이디를 입력해주세요.</div>
+							</div>
 						</div>
-						<div class="col-md-6 mb-3">
-							<label for="nickname">아이디</label> <input type="text"
-								class="form-control" id="nickname" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">아이디를 입력해주세요.</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>비밀번호</label> <input type="password" class="form-control"
+									name="ifmmPassword" placeholder="" value="" required>
+								<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>비밀번호확인</label> <input type="password"
+									class="form-control" placeholder="" value="" required>
+								<div class="invalid-feedback">비밀번호를 재차 입력해주세요.</div>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="name">비밀번호</label> <input  type="password"
-								class="form-control" id="name" placeholder="" value="" required>
-							<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>닉네임</label> <input type="text" class="form-control"
+									id="name" name="ifmmNickname" placeholder="" value="" required>
+								<div class="invalid-feedback">닉네임을 입력해주세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+
+								<label>성별</label> <select class="custom-select d-block w-100"
+									name="ifmmGenderCd" required>
+
+									<option value="3">남성</option>
+									<option value="4">여성</option>
+								</select>
+								<div class="invalid-feedback">성별 선택해주세요.</div>
+							</div>
 						</div>
-						<div class="col-md-6 mb-3">
-							<label for="nickname">비밀번호확인</label> <input  type="password"
-								class="form-control" id="nickname" placeholder="" value=""
-								required>
-							<div class="invalid-feedback">비밀번호를 재차 입력해주세요.</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>통신사</label> <select class="custom-select d-block w-100"
+									name="ifmpTelecomCd">
+									<option value="28">SKT</option>
+									<option value="29">KT</option>
+									<option value="30">LGU</option>
+									<option value="31">기타</option>
+								</select>
+								<div class="invalid-feedback">통신사를 선택해주세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>휴대폰번호
+									<button type="button" class="btn btn-primary btn-sm">인증</button>
+								</label> <input type="text" class="form-control" name="ifmpNumber"
+									placeholder="" required>
+								<div class="invalid-feedback">휴대폰번호를 입력해주세요.</div>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="root">통신사</label> <select
-								class="custom-select d-block w-100" id="root">
-								<option>SKT</option>
-								<option>KT</option>
-								<option>LGU</option>
-								<option>기타</option>
-							</select>
-							<div class="invalid-feedback">통신사를 선택해주세요.</div>
+
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>이메일</label> <input type="email" class="form-control"
+									name="ifmeEmailFull" placeholder="you@example.com" required>
+								<div class="invalid-feedback">이메일을 입력해주세요.</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>생년월일<span class="text-muted">&nbsp;</span></label> <input
+									type="date" class="form-control" name="ifmmDob" placeholder=""
+									required>
+								<div class="invalid-feedback">생년월일을 입력해주세요.</div>
+							</div>
 						</div>
-						<div class="col-md-6 mb-3">
-							<label for="code">휴대폰번호
-								<button type="button" class="btn btn-primary btn-sm">인증</button>
-							</label> <input type="text" class="form-control" id="code" placeholder=""
-								required>
-							<div class="invalid-feedback">휴대폰번호를 입력해주세요.</div>
-						</div>
-					</div>
 
 
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="email">이메일</label> <input type="email"
-								class="form-control" id="email" placeholder="you@example.com"
-								required>
-							<div class="invalid-feedback">이메일을 입력해주세요.</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="address2">생년월일<span class="text-muted">&nbsp;</span></label>
-							<input type="date" class="form-control" id="address2"
-								placeholder="">
-						</div>
-					</div>
-
-
-					<br>
-					<div class="accordion accordion-flush" id="accordionFlushExample">
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-headingOne">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-									aria-expanded="false" aria-controls="flush-collapseOne">
-									+ 선택입력 (입력시 수수료5회면제)</button>
-							</h2>
-							<div id="flush-collapseOne" class="accordion-collapse collapse"
-								aria-labelledby="flush-headingOne"
-								data-bs-parent="#accordionFlushExample">
-								<div class="accordion-body">
-
-
-									<div class="row">
-										<div class="col-md-6 mb-3">
-											<label for="root">국적</label> <select
-												class="custom-select d-block w-100" id="root">
-												<option>대한민국</option>
-												<option>미국</option>
-												<option>영국</option>
-												<option>기타</option>
-											</select>
-
-										</div>
-										<div class="col-md-6 mb-3">
-											<label for="root">결혼여부</label> <select
-												class="custom-select d-block w-100" id="root">
-												<option selected>선택</option>
-												<option>미혼</option>
-												<option>기혼</option>
-											</select>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label for="address">자녀수</label> <input type="text"
-													class="form-control" id="address" required>
-
-											</div>
-											<div class="col-md-6 mb-3">
-												<label for="address2">결혼기념일<span class="text-muted">&nbsp;</span></label>
-												<input type="date" class="form-control" id="address2"">
-											</div>
-										</div>
+						<br>
+						<div class="accordion accordion-flush" id="accordionFlushExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="flush-headingOne">
+									<button class="accordion-button collapsed" type="button"
+										data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+										aria-expanded="false" aria-controls="flush-collapseOne">
+										+ 선택입력 (입력시 수수료5회면제)</button>
+								</h2>
+								<div id="flush-collapseOne" class="accordion-collapse collapse"
+									aria-labelledby="flush-headingOne"
+									data-bs-parent="#accordionFlushExample">
+									<div class="accordion-body">
 
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-													<label for="code">좋아하는 색깔</label> <input type="text"
-														class="form-control" id="code" placeholder="" required>
+												<label>국적</label> <select
+													class="custom-select d-block w-100" name="ifnaName">
+													<option value="">대한민국</option>
+													<option value="">미국</option>
+													<option value="">일본</option>
+												</select>
+
+											</div>
+											<div class="col-md-6 mb-3">
+												<label>결혼여부</label> <select
+													class="custom-select d-block w-100" name="ifmmMarriageCd">
+													<option selected>선택</option>
+													<option value="13">미혼</option>
+													<option value="12">기혼</option>
+												</select>
+											</div>
+
+											<div class="row">
+												<div class="col-md-6 mb-3">
+													<label>자녀수</label> <input type="text" class="form-control"
+														name="ifmmChildrenNum">
+
+												</div>
+												<div class="col-md-6 mb-3">
+													<label>결혼기념일<span class="text-muted">&nbsp;</span></label>
+													<input type="date" class="form-control"
+														name="ifmmMarriagDate">
+												</div>
+											</div>
+
+
+											<div class="row">
+												<div class="col-md-6 mb-3">
+													<label>좋아하는 색깔</label> <input type="text"
+														class="form-control" placeholder=""
+														name="ifmmFavoriteColor">
 												</div>
 
 												<div class="col-md-6 mb-3">
-													<label for="code">우편번호</label> <input type="text"
-														class="form-control" id="code" placeholder="" required>
+													<label>우편번호</label> <input type="text" class="form-control"
+														placeholder="" name="ifmaZipcode">
 												</div>
 											</div>
 										</div>
@@ -218,14 +235,13 @@ body {
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-												<label for="address">주소</label> <input type="text"
-													class="form-control" id="address" placeholder="서울특별시 강남구"
-													required>
-												<div class="invalid-feedback">주소를 입력해주세요.</div>
+												<label>주소</label> <input type="text" class="form-control"
+													name="ifmaAddress1" placeholder="서울특별시 강남구">
+
 											</div>
 											<div class="col-md-6 mb-3">
-												<label for="address2">상세주소<span class="text-muted">&nbsp;</span></label>
-												<input type="text" class="form-control" id="address2"
+												<label>상세주소<span class="text-muted">&nbsp;</span></label> <input
+													type="text" class="form-control" name="ifmaAddress2"
 													placeholder="상세주소를 입력해주세요.">
 											</div>
 										</div>
@@ -234,20 +250,19 @@ body {
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-												<label for="root">SNS/홈페이지</label> <select
-													class="custom-select d-block w-100" id="root">
+												<label>SNS/홈페이지</label> <select
+													class="custom-select d-block w-100">
 													<option selected>선택</option>
-													<option>페이스북</option>
-													<option>인스타그램</option>
-													<option>트위터</option>
-													<option>카카오톡</option>
-													<option>기타</option>
+													<option value="34">페이스북</option>
+													<option value="35">인스타그램</option>
+													<option value="36">트위터</option>
+													<option value="37">카카오톡</option>
 												</select>
 
 											</div>
 											<div class="col-md-6 mb-3">
-												<label for="code">SNS/홈페이지 계정</label> <input type="text"
-													class="form-control" id="code" placeholder="" required>
+												<label>SNS/홈페이지 계정</label> <input type="text"
+													class="form-control" name="ifaoUrl" placeholder="">
 											</div>
 										</div>
 										<div class="row">
@@ -255,37 +270,37 @@ body {
 												<br> 취미 <br>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
+														id="flexCheckDefault" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckDefault">
 														영화감상 </label>
 												</div>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked"> <label
+														id="flexCheckChecked" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckChecked">
 														골프 </label>
 												</div>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
+														id="flexCheckDefault" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckDefault">
 														음악감상 </label>
 												</div>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked"> <label
+														id="flexCheckChecked" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckChecked">
 														트레킹 </label>
 												</div>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault"> <label
+														id="flexCheckDefault" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckDefault">
 														서핑 </label>
 												</div>
 												<div class="form-check form-check-inline ">
 													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked"> <label
+														id="flexCheckChecked" name="ifmhHobbyCd"> <label
 														class="form-check-label" for="flexCheckChecked">
 														피아노 </label>
 												</div>
@@ -298,19 +313,23 @@ body {
 
 						</div>
 						<br>
+
+
+
 						<div class="row">
 							<div class="col">
 								모바일마케팅 수신동의
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="mobile"
-										id="flexRadioDefault5"> <label
+									<input class="form-check-input" type="radio"
+										name="ifmmSmsConsentNy" value="1"> <label
 										class="form-check-label" for="flexRadioDefault5"> YES
 									</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="mobile"
-										id="flexRadioDefault6"> <label
-										class="form-check-label" for="flexRadioDefault6"> NO </label>
+									<input class="form-check-input" type="radio"
+										id="flexRadioDefault6" name="ifmmSmsConsentNy" value="0">
+									<label class="form-check-label" for="flexRadioDefault6">
+										NO </label>
 								</div>
 							</div>
 						</div>
@@ -319,14 +338,15 @@ body {
 							<div class="col">
 								이메일마케팅 수신동의
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="email"
-										id="emailmarketing"> <label class="form-check-label"
-										for="flexRadioDefault5"> YES </label>
+									<input class="form-check-input" type="radio"
+										name="ifmmEmailonsentNy" value="1"> <label
+										class="form-check-label" for="flexRadioDefault5"> YES
+									</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="email"
-										id="emailmarketing"> <label class="form-check-label"
-										for="flexRadioDefault6"> NO </label>
+									<input class="form-check-input" type="radio"
+										name="ifmmEmailonsentNy" value="0"> <label
+										class="form-check-label" for="flexRadioDefault6"> NO </label>
 								</div>
 							</div>
 						</div>
@@ -335,33 +355,33 @@ body {
 							<div class="col">
 								개인정보수집기간
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="6"> <label class="form-check-label"
 										for="flexRadioDefault5">1년 </label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="7"> <label class="form-check-label"
 										for="flexRadioDefault6"> 2년 </label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="8"> <label class="form-check-label"
 										for="flexRadioDefault6"> 3년 </label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="9"> <label class="form-check-label"
 										for="flexRadioDefault6">5년 </label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="10"> <label class="form-check-label"
 										for="flexRadioDefault6">10년 </label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="save"
-										id="save"> <label class="form-check-label"
+									<input class="form-check-input" type="radio" name="ifmmSaveCd"
+										value="11"> <label class="form-check-label"
 										for="flexRadioDefault6">탈퇴시 </label>
 								</div>
 							</div>
@@ -379,17 +399,14 @@ body {
 						<div class="col-md-6 mb-3"></div>
 						<button class="btn btn-primary btn-lg btn-block" type="submit">가입
 							완료</button>
-				</form>
+					</form>
+				</div>
 			</div>
-		</div>
-		<footer class="my-3 text-center text-small">
-			<p class="mb-1">&copy; 2022 Auctionary</p>
-		</footer>
-	</div>
+	</form>
 
-
-
-
+	<footer class="my-3 text-center text-small">
+		<p class="mb-1">&copy; 2022 Auctionary</p>
+	</footer>
 
 
 	<script

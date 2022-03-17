@@ -267,7 +267,7 @@ body {
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2">&nbsp;회원정보</h1>
-				
+
 
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
@@ -302,31 +302,31 @@ body {
 						</tr>
 					</thead>
 					<tbody>
-								<div class="btn-toolbar mb-2 mb-md-0">
-				<div class="btn-group me-2">
-						<tr>
-							<th scope="row">이름</th>
-							<td><a href="/infra/member/memberEditAdmin"><c:out
-										value="${item.ifmmName}" /> </a></td>
-							<th>아이디</th>
-							<td><c:out value="${item.ifmmId}" /></td>
-						</tr>
-						<tr>
-							<th>성별</th>
-							<td scope="row"><c:if test="${item.ifmmGenderCd eq 3}">
-									<c:out value="남성" />
-								</c:if> <c:if test="${item.ifmmGenderCd eq 4}">
-									<c:out value="여성" />
-								</c:if></td>
-							<th>생년월일</th>
-							<td><c:out value="${item.ifmmDob}" /></td>
-						</tr>
-						<tr>
-							<th>연락처</th>
-							<td><c:out value="${item.ifmpNumber}" /></td>
-							<th>이메일</th>
-							<td><c:out value="${item.ifmeEmailFull}" /></td>
-						</tr>
+						<div class="btn-toolbar mb-2 mb-md-0">
+							<div class="btn-group me-2">
+								<tr>
+									<th scope="row">이름</th>
+									<td><a href="/infra/member/memberEditAdmin"><c:out
+												value="${item.ifmmName}" /> </a></td>
+									<th>아이디</th>
+									<td><c:out value="${item.ifmmId}" /></td>
+								</tr>
+								<tr>
+									<th>성별</th>
+									<td scope="row"><c:if test="${item.ifmmGenderCd eq 3}">
+											<c:out value="남성" />
+										</c:if> <c:if test="${item.ifmmGenderCd eq 4}">
+											<c:out value="여성" />
+										</c:if></td>
+									<th>생년월일</th>
+									<td><c:out value="${item.ifmmDob}" /></td>
+								</tr>
+								<tr>
+									<th>연락처</th>
+									<td><c:out value="${item.ifmpNumber}" /></td>
+									<th>이메일</th>
+									<td><c:out value="${item.ifmeEmailFull}" /></td>
+								</tr>
 					</tbody>
 				</table>
 			</div>
@@ -378,12 +378,12 @@ body {
 							</tr>
 							<tr>
 								<th class="table-secondary">연락처</th>
-							<%-- 	<td><c:if test="${item.ifmpTelecomeCd eq 28}"> <c:out value="SKT" /> </c:if> 
+								<%-- 	<td><c:if test="${item.ifmpTelecomeCd eq 28}"> <c:out value="SKT" /> </c:if> 
 								<c:if test="${item.ifmpTelecomeCd eq 29}"> <c:out value="KT" /> 	</c:if>
 								 <c:if test="${item.ifmpTelecomeCd eq 30}"> <c:out value="LGU" /> </c:if>
 								<c:if test="${item.ifmpTelecomeCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
 							 --%>
-									<td><c:out value="${item.ifmpNumber}" />
+								<td><c:out value="${item.ifmpNumber}" />
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
 
@@ -487,7 +487,11 @@ body {
 					</tr>
 					<tr>
 						<th class="table-secondary">결혼유무</th>
-						<td><c:out value="${item.ifmmMarriageCd}" /></td>
+							<td scope="row"><c:if test="${item.ifmmMarriageCd eq 13}">
+											<c:out value="기혼" />
+										</c:if> <c:if test="${item.ifmmMarriageCd eq 12}">
+											<c:out value="미혼" />
+										</c:if></td>
 						<th class="table-secondary">자녀수</th>
 						<td><c:out value="${item.ifmmChildrenNum}" /></td>
 						<th class="table-secondary">결혼기념일</th>
@@ -502,11 +506,16 @@ body {
 					</tr>
 					<tr>
 						<th class="table-secondary">SNS/블로그</th>
-				
-						<td><c:if test="${item.ifaoSnsTypeCd eq 34}"> <c:out value="페이스북" /> </c:if> 
-								<c:if test="${item.ifaoSnsTypeCd eq 35}"> <c:out value="인스타그램" /> 	</c:if>
-								 <c:if test="${item.ifaoSnsTypeCd eq 36}"> <c:out value="트위터" /> </c:if>
-								<c:if test="${item.ifaoSnsTypeCd eq 37}"> 	<c:out value="카톡" /> 	</c:if></td>
+
+						<td><c:if test="${item.ifaoSnsTypeCd eq 34}">
+								<c:out value="페이스북" />
+							</c:if> <c:if test="${item.ifaoSnsTypeCd eq 35}">
+								<c:out value="인스타그램" />
+							</c:if> <c:if test="${item.ifaoSnsTypeCd eq 36}">
+								<c:out value="트위터" />
+							</c:if> <c:if test="${item.ifaoSnsTypeCd eq 37}">
+								<c:out value="카톡" />
+							</c:if></td>
 						<th class="table-secondary">계정/주소</th>
 						<td><c:out value="${item.ifaoUrl}" /></td>
 						<th class="table-secondary">블로그명</th>
@@ -514,13 +523,32 @@ body {
 					</tr>
 					<tr>
 						<th class="table-secondary">개인정보유효기간</th>
-						<td><c:out value="${item.ifmmSaveCd}" /></td>
+						<td><c:if test="${item.ifmmSaveCd eq 6}">
+								<c:out value="1년" />
+							</c:if> <c:if test="${item.ifmmSaveCd eq 7}">
+								<c:out value="2년" />
+							</c:if> <c:if test="${item.ifmmSaveCd eq 8}">
+								<c:out value="3년" />
+							</c:if> <c:if test="${item.ifmmSaveCd eq 9}">
+								<c:out value="5년" />
+							</c:if> <c:if test="${item.ifmmSaveCd eq 10}">
+								<c:out value="10년" />
+							</c:if> <c:if test="${item.ifmmSaveCd eq 11}">
+								<c:out value="탈퇴시" />
+							</c:if></td>
+
 						<th class="table-secondary">모바일마케팅동의</th>
-							<td><c:if test="${item.ifmmSmsConsentNy eq 1}"> <c:out value="동의" /> </c:if> 
-								<c:if test="${item.ifmmSmsConsentNy eq 0}"> <c:out value="거절" /> </c:if> </td>
+						<td><c:if test="${item.ifmmSmsConsentNy eq 1}">
+								<c:out value="동의" />
+							</c:if> <c:if test="${item.ifmmSmsConsentNy eq 0}">
+								<c:out value="거절" />
+							</c:if></td>
 						<th class="table-secondary">이메일마케팅동의</th>
-							<td><c:if test="${item.ifmmEmailConsentNy eq 1}"> <c:out value="동의" /> </c:if> 
-								<c:if test="${item.ifmmEmailConsentNy eq 0}"> <c:out value="거절" /> </c:if> </td>
+						<td><c:if test="${item.ifmmEmailConsentNy eq 1}">
+								<c:out value="동의" />
+							</c:if> <c:if test="${item.ifmmEmailConsentNy eq 0}">
+								<c:out value="거절" />
+							</c:if></td>
 					</tr>
 				</table>
 			</div>
@@ -601,10 +629,10 @@ body {
 						</div>
 					</div>
 				</div>
-
-				<button type="button" class="btn btn-sm btn-outline-warning">
-					<a href="/infra/member/memberEditTest="> 수정</a>
-				</button>
+				<a href="/infra/member/memberEditAdmin">
+					<button type="button" class="btn btn-sm btn-outline-warning">
+						수정</button>
+				</a>
 
 			</div>
 		</div>

@@ -12,7 +12,7 @@
 
 	<!-- infrCodeGroup -->
 
-	<sql id="selectCommon">
+	<sql id="selectCgCommon">
 		FROM
 		infrCodegroup a
 		WHERE 1 = 1
@@ -31,7 +31,7 @@
 	<select id="selectOneCount" resultType="Integer">   <!-- selectCommon 사용 / 페이징 -->
 		select
 		count(*)
-		<include refid="selectCommon"/>
+		<include refid="selectCgCommon"/>
 	</select>
 
 	<select id="selectList" resultMap="resultMapObj">
@@ -40,7 +40,7 @@
 		, a.ifcgName
 		, a.ifcgNameEng
 		, a.ifcgDelNy
-		<include refid="selectCommon" />
+		<include refid="selectCgCommon" />
 		limit  #{startRnumForMysql} , #{rowNumToShow}
 	</select>
 
@@ -78,7 +78,24 @@
 		and ifcgSeq = #{ifcgSeq}
 	</update>
 
-	<!-- ************infrCode************ -->
+	<!-- *******************************************infrCode************************************* -->
+
+	<sql id="selectCdCommon">
+		FROM
+		infrCode a
+		WHERE 1 = 1
+		<choose>
+			<when test="shIfcdDelNy == 1">AND ifcdDelNy = 1 </when>   <!-- 1이들어오면 1만검색 -->
+			<when test="shIfcdDelNy == 0">AND ifcdDelNy = 0 </when>   <!-- 0이들어오면 0만검색 -->
+		</choose>
+	</sql>
+
+	<select id="selectOneCodeCount" resultType="Integer">   <!-- selectCdCommon 사용 / 페이징 -->
+		select
+		count(*)
+		<include refid="selectCdCommon"/>
+	</select>
+
 
 	<select id="selectListCode" resultMap="resultMapObj">
 		SELECT
@@ -92,6 +109,7 @@
 		ifcdDelNy = 0
 		<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq} </if>
 		order by a.ifcgSeq
+		limit  #{startRnumForMysql} , #{rowNumToShow}
 	</select>
 
 	<insert id="insertCode">

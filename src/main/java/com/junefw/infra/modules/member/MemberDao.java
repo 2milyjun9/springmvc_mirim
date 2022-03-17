@@ -34,10 +34,11 @@ public class MemberDao {
 	}
 	
 	// 두리안 어드민 ****************************
-	public int selectOneCount(MemberVo vo){return sqlSession.selectOne(namespace+".selectOneCount", vo);}
+	public int selectOneCount(MemberVo vo){
+		return sqlSession.selectOne(namespace+".selectOneCount", vo);} //회원검색
 	
 	public List<Member> memberList(MemberVo vo) {
-		return sqlSession.selectList(namespace + ".memberList", vo);
+		return sqlSession.selectList(namespace + ".memberList", vo);  //회원리스트
 	}
 	public Member memberViewAdmin(MemberVo vo) {
 		return sqlSession.selectOne(namespace + ".memberViewAdmin", vo); //회원뷰
@@ -46,14 +47,19 @@ public class MemberDao {
 		return sqlSession.insert(namespace + ".insertMemberAdmin", dto); //회원등록
 	}
 	public int updateMemberAdmin(Member dto) {
-		return sqlSession.update(namespace + ".updateMemberAdmin", dto);
+		return sqlSession.update(namespace + ".updateMemberAdmin", dto); //회원수정
 	}
 	
 	// 두리안 유저 ****************************
-	
-	public int inserMembertUser(Member dto) {
-		return sqlSession.insert(namespace + ".insertMemberUser", dto); //회원로그인
+	public int insertMemberUser(Member dto) {
+		return sqlSession.insert(namespace + ".insertMemberUser", dto); //회원가입
+	}
+	public int updateMemberUser(Member dto) {
+		return sqlSession.update(namespace + ".updateMemberUser", dto); //회원수정
 	}
 
+
 	
-	}
+}
+
+	

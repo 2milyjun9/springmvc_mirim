@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CodeController {
-	
+
 	@Autowired
 	CodeServiceImpl service;
 
 	@RequestMapping(value = "/code/codeGroupList")
 
 	public String codeGroupList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
-	
+
 		// count 가져올것
 		int count = service.selectOneCount(vo);
 
 		vo.setParamsPaging(count);
-		
+
 		if (count != 0) {
 			List<Code> list = service.selectList(vo);
 			model.addAttribute("list", list);
 		} else {
 			// by pass
 		}
-	 // 	model.addAttribute("vo" vo); 위에 @모델이랑 둘중하나사용하는것
-		
+		// model.addAttribute("vo" vo); 위에 @모델이랑 둘중하나사용하는것
+
 		return "code/codeGroupList";
 	}
-	
+
 	@RequestMapping(value = "/code/codeGroupForm") // 브라우저창에 입력하는 주소
 	public String codeGroupForm() throws Exception {
 		return "code/codeGroupForm";
@@ -70,16 +70,20 @@ public class CodeController {
 		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
 	}
 
-	// -----------------------------------------------------------------------------infrCode
+	// ---------------------------------infrCode--------------------------------------------
 	@RequestMapping(value = "/code/codeList")
-	public String codeList(CodeVo vo, Model model) throws Exception {
-
-		List<Code> list = service.selectListCode(vo);
-		model.addAttribute("list", list);
+	public String codeList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 
 		List<Code> listCodeGroup = service.selectList(vo);
 		model.addAttribute("listCodeGroup", listCodeGroup);
 
+		int count = service.selectOneCodeCount(vo);
+		vo.setParamsPaging(count);
+		if (count != 0) {
+		List<Code> list = service.selectListCode(vo);
+		model.addAttribute("list", list);
+		} else {
+		}
 		return "code/codeList";
 	}
 

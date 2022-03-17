@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junefw.infra.modules.product.ProductMpp">
+
+	<resultMap id="resultMapObj"
+		type="com.junefw.infra.modules.product.Product"></resultMap>
+
+
+<sql id="productCommon">
+		FROM
+		auctProduct a
+		WHERE 1 = 1
+		<choose>
+			<when test="shAcprDelNy == 1">AND apcrDelNy = 1 </when>   
+			<when test="shAcprDelNy == 0">AND apcrDelNy = 0 </when>  
+		</choose>
+		<choose>
+			<when test="shAcprStatusCd == 55">AND acprStatusCd = 55 </when> 
+			<when test="shAcprStatusCd == 56">AND acprStatusCd = 56 </when>  
+			<when test="shAcprStatusCd == 57">AND acprStatusCd = 57 </when>  
+			<when test="shAcprStatusCd == 58">AND acprStatusCd = 58 </when>  
+		</choose>
+			<choose>
+			<when test="shAcprResultNy == 1">AND acprResultNy = 1 </when> 
+			<when test="shAcprResultNy  == 0">AND acprResultNy = 0 </when>  
+		</choose>
+		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
+			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
+		<choose>
+			<when test="shProductOption == 1">AND ifmmName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 2">AND ifmmId LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 4">AND acprSeq LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 5">AND ifmmDob LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 6">AND acprProductName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 7">AND acprDetails LIKE concat('%',#{shProductValue},'%')</when>
+		</choose>
+	</sql>
+							
+	<select id="productOneCount" resultType="Integer">   <!-- Common 사용 / 페이징 -->
+		SELECT
+		COUNT(*)
+		<include refid="productCommon"/>
+	</select>
+
+	<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
+		SELECT
+		*
+		FROM
+		auctProduct 
+		WHERE
+		1=1
+		And acprDelNy = 0
+		order by acprSeq
+	</select>
+	
+	<insert id="insertProductAdmin">  <!-- 상품등록(관리자) -->
+		insert into auctProduct(
+		acprProductName
+		,acprDelny
+		)
+		values (
+		#{acprProductName}
+		,0
+		)
+	</insert>
+
+	<select id="productViewAdmin" resultMap="resultMapObj">  <!-- 상품확인 -->
+		SELECT
+		a.acprSeq
+		,a.acprProductName
+		,a.acprProductNameEng
+		,a.acprCategory
+		,a.acprStatusCd
+		,a.acprPickNy
+		,a.acprDetails
+		,a.acprDetailsEng
+		,a.acprPickupCd
+		,a.acprStartDate
+		,a.acprEndDate
+		,a.acprPriceStart
+		,a.acprPriceNow
+		,a.acpsPolicy
+		,a.acprHits
+		,a.acprAuctionTry
+		,a.acprDelNy
+		,a.regIp
+		,a.regSeq
+		,a.regDevice
+		,a.regDateTime
+		,a.regDateTimeSvr
+		,a.modIp
+		,a.modSeq
+		,a.modDevice
+		,a.modDateTime
+		,a.modDateTimeSvr
+		,b.ifmmName
+		,b.ifmmId
+		,b.ifmmNickname
+		,b.ifmmDob
+		FROM
+		auctProduct a
+		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		WHERE
+		1=1
+		and a.acprDelNy = 0
+		and a.apcrSeq = #{apcrSeq}
+				order by a.acprSeq ;
+	</select>
+
+	<update id="updateProductAdmin">
+		UPDATE auctProduct SET
+		acprProductName = #{acprProductName}
+		where 1 =
+		1
+		and acprProductName = #{acprProductName}
+	</update>
+
+
+</mapper>
+

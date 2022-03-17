@@ -13,6 +13,7 @@ public interface CodeService {
 	
 	
 	//infrCode
+	 int selectOneCodeCount(CodeVo vo) throws Exception;    
 	 List<Code> selectListCode(CodeVo vo) throws Exception;
 	 int insertCode(Code dto) throws Exception; 
 	 Code selectOneCode(CodeVo vo) throws Exception;

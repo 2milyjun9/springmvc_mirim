@@ -9,8 +9,7 @@
 	<resultMap id="resultMapObj"
 		type="com.junefw.infra.modules.member.Member"></resultMap>
 
-	<!-- **********************테스트******************** -->
-<!-- http://localhost:8080/infra/member/memberListTest-->
+	<!-- *******************************************테스트***************************************************** -->
 	<select id="selectList" resultMap="resultMapObj">   
 		select
 		a.ifmmSeq
@@ -49,7 +48,6 @@
 		)
 	</insert>
 
-<!-- http://localhost:8080/infra/member/memberFormTest  -->
 	<select id="selectOne" resultMap="resultMapObj">
 		select
 		a.ifmmSeq
@@ -69,12 +67,11 @@
 	<update id="update">
 		UPDATE infrMember SET
 		ifmmName = #{ifmmName}
-		where 1 =
-		1
+		where 1 = 1
 		and ifmmSeq = #{ifmmSeq}
 	</update>
 
-	<!-- **********************두리안********************* -->
+	<!-- ************************************두리안 관리자**************************************************** -->
 
 	<sql id="selectCommon">
 		FROM
@@ -104,56 +101,27 @@
 		<include refid="selectCommon"/>
 	</select>
 
-	<select id="memberList" resultMap="resultMapObj">
+	<select id="memberList" resultMap="resultMapObj">  <!-- 멤버리스트-->
 		select
 		a.ifmmSeq
 		,a.ifmmAdminNy
 		,a.ifmmDormancyNy
 		,a.ifmmName
 		,a.ifmmNickname
-		,a.ifmmPhoto
 		,a.ifmmId
-		,a.ifmmPassword
 		,a.ifmmGrade
 		,a.ifmmGenderCd
 		,a.ifmmDob
 		,a.ifmmSaveCd
-		,a.ifmmFavoriteColor
-		,a.ifmmEmailConsentNy
-		,a.ifmmSmsConsentNy
-		,a.ifmmPushConsentNy
 		,a.ifmmDelNy
 		,a.regDateTime
 		,a.modDateTime
 		,a.modSeq
-		,b.ifmaTypeCd
-		,b.ifmaTitle
-		,b.ifmaAddress1
-		,b.ifmaAddress2
-		,b.ifmaZipCode
-		,c.ifaoTypeCd
-		,c.ifaoSnsTypeCd
-		,c.ifaoTitle
-		,c.ifaoUrl
-		,d.ifmeTypeCd
-		,d.ifmeEmailFull
-		,e.ifjqQuestionCd
-		,e.ifjqAnswer
-		,f.ifnaSeq
-		,g.ifnaName
-		,h.ifmpTypeCd
-		,h.ifmpDeviceCd
-		,h.ifmpTelecomCd
-		,h.ifmpNumber
+		,b.ifmpNumber
 		from
 		infrMember a
-		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
-		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq and ifaoDefaultNy = 1
-		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq and ifmeDefaultNy = 1
-		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
-		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
-		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
-		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+
 		where
 		1=1
 		<choose>
@@ -176,7 +144,6 @@
 	</select>
 
 
-
 	<select id="memberViewAdmin" resultMap="resultMapObj">   <!-- 멤버뷰 -->
 		select
 		a.ifmmSeq
@@ -196,6 +163,9 @@
 		,a.ifmmSmsConsentNy
 		,a.ifmmPushConsentNy
 		,a.ifmmDelNy
+		,a.ifmmMarriageCd
+		,a.ifmmMarriageDate
+		,a.ifmmChildrenNum 
 		,a.regDateTime
 		,a.modDateTime
 		,a.modSeq
@@ -218,6 +188,7 @@
 		,h.ifmpDeviceCd
 		,h.ifmpTelecomCd
 		,h.ifmpNumber 
+<!-- 		,i.ifmhHobbyCd  -->
 		from
 	infrMember a
 		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
@@ -227,13 +198,14 @@
 		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
 		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
 		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+	<!-- 	left join infrMemberHobby i on i.ifmmSeq = a.ifmmSeq   -->
 		where
 		1=1
 		and a.ifmmSeq = #{ifmmSeq}
 	</select>
 
-<insert id="insertMemberAdmin">
-		insert into infrMember(
+<insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
+		INSERT INTO infrMember(
 		ifmmName
 		,ifmmId
 		,ifmmNickname
@@ -250,7 +222,7 @@
 		,regDateTime
 		,regDateTimeSvr
 		)
-		values (
+		VALUES (
 		#{ifmmName}
 		,#{ifmmId}
 		,#{ifmmNickname}
@@ -267,11 +239,17 @@
 		,now()
 		,now()
 		)
+		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
 	</insert>
 
-
-	<insert id="insertMemberUser">
-		insert into infrMember(
+	<!-- **********************두리안 사용자******************** -->
+		
+	<insert id="insertMemberUser">  <!--   사용자회원가입 -->
+		INSERT INTO infrMember(
+		ifmmAdminNy
+		,ifmmDormancyNy
 		,ifmmName
 		,ifmmId
 		,ifmmPassword
@@ -286,15 +264,15 @@
 		,ifmmEmailConsentNy
 		,ifmmSmsConsentNy
 		,ifmmPushConsentNy
-		,ifmmDesc
-		,ifmmDelNY
 		,regIp
 		,regSeq
 		,regDevice
 		,regDateTime
 		,regDateTimeSvr
 		)
-		values (
+		VALUES (
+		,0
+		,0
 		,#{ifmmName}
 		,#{ifmmId}
 		,#{ifmmPassword}
@@ -302,7 +280,7 @@
 		,0
 		,#{ifmmSaveCd}
 		,#{ifmmMarriageCd}
-		,#{vfmmMarriageDate}
+		,#{ifmmMarriageDate}
 		,#{ifmmChildrenNum}
 		,#{ifmmFavoriteColor}
 		,#{ifmmRecommenderSeq}
@@ -310,8 +288,6 @@
 		,#{ifmmSmsConsentNy}
 		,#{ifmmPushConsentNy}
 		,#{ifmmRecommenderSeq}
-		,#{ifmmDesc}
-		,#{ifmmDelNY}
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}
@@ -321,5 +297,49 @@
 	</insert>
 
 
+	<update id="memberEditUser">  <!-- 회원수정 -->
+		UPDATE infrMember SET
+		,ifmmPassword
+		,ifmmGenderCd
+		,ifmmDelny
+		,ifmmSaveCd
+		,ifmmMarriageCd
+		,ifmmMarriageDate
+		,ifmmChildrenNum
+		,ifmmFavoriteColor
+		,ifmmRecommenderSeq
+		,ifmmEmailConsentNy
+		,ifmmSmsConsentNy
+		,ifmmPushConsentNy
+		,modIp
+		,modSeq
+		,modDevice
+		,modDateTime
+		,modDateTimeSvr
+		)
+		values (
+		,#{ifmmPassword}
+		,#{ifmmGenderCd}
+		,0
+		,#{ifmmSaveCd}
+		,#{ifmmMarriageCd}
+		,#{ifmmMarriageDate}
+		,#{ifmmChildrenNum}
+		,#{ifmmFavoriteColor}
+		,#{ifmmRecommenderSeq}
+		,#{ifmmEmailConsentNy}
+		,#{ifmmSmsConsentNy}
+		,#{ifmmPushConsentNy}
+		,#{ifmmRecommenderSeq}
+		,#{modIp}
+		,#{modSeq}
+		,#{modDevice}
+		,now()
+		,now()
+		) WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	
 </mapper>
 

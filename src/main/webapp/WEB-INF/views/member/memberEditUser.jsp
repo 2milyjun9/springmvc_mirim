@@ -6,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -80,7 +79,7 @@ body {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 
-				<a href="./main(Autionary).html"><img
+							<a href="../main.jsp"> <img
 					src="../../../images/xdmin/logoA2.png"
 					class="rounded mx-auto d-block" alt="..." width="200px"
 					height="100px"></a> <br> <br>
