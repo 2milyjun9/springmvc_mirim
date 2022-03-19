@@ -85,7 +85,11 @@ public class MemberController {
 	 service.updateMemberAdmin(dto); 
 	 return "redirect:/member/memberFormAdmin"; 
 	 }
-	 
+	  
+		@RequestMapping(value = "/member/memberLoginAdmin")    //사원로그인
+		public String memberLoginAdmin() throws Exception {
+			return "/member/memberLoginAdmin";
+		}
 	// *************************두리안 사용자 *************************************
 	@RequestMapping(value = "/member/memberFormUser")    //회원가입
 	public String memberFormUser(MemberVo vo, Model model) throws Exception {
@@ -108,4 +112,8 @@ public class MemberController {
 		return "redirect:/member/memberEidtUser";
 	}
 	
+	@RequestMapping(value = "/member/memberLoginUser")    //회원로그인
+	public String memberLoginUser() throws Exception {
+		return "/member/memberLoginUser";
+	}
 }

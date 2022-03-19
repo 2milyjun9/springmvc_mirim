@@ -244,6 +244,56 @@
 		</selectKey>
 	</insert>
 
+	<delete id="delete">
+	DELETE FROM infrMember WHERE ifmmSeq= #{ifmmSeq}
+	</delete>
+
+	<insert id="insertEmailAdmin">
+		INSERT INTO infrMemberEmail (
+		ifmeDefaultNy
+		,ifmeTypeCd
+		,ifmeEmailFull
+		,ifmeEmailAccount
+		,ifmeEmailDomain
+		,ifmeEmailDomainCd
+		,ifmeDelNY
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifmeDefaultNy}
+		,#{ifmeTypeCd}
+		,#{ifmeEmailFull}
+		,#{ifmeEmailAccount}
+		,#{ifmeEmailDomain}
+		,#{ifmeEmailDomainCd}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
+
+<insert id="insertPhoneAdmin">
+		INSERT INTO infrmemberPhone (
+		ifmpDefaultNy
+		,ifmpTypeCd
+		,ifmpDeviceCd
+		,ifmpTelecomCd
+		,ifmpNumber
+		,ifmpDelNY
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifmpDefaultNy}
+		,#{ifmpTypeCd}
+		,#{ifmpDeviceCd}
+		,#{ifmpTelecomCd}
+		,#{ifmpNumber}
+		,#{ifmpDelNY}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
+
+
 	<!-- **********************두리안 사용자******************** -->
 		
 	<insert id="insertMemberUser">  <!--   사용자회원가입 -->
@@ -296,6 +346,52 @@
 		)
 	</insert>
 
+
+<insert id="insertEmailUser">
+		INSERT INTO infrMemberEmail (
+		ifmeDefaultNy
+		,ifmeTypeCd
+		,ifmeEmailFull
+		,ifmeEmailAccount
+		,ifmeEmailDomain
+		,ifmeEmailDomainCd
+		,ifmeDelNY
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifmeDefaultNy}
+		,#{ifmeTypeCd}
+		,#{ifmeEmailFull}
+		,#{ifmeEmailAccount}
+		,#{ifmeEmailDomain}
+		,#{ifmeEmailDomainCd}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
+
+
+<insert id="insertPhoneUser">
+		INSERT INTO infrmemberPhone (
+		ifmpDefaultNy
+		,ifmpTypeCd
+		,ifmpDeviceCd
+		,ifmpTelecomCd
+		,ifmpNumber
+		,ifmpDelNY
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifmpDefaultNy}
+		,#{ifmpTypeCd}
+		,#{ifmpDeviceCd}
+		,#{ifmpTelecomCd}
+		,#{ifmpNumber}
+		,#{ifmpDelNY}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
 
 	<update id="memberEditUser">  <!-- 회원수정 -->
 		UPDATE infrMember SET

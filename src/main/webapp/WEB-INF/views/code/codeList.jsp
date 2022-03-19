@@ -10,7 +10,8 @@
 
 
 <form id="" name="" method="get" action="/infra/code/codeList">
-	<select name="shIfcgSeq">
+
+	<select name="shIfcgSeq" id="shIfcgSeq">
 		<option value="">::코드그룹::
 		<c:forEach items="${listCodeGroup}" var="item" varStatus="status">
 			<option value="<c:out value="${item.ifcgSeq}"/>" 
@@ -18,8 +19,9 @@
 			<c:out value="${item.ifcgName}"/> </option>
 		</c:forEach>
 	</select> 
-	<input type="submit" name="search">  
-	
+	<input type="text" name="shValue" id="shValue" value="<c:out value="${vo.shValue}"/>">  
+	<input type="submit" name="search" id="btnSubmit3">  
+
 	<br> <br>
 
 	<c:choose>
@@ -31,9 +33,8 @@
 		<c:otherwise>
 			<c:forEach items="${list}" var="item" varStatus="status">
 				<c:out value="${item.ifcdSeq}" /> 
-		|<a
-					href="/infra/code/codeView?ifcdSeq=<c:out value="${item.ifcdSeq}"/>"><c:out
-						value="${item.ifcdName}" /></a>
+		|<a href="/infra/code/codeView?ifcdSeq=<c:out value="${item.ifcdSeq}"/>">
+					<c:out 	value="${item.ifcdName}" /></a>
 		|  <c:out value="${item.ifcdDelNy}" />
 				<br>
 			</c:forEach>
@@ -64,3 +65,16 @@
 </c:if>  
   </ul>
 </nav>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/infra/resources/js/validation.js"></script>
+<script type="text/javascript">
+
+	$("#btnSubmit3").on(
+			"click",function() {
+if (!checkNull($("#shIfcgSeq"), $("#shIfcgSeq").val(),"코드그룹을 선택 해 주세요!")) retrun false;
+if (!checkNull($("#shIfcdName"), $("#shIfcdName").val(),"코드이름을 입력해 주세요!")) retrun false;
+			});
+</script>
+

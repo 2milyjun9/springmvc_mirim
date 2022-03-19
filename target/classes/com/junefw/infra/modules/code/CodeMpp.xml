@@ -41,18 +41,22 @@
 		, a.ifcgNameEng
 		, a.ifcgDelNy
 		<include refid="selectCgCommon" />
-		limit  #{startRnumForMysql} , #{rowNumToShow}
+		<if test="shIfcgName != null and !shIfcgName.equals('')"> limit  #{startRnumForMysql} , #{rowNumToShow} </if>
+
 	</select>
 
 	<insert id="insert">
-		insert into infrCodeGroup(
+		INSERT INTO infrCodeGroup(
 		ifcgName
 		, ifcgDelNy
-		) values
+		) VALUES
 		(
 		#{ifcgName}
 		,0
 		)
+		<selectKey resultType="String" keyProperty="ifcgSeq" order="AFTER">
+		SELECT last_insert_id()
+		</selectKey>
 	</insert>
 
 	<select id="selectOne" resultMap="resultMapObj">
@@ -123,6 +127,7 @@
 		,0
 		,#{ifcgSeq}
 		)
+
 	</insert>
 
 	<select id="selectOneCode" resultMap="resultMapObj">

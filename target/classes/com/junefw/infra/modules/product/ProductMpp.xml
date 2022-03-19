@@ -46,29 +46,22 @@
 		<include refid="productCommon"/>
 	</select>
 
-	<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
+
+<!-- *************************상품(관리자)********************************-->
+
+	
+		<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
 		SELECT
-		*
+		acprProductName
 		FROM
-		auctProduct 
+		auctProduct
 		WHERE
 		1=1
 		And acprDelNy = 0
 		order by acprSeq
 	</select>
 	
-	<insert id="insertProductAdmin">  <!-- 상품등록(관리자) -->
-		insert into auctProduct(
-		acprProductName
-		,acprDelny
-		)
-		values (
-		#{acprProductName}
-		,0
-		)
-	</insert>
-
-	<select id="productViewAdmin" resultMap="resultMapObj">  <!-- 상품확인 -->
+	<select id="productViewAdmin" resultMap="resultMapObj">  <!-- 상품뷰 -->
 		SELECT
 		a.acprSeq
 		,a.acprProductName
@@ -107,11 +100,25 @@
 		WHERE
 		1=1
 		and a.acprDelNy = 0
-		and a.apcrSeq = #{apcrSeq}
-				order by a.acprSeq ;
+		and a.acprSeq = #{acprSeq}
+				order by a.acprSeq 
+				
 	</select>
+	
+	
+	<insert id="insertProductAdmin">  <!-- 상품등록(관리자) -->
+		insert into auctProduct(
+		acprProductName
+		,acprDelny
+		)
+		values (
+		#{acprProductName}
+		,0
+		)
+	</insert>
 
-	<update id="updateProductAdmin">
+	
+	<update id="updateProductAdmin">  <!-- 상품수정(관리자) -->
 		UPDATE auctProduct SET
 		acprProductName = #{acprProductName}
 		where 1 =

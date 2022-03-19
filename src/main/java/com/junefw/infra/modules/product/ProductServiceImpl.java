@@ -16,23 +16,23 @@ public class ProductServiceImpl implements ProductService {
 	/* ****************Product(Admin)**************** */
 	@Override
 	public List<Product> productListAdmin(ProductVo vo) throws Exception {
-		return dao.productListAdmin(vo);
+		return dao.productListAdmin(vo);  //상품리스트
 	}
 	@Override
 	public Product productViewAdmin(ProductVo vo) throws Exception {
-		return dao.productViewAdmin(vo);
+		return dao.productViewAdmin(vo);  //상품뷰
 	}
 	@Override
 	public int insertProductAdmin(Product dto) throws Exception {
-		return dao.insertProductAdmin(dto);
+		return dao.insertProductAdmin(dto); //상품등록
 	}
 	@Override
 	public int updateProductAdmin(Product dto) throws Exception {
-		return dao.updateProductAdmin(dto);
+		return dao.updateProductAdmin(dto); //상품수정
 	}
 	@Override
 	public int productOneCount(ProductVo vo) throws Exception {
-		return dao.productOneCount(vo);
+		return dao.productOneCount(vo); //상품검색
 	}
 	
 }

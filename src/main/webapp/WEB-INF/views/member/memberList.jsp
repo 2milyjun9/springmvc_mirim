@@ -282,24 +282,25 @@ body {
 
 					<form id="" name="" method="get" action="/infra/member/memberList">
 
-						<select name="shIfmmDelNy">
+						<select name="shIfmmDelNy" id="shIfmmDelNy" >
 							<option value="">::삭제여부::
-							<option value="1">Y
-							<option value="0">N
-						</select> <select name="shIfmmDormancyNy">
+							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }"> </c:if>> Y
+							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }"> </c:if>> N 
+						</select> <select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
 							<option value="">::휴먼여부::
-							<option value="0">Y
-							<option value="1">N
-						</select> <select name="shMemberOption">
+							<option value="0"<c:if test="${vo.shIfmmDormancyNy eq 0 }"> </c:if>> N 
+							<option value="1"<c:if test="${vo.shIfmmDormancyNy eq 1 }"> </c:if>> Y
+						</select> <select name="shMemberOption" id="shMemberOption">
 							<option value="">::검색구문::
-							<option value="1">이름
-							<option value="2">아이디
-							<option value="3">닉네임
-							<option value="4">연락처
-						</select> <input type="text" name="shMemberValue">
-						<!-- <input type="reset" name="reset"> -->
-						<button class="btn btn-outline-primary" type="submit"
-							name="search">Search</button>
+							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> </c:if>>이름
+							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"></c:if>>아이디
+							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"></c:if>>닉네임
+							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"></c:if>>연락처
+						</select> 
+						<input type="text" name="shMemberValue" id="shMemberValue">
+						<button class="btn btn-outline-primary" type="submit" 
+						name="search" id="btnSubmit4">Search</button>
+			<!-- 		<input type="reset" name="reset">  -->
 
 						<br> <br> <br>
 
@@ -674,6 +675,28 @@ body {
 			<script language="javascript">
   function showPopup() { window.open("/infra/member/memberFormAdmin", "회원추가", "width=600, height=500, left=300, top=100"); }
   </script>
+  
+  <!-- 검색 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/infra/resources/js/validation.js"></script>
+<script type="text/javascript">
+
+	$("#btnSubmit4").on(
+			"click",
+			function() {
+				if (!checkNull($("#shMemberOption"), $("#shMemberOption").val(),
+				"검색구문을 선택 해 주세요!"))
+			retrun
+		false;
+				if (!checkNull($("#shMemberValue"), $("#shMemberValue").val(),
+						"검색어를 입력 해 주세요!"))
+					retrun
+				false;
+			});
+	
+</script>
+		
+				
 </body>
 </html>
 

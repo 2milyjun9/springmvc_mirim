@@ -12,7 +12,6 @@ public class ProductVo {
 		private String shAcprStatusCd;
 		private String shAcprResultNy;
 	
-
 	//paging	
 		private int thisPage = 1;									// 현재 페이지
 		private int rowNumToShow = 10;								// 화면에 보여줄 데이터 줄 갯수
@@ -30,8 +29,7 @@ public class ProductVo {
 		private int startRnumForMysql = 0;							// 쿼리 시작 row
 		
 		
-
-public void setParamsPaging(int totalRowsParam) {
+		public void setParamsPaging(int totalRowsParam) {
 		
 		totalRows = totalRowsParam;
 
@@ -75,7 +73,7 @@ public void setParamsPaging(int totalRowsParam) {
 		System.out.println("getStartRnumForMysql(): " + startRnumForMysql);
 }
 
-//infrmember
+		//infrmember
 	private String ifmmSeq;
 	private String ifmmAdminNy ;
 	private String ifmmId ;
@@ -108,7 +106,6 @@ public void setParamsPaging(int totalRowsParam) {
 	private String modDevice ;
 	private String modDateTime ;
 	private String modDateTimeSvr ;
-
 
 
 	/* auctproduct */

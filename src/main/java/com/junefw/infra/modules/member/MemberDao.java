@@ -21,17 +21,13 @@ public class MemberDao {
 	private static String namespace = "com.junefw.infra.modules.member.MemberMpp";
 
 	public List<Member> selectList(MemberVo vo) {
-		return sqlSession.selectList(namespace + ".selectList", vo);
-	}
+		return sqlSession.selectList(namespace + ".selectList", vo);}
 	public Member selectOne(MemberVo vo) {
-		return sqlSession.selectOne(namespace + ".selectOne", vo);
-	}
+		return sqlSession.selectOne(namespace + ".selectOne", vo);}
 	public int insert(Member dto) {
-		return sqlSession.insert(namespace + ".insert", dto);
-	}
+		return sqlSession.insert(namespace + ".insert", dto);}
 	public int update(Member dto) {
-		return sqlSession.update(namespace + ".update", dto);
-	}
+		return sqlSession.update(namespace + ".update", dto); }
 	
 	// 두리안 어드민 ****************************
 	public int selectOneCount(MemberVo vo){
@@ -50,6 +46,15 @@ public class MemberDao {
 		return sqlSession.update(namespace + ".updateMemberAdmin", dto); //회원수정
 	}
 	
+   public int insertEmailAdmin (Member dto) {
+	   return sqlSession.insert(namespace + ".insertEmailAdmin", dto); //회원등록(이메일)
+   }
+	
+   
+   public int insertPhoneAdmin (Member dto) {
+	   return sqlSession.insert(namespace + ".insertPhoneAdmin", dto); //회원등록(이메일)
+   }
+	
 	// 두리안 유저 ****************************
 	public int insertMemberUser(Member dto) {
 		return sqlSession.insert(namespace + ".insertMemberUser", dto); //회원가입
@@ -58,8 +63,22 @@ public class MemberDao {
 		return sqlSession.update(namespace + ".updateMemberUser", dto); //회원수정
 	}
 
-
+	   public int insertEmailUser (Member dto) {
+		   return sqlSession.insert(namespace + ".insertEmailUser", dto); //회원등록(이메일)
+	   }
 	
-}
+	   public int insertPhoneUser (Member dto) {
+		   return sqlSession.insert(namespace + ".insertPhoneUser", dto); //회원등록(이메일)
+	   }
+	   
+	   public Member selectOneId(Member dto) {
+		  return sqlSession.selectOne(namespace + ".selectOneId", dto); //회원로그인
+	   }
+	   
+	   public Member selectOneLogin(Member dto) {
+			  return sqlSession.selectOne(namespace + ".selectOneLogin", dto); //회원로그인
+		   }
+	   
+	   }
 
 	

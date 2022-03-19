@@ -273,20 +273,6 @@ body {
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2">회원수정</h1>
 
-			<div class="btn-toolbar mb-2 mb-md-0">
-				<div class="btn-group me-2">
-					<label for="numbers"></label> <select id="회원조회">
-						<option value="이름">이름</option>
-						<option value="아이디">아이디</option>
-						<option value="닉네임">닉네임</option>
-						<option value="생년월일">생년월일</option>
-						<option value="휴대폰번호">휴대폰번호</option>
-					</select>
-				</div>
-				<input type="search" placeholder="회원조회" aria-label="Search">
-				<button class="btn btn-outline-primary" type="submit">Search</button>
-			</div>
-
 			<div class="btn-group me-2">
 				<button type="button" class="btn btn-sm btn-outline-success">엑셀</button>
 			</div>

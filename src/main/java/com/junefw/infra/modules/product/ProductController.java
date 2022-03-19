@@ -28,7 +28,7 @@ public class ProductController {
 		}
 		return "product/productListAdmin";
 	}
-	
+
 	@RequestMapping(value = "/product/productViewAdmin")   //상품뷰
 	public String productViewAdmin(ProductVo vo, Model model) throws Exception {
 		Product rt = service.productViewAdmin(vo);

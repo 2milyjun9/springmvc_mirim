@@ -66,6 +66,7 @@
 </style>
 </head>
 <body>
+<br>
 	<h3 align="center">회원등록</h3>
 	<form method="post" action="/infra/member/memberInstAdmin">
 

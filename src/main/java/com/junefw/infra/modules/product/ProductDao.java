@@ -22,12 +22,11 @@ public class ProductDao {
 	public List<Product> productListAdmin(ProductVo vo) {   // 상품리스트
 		return sqlSession.selectList(namespace + ".productListAdmin", vo);
 	}
-	
 	public Product productViewAdmin(ProductVo vo) {   //상품뷰
-		return sqlSession.selectOne(namespace + ".productView", vo);
+		return sqlSession.selectOne(namespace + ".productViewAdmin", vo);
 	}
 	public int insertProductAdmin(Product dto) {  //상품등록
-		return sqlSession.insert(namespace + ".insertProduct", dto);
+		return sqlSession.insert(namespace + ".insertProductAdmin", dto);
 	}
 	public int updateProductAdmin(Product dto) {   //상품수정
 		return sqlSession.update(namespace + ".updateProductAdmin", dto);

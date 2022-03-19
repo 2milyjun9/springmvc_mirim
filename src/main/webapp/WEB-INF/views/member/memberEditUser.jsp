@@ -79,10 +79,9 @@ body {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 
-							<a href="../main.jsp"> <img
-					src="../../../images/xdmin/logoA2.png"
-					class="rounded mx-auto d-block" alt="..." width="200px"
-					height="100px"></a> <br> <br>
+				<a href="../main.jsp"> 
+					<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"  class="rounded mx-auto d-block" alt="..." width="200px"
+						height="100px"></a>  <br> <br>
 				<br>
 				<form class="validation-form" novalidate>
 					<div class="row">

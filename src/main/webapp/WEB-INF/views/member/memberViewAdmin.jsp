@@ -306,7 +306,7 @@ body {
 							<div class="btn-group me-2">
 								<tr>
 									<th scope="row">이름</th>
-									<td><a href="/infra/member/memberEditAdmin"><c:out
+									<td><a href="member/memberEditAdmin"><c:out
 												value="${item.ifmmName}" /> </a></td>
 									<th>아이디</th>
 									<td><c:out value="${item.ifmmId}" /></td>
