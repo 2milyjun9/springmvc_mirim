@@ -73,6 +73,8 @@ public class Product {
 	private String modDevice;
 	private String modDateTime;
 	private String modDateTimeSvr;
+	
+	
 	public String getAcprSeq() {
 		return acprSeq;
 	}

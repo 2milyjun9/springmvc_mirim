@@ -19,6 +19,9 @@ public class ProductDao {
 	//  **********auctProduct (관리자) *****************
 	private static String namespace = "com.junefw.infra.modules.product.ProductMpp";
 
+	public int productOneCount(ProductVo vo) {   //상품검색
+		return sqlSession.selectOne(namespace+".productOneCount", vo);
+	}
 	public List<Product> productListAdmin(ProductVo vo) {   // 상품리스트
 		return sqlSession.selectList(namespace + ".productListAdmin", vo);
 	}
@@ -31,10 +34,7 @@ public class ProductDao {
 	public int updateProductAdmin(Product dto) {   //상품수정
 		return sqlSession.update(namespace + ".updateProductAdmin", dto);
 	}
-	public int productOneCount(ProductVo vo) {   //상품검색
-		return sqlSession.selectOne(namespace+".productOneCount", vo);
-	}
-	
+
 	//  **********auctProduct (사용자) *****************
 	
 	

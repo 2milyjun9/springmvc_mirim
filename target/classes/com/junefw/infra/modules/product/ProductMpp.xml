@@ -14,9 +14,10 @@
 		FROM
 		auctProduct a
 		WHERE 1 = 1
+	<!--  left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1     -->
 		<choose>
-			<when test="shAcprDelNy == 1">AND apcrDelNy = 1 </when>   
-			<when test="shAcprDelNy == 0">AND apcrDelNy = 0 </when>  
+			<when test="shAcprDelNy == 1">AND acprDelNy = 1 </when>   
+			<when test="shAcprDelNy == 0">AND acprDelNy = 0 </when>  
 		</choose>
 		<choose>
 			<when test="shAcprStatusCd == 55">AND acprStatusCd = 55 </when> 
@@ -31,12 +32,12 @@
 		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
 			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
 		<choose>
-			<when test="shProductOption == 1">AND ifmmName LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 2">AND ifmmId LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 4">AND acprSeq LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 5">AND ifmmDob LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 6">AND acprProductName LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 7">AND acprDetails LIKE concat('%',#{shProductValue},'%')</when>
+	<!-- 	<when test="shProductOption == 1">AND b.ifmmName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 2">AND b.ifmmId LIKE concat('%',#{shProductValue},'%')</when>   -->
+			<when test="shProductOption == 3">AND a.acprSeq LIKE concat('%',#{shProductValue},'%')</when>
+	<!--  <when test="shProductOption == 4">AND b.ifmmDob LIKE concat('%',#{shProductValue},'%')</when>  -->	
+			<when test="shProductOption == 5">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 6">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
 		</choose>
 	</sql>
 							
@@ -52,9 +53,12 @@
 	
 		<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
 		SELECT
-		acprProductName
+		*
+		,b.ifmmName
+		,b.ifmmId
 		FROM
-		auctProduct
+		auctProduct a
+		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
 		WHERE
 		1=1
 		And acprDelNy = 0
@@ -101,10 +105,11 @@
 		1=1
 		and a.acprDelNy = 0
 		and a.acprSeq = #{acprSeq}
-				order by a.acprSeq 
-				
+				order by a.acprSeq 				
 	</select>
 	
+	
+
 	
 	<insert id="insertProductAdmin">  <!-- 상품등록(관리자) -->
 		insert into auctProduct(

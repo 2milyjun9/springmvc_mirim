@@ -6,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -285,100 +284,115 @@ body {
 
 	<!-- 웹버전기본정보테이블//모바일감춤 -->
 	<div class="d-none d-xl-block ">
-			<div style="width: 75%; float: none; margin: 0 auto">
+		<div style="width: 75%; float: none; margin: 0 auto">
 
-				<form id="" name="" method="get" action="/infra/product/productList">
+			<form id="" name="" method="get"
+				action="/infra/product/productListAdmin">
 
-					<select name="shAcprDelNy">
-						<option value="">::삭제여부::
-						<option value="1">Y
-						<option value="0">N
-					</select> <select name="shAcprStatusCd">
-						<option value="">::상품상태::
-						<option value="55">경매중
-						<option value="56">경매완료
-						<option value="57">경매취소
-						<option value="58">경매실패
-					</select> <select name="shProductOption">
-						<option value="">::검색구문::
-						<option value="1">이름
-						<option value="2">아이디
-						<option value="3">생년월일
-						<option value="4">상품번호
-						<option value="5">게시물제목
-						<option value="6">게시물내용
-					</select> <input type="text" name="shProductrValue">
-					<!-- <input type="reset" name="reset"> -->
-					<button class="btn btn-outline-primary" type="submit" name="search">Search</button>
+				<select name="shAcprDelNy">
+					<option value="">::삭제여부::
+					<option value="1">Y
+					<option value="0">N
+				</select> <select name="shAcprStatusCd">
+					<option value="">::상품상태::
+					<option value="55">경매중
+					<option value="56">경매완료
+					<option value="57">경매취소
+					<option value="58">경매실패
+				</select> <select name="shProductOption">
+					<option value="">::검색구문::
+					<option value="1">이름
+					<option value="2">아이디
+					<option value="3">상품번호
+					<option value="4">생년월일
+					<option value="5">게시물제목
+					<option value="6">게시물내용
+				</select> <input type="text" name="shProductValue">
+				<!-- <input type="reset" name="reset"> -->
+				<button class="btn btn-outline-primary" type="submit" name="search">Search</button>
 
-					<br> <br> <br>
-					<div class="table-responsive">
-						<table class="table table-striped table-hover" data-toggle="table"
-							data-toolbar=".toolbar" data-sortable="false" data-height="460">
-							<thead>
+				<br> <br> <br>
+				<div class="table-responsive">
+					<table class="table table-striped table-hover" data-toggle="table"
+						data-toolbar=".toolbar" data-sortable="false" data-height="460">
+						<thead>
+							<tr>
+								<div class="m_check_wrap">
+									<th><input type="checkbox" id="allCheck"
+										onclick="allCheck(event)"> <label for="allCheck">
+											No. </label></th>
+								</div>
+
+								<th onclick=sortContent(0) scope="col">게시물제목 <i
+									class="fas fa-sort"> </i></th>
+								<th onclick=sortContent(0) scope="col">이름 <i
+									class="fas fa-sort"> </i>
+								</th>
+								<th onclick=sortContent(0) scope="col">아이디 <i
+									class="fas fa-sort"> </i>
+								</th>
+								<th onclick=sortContent(0) scope="col">경매상태 <i
+									class="fas fa-sort"> </i>
+								</th>
+								<th onclick=sortContent(0) scope="col">경매등록일 <i
+									class="fas fa-sort"> </i></th>
+								<th onclick=sortContent(0) scope="col">경매마감일 <i
+									class="fas fa-sort"> </i></th>
+								<th onclick=sortContent(0) scope="col">경매시작가 <i
+									class="fas fa-sort"> </i></th>
+								<th onclick=sortContent(0) scope="col">현재경매가 <i
+									class="fas fa-sort"> </i></th>
+							</tr>
+						</thead>
+						<c:choose>
+							<c:when test="${fn:length(list) eq 0}">
 								<tr>
-									<div class="m_check_wrap">
-										<th><input type="checkbox" id="allCheck"
-											onclick="allCheck(event)"> <label for="allCheck">
-												No. </label></th>
-									</div>
-
-									<th onclick=sortContent(0) scope="col">게시물제목 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">상품번호 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">이름 <i
-										class="fas fa-sort"> </i>
-									</th>
-									<th onclick=sortContent(0) scope="col">아이디 <i
-										class="fas fa-sort"> </i>
-									</th>
-									<th onclick=sortContent(0) scope="col">경매상태 <i
-										class="fas fa-sort"> </i>
-									</th>
-									<th onclick=sortContent(0) scope="col">경매등록일 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">경매마감일 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">경매시작가 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">현재경매가 <i
-										class="fas fa-sort"> </i></th>
+									<td class="text-center" colspan="9">There is no data!</td>
 								</tr>
-							</thead>
-							<tbody id="mainTable_tbody">
-								<tr>
-									<td scope="row">
-										<div class="m_check_wrap">
-											<input type="checkbox" class="check_all_list" id="agree1"
-												onclick="checkAllList(event)"> <label for="agree1">&nbsp;1</label>
-										</div>
-									</td>
-									<td><a href="/infra/product/productViewAdmin"><c:out
-												value="${item.acprProductName}" /></a></td>
-									<td><c:out value="${item.acprSeq}" /></td>
-									<td><c:out value="${item.ifmmName}" /></td>
-									<td><c:out value="${item.ifmmId}" /></td>
-									<td><c:if test="${item.acprStatusCd eq 55}">
-											<c:out value="경매중" /></c:if> 
-											<c:if test="${item.acprStatusCd eq 56}"> 
-											<c:out value="경매완료" /> </c:if> 
-											<c:if test="${item.acprStatusCd eq 57}"> 
-											<c:out value="경매취소" /> </c:if> 
-											<c:if test="${item.acprStatusCd eq 58}"> 
-											<c:out value="경매실패" />  </c:if> </td>
-									<td><c:out value="${item.acprStartDate}" /></td>
-									<td><c:out value="${item.acprEndDate}" /></td>
-									<td><c:out value="${item.acprPriceStart}" /></td>
-									<td><c:out value="${item.acprPriceNow}" /></td>
-								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${list}" var="item" varStatus="status">
 
-							</tbody>
-						</table>
-					</div>
-				</form>
-			</div>
+									<tbody id="mainTable_tbody">
+										<tr>
+											<td scope="row">
+												<div class="m_check_wrap">
+													<input type="checkbox" class="check_all_list" id="agree1"
+														onclick="checkAllList(event)" > <label for="agree1">
+														<c:out value="${item.acprSeq}" />
+													</label>
+												</div>
+											</td>
+											<td><a
+												href="/infra/product/productViewAdmin?acprSeq=<c:out value="${item.acprSeq}"/>">
+													<c:out value="${item.acprProductName}" />
+											</a></td>
+											<td><c:out value="${item.ifmmName}" /></td>
+											<td><c:out value="${item.ifmmId}" /></td>
+											<td><c:if test="${item.acprStatusCd eq 55}">
+													<c:out value="경매중" />
+												</c:if> <c:if test="${item.acprStatusCd eq 56}">
+													<c:out value="경매완료" />
+												</c:if> <c:if test="${item.acprStatusCd eq 57}">
+													<c:out value="경매취소" />
+												</c:if> <c:if test="${item.acprStatusCd eq 58}">
+													<c:out value="경매실패" />
+												</c:if></td>
+											<td><c:out value="${item.acprStartDate}" /></td>
+											<td><c:out value="${item.acprEndDate}" /></td>
+											<td><c:out value="${item.acprPriceStart}" /></td>
+											<td><c:out value="${item.acprPriceNow}" /></td>
+										</tr>
+
+									</tbody>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</table>
+				</div>
+			</form>
 		</div>
+	</div>
 	</div>
 
 	<!-- 모바일버전테이블//웹감춤 -->
@@ -389,22 +403,42 @@ body {
 					<table class="table table-striped table-hover" data-toggle="table"
 						data-toolbar=".toolbar" data-sortable="false" data-height="460">
 						<thead>
+
 							<tr>
+								<th onclick=sortContent(0) scope="col">No</th>
 								<th onclick=sortContent(0) scope="col">게시물제목</th>
-								<th onclick=sortContent(0) scope="col">상품번호</th>
 								<th onclick=sortContent(0) scope="col">아이디</th>
 								<th onclick=sortContent(0) scope="col">경매상태</th>
 							</tr>
 						</thead>
-						<tbody id="mainTable_tbody">
-							<tr>
-								<td><a href="/infra/product/productViewAdmin"><c:out
-											value="${item.acprProductName}" /></a></td>
-								<td><c:out value="${item.acprSeq}" /></td>
-								<td><c:out value="${item.ifmmId}" /></td>
-								<td><c:out value="${item.acprStatusCd}" /></td>
-							</tr>
-						</tbody>
+						<c:choose>
+							<c:when test="${fn:length(list) eq 0}">
+								<tr>
+									<td class="text-center" colspan="9">There is no data!</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${list}" var="item" varStatus="status">
+									<tbody id="mainTable_tbody">
+										<tr>
+											<td><c:out value="${item.acprSeq}" /></td>
+											<td><a href="/infra/product/productViewAdmin"><c:out
+														value="${item.acprProductName}" /></a></td>
+											<td><c:out value="${item.ifmmId}" /></td>
+									<td><c:if test="${item.acprStatusCd eq 55}">
+													<c:out value="경매중" />
+												</c:if> <c:if test="${item.acprStatusCd eq 56}">
+													<c:out value="경매완료" />
+												</c:if> <c:if test="${item.acprStatusCd eq 57}">
+													<c:out value="경매취소" />
+												</c:if> <c:if test="${item.acprStatusCd eq 58}">
+													<c:out value="경매실패" />
+												</c:if></td>
+										</tr>
+									</tbody>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</table>
 				</div>
 			</div>
@@ -419,8 +453,8 @@ body {
 		<div style="width: 100%; float: none; margin: 0 auto">
 
 			<!-- Button trigger modal -->
-		<button type="button" class="btn btn-sm btn-outline-success"
-						onclick="showPopup();">상품등록</button>
+			<button type="button" class="btn btn-sm btn-outline-success"
+				onclick="showPopup();">상품등록</button>
 			<button type="button" class="btn btn-sm btn-outline-primary"
 				data-bs-toggle="modal" data-bs-target="#저장">저장</button>
 
@@ -634,14 +668,17 @@ body {
 			}
 	</script>
 
+
+
+
 <!-- 팝업 -->
 <script language="javascript">
-  function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
+  function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
   </script>
 
 <!-- 팝업 -->
-			<script language="javascript">
-  function showPopup() { window.open("/infra/product/productFormAdmin", "상품등록", "width=600, height=500, left=300, top=100"); }
+<script language="javascript">
+  function showPopup() { window.open("product/productFormAdmin", "상품등록", "width=600, height=500, left=300, top=100"); }
   </script>
 
 </html>

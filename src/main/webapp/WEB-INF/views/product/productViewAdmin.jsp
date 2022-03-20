@@ -280,9 +280,6 @@ body {
 
 
 
-
-
-
 	<!-- 모바일버전테이블//웹감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div class=" d-lg-block d-xl-none">
@@ -362,8 +359,10 @@ body {
 						<tbody>
 							<tr>
 								<th scope="row">이름</th>
-								<td><a href="memberViewAdmin"><c:out
-											value="${item.ifmmName}" /> </a></td>
+								<td><a
+									href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+										<c:out value="${item.ifmmName}" />
+								</a></td>
 								<th>아이디</th>
 								<td><c:out value="${item.ifmmId}" /></td>
 							</tr>
@@ -454,8 +453,10 @@ body {
 					<tbody>
 						<tr>
 							<th scope="row" class="table-secondary">이름</th>
-						<td><a href="memberViewAdmin"><c:out
-											value="${item.ifmmName}" /> </a></td>
+							<td><a
+								href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+									<c:out value="${item.ifmmName}" />
+							</a></td>
 							<th class="table-secondary">아이디</th>
 							<td><c:out value="${item.ifmmId}" /></td>
 						</tr>
@@ -482,7 +483,7 @@ body {
 					<th class="table-secondary">등록일자</th>
 					<td><c:out value="${item.regDateTime}" /></td>
 					<th class="table-secondary">최종접속일</th>
-					<td> </td>
+					<td><c:out value="${item.regDateTime}" /></td>
 				</tr>
 				<tr>
 					<th class="table-secondary">최종수정일</th>

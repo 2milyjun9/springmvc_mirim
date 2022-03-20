@@ -282,55 +282,59 @@ body {
 
 					<form id="" name="" method="get" action="/infra/member/memberList">
 
-						<select name="shIfmmDelNy" id="shIfmmDelNy" >
+						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
-							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }"> </c:if>> Y
-							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }"> </c:if>> N 
+							<option value="1" <c:if test="${vo.shIfmmDelNy eq 1 }"> </c:if>>
+								Y
+							<option value="0" <c:if test="${vo.shIfmmDelNy eq 0 }"> </c:if>>
+								N
 						</select> <select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
 							<option value="">::휴먼여부::
-							<option value="0"<c:if test="${vo.shIfmmDormancyNy eq 0 }"> </c:if>> N 
-							<option value="1"<c:if test="${vo.shIfmmDormancyNy eq 1 }"> </c:if>> Y
+							<option value="0"
+								<c:if test="${vo.shIfmmDormancyNy eq 0 }"> </c:if>>N
+							<option value="1"
+								<c:if test="${vo.shIfmmDormancyNy eq 1 }"> </c:if>>Y
 						</select> <select name="shMemberOption" id="shMemberOption">
 							<option value="">::검색구문::
-							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> </c:if>>이름
+							<option value="1"
+								<c:if test="${vo.shMemberOption eq 1 }"> </c:if>>이름
 							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"></c:if>>아이디
+							
 							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"></c:if>>닉네임
+							
 							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"></c:if>>연락처
-						</select> 
-						<input type="text" name="shMemberValue" id="shMemberValue">
-						<button class="btn btn-outline-primary" type="submit" 
-						name="search" id="btnSubmit4">Search</button>
-			<!-- 		<input type="reset" name="reset">  -->
+							
+						</select> <input type="text" name="shMemberValue" id="shMemberValue">
+						<button class="btn btn-outline-primary" type="submit"
+							name="search" id="btnSubmit4">Search</button>
+						<!-- 		<input type="reset" name="reset">  -->
 
 						<br> <br> <br>
 
-						<div class="table-responsive">
-							<table class="table table-striped table-hover"
+						<div class="table-responsive" id="mainTable">
+							<table class="table table-striped table-hover" 
 								data-toggle="table" data-toolbar=".toolbar"
 								data-sortable="false" data-height="460">
 								<thead>
 									<tr>
-										<div class="m_check_wrap">
-											<th><input type="checkbox" id="allCheck"
-												onclick="allCheck(event)"> <label for="allCheck">
-													No. </label></th>
-										</div>
-
-										<th onclick=sortContent(0) scope="col">이름 <i
+										<th><input type="checkbox" id="allCheck" onchange="allCheck(this)" > 
+										<label for="allCheck">
+												No. </label></th>
+										<th onclick="sortTD(0)" scope="col">이름 <i
 											class="fas fa-sort"> </i></th>
-										<th onclick=sortContent(0) scope="col">아이디 <i
+										<th onclick="sortTD(1)" scope="col">아이디 <i
 											class="fas fa-sort"> </i></th>
-										<th onclick=sortContent(0) scope="col">닉네임 <i
+										<th onclick="sortTD(2)" scope="col">닉네임 <i
 											class="fas fa-sort"> </i>
 										</th>
-										<th onclick=sortContent(0) scope="col">생년월일 <i
+										<th onclick="sortTD(3)" scope="col">생년월일 <i
 											class="fas fa-sort"> </i>
 										</th>
-										<th onclick=sortContent(0) scope="col">연락처 <i
+										<th onclick="sortTD(4)" scope="col">연락처 <i
 											class="fas fa-sort"> </i></th>
-										<th onclick=sortContent(0) scope="col">가입일<i
+										<th onclick="sortTD(5)" scope="col">가입일<i
 											class="fas fa-sort"> </i></th>
-										<th onclick=sortContent(0) scope="col">상태</th>
+										<th  scope="col">상태</th>
 									</tr>
 								</thead>
 
@@ -347,9 +351,9 @@ body {
 												<tr>
 													<td scope="row">
 														<div class="m_check_wrap">
-															<input type="checkbox" class="check_all_list" id="agree1"
-																onclick="checkAllList(event)"> <label
-																for="agree1"><c:out value="${item.ifmmSeq}" /></label>
+															<input type="checkbox" class="check_all_list"
+																onclick="checkAllList(event)">
+															<c:out value="${item.ifmmSeq}" />
 														</div>
 													</td>
 													<td><a
@@ -366,20 +370,6 @@ body {
 														</c:if> <c:if test="${item.ifmmDormancyNy eq 1}">
 															<c:out value="휴먼" />
 														</c:if></td>
-
-													<%-- 			<td><select class="form-select form-select-sm"
-												aria-label="Disabled select example">
-													<option value="1">
-														<c:if test="${item.ifmmDormancyNy eq 0}">
-															<c:out value="활성" />
-														</c:if>
-													</option>
-													<option value="2">
-														<c:if test="${item.ifmmDormancyNy eq 1}">
-															<c:out value="휴먼" />
-														</c:if>
-													</option>
-											</select></td> --%>
 												</tr>
 											</tbody>
 										</c:forEach>
@@ -402,16 +392,11 @@ body {
 							data-toolbar=".toolbar" data-sortable="false" data-height="460">
 							<thead>
 								<tr>
-									<th onclick=sortContent(0) scope="col">No</th>
-									<th onclick=sortContent(0) scope="col">이름 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">아이디 <i
-										class="fas fa-sort"> </i></th>
-									<th onclick=sortContent(0) scope="col">생년월일 <i
-										class="fas fa-sort"> </i>
-									</th>
-									<th onclick=sortContent(0) scope="col">연락처 <i
-										class="fas fa-sort"> </i></th>
+									<th scope="col">No</th>
+									<th scope="col">이름</th>
+									<th scope="col">아이디</th>
+									<th scope="col">생년월일</th>
+									<th scope="col">연락처</th>
 								</tr>
 							</thead>
 							<c:choose>
@@ -423,7 +408,7 @@ body {
 								<c:otherwise>
 									<c:forEach items="${list}" var="item" varStatus="status">
 
-										<tbody id="mainTable_tbody">
+										<tbody>
 											<tr>
 												<td scope="row"><c:out value="${item.ifmmSeq}" /></td>
 												<td><a
@@ -562,8 +547,6 @@ body {
 				src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
 				integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
 				crossorigin="anonymous"></script>
-			<!-- 			<script src="dashboard.js"></script> -->
-
 
 			<!-- 기본템플릿 -->
 			<script
@@ -572,99 +555,7 @@ body {
 				crossorigin="anonymous">
 	</script>
 
-			<!-- 정렬 -->
-			<script>
-		$(function() {
-			$('#sortable').change(function() {
-				$('#table').bootstrapTable('refreshOptions', {
-					sortable : $('#sortable').prop('checked')
-				})
-			})
-		})
 
-		var sortType = 'asc'; // 정렬타입을 토글
-
-		window.onload = function() {
-
-			// 임의의 데이터 넣기
-
-			var id = document.getElementById("mainTable_tbody");
-			createTableBody(id, data); // 테이블 바디 만드는 함수 
-		}
-
-		// 테이블 바디 만드는 함수
-		function createTableBody(target, data) {
-			for (var i = 0; i < data.length; i++) {
-				var tr = document.createElement('tr');
-				target.appendChild(tr);
-				for (var j = 0; j < data[i].length; j++) {
-					var td = document.createElement('td');
-					tr.appendChild(td);
-					td.innerHTML = data[i][j];
-				}
-			}
-		}
-
-		// 테이블 헤더 클릭시 정렬 
-		function sortContent(index) {
-			var table = document.getElementsByTagName('table');
-
-			sortType = (sortType == 'asc') ? 'desc' : 'asc';
-
-			var checkSort = true;
-			var rows = table[0].rows;
-
-			while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
-				checkSort = false;
-
-				for (var i = 1; i < (rows.length - 1); i++) {
-					var fCell = rows[i].cells[index].innerHTML.toUpperCase();
-					var sCell = rows[i + 1].cells[index].innerHTML
-							.toUpperCase();
-
-					var row = rows[i];
-
-					// 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 <
-					//                        이고 if문의 내용은 동일하다 )
-					if ((sortType == 'asc' && fCell > sCell)
-							|| (sortType == 'desc' && fCell < sCell)) {
-
-						row.parentNode.insertBefore(row.nextSibling, row);
-						checkSort = true;
-					}
-				}
-			}
-		}
-	</script>
-
-			<script type="text/javascript">   //전체선택
-		function allCheck(e) {
-			if (e.target.checked) {
-				document.querySelectorAll(".check_all_list").forEach(
-						function(v, i) {
-							v.checked = true;
-						});
-			} else {
-				document.querySelectorAll(".check_all_list").forEach(
-						function(v, i) {
-							v.checked = false;
-						});
-			}
-		}
-		function checkAllList(e) {
-			let checkCount = 0;
-			document.querySelectorAll(".check_all_list").forEach(
-					function(v, i) {
-						if (v.checked === false) {
-							checkCount++;
-						}
-					});
-			if (checkCount > 0) {
-				document.getElementById("allCheck").checked = false;
-			} else if (checkCount === 0) {
-				document.getElementById("allCheck").checked = true;
-			}
-	</script>
 
 			<!-- 팝업 -->
 			<script language="javascript">
@@ -675,11 +566,12 @@ body {
 			<script language="javascript">
   function showPopup() { window.open("/infra/member/memberFormAdmin", "회원추가", "width=600, height=500, left=300, top=100"); }
   </script>
-  
-  <!-- 검색 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/infra/resources/js/validation.js"></script>
-<script type="text/javascript">
+
+			<!-- 검색 -->
+			<script
+				src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<script src="/infra/resources/js/validation.js"></script>
+			<script type="text/javascript">
 
 	$("#btnSubmit4").on(
 			"click",
@@ -695,8 +587,206 @@ body {
 			});
 	
 </script>
-		
-				
+
+
+<!-- 전체선택 220320 -->
+			<script type="text/javascript">
+			function allCheck(obj){
+			    var chk = $(obj).is(":checked"); // 체크여부
+
+			    var $inp = $('#mainTable_tbody').find('input#checkValue');
+			    $inp.each(function(i,v){
+			         $(v).prop('checked', chk);
+			    });
+			}
+	</script>
+	
+<!-- 	정렬 220320 -->
+<script>
+/* sortingNumber() : 숫자인 실수만으로 되어있을 때, 적용될 함수 */ 
+
+function sortingNumber( a , b ){  
+
+        if ( typeof a == "number" && typeof b == "number" ) return a - b; 
+
+        // 천단위 쉼표와 공백문자만 삭제하기.  
+        var a = ( a + "" ).replace( /[,\s\xA0]+/g , "" ); 
+        var b = ( b + "" ).replace( /[,\s\xA0]+/g , "" ); 
+
+        var numA = parseFloat( a ) + ""; 
+        var numB = parseFloat( b ) + ""; 
+
+        if ( numA == "NaN" || numB == "NaN" || a != numA || b != numB ) return false; 
+
+        return parseFloat( a ) - parseFloat( b ); 
+} 
+
+
+/* changeForSorting() : 문자열 바꾸기. */ 
+
+function changeForSorting( first , second ){  
+
+        // 문자열의 복사본 만들기. 
+        var a = first.toString().replace( /[\s\xA0]+/g , " " ); 
+        var b = second.toString().replace( /[\s\xA0]+/g , " " ); 
+
+        var change = { first : a, second : b }; 
+
+        if ( a.search( /\d/ ) < 0 || b.search( /\d/ ) < 0 || a.length == 0 || b.length == 0 ) return change; 
+
+        var regExp = /(\d),(\d)/g; // 천단위 쉼표를 찾기 위한 정규식. 
+
+        a = a.replace( regExp , "$1" + "$2" ); 
+        b = b.replace( regExp , "$1" + "$2" ); 
+
+        var unit = 0; 
+        var aNb = a + " " + b; 
+        var numbers = aNb.match( /\d+/g ); // 문자열에 들어있는 숫자 찾기 
+
+        for ( var x = 0; x < numbers.length; x++ ){ 
+
+                var length = numbers[ x ].length; 
+                if ( unit < length ) unit = length; 
+        } 
+
+        var addZero = function( string ){ // 숫자들의 단위 맞추기 
+
+                var match = string.match( /^0+/ ); 
+
+                if ( string.length == unit ) return ( match == null ) ? string : match + string; 
+
+                var zero = "0"; 
+
+                for ( var x = string.length; x < unit; x++ ) string = zero + string; 
+
+                return ( match == null ) ? string : match + string; 
+        }; 
+
+        change.first = a.replace( /\d+/g, addZero ); 
+        change.second = b.replace( /\d+/g, addZero ); 
+
+        return change; 
+} 
+
+
+/* byLocale() */ 
+
+function byLocale(){ 
+
+        var compare = function( a , b ){ 
+
+                var sorting = sortingNumber( a , b ); 
+
+                if ( typeof sorting == "number" ) return sorting; 
+
+                var change = changeForSorting( a , b ); 
+
+                var a = change.first; 
+                var b = change.second; 
+
+                return a.localeCompare( b ); 
+        }; 
+
+        var ascendingOrder = function( a , b ){  return compare( a , b );  }; 
+        var descendingOrder = function( a , b ){  return compare( b , a );  }; 
+
+        return { ascending : ascendingOrder, descending : descendingOrder }; 
+} 
+
+
+/* replacement() */ 
+ 
+function replacement( parent ){  
+        var tagName = parent.tagName.toLowerCase(); 
+        if ( tagName == "table" ) parent = parent.tBodies[ 0 ]; 
+        tagName = parent.tagName.toLowerCase(); 
+        if ( tagName == "tbody" ) var children = parent.rows; 
+        else var children = parent.getElementsByTagName( "li" ); 
+
+        var replace = { 
+                order : byLocale(), 
+                index : false, 
+                array : function(){ 
+                        var array = [ ]; 
+                        for ( var x = 0; x < children.length; x++ ) array[ x ] = children[ x ]; 
+                        return array; 
+                }(), 
+                checkIndex : function( index ){ 
+                        if ( index ) this.index = parseInt( index, 10 ); 
+                        var tagName = parent.tagName.toLowerCase(); 
+                        if ( tagName == "tbody" && ! index ) this.index = 0; 
+                }, 
+                getText : function( child ){ 
+                        if ( this.index ) child = child.cells[ this.index ]; 
+                        return getTextByClone( child ); 
+                }, 
+                setChildren : function(){ 
+                        var array = this.array; 
+                        while ( parent.hasChildNodes() ) parent.removeChild( parent.firstChild ); 
+                        for ( var x = 0; x < array.length; x++ ) parent.appendChild( array[ x ] ); 
+                }, 
+                ascending : function( index ){ // 오름차순 
+                        this.checkIndex( index ); 
+                        var _self = this; 
+                        var order = this.order; 
+                        var ascending = function( a, b ){ 
+                                var a = _self.getText( a ); 
+                                var b = _self.getText( b ); 
+                                return order.ascending( a, b ); 
+                        }; 
+                        this.array.sort( ascending ); 
+                        this.setChildren(); 
+                }, 
+                descending : function( index ){ // 내림차순
+                        this.checkIndex( index ); 
+                        var _self = this; 
+                        var order = this.order; 
+                        var descending = function( a, b ){ 
+                                var a = _self.getText( a ); 
+                                var b = _self.getText( b ); 
+                                return order.descending( a, b ); 
+                        }; 
+                        this.array.sort( descending ); 
+                        this.setChildren(); 
+                } 
+        }; 
+        return replace; 
+} 
+
+function getTextByClone( tag ){  
+        var clone = tag.cloneNode( true ); // 태그의 복사본 만들기. 
+        var br = clone.getElementsByTagName( "br" ); 
+        while ( br[0] ){ 
+                var blank = document.createTextNode( " " ); 
+                clone.insertBefore( blank , br[0] ); 
+                clone.removeChild( br[0] ); 
+        } 
+        var isBlock = function( tag ){ 
+                var display = ""; 
+                if ( window.getComputedStyle ) display = window.getComputedStyle ( tag, "" )[ "display" ]; 
+                else display = tag.currentStyle[ "display" ]; 
+                return ( display == "block" ) ? true : false; 
+        }; 
+        var children = clone.getElementsByTagName( "*" ); 
+        for ( var x = 0; x < children.length; x++){ 
+                var child = children[ x ]; 
+                if ( ! ("value" in child) && isBlock(child) ) child.innerHTML = child.innerHTML + " "; 
+        } 
+        var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
+        return textContent; 
+} 
+</script>
+
+<!-- 	정렬 220320 -->
+
+<script type="text/javascript">
+var myTable = document.getElementById( "mainTable" ); 
+var replace = replacement( myTable ); 
+function sortTD( index ){    replace.ascending( index );    } 
+function reverseTD( index ){    replace.descending( index );    } 
+</script>
+
+
 </body>
 </html>
 

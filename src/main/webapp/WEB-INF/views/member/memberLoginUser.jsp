@@ -84,8 +84,8 @@ body {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<a href="./main(Autionary).html"><img
-					src="../../../images/xdmin/logoA2.png"
+				<a href="../main/mainUser">
+				<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"
 					class="rounded mx-auto d-block" alt="..." width="200px"
 					height="100px"></a> <br> <br>
 				<form class="validation-form" novalidate>
@@ -123,8 +123,8 @@ body {
 					<br> <br>
 					<div class="row text-right" style="width: 100%">
 						<div style="width: 100%; float: none; margin: 0 auto">
-							<a href="./memberForm.html"> 회원가입 </a> <br> <a
-								href="../main/main(Auctionary).html"> 상품 먼저 둘러보기 </a> <br> <a
+							<a href="memberFormUser"> 회원가입 </a> <br> <a
+								href="../main/mainUser"> 상품 먼저 둘러보기 </a> <br> <a
 								href="..."> 아이디/비밀번호찾기 </a>
 						</div>
 					</div>

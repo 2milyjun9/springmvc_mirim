@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.junefw.infra.modules.member.Member;
+import com.junefw.infra.modules.member.MemberVo;
+
 
 
 @Controller
@@ -28,7 +31,7 @@ public class ProductController {
 		}
 		return "product/productListAdmin";
 	}
-
+	
 	@RequestMapping(value = "/product/productViewAdmin")   //상품뷰
 	public String productViewAdmin(ProductVo vo, Model model) throws Exception {
 		Product rt = service.productViewAdmin(vo);
