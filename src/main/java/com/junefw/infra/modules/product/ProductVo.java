@@ -2,10 +2,14 @@ package com.junefw.infra.modules.product;
 
 public class ProductVo {
 
-	//common
+
+		//common
 		private String shProductOption;
 		private String shProductValue;
+		private String shMemberOption;
+		private String shMemberValue;
 
+		
 	// auctProduct Search
 		private String shAcprDelNy;
 		private String shAcprProductName;
@@ -1130,6 +1134,27 @@ public void setAcpsDelNy(String acpsDelNy) {
 
 
 
+public String getShMemberOption() {
+	return shMemberOption;
+}
+
+
+
+public void setShMemberOption(String shMemberOption) {
+	this.shMemberOption = shMemberOption;
+}
+
+
+
+public String getShMemberValue() {
+	return shMemberValue;
+}
+
+
+
+public void setShMemberValue(String shMemberValue) {
+	this.shMemberValue = shMemberValue;
+}
 
 
 

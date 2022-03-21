@@ -71,6 +71,7 @@
 		and ifmmSeq = #{ifmmSeq}
 	</update>
 
+
 	<!-- ************************************두리안 관리자**************************************************** -->
 
 	<sql id="selectCommon">
@@ -91,7 +92,7 @@
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
-			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>
+		<!-- 	<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when> -->
 		</choose>
 	</sql>
 
@@ -188,7 +189,7 @@
 		,h.ifmpDeviceCd
 		,h.ifmpTelecomCd
 		,h.ifmpNumber 
-<!-- 		,i.ifmhHobbyCd  -->
+<!-- ,i.ifmhHobbyCd   -->
 		from
 	infrMember a
 		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
@@ -198,7 +199,7 @@
 		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
 		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
 		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
-	<!-- 	left join infrMemberHobby i on i.ifmmSeq = a.ifmmSeq   -->
+<!-- 	left join infrMemberHobby i on i.ifmmSeq = a.ifmmSeq    -->
 		where
 		1=1
 		and a.ifmmSeq = #{ifmmSeq}
@@ -243,6 +244,50 @@
 			SELECT last_insert_id()
 		</selectKey>
 	</insert>
+
+	<update id="memberEditAdmin">  <!-- 회원수정 -->
+		UPDATE infrMember SET
+		,ifmmPassword
+		,ifmmGenderCd
+		,ifmmDelny
+		,ifmmSaveCd
+		,ifmmMarriageCd
+		,ifmmMarriageDate
+		,ifmmChildrenNum
+		,ifmmFavoriteColor
+		,ifmmRecommenderSeq
+		,ifmmEmailConsentNy
+		,ifmmSmsConsentNy
+		,ifmmPushConsentNy
+		,modIp
+		,modSeq
+		,modDevice
+		,modDateTime
+		,modDateTimeSvr
+		)
+		values (
+		,#{ifmmPassword}
+		,#{ifmmGenderCd}
+		,0
+		,#{ifmmSaveCd}
+		,#{ifmmMarriageCd}
+		,#{ifmmMarriageDate}
+		,#{ifmmChildrenNum}
+		,#{ifmmFavoriteColor}
+		,#{ifmmRecommenderSeq}
+		,#{ifmmEmailConsentNy}
+		,#{ifmmSmsConsentNy}
+		,#{ifmmPushConsentNy}
+		,#{ifmmRecommenderSeq}
+		,#{modIp}
+		,#{modSeq}
+		,#{modDevice}
+		,now()
+		,now()
+		) WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+	</update>
+
 
 	<delete id="delete">
 	DELETE FROM infrMember WHERE ifmmSeq= #{ifmmSeq}
@@ -293,7 +338,34 @@
 		)
 </insert>
 
+<insert id="insertAddressAdmin">
+		INSERT INTO infrMemberAddress (
+		ifmaDefaultNy
+		,ifmaTypeCd
+		,ifmaTitle
+		,ifmaAddress1
+		,ifmaAddress2
+		,ifmaZipcode
+		,ifmeDelNY
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifmaDefaultNy}
+		,#{ifmaTypeCd}
+		,#{ifmaTitle}
+		,#{ifmaAddress1}
+		,#{ifmaAddress2}
+		,#{ifmaZipcode}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
 
+	<!-- **********************두리안 사용자******************** -->
+	<!-- **********************두리안 사용자******************** -->
+	<!-- **********************두리안 사용자******************** -->
+	<!-- **********************두리안 사용자******************** -->
+	<!-- **********************두리안 사용자******************** -->
 	<!-- **********************두리안 사용자******************** -->
 		
 	<insert id="insertMemberUser">  <!--   사용자회원가입 -->
@@ -310,7 +382,6 @@
 		,ifmmMarriageDate
 		,ifmmChildrenNum
 		,ifmmFavoriteColor
-		,ifmmRecommenderSeq
 		,ifmmEmailConsentNy
 		,ifmmSmsConsentNy
 		,ifmmPushConsentNy
@@ -321,7 +392,7 @@
 		,regDateTimeSvr
 		)
 		VALUES (
-		,0
+		0
 		,0
 		,#{ifmmName}
 		,#{ifmmId}
@@ -333,11 +404,9 @@
 		,#{ifmmMarriageDate}
 		,#{ifmmChildrenNum}
 		,#{ifmmFavoriteColor}
-		,#{ifmmRecommenderSeq}
 		,#{ifmmEmailConsentNy}
 		,#{ifmmSmsConsentNy}
 		,#{ifmmPushConsentNy}
-		,#{ifmmRecommenderSeq}
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}

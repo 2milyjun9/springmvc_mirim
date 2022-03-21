@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.junefw.infra.modules.code.Code;
+
 @Controller
 public class MemberController {
 
@@ -71,6 +73,7 @@ public class MemberController {
 		model.addAttribute("item", rt);
 		return "member/memberFormAdmin";
 	}
+	
 	@RequestMapping(value = "/member/memberInstAdmin") //회원등록받음
 	public String memberInstAdmin(Model model, Member dto) throws Exception {
 		service.insertMemberAdmin(dto);
@@ -83,7 +86,7 @@ public class MemberController {
 	  @RequestMapping(value = "/member/memberUpdtAdmin")  //회원수정받음
 	  public String updateMemberAdmin(Model model, Member dto) throws Exception {
 	 service.updateMemberAdmin(dto); 
-	 return "redirect:/member/memberFormAdmin"; 
+	 return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq(); 
 	 }
 	  
 		@RequestMapping(value = "/member/memberLoginAdmin")    //사원로그인
@@ -109,9 +112,8 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberUpdtUser")    //회원수정받음
 	public String memberUpdtUser(Model model, Member dto) throws Exception {
 		service.updateMemberUser(dto);
-		return "redirect:/member/memberEidtUser";
-	}
-	
+		 return "redirect:/member/memberViewUser?ifmmSeq=" + dto.getIfmmSeq(); 
+		 }
 	@RequestMapping(value = "/member/memberLoginUser")    //회원로그인
 	public String memberLoginUser() throws Exception {
 		return "/member/memberLoginUser";

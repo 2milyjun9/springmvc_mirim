@@ -280,9 +280,9 @@ body {
 
 		<nav style="-bs-breadcrumb-divider: '&gt;';" aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="../main/main.html">
+				<li class="breadcrumb-item"><a href="/main/mainAdmin">
 						&nbsp;Home</a></li>
-				<li class="breadcrumb-item"><a href="./memberList.html">List</a></li>
+				<li class="breadcrumb-item"><a href="/memberListAdmin">List</a></li>
 				<li class="breadcrumb-item active" aria-current="page">View</li>
 			</ol>
 		</nav>
@@ -323,7 +323,11 @@ body {
 								</tr>
 								<tr>
 									<th>연락처</th>
-									<td><c:out value="${item.ifmpNumber}" /></td>
+									<td><c:if test="${item.ifmpTelecomCd eq 28}"> <c:out value="SKT" /> </c:if> 
+								<c:if test="${item.ifmpTelecomCd eq 29}"> <c:out value="KT" /> 	</c:if>
+								 <c:if test="${item.ifmpTelecomCd eq 30}"> <c:out value="LGU" /> </c:if>
+								<c:if test="${item.ifmpTelecomCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
+									<c:out value="${item.ifmpNumber}" /> </td>
 									<th>이메일</th>
 									<td><c:out value="${item.ifmeEmailFull}" /></td>
 								</tr>
@@ -368,9 +372,11 @@ body {
 							</tr>
 							<tr>
 								<th class="table-secondary">성별</th>
-								<td scope="row"><c:if test="${item.ifmmGenderCd eq 3}">
+								<td scope="row">
+								<c:if test="${item.ifmmGenderCd eq 3}">
 										<c:out value="남성" />
-									</c:if> <c:if test="${item.ifmmGenderCd eq 4}">
+									</c:if> 
+									<c:if test="${item.ifmmGenderCd eq 4}">
 										<c:out value="여성" />
 									</c:if></td>
 								<th class="table-secondary">생년월일</th>
@@ -378,12 +384,13 @@ body {
 							</tr>
 							<tr>
 								<th class="table-secondary">연락처</th>
-								<%-- 	<td><c:if test="${item.ifmpTelecomeCd eq 28}"> <c:out value="SKT" /> </c:if> 
-								<c:if test="${item.ifmpTelecomeCd eq 29}"> <c:out value="KT" /> 	</c:if>
-								 <c:if test="${item.ifmpTelecomeCd eq 30}"> <c:out value="LGU" /> </c:if>
-								<c:if test="${item.ifmpTelecomeCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
-							 --%>
-								<td><c:out value="${item.ifmpNumber}" />
+								<td><c:if test="${item.ifmpTelecomCd eq 28}"> <c:out value="SKT" /> </c:if> 
+								<c:if test="${item.ifmpTelecomCd eq 29}"> <c:out value="KT" /> 	</c:if>
+								 <c:if test="${item.ifmpTelecomCd eq 30}"> <c:out value="LGU" /> </c:if>
+								<c:if test="${item.ifmpTelecomCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
+							
+									<c:out value="${item.ifmpNumber}" /> 
+									
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
 
@@ -483,7 +490,14 @@ body {
 						<th class="table-secondary">좋아하는색깔</th>
 						<td><c:out value="${item.ifmmFavoriteColor}" /></td>
 						<th class="table-secondary">취미</th>
-						<td><c:out value="${item.ifmhHobbyCd}" /></td>
+						<td>
+		<%-- 	<c:if test="${item.ifmhHobbyCd eq 38}"> <c:out value="영화감상" /> </c:if> 
+						<c:if test="${item.ifmhHobbyCd eq 39}">	<c:out value="골프" /> </c:if>
+						<c:if test="${item.ifmhHobbyCd eq 40}">	<c:out value="음악감상" /> </c:if>
+						<c:if test="${item.ifmhHobbyCd eq 41}">	<c:out value="트래킹" /> </c:if>
+						<c:if test="${item.ifmhHobbyCd eq 42}">	<c:out value="서핑" /> </c:if>
+						<c:if test="${item.ifmhHobbyCd eq 43}">	<c:out value="피아노" /> </c:if>  --%>
+						</td>
 					</tr>
 					<tr>
 						<th class="table-secondary">결혼유무</th>
@@ -629,7 +643,7 @@ body {
 						</div>
 					</div>
 				</div>
-				<a href="/infra/member/memberEditAdmin">
+				<a href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>" >
 					<button type="button" class="btn btn-sm btn-outline-warning">
 						수정</button>
 				</a>
@@ -655,7 +669,7 @@ body {
 
 	<!-- 팝업 -->
 	<script language="javascript">
-  function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
+  function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
   </script>
 
 
@@ -667,7 +681,6 @@ body {
 		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
 		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
 		crossorigin="anonymous"></script>
-
 
 
 	<!-- 기본템플릿 -->

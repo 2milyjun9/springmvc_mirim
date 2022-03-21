@@ -99,14 +99,15 @@
 								<option value="4"> 여성 </option>
 							</select> 
 
-							<input type="text" name="ifmmDob" placeholder="생년월일 1991-09-07">  
+							<input type="text" id="ifmmDob" name="ifmmDob" placeholder="생년월일 1991-09-07"
+							value="<c:out value="${item.ifmmDob }"/>">  
 							<br>
 						</div>
 					</div>
 		
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<select name="ifmpTelecomCd">
+							<select  id="ifmpTelecomCd" name="ifmpTelecomCd">
 								<option value="">통신사</option>
 								<option value="28">SKT</option>
 								<option value="29">KT</option>

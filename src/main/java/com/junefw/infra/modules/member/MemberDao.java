@@ -45,14 +45,12 @@ public class MemberDao {
 	public int updateMemberAdmin(Member dto) {
 		return sqlSession.update(namespace + ".updateMemberAdmin", dto); //회원수정
 	}
-	
    public int insertEmailAdmin (Member dto) {
 	   return sqlSession.insert(namespace + ".insertEmailAdmin", dto); //회원등록(이메일)
    }
 	
-   
    public int insertPhoneAdmin (Member dto) {
-	   return sqlSession.insert(namespace + ".insertPhoneAdmin", dto); //회원등록(이메일)
+	   return sqlSession.insert(namespace + ".insertPhoneAdmin", dto); //회원등록(연락처)
    }
 	
 	// 두리안 유저 ****************************
@@ -63,20 +61,20 @@ public class MemberDao {
 		return sqlSession.update(namespace + ".updateMemberUser", dto); //회원수정
 	}
 
-	   public int insertEmailUser (Member dto) {
+	public int insertEmailUser (Member dto) {
 		   return sqlSession.insert(namespace + ".insertEmailUser", dto); //회원등록(이메일)
 	   }
 	
-	   public int insertPhoneUser (Member dto) {
-		   return sqlSession.insert(namespace + ".insertPhoneUser", dto); //회원등록(이메일)
+	public int insertPhoneUser (Member dto) {
+		   return sqlSession.insert(namespace + ".insertPhoneUser", dto); //회원등록(연락처)
 	   }
 	   
-	   public Member selectOneId(Member dto) {
+	public Member selectOneId(Member dto) {
 		  return sqlSession.selectOne(namespace + ".selectOneId", dto); //회원로그인
 	   }
 	   
-	   public Member selectOneLogin(Member dto) {
-			  return sqlSession.selectOne(namespace + ".selectOneLogin", dto); //회원로그인
+	 public Member selectOneLogin(Member dto) {
+		 return sqlSession.selectOne(namespace + ".selectOneLogin", dto); //회원로그인
 		   }
 	   
 	   }

@@ -25,19 +25,18 @@
 			<when test="shAcprStatusCd == 57">AND acprStatusCd = 57 </when>  
 			<when test="shAcprStatusCd == 58">AND acprStatusCd = 58 </when>  
 		</choose>
-			<choose>
+	<!-- 		<choose>
 			<when test="shAcprResultNy == 1">AND acprResultNy = 1 </when> 
 			<when test="shAcprResultNy  == 0">AND acprResultNy = 0 </when>  
-		</choose>
+		</choose> -->
 		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
 			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
 		<choose>
-	<!-- 	<when test="shProductOption == 1">AND b.ifmmName LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 2">AND b.ifmmId LIKE concat('%',#{shProductValue},'%')</when>   -->
+		<when test="shMemberOption == 1">AND b.ifmmName LIKE concat('%',#{shMemberOption},'%')</when>
+			<when test="shMemberOption == 2">AND b.ifmmId LIKE concat('%',#{shMemberOption},'%')</when>   
 			<when test="shProductOption == 3">AND a.acprSeq LIKE concat('%',#{shProductValue},'%')</when>
-	<!--  <when test="shProductOption == 4">AND b.ifmmDob LIKE concat('%',#{shProductValue},'%')</when>  -->	
-			<when test="shProductOption == 5">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 6">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 4">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 5">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
 		</choose>
 	</sql>
 							
@@ -120,6 +119,9 @@
 		#{acprProductName}
 		,0
 		)
+<!-- 				<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey> -->
 	</insert>
 
 	

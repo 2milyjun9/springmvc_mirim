@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
+
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -42,14 +44,6 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-
-<!-- Custom styles for this template -->
-<link href="dashboard.css" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link
-	href="../../../bootstrap/bootstrap-5.1.3-examples/assets/dist/css/bootstrap.min.css"
-	rel="stylesheet">
 
 <style>
 a { /*링크 줄안가게하기*/
@@ -266,8 +260,6 @@ body {
 	</div>
 
 
-
-
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -281,302 +273,329 @@ body {
 
 		<nav style="-bs-breadcrumb-divider: '&gt;';" aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="../main/main.html">
+				<li class="breadcrumb-item"><a href="main/mainAdmin">
 						&nbsp;Home</a></li>
-				<li class="breadcrumb-item"><a href="./memberList.html">List</a></li>
-				<li class="breadcrumb-item active"><a href="./memberView.html">
+				<li class="breadcrumb-item"><a href="memberListAdmin">List</a></li>
+				<li class="breadcrumb-item active"><a href="memberViewAdmin.html">
 						View</a></li>
 				<li class="breadcrumb-item active" aria-current="page">Edit</li>
 			</ol>
 		</nav>
 
-		<div class="row text-center" style="width: 95%; white-space: nowrap">
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>기본정보</th>
-							<th scope="col" colspan="5" class="text-warning"
-								style="font-size: 30px; text-align: right">정미림
-								<button class="btn btn-warning" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#collapseWidthExample" aria-expanded="false"
-									aria-controls="collapseWidthExample">
-									<i class="fas fa-camera"></i>
-								</button>
-								<div style="min-height: 0px;">
-									<div class="collapse collapse-horizontal"
-										id="collapseWidthExample">
-										<div class="card card-body" style="width: 200px;">
-											<img src="../../../images/user/mirim.jpg">
-											<div class="input-group mb-3">
-												<input type="file" class="form-control"
-													id="inputGroupFile02"> <label
-													class="input-group-text" for="inputGroupFile02">Upload</label>
+		<form method="post" action="/infra/member/memberUpdtAdmin"
+			onsubmit="return check();">
+
+			<div class="row text-center" style="width: 95%; white-space: nowrap">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+
+								<th>기본정보</th>
+
+								<th scope="col" colspan="5" class="text-warning"
+									style="font-size: 30px; text-align: right">
+								
+									<c:out
+										value="${item.ifmmName}" />
+									<button class="btn btn-warning" type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#collapseWidthExample" aria-expanded="false"
+										aria-controls="collapseWidthExample">
+										<i class="fas fa-camera"></i>
+									</button>
+									<div style="min-height: 0px;">
+										<div class="collapse collapse-horizontal"
+											id="collapseWidthExample">
+											<div class="card card-body" style="width: 200px;">
+												<img
+													src="${pageContext.request.contextPath}/resources/xdmin/images/seonwoo3.jpg">
+
+												<div class="input-group mb-3">
+													<input type="file" class="form-control"
+														id="inputGroupFile02"> <label
+														class="input-group-text" for="inputGroupFile02">Upload</label>
+												</div>
+											</div>
+										</div>
+									</div></th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th class="table-secondary">아이디</th>
+								<td><c:out value="${item.ifmmId}" /></td>
+								<th class="table-secondary">비밀번호</th>
+								<td><c:out value="${item.ifmmPassword}" /></td>
+							</tr>
+							<tr>
+								<th class="table-secondary">성별</th>
+
+								<td><select name="ifmmGenderCd" required>
+										<option value="3"
+											<c:if test="${item.ifmmGenderCd eq 3}">selected</c:if>>남성</option>
+										<option value="4"
+											<c:if test="${item.ifmmGenderCd eq 4}">selected</c:if>>여성</option>
+								</select></td>
+
+
+								<th class="table-secondary">생년월일</th>
+								<td><input type="text" name="ifmmDob"
+									value="<c:out value="${item.ifmmDob}"/>"></td>
+							</tr>
+							<tr>
+								<th class="table-secondary">연락처</th>
+								<td><select name="ifmpTelecomCd" required>
+										<option value="28">SKT</option>
+										<option value="29">KT</option>
+										<option value="30">LGU</option>
+										<option value="31">기타</option>
+								</select> <input type="text" value="<c:out value="${item.ifmpNumber}"/>">
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
+
+									<!-- sms Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">
+														<i class="fas fa-envelope-open-text"></i>
+													</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form>
+														<div class="mb-3">
+															<label for="recipient-name" class="col-form-label">번호</label>
+															<input type="text" class="form-control"
+																id="recipient-name" value="........">
+														</div>
+														<div class="mb-3">
+															<label for="message-text" class="col-form-label">메시지
+																입력</label>
+															<textarea class="form-control" id="message-text"></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<a class="btn btn-secondary" href="./memberView.html"
+														role="button">취소</a> <a class="btn btn-primary"
+														href="./memberView.html" role="button">전송</a>
+												</div>
+											</div>
+										</div>
+									</div></td>
+								<th class="table-secondary">이메일</th>
+								<td><input type="text"
+									value="<c:out value="${item.ifmeEmailfull}"/>">
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#email">mail</button> <!-- sms Modal -->
+									<div class="modal fade" id="email" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">
+														<i class="fas fa-envelope-open-text"></i>
+													</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form>
+														<div class="mb-3">
+															<label for="recipient-name" class="col-form-label">E-mail</label>
+															<input type="text" class="form-control"
+																id="recipient-name" value="mija345@naver.com">
+														</div>
+														<div class="mb-3">
+															<label for="message-text" class="col-form-label">메시지
+																입력</label>
+															<textarea class="form-control" id="message-text"></textarea>
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<a class="btn btn-secondary" href="./memberView.html"
+														role="button">취소</a> <a class="btn btn-primary"
+														href="./memberView.html" role="button">전송</a>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th class="table-secondary">아이디</th>
-							<td>mija345</td>
-							<th class="table-secondary">비밀번호</th>
-							<td>12*****</td>
-						</tr>
-						<tr>
-							<th class="table-secondary">성별</th>
-							<td>여자</td>
-							<th class="table-secondary">생년월일</th>
-							<td>91.09.07</td>
-						</tr>
-						<tr>
-							<th class="table-secondary">연락처</th>
-							<td><select>
-									<option selected>SKT</option>
-									<option>LGU</option>
-									<option>KT</option>
-									<option>기타</option>
-							</select> <input type="text" value="010-9245-6252">
-								<button type="button" class="btn btn-primary"
-									data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
-
-								<!-- sms Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1"
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">
-													<i class="fas fa-envelope-open-text"></i>
-												</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<form>
-													<div class="mb-3">
-														<label for="recipient-name" class="col-form-label">번호</label>
-														<input type="text" class="form-control"
-															id="recipient-name" value="010-9245-6252">
-													</div>
-													<div class="mb-3">
-														<label for="message-text" class="col-form-label">메시지
-															입력</label>
-														<textarea class="form-control" id="message-text"></textarea>
-													</div>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<a class="btn btn-secondary" href="./memberView.html"
-													role="button">취소</a> <a class="btn btn-primary"
-													href="./memberView.html" role="button">전송</a>
-											</div>
-										</div>
-									</div>
-								</div></td>
-							<th class="table-secondary">이메일</th>
-							<td><input type="text" value="mija345@naver.com">
-								<button type="button" class="btn btn-primary"
-									data-bs-toggle="modal" data-bs-target="#email">mail</button> <!-- sms Modal -->
-								<div class="modal fade" id="email" tabindex="-1"
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">
-													<i class="fas fa-envelope-open-text"></i>
-												</h5>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<form>
-													<div class="mb-3">
-														<label for="recipient-name" class="col-form-label">E-mail</label>
-														<input type="text" class="form-control"
-															id="recipient-name" value="mija345@naver.com">
-													</div>
-													<div class="mb-3">
-														<label for="message-text" class="col-form-label">메시지
-															입력</label>
-														<textarea class="form-control" id="message-text"></textarea>
-													</div>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<a class="btn btn-secondary" href="./memberView.html"
-													role="button">취소</a> <a class="btn btn-primary"
-													href="./memberView.html" role="button">전송</a>
-											</div>
-										</div>
-									</div>
-								</div>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<br>
-
-
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col" colspan="5" style="text-align: left">선택입력</th>
-						</tr>
-					</thead>
-					<tr>
-						<th class="table-secondary">국적</th>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option selected>대한민국</option>
-								<option>미국</option>
-								<option>영국</option>
-								<option>기타</option>
-						</select></td>
-						<th class="table-secondary">좋아하는색깔</th>
-						<th><input type="color"
-							class="form-control form-control-color" id="exampleColorInput"
-							value="#563d7c" title="Choose your color"></th>
-						<th class="table-secondary">취미</th>
-						<td><div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault" checked> <label
-									class="form-check-label" for="flexCheckDefault"> 영화감상 </label>
-							</div>
-							<div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckChecked" checked> <label
-									class="form-check-label" for="flexCheckChecked"> 골프 </label>
-							</div>
-							<div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> 음악감상 </label>
-							</div> <br>
-							<div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckChecked"> <label class="form-check-label"
-									for="flexCheckChecked"> 트레킹 </label>
-							</div>
-							<div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> 서핑 </label>
-							</div>
-							<div class="form-check form-check-inline ">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckChecked"> <label class="form-check-label"
-									for="flexCheckChecked"> 피아노 </label>
-							</div></td>
-					</tr>
-					<tr>
-						<th class="table-secondary">결혼유무</th>
-						<td><select class="form-select">
-								<option value="1" selected>YES</option>
-								<option value="2">NO</option>
-						</select></td>
-						<th class="table-secondary">자녀수</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value="2"></td>
-						<th class="table-secondary">결혼기념일</th>
-						<td><div class="form-floating mb-3">
-								<input type="date" class="form-control" id="floatingInput"
-									value="2016-04-16">
-							</div></td>
-					<tr>
-						<th class="table-secondary">우편주소</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value="11111"></td>
-						<th class="table-secondary">주소</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value="서울시 강서구 가양동"></td>
-						<th class="table-secondary">상세주소</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value="한강타운 105동1108호"></td>
-					</tr>
-					<tr>
-						<th class="table-secondary">SNS/블로그</th>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option>선택</option>
-								<option>페이스북</option>
-								<option selected>인스타그램</option>
-								<option>트위터</option>
-								<option>카카오톡</option>
-								<option>기타</option>
-						</select></td>
-						<th class="table-secondary">계정/주소</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value="2milyjun9"></td>
-						<th class="table-secondary">블로그명</th>
-						<td><input type="text" class="form-control"
-							id="floatingInput" value=""></td>
-					</tr>
-					<tr>
-						<th class="table-secondary">개인정보유효기간</th>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option value="1" selected>1년</option>
-								<option value="2">3년</option>
-								<option value="3">5년</option>
-						</select></td>
-						<th class="table-secondary">모바일마케팅동의</th>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option value="1">YES</option>
-								<option value="2" selected>NO</option>
-						</select></td>
-						<th class="table-secondary">이메일마케팅동의</th>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option value="1">YES</option>
-								<option value="2" selected>NO</option>
-						</select></td>
-					</tr>
-				</table>
-			</div>
-
-
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col" colspan="5" style="text-align: left">로그</th>
-						</tr>
-					</thead>
-					<tr>
-						<th class="table-secondary">가입일자</th>
-						<td>2022.02.15 11:30 am</td>
-						<th class="table-secondary">최종접속일</th>
-						<td>2022.02.15 11:30 am</td>
-					</tr>
-					<tr>
-						<th class="table-secondary">최종수정일</th>
-						<td>2022.02.17 11:30 am</td>
-						<th class="table-secondary">최종수정자</th>
-						<td>김수현(000001)</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		</div>
-
-
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</form>
 		<br>
+
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col" colspan="5" style="text-align: left">선택입력</th>
+					</tr>
+				</thead>
+				<tr>
+					<th class="table-secondary">국적</th>
+					<td><select class="form-select"
+						aria-label="Default select example">
+							<option selected>대한민국</option>
+							<option>미국</option>
+							<option>영국</option>
+							<option>기타</option>
+					</select></td>
+					<th class="table-secondary">좋아하는색깔</th>
+					<th><input type="color"
+						class="form-control form-control-color" id="exampleColorInput"
+						value="#563d7c" title="Choose your color"></th>
+					<th class="table-secondary">취미</th>
+
+					<td><div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value="38"
+								<c:if test="${item.ifmhHobbyCd eq 38}">checked</c:if>> <label
+								class="form-check-label" for="flexCheckDefault"> 영화감상 </label>
+						</div>
+
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value="39"
+								<c:if test="${item.ifmhHobbyCd eq 39}">checked</c:if>> <label
+								class="form-check-label" for="flexCheckDefault"> 골프 </label>
+						</div>
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckDefault"> <label class="form-check-label"
+								for="flexCheckDefault"> 음악감상 </label>
+						</div> <br>
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckChecked"> <label class="form-check-label"
+								for="flexCheckChecked"> 트레킹 </label>
+						</div>
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckDefault"> <label class="form-check-label"
+								for="flexCheckDefault"> 서핑 </label>
+						</div>
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckChecked"> <label class="form-check-label"
+								for="flexCheckChecked"> 피아노 </label>
+						</div></td>
+				</tr>
+				<tr>
+					<th class="table-secondary">결혼유무</th>
+					<td><select class="form-select">
+							<option value="1" selected>YES</option>
+							<option value="2">NO</option>
+					</select></td>
+					<th class="table-secondary">자녀수</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value="2"></td>
+					<th class="table-secondary">결혼기념일</th>
+					<td><div class="form-floating mb-3">
+							<input type="date" class="form-control" id="floatingInput"
+								value="2016-04-16">
+						</div></td>
+				<tr>
+					<th class="table-secondary">우편주소</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value="11111"></td>
+					<th class="table-secondary">주소</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value="서울시 강서구 가양동"></td>
+					<th class="table-secondary">상세주소</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value="한강타운 105동1108호"></td>
+				</tr>
+				<tr>
+					<th class="table-secondary">SNS/블로그</th>
+					<td><select class="form-select"
+						aria-label="Default select example">
+							<option>선택</option>
+							<option>페이스북</option>
+							<option selected>인스타그램</option>
+							<option>트위터</option>
+							<option>카카오톡</option>
+							<option>기타</option>
+					</select></td>
+					<th class="table-secondary">계정/주소</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value="2milyjun9"></td>
+					<th class="table-secondary">블로그명</th>
+					<td><input type="text" class="form-control" id="floatingInput"
+						value=""></td>
+				</tr>
+				<tr>
+					<th class="table-secondary">개인정보유효기간</th>
+					<td><select class="form-select"
+						aria-label="Default select example">
+							<option value="1" selected>1년</option>
+							<option value="2">3년</option>
+							<option value="3">5년</option>
+					</select></td>
+					<th class="table-secondary">모바일마케팅동의</th>
+					<td><select class="form-select"
+						aria-label="Default select example">
+							<option value="1">YES</option>
+							<option value="2" selected>NO</option>
+					</select></td>
+					<th class="table-secondary">이메일마케팅동의</th>
+					<td><select class="form-select"
+						aria-label="Default select example">
+							<option value="1">YES</option>
+							<option value="2" selected>NO</option>
+					</select></td>
+				</tr>
+			</table>
+		</div>
+
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col" colspan="5" style="text-align: left">로그</th>
+					</tr>
+				</thead>
+				<tr>
+					<th class="table-secondary">가입일자</th>
+					<td>2022.02.15 11:30 am</td>
+					<th class="table-secondary">최종접속일</th>
+					<td>2022.02.15 11:30 am</td>
+				</tr>
+				<tr>
+					<th class="table-secondary">최종수정일</th>
+					<td>2022.02.17 11:30 am</td>
+					<th class="table-secondary">최종수정자</th>
+					<td>김수현(000001)</td>
+				</tr>
+			</table>
+		</div>
+		</div>
+		</div>
+
+
+		<!-- 기본값 히든처리 -->
+		<input type="hidden" name="ifmmSeq"
+			value="<c:out value="${rt.ifmmSeq}"/>"> <input type="hidden"
+			name="ifmmSeq" value="<c:out value="${rt.ifmmAdminNy}"/>"> <input
+			type="hidden" name="ifmmDelNy"
+			value="<c:out value="${rt.ifmmDelNy}"/>"> <br>
 
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
 
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-sm btn-outline-primary"
-					data-bs-toggle="modal" data-bs-target="#저장">수정</button>
-
+				<button type="submit" value="제출"
+					class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+					data-bs-target="#저장">저장</button>
 				<!-- Modal -->
 				<div class="modal fade" id="저장" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -626,7 +645,7 @@ body {
 		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
 		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
 		crossorigin="anonymous"></script>
-	<script src="dashboard.js"></script>
+
 
 
 	<!-- 기본템플릿 -->
@@ -638,8 +657,9 @@ body {
 
 	<!-- 팝업 -->
 	<script language="javascript">
-  function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
-  </script>
-
-</body>
+  function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
+  
+</script>
+	</bo
+				dy>
 </html>

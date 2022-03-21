@@ -289,27 +289,28 @@ body {
 			<form id="" name="" method="get"
 				action="/infra/product/productListAdmin">
 
-				<select name="shAcprDelNy">
+				<select name="shAcprDelNy" id="shAcprDelNy">
 					<option value="">::삭제여부::
-					<option value="1">Y
-					<option value="0">N
-				</select> <select name="shAcprStatusCd">
+					<option value="1" <c:if test="${vo.shAcprDelNy eq 1 }"> selected </c:if>> Y
+					<option value="0" <c:if test="${vo.shAcprDelNy eq 0 }"> selected  </c:if>> N
+				</select> <select name="shAcprStatusCd" id="shAcprStatusCd">
 					<option value="">::상품상태::
-					<option value="55">경매중
-					<option value="56">경매완료
-					<option value="57">경매취소
-					<option value="58">경매실패
-				</select> <select name="shProductOption">
+					<option value="55" <c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>> 경매중
+					<option value="56" <c:if test="${vo.shAcprStatusCd eq 56 }"> selected  </c:if>> 경매완료
+					<option value="57" <c:if test="${vo.shAcprStatusCd eq 57 }"> selected </c:if>> 경매취소
+					<option value="58" <c:if test="${vo.shAcprStatusCd eq 58 }"> selected </c:if>> 경매실패
+				</select> <select name="shProductOption" id="shProductOption">
 					<option value="">::검색구문::
-					<option value="1">이름
-					<option value="2">아이디
-					<option value="3">상품번호
-					<option value="4">생년월일
-					<option value="5">게시물제목
-					<option value="6">게시물내용
-				</select> <input type="text" name="shProductValue">
+					<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected </c:if>>이름  <!-- 수정해야함 -->
+					<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected </c:if>>아이디 <!-- 수정해야함 -->
+					<option value="3" <c:if test="${vo.shProductOption eq 3 }"> selected </c:if>> 상품번호
+					<option value="4" <c:if test="${vo.shProductOption eq 4 }"> selected </c:if>> 게시물제목
+					<option value="5" <c:if test="${vo.shProductOption eq 5 }"> selected </c:if>> 게시물내용
+				</select> <input type="text" name="shProductValue" id="shProductValue">
 				<!-- <input type="reset" name="reset"> -->
-				<button class="btn btn-outline-primary" type="submit" name="search">Search</button>
+				<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit5">
+				 Search</button>
+
 
 				<br> <br> <br>
 				<div class="table-responsive">
@@ -668,8 +669,26 @@ body {
 			}
 	</script>
 
+<!-- 검색 -->
+			<script
+				src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<script src="/infra/resources/js/validation.js"></script>
+			<script type="text/javascript">
 
-
+	$("#btnSubmit5").on(
+			"click",
+			function() {
+				if (!checkNull($("#shProductOption"), $("#shProductOption").val(),
+				"검색구문을 선택 해 주세요!"))
+			retrun
+		false;
+				if (!checkNull($("#shProductValue"), $("#shProductValue").val(),
+						"검색어를 입력 해 주세요!"))
+					retrun
+				false;
+			});
+	
+</script>
 
 <!-- 팝업 -->
 <script language="javascript">
