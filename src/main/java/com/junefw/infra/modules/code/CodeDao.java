@@ -26,6 +26,11 @@ public class CodeDao {
 	// 코드객체 하나
 	public Code selectOne(CodeVo vo){return sqlSession.selectOne(namespace+".selectOne", vo);}
 	public int update(Code dto) { return sqlSession.update(namespace+ ".update", dto);}
+	//진짜삭제
+	public int delete(CodeVo vo) { return sqlSession.delete(namespace+ ".delete", vo);}
+	//가짜삭제
+	public int updateDelete(CodeVo vo) { return sqlSession.update(namespace + ".updateDelete", vo); }
+	
 
 	
 	//코드
@@ -35,6 +40,11 @@ public class CodeDao {
 	public int insertCode(Code dto) { return sqlSession.insert(namespace+ ".insertCode", dto);}
 	public Code selectOneCode(CodeVo vo){return sqlSession.selectOne(namespace+".selectOneCode", vo);}
 	public int updateCode(Code dto) { return sqlSession.update(namespace+ ".updateCode", dto);}
-	}
+	//진짜삭제
+	public int deleteCode(CodeVo vo) { return sqlSession.delete(namespace+ ".deleteCode", vo);}
+	//가짜삭제
+	public int updateDeleteCode(CodeVo vo) { return sqlSession.update(namespace + ".updateDeleteCode", vo); }
+		
+}
 	
 

@@ -303,10 +303,8 @@ body {
 							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
 							
 						</select> 
-						<input type="text" name="shMemberValue" id="shMemberValue"
-						value="<c:out value="${vo.shMemberValue}"/>"> 
-						<button class="btn btn-outline-primary" type="submit"
-							name="search" id="btnSubmit4">Search</button>
+						<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>"> 
+						<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit4">Search</button>
 						<!-- 		<input type="reset" name="reset">  -->
 
 						<br> <br> <br>

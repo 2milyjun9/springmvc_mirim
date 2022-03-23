@@ -119,9 +119,9 @@
 		#{acprProductName}
 		,0
 		)
-<!-- 				<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+	<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
 			SELECT last_insert_id()
-		</selectKey> -->
+		</selectKey>
 	</insert>
 
 	
@@ -132,6 +132,32 @@
 		1
 		and acprProductName = #{acprProductName}
 	</update>
+
+<!-- *************************상품(사용자)********************************-->
+<!-- *************************상품(사용자)********************************-->
+<!-- *************************상품(사용자)********************************-->
+<!-- *************************상품(사용자)********************************-->
+<!-- *************************상품(사용자)********************************-->
+
+	<select id="productMainUser" resultMap="resultMapObj">   <!-- 상품리스트 -->
+		SELECT
+		*
+		,b.ifmmName
+		,b.ifmmId
+		FROM
+		auctProduct a
+		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		WHERE
+		1=1
+		And acprDelNy = 0
+		order by acprSeq
+	</select>
+
+	<select id="productOneCountUser" resultType="Integer">   <!-- Common 사용 / 페이징 -->
+		SELECT
+		COUNT(*)
+		<include refid="productCommon"/>
+	</select>
 
 
 </mapper>

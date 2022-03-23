@@ -24,7 +24,7 @@ public class CodeServiceImpl implements CodeService{
 	@Override
 	public int insert(Code dto) throws Exception {
 		 dao.insert(dto);   // ifcgname, ifcdname
-		 dao.insertCode(dto); // ifcgname, ifcdname, ifcdSeq
+	//	 dao.insertCode(dto); // ifcgname, ifcdname, ifcdSeq
 		 return 1;
 		}
 	@Override
@@ -36,11 +36,20 @@ public class CodeServiceImpl implements CodeService{
 		return dao.update(dto);
 		}
 
+	@Override
+	public int delete(CodeVo vo) throws Exception {
+		return dao.delete(vo);
+		}
+	@Override
+	public int updateDelete(CodeVo vo) throws Exception {
+		return dao.updateDelete(vo);
+		}
+	
 	//코드
 	@Override
 	public int selectOneCodeCount(CodeVo vo) throws Exception {
 		return dao.selectOneCodeCount(vo);
-	}
+		}
 	@Override
 	public List<Code> selectListCode(CodeVo vo) throws Exception {
 		return dao.selectListCode(vo);
@@ -57,8 +66,14 @@ public class CodeServiceImpl implements CodeService{
 	public int updateCode(Code dto) throws Exception {
 		return dao.updateCode(dto);
 		}
-
-	
+	@Override
+	public int deleteCode(CodeVo vo) throws Exception {
+		return dao.deleteCode(vo);
+		}
+	@Override
+	public int updateDeleteCode(CodeVo vo) throws Exception {
+		return dao.updateDeleteCode(vo);
+		}
 
 }
 

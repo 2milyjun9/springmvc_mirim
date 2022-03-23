@@ -37,5 +37,21 @@ public class ProductDao {
 
 	//  **********auctProduct (사용자) *****************
 	
+	public List<Product> productMainUser(ProductVo vo) {   // 상품리스트 (메인)
+		return sqlSession.selectList(namespace + ".productMainUser", vo);
+	}
 	
+	public Product productViewUser(ProductVo vo) {   // 상품뷰
+		return sqlSession.selectOne(namespace + ".productViewAUser", vo);
+	}
+	
+	public int insertProductUser(Product dto) {  //상품등록
+		return sqlSession.insert(namespace + ".insertProductUser", dto);
+	}
+	public int updateProductUser(Product dto) {   //상품수정
+		return sqlSession.update(namespace + ".updateProductUser", dto);
+	}
+	public int productOneCountUser(ProductVo vo) {   //상품검색
+		return sqlSession.selectOne(namespace+".productOneCountUser", vo);
+	}
 }

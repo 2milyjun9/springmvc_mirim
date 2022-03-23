@@ -10,6 +10,8 @@ public interface CodeService {
 	 int insert(Code dto) throws Exception; 
 	 Code selectOne(CodeVo vo) throws Exception;
 	 int update(Code dto) throws Exception;
+	 int delete(CodeVo vo) throws Exception;
+	 int updateDelete(CodeVo vo) throws Exception;
 	
 	
 	//infrCode
@@ -18,4 +20,6 @@ public interface CodeService {
 	 int insertCode(Code dto) throws Exception; 
 	 Code selectOneCode(CodeVo vo) throws Exception;
 	 int updateCode(Code dto) throws Exception;
+	 int deleteCode(CodeVo vo) throws Exception;
+	 int updateDeleteCode(CodeVo vo) throws Exception;
 }
