@@ -133,6 +133,19 @@
 		and acprProductName = #{acprProductName}
 	</update>
 
+	<delete id="productDeleteAdmin"> <!-- 진짜삭제 -->
+	DELETE FROM infrCodeGroup
+		where 1 = 1
+		and ifcgSeq = #{ifcgSeq}
+	</delete>
+
+	<update id="productUpdateDeleteAdmin">    <!-- 가짜삭제 -->
+	UPDATE infrCodeGroup SET 
+		ifcgDelNy = 1 
+		where 1 = 1
+		and ifcgSeq = #{ifcgSeq}
+	</update>
+	
 <!-- *************************상품(사용자)********************************-->
 <!-- *************************상품(사용자)********************************-->
 <!-- *************************상품(사용자)********************************-->
@@ -159,6 +172,114 @@
 		<include refid="productCommon"/>
 	</select>
 
+	<insert id="InsertProductUser">   <!-- 사용자상품등록 -->
+		INSERT INTO auctProduct(
+		a.acprProductName
+		,a.acprProductNameEng
+		,a.acprCategory
+		,a.acprStatusCd
+		,a.acprDetails
+		,a.acprDetailsEng
+		,a.acprPickupCd
+		,a.acprStartDate
+		,a.acprEndDate
+		,a.acprPriceStart
+		,a.acpsPolicy
+		,a.acprDelNy
+		,a.regIp
+		,a.regSeq
+		,a.regDevice
+		,a.regDateTime
+		,a.regDateTimeSvr
+		,a.modIp
+		,a.modSeq
+		,a.modDevice
+		,a.modDateTime
+		,a.modDateTimeSvr
+		) VALUES
+		(
+		#{acprProductName}
+		,#{acprProductNameEng}
+		,#{acprCategory}
+		,#{acprStatusCd}
+		,#{acprDetails}
+		,#{acprDetailsEng}
+		,#{acprPickupCd}
+		,#{acprDetailsEng}
+		,#{acprStartDate}
+		,#{acprEndDate}
+		,#{acprPriceStart}
+		,#{acpsPolicy}
+		,0
+		,#{regIp}
+		,#{regSeq}
+		,#{regDevice}
+		,now()
+		,now()
+		,#{modIp}
+		,#{modSeq}
+		,#{modDevice}
+		,now()
+		,now()	
+		,0
+		)
+		<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
+		SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	
+	<select id="productViewUser" resultMap="resultMapObj">  <!-- 상품뷰 -->
+		SELECT
+		a.acprSeq
+		,a.acprProductName
+		,a.acprProductNameEng
+		,a.acprCategory
+		,a.acprStatusCd
+		,a.acprDetails
+		,a.acprDetailsEng
+		,a.acprPickupCd
+		,a.acprStartDate
+		,a.acprEndDate
+		,a.acprPriceStart
+		,a.acprPriceNow
+		,a.acprHits
+		,a.acprAuctionTry
+		,a.acprDelNy
+		,a.regIp
+		,a.regSeq
+		,a.regDevice
+		,a.regDateTime
+		,a.regDateTimeSvr
+		,a.modIp
+		,a.modSeq
+		,a.modDevice
+		,a.modDateTime
+		,a.modDateTimeSvr
+		,b.ifmmNickname
+		,b.ifmmGrade
+		FROM
+		auctProduct a
+		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		WHERE
+		1=1
+		and a.acprDelNy = 0
+		and a.acprSeq = #{acprSeq}
+				order by a.acprSeq 				
+	</select>
+	
+		<delete id="productDeleteUser"> <!-- 진짜삭제 -->
+	DELETE FROM infrCodeGroup
+		where 1 = 1
+		and ifcgSeq = #{ifcgSeq}
+	</delete>
 
+	<update id="productUpdateDeleteUser">    <!-- 가짜삭제 -->
+	UPDATE infrCodeGroup SET 
+		ifcgDelNy = 1 
+		where 1 = 1
+		and ifcgSeq = #{ifcgSeq}
+	</update>
+	
 </mapper>
 

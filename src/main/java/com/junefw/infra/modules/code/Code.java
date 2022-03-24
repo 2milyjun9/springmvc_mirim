@@ -1,8 +1,17 @@
 package com.junefw.infra.modules.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Code {
 	
 	
+	public String getIfcdUseNy() {
+		return ifcdUseNy;
+	}
+	public void setIfcdUseNy(String ifcdUseNy) {
+		this.ifcdUseNy = ifcdUseNy;
+	}
 	private String ifcgSeq;
 	private String ifcgName;
 	private String ifcgNameEng;
@@ -11,6 +20,11 @@ public class Code {
 	private String ifcdSeq;
 	private String ifcdName;
 	private String ifcdDelNy;
+	private String ifcdUseNy;
+	
+//	for cache
+	public static List<Code> cachedCodeArrayList = new ArrayList<Code>();	//메모리에 리스트가 상주돼있음
+	
 //------------
 	public String getIfcgSeq() {
 		return ifcgSeq;

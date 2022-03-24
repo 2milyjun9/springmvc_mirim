@@ -211,6 +211,7 @@
 <insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
 		INSERT INTO infrMember(
 		ifmmName
+		,ifmmDormancyNy
 		,ifmmId
 		,ifmmNickname
 		,ifmmPassword
@@ -228,6 +229,7 @@
 		)
 		VALUES (
 		#{ifmmName}
+		,0
 		,#{ifmmId}
 		,#{ifmmNickname}
 		,#{ifmmPassword}

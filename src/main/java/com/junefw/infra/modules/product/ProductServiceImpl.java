@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -34,6 +33,14 @@ public class ProductServiceImpl implements ProductService {
 	public int productOneCount(ProductVo vo) throws Exception {
 		return dao.productOneCount(vo); //상품검색
 	}
+	@Override
+	public int productDeleteAdmin(ProductVo vo) throws Exception {
+		return dao.productDeleteAdmin(vo); //진짜삭제
+		}
+	@Override
+	public int productUpdateDeleteAdmin(ProductVo vo) throws Exception {
+		return dao.productUpdateDeleteAdmin(vo); //가짜삭제
+		}
 
 	/* ****************Product(User)**************** */
 	@Override
@@ -56,9 +63,12 @@ public class ProductServiceImpl implements ProductService {
 	public int productOneCountUser(ProductVo vo) throws Exception {
 		return dao.productOneCountUser(vo); //상품검색
 	}
-	public Product productFormUser(ProductVo vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@Override
+	public int productDeleteUser(ProductVo vo) throws Exception {
+		return dao.productDeleteAdmin(vo); //진짜삭제
+		}
+	@Override
+	public int productUpdateDeleteUser(ProductVo vo) throws Exception {
+		return dao.productUpdateDeleteUser(vo); //가짜삭제
+		}
 }

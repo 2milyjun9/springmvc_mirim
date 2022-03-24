@@ -158,6 +158,18 @@
 		and ifcdSeq = #{ifcdSeq}
 	</update>
 
+	<select id="selectListForCache" resultMap="resultMapObj">
+		select
+		ifcdSeq
+		,ifcdName
+		,ifcgSeq
+		from
+		infrCode 
+		where 1 = 1
+		and ifcdDelNy = 0
+		and ifcdUseNy = 1
+	</select>
+
 	<delete id="deleteCode"> <!-- 진짜삭제 -->
 	DELETE FROM infrCode
 		where 1 = 1

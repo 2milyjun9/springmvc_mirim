@@ -15,7 +15,7 @@ public class CodeController {
 	@Autowired
 	CodeServiceImpl service;
 
-	@RequestMapping(value = "/code/codeGroupList")
+	@RequestMapping(value = "/code/codeGroupList"  )   /*,  method = RequestMethod.POST */
 	public String codeGroupList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 		// count 가져올것
 		int count = service.selectOneCount(vo);
@@ -54,9 +54,12 @@ public class CodeController {
 	@RequestMapping(value = "/code/codeGroupView") // 브라우저창에 입력하는 주소 ?ifcgSeq=4
 	public String codeGroupView(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 		// 디비까지 가서 한건의 데이터 값을 가지고온다. 가지고 온값을 JSP로 넘겨준다.
+		System.out.println("###########################");
 		System.out.println("vo.getShOption(): " + vo.getShOption());
 		System.out.println("vo.getShValue(): " + vo.getShValue());
+		System.out.println("vo.getThispage(): " + vo.getThisPage());
 		System.out.println("vo.getIfcgSeq():" + vo.getIfcgSeq());
+		System.out.println("###########################");
 		Code rt = service.selectOne(vo);
 		model.addAttribute("item", rt);
 		return "code/codeGroupView";

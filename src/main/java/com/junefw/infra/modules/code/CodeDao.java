@@ -44,7 +44,9 @@ public class CodeDao {
 	public int deleteCode(CodeVo vo) { return sqlSession.delete(namespace+ ".deleteCode", vo);}
 	//가짜삭제
 	public int updateDeleteCode(CodeVo vo) { return sqlSession.update(namespace + ".updateDeleteCode", vo); }
-		
+	
+	 public List<Code> selectListForCache()
+	 {return sqlSession.selectList(namespace + ".selectListForCache", "");}
 }
 	
 

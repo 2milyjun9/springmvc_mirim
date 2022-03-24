@@ -643,11 +643,21 @@ body {
 						</div>
 					</div>
 				</div>
-				<a href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>" >
-					<button type="button" class="btn btn-sm btn-outline-warning">
-						수정</button>
-				</a>
 
+<a
+						href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>">
+						<button type="button" class="btn btn-sm btn-outline-warning">
+							수정</button>
+					</a> <a
+						href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>"
+						id="btnUpdateDelete">
+						<button type="button" class="btn btn-sm btn-outline-danger">
+							삭제(가짜)</button>
+					</a>
 			</div>
 		</div>
 	</main>

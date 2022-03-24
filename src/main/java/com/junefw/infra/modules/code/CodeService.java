@@ -22,4 +22,5 @@ public interface CodeService {
 	 int updateCode(Code dto) throws Exception;
 	 int deleteCode(CodeVo vo) throws Exception;
 	 int updateDeleteCode(CodeVo vo) throws Exception;
+	 void selectListForCache();
 }

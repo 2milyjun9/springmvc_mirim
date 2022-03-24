@@ -454,10 +454,11 @@ body {
 		<div style="width: 100%; float: none; margin: 0 auto">
 
 			<!-- Button trigger modal -->
+					<a href="/infra/product/productFormAdmin">
 			<button type="button" class="btn btn-sm btn-outline-success"
-				onclick="showPopup();">상품등록</button>
+				>상품등록</button>
 			<button type="button" class="btn btn-sm btn-outline-primary"
-				data-bs-toggle="modal" data-bs-target="#저장">저장</button>
+				data-bs-toggle="modal" data-bs-target="#저장">저장</button> </a>
 
 			<!-- Modal -->
 			<div class="modal fade" id="저장" tabindex="-1"

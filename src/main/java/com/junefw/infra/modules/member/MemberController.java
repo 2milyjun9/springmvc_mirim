@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.junefw.infra.modules.code.CodeServiceImpl;
+
 
 @Controller
 public class MemberController {
@@ -70,6 +72,10 @@ public class MemberController {
 	public String memberFormAdmin(MemberVo vo, Model model) throws Exception {
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
+	
+	model.addAttribute("codeGender",CodeServiceImpl.selectListCachedCode("3"));
+	model.addAttribute("codeTelecom",CodeServiceImpl.selectListCachedCode("10"));
+	
 		return "member/memberFormAdmin";
 	}
 	

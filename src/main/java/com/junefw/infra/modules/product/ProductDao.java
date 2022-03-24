@@ -34,24 +34,38 @@ public class ProductDao {
 	public int updateProductAdmin(Product dto) {   //상품수정
 		return sqlSession.update(namespace + ".updateProductAdmin", dto);
 	}
-
-	//  **********auctProduct (사용자) *****************
+	//진짜삭제
+	public int productDeleteAdmin(ProductVo vo) { 
+		return sqlSession.delete(namespace+ ".productDeleteAdmin", vo);
+		}
+	//가짜삭제
+	public int productUpdateDeleteAdmin(ProductVo vo) { 
+		return sqlSession.update(namespace + ".productUpdateDeleteAdmin", vo); 
+		}
 	
+	//  **********auctProduct (사용자) *****************
+	public int productOneCountUser(ProductVo vo) {   //상품검색
+		return sqlSession.selectOne(namespace+".productOneCountUser", vo);
+	}
 	public List<Product> productMainUser(ProductVo vo) {   // 상품리스트 (메인)
 		return sqlSession.selectList(namespace + ".productMainUser", vo);
 	}
-	
 	public Product productViewUser(ProductVo vo) {   // 상품뷰
 		return sqlSession.selectOne(namespace + ".productViewAUser", vo);
 	}
-	
 	public int insertProductUser(Product dto) {  //상품등록
 		return sqlSession.insert(namespace + ".insertProductUser", dto);
 	}
 	public int updateProductUser(Product dto) {   //상품수정
 		return sqlSession.update(namespace + ".updateProductUser", dto);
 	}
-	public int productOneCountUser(ProductVo vo) {   //상품검색
-		return sqlSession.selectOne(namespace+".productOneCountUser", vo);
-	}
+	//진짜삭제
+	public int productDeleteUser(ProductVo vo) { 
+		return sqlSession.delete(namespace+ ".productDeleteUser", vo);
+		}
+	//가짜삭제
+	public int productUpdateDeleteUser(ProductVo vo) { 
+		return sqlSession.update(namespace + ".productUpdateDeleteUser", vo); 
+		}
+
 }

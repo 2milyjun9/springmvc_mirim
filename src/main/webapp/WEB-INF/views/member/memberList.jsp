@@ -284,39 +284,67 @@ body {
 
 						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
-							<option value="1" <c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>
+							<option value="1"
+								<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>
 								Y
-							<option value="0" <c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>
+							<option value="0"
+								<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>
 								N
 						</select> <select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
 							<option value="">::휴먼여부::
 							<option value="0"
 								<c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
+
+
+
+							
 							<option value="1"
 								<c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
-								
+
+
+
+
+							
 						</select> <select name="shMemberOption" id="shMemberOption">
 							<option value="">::검색구문::
-							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
-							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>> 아이디
-							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
+							<option value="1"
+								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
+
+
+
 							
-						</select> 
-						<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>"> 
-						<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit4">Search</button>
+							<option value="2"
+								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>
+								아이디
+							<option value="3"
+								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
+
+
+
+							
+							<option value="4"
+								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
+
+
+
+
+							
+						</select> <input type="text" name="shMemberValue" id="shMemberValue"
+							value="<c:out value="${vo.shMemberValue}"/>">
+						<button class="btn btn-outline-primary" type="submit"
+							name="search" id="btnSubmit4">Search</button>
 						<!-- 		<input type="reset" name="reset">  -->
 
 						<br> <br> <br>
 
 						<div class="table-responsive" id="mainTable">
-							<table class="table table-striped table-hover" 
+							<table class="table table-striped table-hover"
 								data-toggle="table" data-toolbar=".toolbar"
 								data-sortable="false" data-height="460">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="allCheck" onchange="allCheck(this)" > 
-										<label for="allCheck">
+										<th><input type="checkbox" id="allCheck"
+											onchange="allCheck(this)"> <label for="allCheck">
 												No. </label></th>
 										<th onclick="sortTD(0)" scope="col">이름 <i
 											class="fas fa-sort"> </i></th>
@@ -332,7 +360,7 @@ body {
 											class="fas fa-sort"> </i></th>
 										<th onclick="sortTD(5)" scope="col">가입일<i
 											class="fas fa-sort"> </i></th>
-										<th  scope="col">상태</th>
+										<th scope="col">상태</th>
 									</tr>
 								</thead>
 
@@ -433,9 +461,10 @@ body {
 
 					<!-- Button trigger modal -->
 
-
-					<button type="button" class="btn btn-sm btn-outline-success"
-						onclick="showPopup();">회원추가</button>
+					<a href="/infra/member/memberFormAdmin">
+						<button type="button" class="btn btn-sm btn-outline-success">
+							회원추가</button>
+					</a>
 					<button type="button" class="btn btn-sm btn-outline-primary"
 						data-bs-toggle="modal" data-bs-target="#저장">저장</button>
 
@@ -491,8 +520,25 @@ body {
 						</div>
 					</div>
 
+					<a
+						href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>">
+						<button type="button" class="btn btn-sm btn-outline-warning">
+							수정</button>
+					</a> <a
+						href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>"
+						id="btnUpdateDelete">
+						<button type="button" class="btn btn-sm btn-outline-danger">
+							삭제(가짜)</button>
+					</a>
 				</div>
 			</div>
+
+
+
 
 			<br> <br>
 
@@ -567,7 +613,7 @@ body {
 
 			<!-- 검색 -->
 			<script
-				src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 			<script src="/infra/resources/js/validation.js"></script>
 			<script type="text/javascript">
 
@@ -586,8 +632,25 @@ body {
 	
 </script>
 
+			<script type="text/javascript">
+	$("#btnDelete").on("click", function() {
+		var answer = confirm("삭제하시겠습니까?");
+		if (answer) { //infra/code/codeGroupDele 이동 
+		} else {
+			return false;
+		}
+	});
 
-<!-- 전체선택 220320 -->
+	$("#btnUpdateDelete").on("click", function() {
+		var answer = confirm("삭제하시겠습니까?");
+		if (answer) { //infra/code/codeGroupNele 이동 
+		} else {
+			return false;
+		}
+	});
+</script>
+
+			<!-- 전체선택 220320 -->
 			<script type="text/javascript">
 			function allCheck(obj){
 			    var chk = $(obj).is(":checked"); // 체크여부
@@ -598,9 +661,9 @@ body {
 			    });
 			}
 	</script>
-	
-<!-- 	정렬 220320 -->
-<script>
+
+			<!-- 	정렬 220320 -->
+			<script>
 /* sortingNumber() : 숫자인 실수만으로 되어있을 때, 적용될 함수 */ 
 
 function sortingNumber( a , b ){  
@@ -775,16 +838,14 @@ function getTextByClone( tag ){
 } 
 </script>
 
-<!-- 	정렬 220320 -->
+			<!-- 	정렬 220320 -->
 
-<script type="text/javascript">
+			<script type="text/javascript">
 var myTable = document.getElementById( "mainTable" ); 
 var replace = replacement( myTable ); 
 function sortTD( index ){    replace.ascending( index );    } 
 function reverseTD( index ){    replace.descending( index );    } 
 </script>
-
-
 </body>
 </html>
 

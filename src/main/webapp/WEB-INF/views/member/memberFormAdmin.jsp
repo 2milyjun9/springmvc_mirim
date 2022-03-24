@@ -66,7 +66,7 @@
 </style>
 </head>
 <body>
-<br>
+	<br>
 	<h3 align="center">회원등록</h3>
 	<form method="post" action="/infra/member/memberInstAdmin">
 
@@ -76,45 +76,44 @@
 
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<input type="text" name="ifmmName" placeholder="이름"> 
-							<input
+							<input type="text" name="ifmmName" placeholder="이름"> <input
 								type="text" name="ifmmNickname" placeholder="닉네임">
 						</div>
 					</div>
-								<div class="row">
-						<div class="col-md-6 mb-3">
-						<input
-								type="text" name="ifmmId" placeholder="아이디"> 
-							<input type="text" name="ifmmPassword" placeholder="비밀번호">  
-							<br>
-						</div>
-					</div>
-							<div class="row">
-						<div class="col-md-6 mb-3">
-						
-										
-					<select name="ifmmGenderCd">
-								<option value=""> 성별</option>
-								<option value="3"> 남성 </option>
-								<option value="4"> 여성 </option>
-							</select> 
-
-							<input type="text" id="ifmmDob" name="ifmmDob" placeholder="생년월일 1991-09-07"
-							value="<c:out value="${item.ifmmDob }"/>">  
-							<br>
-						</div>
-					</div>
-		
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<select  id="ifmpTelecomCd" name="ifmpTelecomCd">
+							<input type="text" name="ifmmId" placeholder="아이디"> <input
+								type="text" name="ifmmPassword" placeholder="비밀번호"> <br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+
+
+							<select id="ifmmGenderCd" name="ifmmGenderCd">
+								<option value="">성별</option>
+								<c:forEach items="${codeGender}" var="itemGender"
+									varStatus="statusGender">
+									<option value="<c:out value="${itemGender.ifcdSeq}"/>">
+										<c:if test="${item.ifmmGenderCd eq 3}"> selected </c:if>>남성	
+									<option value="<c:out value="${itemGender.ifcdSeq}"/>">
+										<c:if test="${item.ifmmGenderCd eq 4}"> selected </c:if>>여성
+								</c:forEach>
+							</select> <input type="text" id="ifmmDob" name="ifmmDob"
+								placeholder="생년월일 1991-09-07"
+								value="<c:out value="${item.ifmmDob }"/>"> <br>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<select id="ifmpTelecomCd" name="ifmpTelecomCd">
 								<option value="">통신사</option>
 								<option value="28">SKT</option>
 								<option value="29">KT</option>
 								<option value="30">LGU</option>
 								<option value="31">기타</option>
-								</select>
-								 <input type="text" name="ifmpNumber" placeholder="연락처">
+							</select> <input type="text" name="ifmpNumber" placeholder="연락처">
 						</div>
 					</div>
 					<button class="btn btn-primary btn-sm btn-block" type="submit">가입
