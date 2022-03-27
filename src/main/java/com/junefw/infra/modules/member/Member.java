@@ -25,7 +25,7 @@ public class Member {
 	private String ifmmSmsConsentNy;
 	private String ifmmPushConsentNy;
 	private String ifmmDormancyNy;
-	private String ifmmDelNY;
+	private String ifmmDelNy;
 	private String regIp;
 	private String regSeq;
 	private String regDevice;
@@ -230,11 +230,11 @@ public class Member {
 	public void setIfmmDormancyNy(String ifmmDormancyNy) {
 		this.ifmmDormancyNy = ifmmDormancyNy;
 	}
-	public String getIfmmDelNY() {
-		return ifmmDelNY;
+	public String getIfmmDelNy() {
+		return ifmmDelNy;
 	}
-	public void setIfmmDelNY(String ifmmDelNY) {
-		this.ifmmDelNY = ifmmDelNY;
+	public void setIfmmDelNy(String ifmmDelNy) {
+		this.ifmmDelNy = ifmmDelNy;
 	}
 	public String getRegIp() {
 		return regIp;

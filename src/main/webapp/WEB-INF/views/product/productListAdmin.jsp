@@ -15,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Auctionary 경매조회</title>
+<title> 상품조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -546,18 +546,6 @@ body {
 	</nav>
 </body>
 
-<script type="text/javascript">
-		/* globals Chart:false, feather:false */
-
-		(function() {
-			'use strict'
-
-			feather.replace({
-				'aria-hidden' : 'true'
-			})
-
-	</script>
-
 
 <script
 	src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -574,71 +562,6 @@ body {
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous">
-	</script>
-
-<!-- 정렬 -->
-<script>
-		$(function() {
-			$('#sortable').change(function() {
-				$('#table').bootstrapTable('refreshOptions', {
-					sortable : $('#sortable').prop('checked')
-				})
-			})
-		})
-
-		var sortType = 'asc'; // 정렬타입을 토글
-
-		window.onload = function() {
-
-			// 임의의 데이터 넣기
-
-			var id = document.getElementById("mainTable_tbody");
-			createTableBody(id, data); // 테이블 바디 만드는 함수 
-		}
-
-		// 테이블 바디 만드는 함수
-		function createTableBody(target, data) {
-			for (var i = 0; i < data.length; i++) {
-				var tr = document.createElement('tr');
-				target.appendChild(tr);
-				for (var j = 0; j < data[i].length; j++) {
-					var td = document.createElement('td');
-					tr.appendChild(td);
-					td.innerHTML = data[i][j];
-				}
-			}
-		}
-
-		// 테이블 헤더 클릭시 정렬 
-		function sortContent(index) {
-			var table = document.getElementsByTagName('table');
-
-			sortType = (sortType == 'asc') ? 'desc' : 'asc';
-
-			var checkSort = true;
-			var rows = table[0].rows;
-
-			while (checkSort) { // 현재와 다음만 비교하기때문에 위치변경되면 다시 정렬해준다.
-				checkSort = false;
-
-				for (var i = 1; i < (rows.length - 1); i++) {
-					var fCell = rows[i].cells[index].innerHTML.toUpperCase();
-					var sCell = rows[i + 1].cells[index].innerHTML
-							.toUpperCase();
-
-					var row = rows[i];
-
-					// 오름차순<->내림차순 ( 이부분이 이해 잘안됬는데 오름차순이면 >, 내림차순이면 <
-					//                        이고 if문의 내용은 동일하다 )
-					if ((sortType == 'asc' && fCell > sCell)
-							|| (sortType == 'desc' && fCell < sCell)) {
-
-						row.parentNode.insertBefore(row.nextSibling, row);
-						checkSort = true;
-					}
-				}
-			}
-		}
 	</script>
 
 <script type="text/javascript">   //전체선택

@@ -15,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Auctionary 회원뷰</title>
+<title> 회원뷰</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -582,7 +582,8 @@ body {
 					<td>
 						<div class="form-floating">
 							<textarea class="form-control" placeholder="100자 이내 "
-								id="floatingTextarea2" style="height: 100px"></textarea>
+					<%-- 			<c:out value="${item.}" />  --%>
+								style="height: 100px"></textarea>
 							<label for="floatingTextarea2">이곳에 작성해주세요.</label>
 						</div>
 					</td>

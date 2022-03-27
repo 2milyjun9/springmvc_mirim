@@ -15,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>  경매조회</title>
+<title>경매조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -48,108 +48,21 @@ a { /*링크 줄안가게하기*/
 	text-decoration: none;
 }
 
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
-}
-
-body {
-	font-size: .9rem;
-}
-
-.feather {
-	width: 16px;
-	height: 16px;
-	vertical-align: text-bottom;
-}
-
-/*
- * Sidebar
-*/
-.sidebar {
-	position: fixed;
-	top: 0;
-	/* rtl:raw:
-  right: 0;
-  */
-	bottom: 0;
-	/* rtl:remove */
-	left: 0;
-	z-index: 100; /* Behind the navbar */
-	padding: 48px 0 0; /* Height of navbar */
-	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-	/*미림추가*/
-	margin-left: 10px;
-	font-size: .9rem;
-	width: 120px;
-}
-
-@media ( max-width : 767.98px) {
-	.sidebar {
-		top: 5rem;
-	}
-}
-
-.sidebar-sticky {
-	position: relative;
-	top: 0;
-	height: calc(100vh - 48px);
-	padding-top: .5rem;
-	overflow-x: hidden;
-	overflow-y: auto;
-	/* Scrollable contents if viewport is shorter than content. */
-}
-
-.sidebar .nav-link {
-	font-weight: 500;
-	color: #333;
-}
-
-.sidebar .nav-link .feather {
-	margin-right: 4px;
-	color: #727272;
-}
-
-.sidebar .nav-link.active {
-	color: #2470dc;
-}
-
-.sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
-	color: inherit;
-}
-
-.sidebar-heading {
-	font-size: .75rem;
-	text-transform: uppercase;
-}
-
-/*
- * Navbar
- */
-.navbar-brand {
-	padding-top: .75rem;
-	padding-bottom: .75rem;
-	font-size: 1rem;
-}
-
-.navbar .navbar-toggler {
-	top: .25rem;
-	right: 1rem;
+* {
+	font-family: 'Dongle', sans-serif;
+	font-family: 'Gowun Batang', serif;
+	font-family: 'Gowun Dodum', sans-serif;
+	text-decoration-line: none;
+	font-size: 15px;
 }
 </style>
 </head>
 <body>
 
 
+	<img
+		src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"
+		class="rounded mx-auto d-block" alt="..." width="200px" height="100px">
 
 	<!-- 모바일버전테이블//웹감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -160,53 +73,7 @@ body {
 					<table class="table table-striped table-hover" id="table"
 						data-toggle="table" data-toolbar=".toolbar" data-sortable="false"
 						data-height="460">
-						<thead>
-							<tr>
-								<th>경매정보</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">카테고리</th>
-								<td>...</td>
-								<th>경매상태</th>
-								<td><b> <c:if test="${item.acprStatusCd eq 55}">
-											<c:out value="경매중" />
-										</c:if> <c:if test="${item.acprStatusCd eq 56}">
-											<c:out value="경매완료" />
-										</c:if> <c:if test="${item.acprStatusCd eq 57}">
-											<c:out value="경매취소" />
-										</c:if> <c:if test="${item.acprStatusCd eq 58}">
-											<c:out value="경매실패" />
-										</c:if>
-								</b></td>
-							</tr>
-							<tr>
-								<th>상품번호</th>
-								<td scope="row"><c:out value="${item.acprSeq}" /></td>
-								<th>URL</th>
-								<td>..홈페이지링크</td>
-							<tr>
-								<th>경매등록일</th>
-								<td><c:out value="${item.regDateTime}" /></td>
-								<th>경매마감일</th>
-								<td><c:out value="${item.acprEndDate}" /></td>
-							</tr>
-							<tr>
-								<th>경매시작가</th>
-								<td><c:out value="${item.acprPriceStart}" /></td>
-								<th>경매현재가</th>
-								<td><b> <c:out value="${item.acprPriceNow}" />
-								</b></td>
-							</tr>
-
-							<tr>
-								<th>게시물명</th>
-								<td scope="row"><c:out value="${item.acprProductName}" /></td>
-								<th>게시물내용</th>
-								<td><c:out value="${item.acprDetails}" /></td>
-							</tr>
-						</tbody>
+						<thead></thead>
 					</table>
 				</div>
 			</div>
@@ -215,53 +82,62 @@ body {
 
 	<!-- 모바일버전테이블//웹감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div class=" d-lg-block d-xl-none">
-			<div class="table-responsive">
-				<div id="mainTable" class="row text-center"
-					style="width: 100%; white-space: nowrap">
-					<table class="table table-striped table-hover" id="table"
-						data-toggle="table" data-toolbar=".toolbar" data-sortable="false"
-						data-height="460">
-						<thead>
-							<tr>
-								<th>경매자</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">이름</th>
-								<td><a
-									href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-										<c:out value="${item.ifmmName}" />
-								</a></td>
-								<th>아이디</th>
-								<td><c:out value="${item.ifmmId}" /></td>
-							</tr>
-							<tr>
-								<th>닉네임</th>
-								<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
-								<th>생년월일</th>
-								<td><c:out value="${item.ifmmDob}" /></td>
-							</tr>
-						</tbody>
-					</table>
+		<div class=" d-lg-block d-xl-none"></div>
+	</main>
+
+
+	<!-- 웹버전 // 모바일감춤 -->
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div class="d-none d-xl-block ">
+			<div class="table-responsive" style="width: 85%;">
+				<a
+					href="/infra/member/memberViewUser?thisPage=<c:out value="${vo.thisPage}"/>&shMemberOption=
+				 <c:out value="${vo.shMemberOption}"/>&shValue=<c:out value="${vo.shMemberValue}"/>">
+					<img src="https://github.com/mdo.png" alt="mdo" width="50"
+					height="50" class="rounded-circle"> <b> <c:out
+							value="${item.ifmmNickname}" /> <c:out value="${item.ifmmGrade}" /></b>
+				</a> <br> <br> <b> <c:out value="${item.acprProductName}" /></b>
+			</div>
+		</div>
+
+
+		<br>
+		<div id="carouselExampleControls" class="carousel slide"
+			data-bs-ride="carousel" style="width: 85%;">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img
+						src="${pageContext.request.contextPath}/resources/xdmin/images/test1.PNG"
+						class="d-block w-100" alt="..." width="200" height="400">
 				</div>
+				<div class="carousel-item">
+					<img
+						src="${pageContext.request.contextPath}/resources/xdmin/images/test2.PNG"
+						class="d-block w-100" alt="..." width="200" height="400">
+				</div>
+				<button class="carousel-control-prev" type="button"
+					data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
 			</div>
 		</div>
 	</main>
-
+	<br>
 	<!-- 웹버전기본정보테이블//모바일감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div class="d-none d-xl-block ">
 			<div id="mainTable" class="row text-center"
-				style="width: 100%; white-space: nowrap">
+				style="width: 85%; white-space: nowrap">
 				<div class="table-responsive">
 					<table class="table table-hover" id="table" data-toggle="table"
 						data-toolbar=".toolbar" data-sortable="false" data-height="460">
 						<thead>
-							<tr>
-								<th>경매정보</th>
-							</tr>
 						</thead>
 						<tbody>
 							<tr>
@@ -282,8 +158,16 @@ body {
 							<tr>
 								<th class="table-secondary">상품번호</th>
 								<td scope="row"><c:out value="${item.acprSeq}" /></td>
-								<th class="table-secondary">URL</th>
-								<td>..홈페이지링크</td>
+								<th class="table-secondary">거래방식</th>
+								<td><c:if test="${item.acprPickupCd eq 51}">
+										<c:out value="직거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 52}">
+										<c:out value="택배거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 53}">
+										<c:out value="퀵거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 54}">
+										<c:out value="협의" />
+									</c:if></td>
 							<tr>
 								<th class="table-secondary">경매등록일</th>
 								<td><c:out value="${item.regDateTime}" /></td>
@@ -300,10 +184,9 @@ body {
 							</tr>
 
 							<tr>
-								<th class="table-secondary">게시물명</th>
-								<td scope="row"><c:out value="${item.acprProductName}" /></td>
-								<th class="table-secondary">게시물내용</th>
-								<td><c:out value="${item.acprDetails}" /></td>
+
+								<th class="table-secondary" height="100">내용</th>
+								<td colspan="3"><c:out value="${item.acprDetails}" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -312,98 +195,29 @@ body {
 		</div>
 
 
-		<!-- 웹버전테이블 // 모바일감춤 -->
-		<div class="d-none d-xl-block ">
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>경매자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row" class="table-secondary">이름</th>
-							<td><a
-								href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-									<c:out value="${item.ifmmName}" />
-							</a></td>
-							<th class="table-secondary">아이디</th>
-							<td><c:out value="${item.ifmmId}" /></td>
-						</tr>
-						<tr>
-							<th class="table-secondary">닉네임</th>
-							<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
-							<th class="table-secondary">생년월일</th>
-							<td><c:out value="${item.ifmmDob}" /></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
 
 
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>로그</th>
-					</tr>
-				</thead>
-				<tr>
-					<th class="table-secondary">등록일자</th>
-					<td><c:out value="${item.regDateTime}" /></td>
-					<th class="table-secondary">최종접속일</th>
-					<td><c:out value="${item.regDateTime}" /></td>
-				</tr>
-				<tr>
-					<th class="table-secondary">최종수정일</th>
-					<td><c:out value="${item.modDateTime}" /></td>
-					<th class="table-secondary">최종수정자</th>
-					<td><c:out value="${item.modSeq}" /></td>
-				</tr>
-			</table>
-		</div>
+
 	</main>
 
 	<br>
 
 	<div class="row text-center" style="width: 100%">
 		<div style="width: 100%; float: none; margin: 0 auto">
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-sm btn-outline-primary"
-				data-bs-toggle="modal" data-bs-target="#저장">저장</button>
 
-			<!-- Modal -->
-			<div class="modal fade" id="저장" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								<i class="fas fa-exclamation-circle"></i>저장 확인!
-							</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">정말 저장하시겠습니까?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<a href="memberView.html">
-								<button type="button" class="btn btn-primary">저장</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<button type="button" class="btn btn-sm btn-outline-warning">
-				<a href="./productEdit.html"> 상품수정 </a>
-			</button>
+			<a
+				href="/infra/product/productMainUser?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
+				 <c:out value="${vo.shProductOption}"/>&shValue=<c:out value="${vo.shProductValue}"/>">
+				<button type="button" class="btn btn-sm btn-outline-primary">목록</button>
+			</a> <a
+				href="/infra/product/productPurchase?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
+				 <c:out value="${vo.shProductOption}"/>&shValue=<c:out value="${vo.shProductValue}"/>">
+				<button type="button" class="btn btn-sm btn-outline-warning"
+					data-bs-toggle="modal" data-bs-target="#저장">경매신청</button>
+			</a>
 		</div>
 	</div>
-
 
 	<br>
 	<br>
@@ -419,11 +233,6 @@ body {
 			})
 
 	</script>
-
-<!-- 팝업 -->
-<script language="javascript">
-  function showPopup() { window.open("mainProfileEdit.jsp", "프로필수정", "width=400, height=300, left=100, top=50"); }
-  </script>
 
 
 <script
@@ -443,5 +252,6 @@ body {
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous">
 	</script>
+
 
 </html>

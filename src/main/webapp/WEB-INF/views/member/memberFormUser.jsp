@@ -8,15 +8,18 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auctionary 회원가입</title>
+<title> 회원가입</title>
+
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
 
 
 <!-- Bootstrap CSS -->
@@ -85,10 +88,10 @@ body {
 		<div class="container">
 			<div class="input-form-backgroud row">
 				<div class="input-form col-md-12 mx-auto">
-					<a href="../main.jsp"> 
+					<a href=".............."> 
 					<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"  class="rounded mx-auto d-block" alt="..." width="200px"
 						height="100px"></a> 
-						<br> <br> <br>
+						<br> <br>
 					<form class="validation-form" novalidate>
 						<div class="row">
 							<div class="col-md-6 mb-3">
@@ -158,11 +161,13 @@ body {
 								<div class="invalid-feedback">이메일을 입력해주세요.</div>
 							</div>
 							<div class="col-md-6 mb-3">
-								<label>생년월일<span class="text-muted">&nbsp;</span></label> <input
-									type="date" class="form-control" name="ifmmDob" placeholder=""
-									required>
+								<label>생년월일<span class="text-muted">&nbsp;</span></label> 
+								<input class="form-control" type="text" id="ifmmDob"
+							name="ifmmDob" placeholder="생년월일" required value="<c:out value="${item.ifmmDob }"/>">
 								<div class="invalid-feedback">생년월일을 입력해주세요.</div>
 							</div>
+							
+	
 						</div>
 
 
@@ -329,16 +334,26 @@ body {
 							<div class="col">
 								모바일마케팅 수신동의
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmSmsConsentNy" value="1"> <label
+								
+								<input type="hidden" id="ifmmSmsConsentNy" name="ifmmSmsConsentNy" value="1">
+								
+								<input class="form-check-input" type="radio" id="ifmmSmsConsent" name="ifmmSmsConsent" 
+								<c:if test="${item.ifmmEmailConsentNy eq 1 }"> checked </c:if>>
+								<label
 										class="form-check-label" for="flexRadioDefault5"> YES
 									</label>
+									
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										id="flexRadioDefault6" name="ifmmSmsConsentNy" value="0">
-									<label class="form-check-label" for="flexRadioDefault6">
-										NO </label>
+								
+								<input type="hidden" id="ifmmSmsConsentNy" name="ifmmSmsConsentNy" value="0">
+								
+								<input class="form-check-input" type="radio" id="ifmmSmsConsent" name="ifmmSmsConsent" 
+								<c:if test="${item.ifmmEmailConsentNy eq 0 }"> checked </c:if>>
+								<label
+										class="form-check-label" for="flexRadioDefault5"> NO
+									</label>
+									
 								</div>
 							</div>
 						</div>
@@ -346,16 +361,25 @@ body {
 						<div class="row">
 							<div class="col">
 								이메일마케팅 수신동의
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmEmailonsentNy" value="1"> <label
-										class="form-check-label" for="flexRadioDefault5"> YES
+
+									<div class="form-check form-check-inline">
+								<input type="hidden" id="ifmmEmailConsentNy" name="ifmmEmailConsentNy" value="0">
+
+								<input class="form-check-input" type="radio" id="ifmmEmailConsent" name="ifmmEmailConsent" 
+								<c:if test="${item.ifmmEmailConsentNy eq 0 }"> checked </c:if>>
+								<label
+										class="form-check-label" for="flexRadioDefault6"> YES
 									</label>
 								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmEmailonsentNy" value="0"> <label
-										class="form-check-label" for="flexRadioDefault6"> NO </label>
+								
+									<div class="form-check form-check-inline">
+								<input type="hidden" id="ifmmEmailConsentNy" name="ifmmEmailConsentNy" value="1">
+
+								<input class="form-check-input" type="radio" id="ifmmEmailConsent" name="ifmmEmailConsent" 
+								<c:if test="${item.ifmmEmailConsentNy eq 1 }"> checked </c:if>>
+								<label
+										class="form-check-label" for="flexRadioDefault6"> NO
+									</label>
 								</div>
 							</div>
 						</div>
@@ -505,13 +529,32 @@ $("#btnSubmit").on(
 	
 </script>
 
+
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	---
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#ifmmDob").datepicker();
+		});
+
+		$.datepicker.setDefaults({
+			dateFormat : 'yy-mm-dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			showMonthAfterYear : true,
+			yearSuffix : '년'
+		});
+	</script>
+	
 </body>
 </html>
 
-
-
-
-
-
-
-</form>

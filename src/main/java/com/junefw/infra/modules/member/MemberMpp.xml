@@ -148,7 +148,7 @@
 	</select>
 
 
-	<select id="memberViewAdmin" resultMap="resultMapObj">   <!-- 멤버뷰 -->
+	<select id="memberViewAdmin" resultMap="resultMapObj">   <!-- 멤버뷰 셀렉원 -->
 		select
 		a.ifmmSeq
 		,a.ifmmAdminNy
@@ -192,7 +192,7 @@
 		,h.ifmpDeviceCd
 		,h.ifmpTelecomCd
 		,h.ifmpNumber 
-<!-- ,i.ifmhHobbyCd   -->
+<!-- 		,j.ifmhHobbyCd  -->
 		from
 	infrMember a
 		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
@@ -202,9 +202,10 @@
 		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
 		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
 		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
-<!-- 	left join infrMemberHobby i on i.ifmmSeq = a.ifmmSeq    -->
+<!-- 	left join infrMemberHobby j on j.ifmmSeq = a.ifmmSeq    -->
 		where
 		1=1
+		and a.ifmmDelNy = 0
 		and a.ifmmSeq = #{ifmmSeq}
 	</select>
 
@@ -249,6 +250,16 @@
 			SELECT last_insert_id()
 		</selectKey>
 	</insert>
+	
+		<select id="selectOneMemberAdmin" resultMap="resultMapObj">
+		select
+		*
+		from
+		infrCodegroup 
+		where 1 = 1
+		and ifmmDelNy = 0
+		and ifmmSeq = #{ifmmSeq}
+	</select>
 
 	<update id="memberEditAdmin">  <!-- 회원수정 -->
 		UPDATE infrMember SET
@@ -373,13 +384,76 @@
 	<!-- **********************두리안 사용자******************** -->
 	<!-- **********************두리안 사용자******************** -->
 		
+	
+	<select id="memberViewUser" resultMap="resultMapObj">   <!-- 멤버뷰 -->
+		select
+		a.ifmmSeq
+		,a.ifmmAdminNy
+		,a.ifmmDormancyNy
+		,a.ifmmName
+		,a.ifmmNickname
+		,a.ifmmPhoto
+		,a.ifmmId
+		,a.ifmmPassword
+		,a.ifmmGrade
+		,a.ifmmGenderCd
+		,a.ifmmDob
+		,a.ifmmSaveCd
+		,a.ifmmFavoriteColor
+		,a.ifmmEmailConsentNy
+		,a.ifmmSmsConsentNy
+		,a.ifmmPushConsentNy
+		,a.ifmmDelNy
+		,a.ifmmMarriageCd
+		,a.ifmmMarriageDate
+		,a.ifmmChildrenNum 
+		,a.regDateTime
+		,a.modDateTime
+		,a.modSeq
+		,b.ifmaTypeCd
+		,b.ifmaTitle
+		,b.ifmaAddress1
+		,b.ifmaAddress2
+		,b.ifmaZipCode
+ 		,c.ifaoTypeCd
+		,c.ifaoSnsTypeCd
+		,c.ifaoTitle
+		,c.ifaoUrl
+		,d.ifmeTypeCd
+		,d.ifmeEmailFull
+		,e.ifjqQuestionCd
+		,e.ifjqAnswer
+		,f.ifnaSeq
+		,g.ifnaName
+		,h.ifmpTypeCd
+		,h.ifmpDeviceCd
+		,h.ifmpTelecomCd
+		,h.ifmpNumber 
+<!-- 		,j.ifmhHobbyCd  -->
+		from
+	infrMember a
+		left join infrMemberAddress b on b.ifmmSeq = a.ifmmSeq and ifmaDefaultNy = 1
+		left join infrMemberAddressOnline c on c.ifmmSeq= a.ifmmSeq and ifaoDefaultNy = 1
+		left join infrMemberEmail d on d.ifmmSeq = a.ifmmSeq and ifmeDefaultNy = 1
+		left join infrMemberJoinqna e on e.ifmmSeq = a.ifmmSeq
+		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
+		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
+		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+<!-- 	left join infrMemberHobby j on j.ifmmSeq = a.ifmmSeq    -->
+		where
+		1=1
+		and a.ifmmSeq = #{ifmmSeq}
+	</select>
+		
 	<insert id="insertMemberUser">  <!--   사용자회원가입 -->
 		INSERT INTO infrMember(
 		ifmmAdminNy
 		,ifmmDormancyNy
 		,ifmmName
 		,ifmmId
+		,ifmmNickname
 		,ifmmPassword
+		,ifmmGrade
 		,ifmmGenderCd
 		,ifmmDelny
 		,ifmmSaveCd
@@ -401,7 +475,9 @@
 		,0
 		,#{ifmmName}
 		,#{ifmmId}
+		,#{ifmmNickname}
 		,#{ifmmPassword}
+		,100
 		,#{ifmmGenderCd}
 		,0
 		,#{ifmmSaveCd}

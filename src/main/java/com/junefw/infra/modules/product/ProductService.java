@@ -9,22 +9,23 @@ import java.util.List;
 public interface ProductService {
 
 	//  **********auctProduct (Admin) *****************
-	public List<Product> productListAdmin(ProductVo vo) throws Exception;
-	public int insertProductAdmin(Product dto) throws Exception;
-	public Product productViewAdmin(ProductVo vo) throws Exception;
-	public int updateProductAdmin(Product dto) throws Exception;
+	public List<Product> productListAdmin(ProductVo vo) throws Exception; //상품리스트
+	public int insertProductAdmin(Product dto) throws Exception; //상품등록
+	public Product productViewAdmin(ProductVo vo) throws Exception; //상품뷰
+	public int updateProductAdmin(Product dto) throws Exception; //상품수정
 	int productOneCount(ProductVo vo) throws Exception;   //검색
-	int productDeleteAdmin(ProductVo vo) throws Exception;
-	int productUpdateDeleteAdmin(ProductVo vo) throws Exception;
+	int productDeleteAdmin(ProductVo vo) throws Exception; //진짜삭제
+	int productUpdateDeleteAdmin(ProductVo vo) throws Exception;  //가짜삭제
 
 	//  **********auctProduct (User) *****************
-	List<Product> productMainUser(ProductVo vo) throws Exception;
-	public int insertProductUser(Product dto) throws Exception;
-	public Product productViewUser(ProductVo vo) throws Exception;
-	public int updateProductUser(Product dto) throws Exception;
+	List<Product> productMainUser(ProductVo vo) throws Exception; //상품리스트_메인
+	public int insertProductUser(Product dto) throws Exception; //상품등록
+	public Product productViewUser(ProductVo vo) throws Exception; //상품뷰
+	public int updateProductUser(Product dto) throws Exception; //상품수정
 	int productOneCountUser(ProductVo vo) throws Exception; //검색
-	int productDeleteUser(ProductVo vo) throws Exception;
-	int productUpdateDeleteUser(ProductVo vo) throws Exception;
+	int productDeleteUser(ProductVo vo) throws Exception; //진짜삭제
+	int productUpdateDeleteUser(ProductVo vo) throws Exception; //가짜삭제
+	int productPurchase(Product dto) throws Exception; // 경매신청
 
 
 

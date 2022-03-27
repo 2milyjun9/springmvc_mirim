@@ -15,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Auctionary 경매조회</title>
+<title>경매조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -313,8 +313,16 @@ body {
 							<tr>
 								<th>상품번호</th>
 								<td scope="row"><c:out value="${item.acprSeq}" /></td>
-								<th>URL</th>
-								<td>..홈페이지링크</td>
+								<th>거래방식</th>
+								<td><c:if test="${item.acprPickupCd eq 51}">
+										<c:out value="직거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 52}">
+										<c:out value="택배거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 53}">
+										<c:out value="퀵거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 54}">
+										<c:out value="협의" />
+									</c:if></td>
 							<tr>
 								<th>경매등록일</th>
 								<td><c:out value="${item.regDateTime}" /></td>
@@ -411,8 +419,16 @@ body {
 							<tr>
 								<th class="table-secondary">상품번호</th>
 								<td scope="row"><c:out value="${item.acprSeq}" /></td>
-								<th class="table-secondary">URL</th>
-								<td>..홈페이지링크</td>
+								<th class="table-secondary">거래방식</th>
+								<td><c:if test="${item.acprPickupCd eq 51}">
+										<c:out value="직거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 52}">
+										<c:out value="택배거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 53}">
+										<c:out value="퀵거래" />
+									</c:if> <c:if test="${item.acprStatusCd eq 54}">
+										<c:out value="협의" />
+									</c:if></td>
 							<tr>
 								<th class="table-secondary">경매등록일</th>
 								<td><c:out value="${item.regDateTime}" /></td>
@@ -441,6 +457,7 @@ body {
 		</div>
 
 
+
 		<!-- 웹버전테이블 // 모바일감춤 -->
 		<div class="d-none d-xl-block ">
 			<div class="table-responsive">
@@ -450,23 +467,34 @@ body {
 							<th>경매자</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<th scope="row" class="table-secondary">이름</th>
-							<td><a
-								href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-									<c:out value="${item.ifmmName}" />
-							</a></td>
-							<th class="table-secondary">아이디</th>
-							<td><c:out value="${item.ifmmId}" /></td>
-						</tr>
-						<tr>
-							<th class="table-secondary">닉네임</th>
-							<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
-							<th class="table-secondary">생년월일</th>
-							<td><c:out value="${item.ifmmDob}" /></td>
-						</tr>
-					</tbody>
+					<c:choose>
+						<c:when test="${fn:length(list) eq 0}">
+							<tr>
+								<td class="text-center" colspan="9">There is no data!</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${list}" var="item" varStatus="status">
+								<tbody>
+									<tr>
+										<th scope="row" class="table-secondary">이름</th>
+										<td><a
+											href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+												<c:out value="${item.ifmmName}" />
+										</a></td>
+										<th class="table-secondary">아이디</th>
+										<td><c:out value="${item.ifmmId}" /></td>
+									</tr>
+									<tr>
+										<th class="table-secondary">닉네임</th>
+										<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
+										<th class="table-secondary">생년월일</th>
+										<td><c:out value="${item.ifmmDob}" /></td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</table>
 			</div>
 		</div>
@@ -528,7 +556,7 @@ body {
 			</div>
 
 			<button type="button" class="btn btn-sm btn-outline-warning">
-				<a href="./productEdit.html"> 상품수정 </a>
+				<a href="...."> 상품수정 </a>
 			</button>
 		</div>
 	</div>

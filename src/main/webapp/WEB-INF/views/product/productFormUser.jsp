@@ -76,345 +76,341 @@ body {
 </head>
 <body>
 
-	<form method="post" action="/infra/product/insertProductUser">
+	<form method="post" action="/infra/product/productInstUser">
 
+	<div class="container">
+			<div class="input-form col-md-9 mx-auto">
+<!-- 				<h3 align="center">상품등록</h3> -->
+				<div class="row">
+					<div class="col-md-12 mb-3">
+	<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"  class="rounded mx-auto d-block" alt="..." width="200px"
+						height="100px">
+						<br>  카테고리 : 대분류 <select name="infrCategory"
+							style="width: 200px">
+							<option value="" >전체</option>
+						</select> 중분류 <select name="subCategory" style="width: 200px">
+							<option value="">전체</option>
+						</select> <br><br>
+						<select name="acprPickupCd" id="acprPickupCd">
+							<option value=""> 거래방식
+							<option value="1"
+								<c:if test="${vo.acprPickupCd eq 51}"> selected</c:if>> 직거래
 
-		<div class="container">
-			<div class="input-form-backgroud row">
-				<div class="input-form col-md-12 mx-auto">
-					<a href="../main.jsp"> 
-					<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"  class="rounded mx-auto d-block" alt="..." width="200px"
-						height="100px"></a> 
-						<br> <br> <br>
-					<form class="validation-form" novalidate>
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label>이름</label> <input type="text" class="form-control"
-									name="ifmmName" placeholder="" value="" required>
-								<div class="invalid-feedback">이름을 입력해주세요.</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>아이디</label> <input type="text" class="form-control"
-									name="ifmmId" placeholder="" value="" required>
-								<div class="invalid-feedback">아이디를 입력해주세요.</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label>비밀번호</label> <input type="password" class="form-control"
-									name="ifmmPassword" placeholder="" value="" required>
-								<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>비밀번호확인</label> <input type="password"
-									class="form-control" placeholder="" value="" required>
-								<div class="invalid-feedback">비밀번호를 재차 입력해주세요.</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label>닉네임</label> <input type="text" class="form-control"
-									id="name" name="ifmmNickname" placeholder="" value="" required>
-								<div class="invalid-feedback">닉네임을 입력해주세요.</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>성별</label> <select class="custom-select d-block w-100"
-									name="ifmmGenderCd" required>
+							<option value="2"
+								<c:if test="${vo.acprPickupCd eq 52 }"> selected</c:if>> 택배거래
 
-									<option value="3">남성</option>
-									<option value="4">여성</option>
-								</select>
-								<div class="invalid-feedback">성별 선택해주세요.</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label>통신사</label> <select class="custom-select d-block w-100"
-									name="ifmpTelecomCd">
-									<option value="28">SKT</option>
-									<option value="29">KT</option>
-									<option value="30">LGU</option>
-									<option value="31">기타</option>
-								</select>
-								<div class="invalid-feedback">통신사를 선택해주세요.</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>휴대폰번호
-									<button type="button" class="btn btn-primary btn-sm">인증</button>
-								</label> <input type="text" class="form-control" name="ifmpNumber"
-									placeholder="" required>
-								<div class="invalid-feedback">휴대폰번호를 입력해주세요.</div>
-							</div>
-						</div>
+							<option value="3"
+								<c:if test="${vo.acprPickupCd eq 53 }"> selected</c:if>> 퀵거래
 
+							<option value="4"
+								<c:if test="${vo.acprPickupCd eq 54 }"> selected</c:if>> 협의
 
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label>이메일</label> <input type="email" class="form-control"
-									name="ifmeEmailFull" placeholder="you@example.com" required>
-								<div class="invalid-feedback">이메일을 입력해주세요.</div>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label>생년월일<span class="text-muted">&nbsp;</span></label> <input
-									type="date" class="form-control" name="ifmmDob" placeholder=""
-									required>
-								<div class="invalid-feedback">생년월일을 입력해주세요.</div>
-							</div>
-						</div>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<input class="form-control" type="text" name="acprProductName"
+							placeholder="상품제목  (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)"> <br> 
+							<input class="form-control"
+							type="text" name="acprDetails" placeholder="상품내용 (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)" style="height: 200px">
+					</div>
+				</div>
 
-
-						<br>
-						<div class="accordion accordion-flush" id="accordionFlushExample">
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="flush-headingOne">
-									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-										aria-expanded="false" aria-controls="flush-collapseOne">
-										+ 선택입력 (입력시 수수료5회면제)</button>
-								</h2>
-								<div id="flush-collapseOne" class="accordion-collapse collapse"
-									aria-labelledby="flush-headingOne"
-									data-bs-parent="#accordionFlushExample">
-									<div class="accordion-body">
-
-
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label>국적</label> <select
-													class="custom-select d-block w-100" name="ifnaName">
-													<option value="">대한민국</option>
-													<option value="">미국</option>
-													<option value="">일본</option>
-												</select>
-
-											</div>
-											<div class="col-md-6 mb-3">
-												<label>결혼여부</label> <select
-													class="custom-select d-block w-100" name="ifmmMarriageCd">
-													<option selected>선택</option>
-													<option value="13">미혼</option>
-													<option value="12">기혼</option>
-												</select>
-											</div>
-
-											<div class="row">
-												<div class="col-md-6 mb-3">
-													<label>자녀수</label> <input type="text" class="form-control"
-														name="ifmmChildrenNum">
-
-												</div>
-												<div class="col-md-6 mb-3">
-													<label>결혼기념일<span class="text-muted">&nbsp;</span></label>
-													<input type="date" class="form-control"
-														name="ifmmMarriagDate">
-												</div>
-											</div>
-
-
-											<div class="row">
-												<div class="col-md-6 mb-3">
-													<label>좋아하는 색깔</label> <input type="text"
-														class="form-control" placeholder=""
-														name="ifmmFavoriteColor">
-												</div>
-
-												<div class="col-md-6 mb-3">
-													<label>우편번호</label> 
-													<input type="hidden" class="form-control"  id="ifmaDefaultNyArray0"  name="ifmaDefaultNyArray" value="1">
-													<input type="hidden" class="form-control" id="ifmaTypeCdArray0"  name="ifmaTypeCdArray" value="14">
-													<input type="hidden" class="form-control" id="ifmaTitleArray0"  name="ifmaTitleArray" value="">
-													<input type="text" class="form-control"
-														placeholder="우편번호찾기" id="ifmaZipcodeArray0"  name="ifmaZipcodeArray" value="" 
-														 onclick="sample6_execDaumPostcode()">
-														 
-														 
-														<!--   선생님 샘플
-														<button type="button" id="btnAddress" class="btn btn-outline-secondary"> <i class="fas fa-search"></i></button>
-														 <button type="button" id="btnAddressClear" class="btn btn-outline-secondary"> <i class="fa-solid fa-x"></i></button>
-														 <input type="text" id="ifmaAddress1Array0" name="ifmaAddress1Array" 
-														 value="" placeholder="주소" class="form-control form-conrol-sm mt-2" readonly>
-														 <input type="text" id="ifmaAddress2Array0" name="ifmaAddress2Array" 
-														 value="" placeholder="상세주소"  maxlength="50" class="form-control form-conrol-sm mt-2" >  -->
-												</div>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label>주소</label> <input type="text" class="form-control"
-													 id="ifmaAddress1Array0" name="ifmaAddress1Array"  placeholder="주소" value="" readonly>
-
-											</div>
-											<div class="col-md-6 mb-3">
-												<label>상세주소<span class="text-muted">&nbsp;</span></label> <input
-													type="text" class="form-control" 
-													id="ifmaAddress2Array0"  name="ifmaAddress2Array" placeholder="상세주소" maxlength="50" value="">
-											</div>
-										</div>
-
-
-
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label>SNS/홈페이지</label> <select
-													class="custom-select d-block w-100">
-													<option selected>선택</option>
-													<option value="34">페이스북</option>
-													<option value="35">인스타그램</option>
-													<option value="36">트위터</option>
-													<option value="37">카카오톡</option>
-												</select>
-
-											</div>
-											<div class="col-md-6 mb-3">
-												<label>SNS/홈페이지 계정</label> <input type="text"
-													class="form-control" name="ifaoUrl" placeholder="">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col">
-												<br> 취미 <br>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckDefault">
-														영화감상 </label>
-												</div>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckChecked">
-														골프 </label>
-												</div>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckDefault">
-														음악감상 </label>
-												</div>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckChecked">
-														트레킹 </label>
-												</div>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckDefault">
-														서핑 </label>
-												</div>
-												<div class="form-check form-check-inline ">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckChecked" name="ifmhHobbyCd"> <label
-														class="form-check-label" for="flexCheckChecked">
-														피아노 </label>
-												</div>
-											</div>
-										</div>
-
-									</div>
-								</div>
-							</div>
-
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<input class="form-control" type="text" id="acprPriceStart"
+							name="acprPriceStart" placeholder="최소가격"> <br> <input
+							class="form-control" type="text" id="acprEndDate"
+							name="acprEndDate" placeholder="경매마김일 "
+							value="<c:out value="${item.acprEndDate}"/>">
+					</div>
+				</div>
+	
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<input type="file" class="form-control" id="acimFile?"> <label
+							class="input-group-text" for="">Upload</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id=""
+								> <label class="custom-control-label"
+								for="aggrement">개인정보 수집 및 이용에 동의합니다. </label>
 						</div>
 						<br>
-
-
-
-						<div class="row">
-							<div class="col">
-								모바일마케팅 수신동의
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmSmsConsentNy" value="1"> <label
-										class="form-check-label" for="flexRadioDefault5"> YES
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										id="flexRadioDefault6" name="ifmmSmsConsentNy" value="0">
-									<label class="form-check-label" for="flexRadioDefault6">
-										NO </label>
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								이메일마케팅 수신동의
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmEmailonsentNy" value="1"> <label
-										class="form-check-label" for="flexRadioDefault5"> YES
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="ifmmEmailonsentNy" value="0"> <label
-										class="form-check-label" for="flexRadioDefault6"> NO </label>
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col">
-								개인정보수집기간
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="6"> <label class="form-check-label"
-										for="flexRadioDefault5">1년 </label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="7"> <label class="form-check-label"
-										for="flexRadioDefault6"> 2년 </label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="8"> <label class="form-check-label"
-										for="flexRadioDefault6"> 3년 </label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="9"> <label class="form-check-label"
-										for="flexRadioDefault6">5년 </label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="10"> <label class="form-check-label"
-										for="flexRadioDefault6">10년 </label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="ifmmSaveCd"
-										value="11"> <label class="form-check-label"
-										for="flexRadioDefault6">탈퇴시 </label>
-								</div>
-							</div>
-						</div>
-						<br> <br>
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
-								id="aggrement" required> <label
-								class="custom-control-label" for="aggrement">개인정보 수집 및
-								이용에 동의합니다.</label>
+								id="" > <label
+								class="custom-control-label" for="aggrement"> 진행 약관에
+								동의합니다. </label>
 						</div>
-
-
-						<br>
-						<div class="col-md-6 mb-3"></div>
-						<button class="btn btn-primary btn-lg btn-block" type="submit" id="btnSubmit">가입
-							완료</button>
-					</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<button class="btn btn-primary btn-sm btn-block" type="submit"
+							id="btnSubmit">등록 완료</button>
+					</div>
 				</div>
 			</div>
+		</div>
 	</form>
+
+
+
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+
+							//Main 카테고리를 선택 할때 마다 AJAX를 호출할 수 있지만 DB접속을 매번 해야 하기 때문에 main, sub카테고리 전체을 들고온다.
+
+							//****************이부분은 DB로 셋팅하세요.
+							//Main 카테고리 셋팅 (DB에서 값을 가져와 셋팅 하세요.)
+							var mainCategoryArray = new Array();
+							var mainCategoryObject = new Object();
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "1";
+							mainCategoryObject.main_category_name = "패션/잡화";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "2";
+							mainCategoryObject.main_category_name = "뷰티";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "3";
+							mainCategoryObject.main_category_name = "생활/식품";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "4";
+							mainCategoryObject.main_category_name = "식물";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "5";
+							mainCategoryObject.main_category_name = "스포츠/레저";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "6";
+							mainCategoryObject.main_category_name = "도서/음반/악기";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "7";
+							mainCategoryObject.main_category_name = "가구/인테리어";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "8";
+							mainCategoryObject.main_category_name = "생활/건강";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "6";
+							mainCategoryObject.main_category_name = "가전/디지털기기";
+							mainCategoryArray.push(mainCategoryObject);
+
+							mainCategoryObject = new Object();
+							mainCategoryObject.main_category_id = "7";
+							mainCategoryObject.main_category_name = "중고차";
+							mainCategoryArray.push(mainCategoryObject);
+							//Sub 카테고리 셋팅 (DB에서 값을 가져와 셋팅 하세요.)
+							var subCategoryArray = new Array();
+							var subCategoryObject = new Object();
+
+							//스포츠에 해당하는 sub category 리스트
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "1";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "의류"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "1";
+							subCategoryObject.sub_category_id = "2"
+							subCategoryObject.sub_category_name = "신발"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "1";
+							subCategoryObject.sub_category_id = "3"
+							subCategoryObject.sub_category_name = "가방"
+							subCategoryArray.push(subCategoryObject);
+
+							//공연에 해당하는 sub category 리스트
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "3";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "신선"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "3";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "가공"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "5";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "스포츠"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "5";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "레저"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "6";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "도서"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "6";
+							subCategoryObject.sub_category_id = "2"
+							subCategoryObject.sub_category_name = "음반"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "6";
+							subCategoryObject.sub_category_id = "2"
+							subCategoryObject.sub_category_name = "악기"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "7";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "가구"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "7";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "인테리어"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "8";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "생필품"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "8";
+							subCategoryObject.sub_category_id = "2"
+							subCategoryObject.sub_category_name = "건강"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "9";
+							subCategoryObject.sub_category_id = "1"
+							subCategoryObject.sub_category_name = "가전"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "9";
+							subCategoryObject.sub_category_id = "2"
+							subCategoryObject.sub_category_name = "컴퓨터"
+							subCategoryArray.push(subCategoryObject);
+
+							subCategoryObject = new Object();
+							subCategoryObject.main_category_id = "9";
+							subCategoryObject.sub_category_id = "3"
+							subCategoryObject.sub_category_name = "그외디지털"
+							subCategoryArray.push(subCategoryObject);
+
+							//****************이부분은 DB로 셋팅하세요.
+
+							//메인 카테고리 셋팅
+							var mainCategorySelectBox = $("select[name='infrCategory']");
+
+							for (var i = 0; i < mainCategoryArray.length; i++) {
+								mainCategorySelectBox
+										.append("<option value='"+mainCategoryArray[i].main_category_id+"'>"
+												+ mainCategoryArray[i].main_category_name
+												+ "</option>");
+							}
+
+							//*********** 1depth카테고리 선택 후 2depth 생성 START ***********
+							$(document)
+									.on(
+											"change",
+											"select[name='infrCategory']",
+											function() {
+
+												//두번째 셀렉트 박스를 삭제 시킨다.
+												var subCategorySelectBox = $("select[name='subCategory']");
+												subCategorySelectBox.children()
+														.remove(); //기존 리스트 삭제
+
+												//선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
+												$("option:selected", this)
+														.each(
+																function() {
+																	var selectValue = $(
+																			this)
+																			.val(); //main category 에서 선택한 값
+																	subCategorySelectBox
+																			.append("<option value=''>전체</option>");
+																	for (var i = 0; i < subCategoryArray.length; i++) {
+																		if (selectValue == subCategoryArray[i].main_category_id) {
+
+																			subCategorySelectBox
+																					.append("<option value='"+subCategoryArray[i].sub_category_id+"'>"
+																							+ subCategoryArray[i].sub_category_name
+																							+ "</option>");
+
+																		}
+																	}
+																});
+
+											});
+							//*********** 1depth카테고리 선택 후 2depth 생성 END ***********
+
+						});
+	</script>
+
+
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("acprEndDate").datepicker();
+		});
+
+		$.datepicker.setDefaults({
+			dateFormat : 'yy-mm-dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			showMonthAfterYear : true,
+			yearSuffix : '년'
+		});
+	</script>
 
 	<footer class="my-3 text-center text-small">
 		<p class="mb-1">&copy; 2022 Auctionary</p>
 	</footer>
-
-
+	
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -423,19 +419,7 @@ body {
 		window.addEventListener('load', () => { const forms = document.getElementsByClassName('validation-form'); Array.prototype.filter.call(forms, (form) => { form.addEventListener('submit', function (event) { if (form.checkValidity() === false) { event.preventDefault(); event.stopPropagation(); } form.classList.add('was-validated'); }, false); }); }, false); 
 	</script>
 
-
-<!-- 선생님샘플
-$("btnAddress".on("click", function(){
-sample6_execDaumPostcode ();
-});
-
-$("#btnAddressClear").on("Click", function(){
-$("#ifmaZipcodeArray0").val('');
-$("#ifmaAddress1Array0").val('');
-}); -->
-
-
-			<!-- 검색 -->
+<!-- 검색 -->
 			<script
 				src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 			<script src="/infra/resources/js/validation.js"></script>
@@ -454,4 +438,8 @@ $("#btnSubmit").on(
 
 </body>
 </html>
+
+
+
+
 

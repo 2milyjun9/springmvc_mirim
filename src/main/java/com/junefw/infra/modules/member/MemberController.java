@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.junefw.infra.modules.code.CodeServiceImpl;
+import com.junefw.infra.modules.code.CodeVo;
 
 
 @Controller
@@ -36,7 +37,7 @@ public class MemberController {
 		model.addAttribute("item", rt);
 		return "member/memberFormTest";
 	}
-	@RequestMapping(value = "/member/memberInst") 
+	@RequestMapping(value = "/member/memberInst")   //회원등록 받음 
 	public String memberInst(Model model, Member dto) throws Exception {
 		service.insert(dto);
 		return "";
@@ -45,7 +46,7 @@ public class MemberController {
 	public String memberEditTest(Model model) throws Exception {
 		return "member/memberEditTest";
 	}
-	@RequestMapping(value = "/member/memberUpdt")
+	@RequestMapping(value = "/member/memberUpdt")  //회원수정받음
 	public String memberUpdt(Member dto) throws Exception {
 		service.update(dto);
 		return "";
@@ -63,7 +64,7 @@ public class MemberController {
 		return "member/memberList";
 	}
 	@RequestMapping(value = "/member/memberViewAdmin") //회원뷰
-	public String memberViewAdmin(MemberVo vo, Model model) throws Exception {
+	public String memberViewAdmin(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
 		return "member/memberViewAdmin";
@@ -72,10 +73,8 @@ public class MemberController {
 	public String memberFormAdmin(MemberVo vo, Model model) throws Exception {
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
-	
-	model.addAttribute("codeGender",CodeServiceImpl.selectListCachedCode("3"));
-	model.addAttribute("codeTelecom",CodeServiceImpl.selectListCachedCode("10"));
-	
+		model.addAttribute("codeGender",CodeServiceImpl.selectListCachedCode("3"));
+		model.addAttribute("codeTelecom",CodeServiceImpl.selectListCachedCode("10"));
 		return "member/memberFormAdmin";
 	}
 	
@@ -85,7 +84,9 @@ public class MemberController {
 		return "/member/memberFormAdmin";
 	}
 	  @RequestMapping(value = "/member/memberEditAdmin")  //회원수정
-	  public String memberEditAdmin(Model model) throws Exception { 
+	  public String memberEditAdmin(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception { 
+		  	Member rt = service.memberViewAdmin(vo);
+		   model.addAttribute("item", rt);
 		  return "member/memberEditAdmin"; 
 	}
 	  @RequestMapping(value = "/member/memberUpdtAdmin")  //회원수정받음
@@ -93,7 +94,6 @@ public class MemberController {
 	 service.updateMemberAdmin(dto); 
 	 return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq(); 
 	 }
-	  
 		@RequestMapping(value = "/member/memberLoginAdmin")    //사원로그인
 		public String memberLoginAdmin() throws Exception {
 			return "/member/memberLoginAdmin";
@@ -110,8 +110,16 @@ public class MemberController {
 		service.insertMemberUser(dto);
 		return "member/memberFormUser";
 	}
+	@RequestMapping(value = "/member/memberViewUser") //회원뷰
+	public String memberViewUser(MemberVo vo, Model model) throws Exception {
+		Member rt = service.memberViewUser(vo);
+		model.addAttribute("item", rt);
+		return "member/memberViewUser";
+	}
 	@RequestMapping(value = "/member/memberEditUser")     // 회원수정
-	public String memberEditUser(Model model) throws Exception {
+	public String memberEditUser(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	  	Member rt = service.memberViewUser(vo);
+	   model.addAttribute("item", rt);
 		return "member/memberEditUser";
 	}
 	@RequestMapping(value = "/member/memberUpdtUser")    //회원수정받음

@@ -25,10 +25,6 @@
 			<when test="shAcprStatusCd == 57">AND acprStatusCd = 57 </when>  
 			<when test="shAcprStatusCd == 58">AND acprStatusCd = 58 </when>  
 		</choose>
-	<!-- 		<choose>
-			<when test="shAcprResultNy == 1">AND acprResultNy = 1 </when> 
-			<when test="shAcprResultNy  == 0">AND acprResultNy = 0 </when>  
-		</choose> -->
 		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
 			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
 		<choose>
@@ -108,16 +104,52 @@
 	</select>
 	
 	
-
-	
 	<insert id="insertProductAdmin">  <!-- 상품등록(관리자) -->
 		insert into auctProduct(
-		acprProductName
-		,acprDelny
+		a.acprProductName
+		,a.acprProductNameEng
+		,a.acprCategory
+		,a.acprStatusCd
+		,a.acprDetails
+		,a.acprDetailsEng
+		,a.acprPickupCd
+		,a.acprStartDate
+		,a.acprEndDate
+		,a.acprPriceStart
+		,a.acprDelNy
+		,a.regIp
+		,a.regSeq
+		,a.regDevice
+		,a.regDateTime
+		,a.regDateTimeSvr
+		,a.modIp
+		,a.modSeq
+		,a.modDevice
+		,a.modDateTime
+		,a.modDateTimeSvr
 		)
 		values (
 		#{acprProductName}
+		,#{acprProductNameEng}
+		,#{acprCategory}
+		,55
+		,#{acprDetails}
+		,#{acprDetailsEng}
+		,#{acprPickupCd}
+		,now()
+		,#{acprEndDate}
+		,#{acprPriceStart}
 		,0
+		,#{regIp}
+		,#{regSeq}
+		,#{regDevice}
+		,now()
+		,now()
+		,#{modIp}
+		,#{modSeq}
+		,#{modDevice}
+		,now()
+		,now()
 		)
 	<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
 			SELECT last_insert_id()
@@ -172,56 +204,44 @@
 		<include refid="productCommon"/>
 	</select>
 
-	<insert id="InsertProductUser">   <!-- 사용자상품등록 -->
+	<insert id="insertProductUser">   <!-- 사용자상품등록 -->
 		INSERT INTO auctProduct(
-		a.acprProductName
-		,a.acprProductNameEng
-		,a.acprCategory
-		,a.acprStatusCd
-		,a.acprDetails
-		,a.acprDetailsEng
-		,a.acprPickupCd
-		,a.acprStartDate
-		,a.acprEndDate
-		,a.acprPriceStart
-		,a.acpsPolicy
-		,a.acprDelNy
-		,a.regIp
-		,a.regSeq
-		,a.regDevice
-		,a.regDateTime
-		,a.regDateTimeSvr
-		,a.modIp
-		,a.modSeq
-		,a.modDevice
-		,a.modDateTime
-		,a.modDateTimeSvr
+		acprProductName
+		,acprProductNameEng
+		,acprCategory
+		,acprStatusCd
+		,acprDetails
+		,acprDetailsEng
+		,acprPickupCd
+		,acprStartDate
+		,acprEndDate
+		,acprPriceStart
+		,acprDelNy
+	    ,acprDefaultNy
+		,regIp
+		,regSeq
+		,regDevice
+		,regDateTime
+		,regDateTimeSvr
 		) VALUES
 		(
 		#{acprProductName}
 		,#{acprProductNameEng}
 		,#{acprCategory}
-		,#{acprStatusCd}
+		,55
 		,#{acprDetails}
 		,#{acprDetailsEng}
 		,#{acprPickupCd}
-		,#{acprDetailsEng}
 		,#{acprStartDate}
 		,#{acprEndDate}
 		,#{acprPriceStart}
-		,#{acpsPolicy}
 		,0
+		,1
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}
 		,now()
 		,now()
-		,#{modIp}
-		,#{modSeq}
-		,#{modDevice}
-		,now()
-		,now()	
-		,0
 		)
 		<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
 		SELECT last_insert_id()
@@ -280,6 +300,11 @@
 		where 1 = 1
 		and ifcgSeq = #{ifcgSeq}
 	</update>
+	
+	
+		<select id="productPurchase" resultMap="resultMapObj">   <!-- 경매신청 -->
+		select * from auctPurchase
+	</select>
 	
 </mapper>
 

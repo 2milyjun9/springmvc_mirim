@@ -71,4 +71,8 @@ public class ProductServiceImpl implements ProductService {
 	public int productUpdateDeleteUser(ProductVo vo) throws Exception {
 		return dao.productUpdateDeleteUser(vo); //가짜삭제
 		}
+	@Override
+	public int productPurchase(Product dto) throws Exception {
+		return dao.productPurchase(dto); 
+	}
 }

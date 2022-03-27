@@ -17,7 +17,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Auctionary 회원수정</title>
+<title> 회원수정</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -276,8 +276,8 @@ body {
 				<li class="breadcrumb-item"><a href="main/mainAdmin">
 						&nbsp;Home</a></li>
 				<li class="breadcrumb-item"><a href="memberListAdmin">List</a></li>
-				<li class="breadcrumb-item active"><a href="memberViewAdmin.html">
-						View</a></li>
+				<li class="breadcrumb-item active"><a
+					href="memberViewAdmin.html"> View</a></li>
 				<li class="breadcrumb-item active" aria-current="page">Edit</li>
 			</ol>
 		</nav>
@@ -294,9 +294,7 @@ body {
 								<th>기본정보</th>
 
 								<th scope="col" colspan="5" class="text-warning"
-									style="font-size: 30px; text-align: right">
-								
-									<c:out
+									style="font-size: 30px; text-align: right"><c:out
 										value="${item.ifmmName}" />
 									<button class="btn btn-warning" type="button"
 										data-bs-toggle="collapse"
@@ -341,8 +339,7 @@ body {
 
 
 								<th class="table-secondary">생년월일</th>
-								<td><input type="text" name="ifmmDob"
-									value="<c:out value="${item.ifmmDob}"/>"></td>
+								<td><c:out value="${item.ifmmDob}" /></td>
 							</tr>
 							<tr>
 								<th class="table-secondary">연락처</th>
@@ -352,81 +349,10 @@ body {
 										<option value="30">LGU</option>
 										<option value="31">기타</option>
 								</select> <input type="text" value="<c:out value="${item.ifmpNumber}"/>">
-									<button type="button" class="btn btn-primary"
-										data-bs-toggle="modal" data-bs-target="#exampleModal">sms</button>
-
-									<!-- sms Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1"
-										aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">
-														<i class="fas fa-envelope-open-text"></i>
-													</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<form>
-														<div class="mb-3">
-															<label for="recipient-name" class="col-form-label">번호</label>
-															<input type="text" class="form-control"
-																id="recipient-name" value="........">
-														</div>
-														<div class="mb-3">
-															<label for="message-text" class="col-form-label">메시지
-																입력</label>
-															<textarea class="form-control" id="message-text"></textarea>
-														</div>
-													</form>
-												</div>
-												<div class="modal-footer">
-													<a class="btn btn-secondary" href="./memberView.html"
-														role="button">취소</a> <a class="btn btn-primary"
-														href="./memberView.html" role="button">전송</a>
-												</div>
-											</div>
-										</div>
-									</div></td>
+								</td>
 								<th class="table-secondary">이메일</th>
 								<td><input type="text"
-									value="<c:out value="${item.ifmeEmailfull}"/>">
-									<button type="button" class="btn btn-primary"
-										data-bs-toggle="modal" data-bs-target="#email">mail</button> <!-- sms Modal -->
-									<div class="modal fade" id="email" tabindex="-1"
-										aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">
-														<i class="fas fa-envelope-open-text"></i>
-													</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<form>
-														<div class="mb-3">
-															<label for="recipient-name" class="col-form-label">E-mail</label>
-															<input type="text" class="form-control"
-																id="recipient-name" value="mija345@naver.com">
-														</div>
-														<div class="mb-3">
-															<label for="message-text" class="col-form-label">메시지
-																입력</label>
-															<textarea class="form-control" id="message-text"></textarea>
-														</div>
-													</form>
-												</div>
-												<div class="modal-footer">
-													<a class="btn btn-secondary" href="./memberView.html"
-														role="button">취소</a> <a class="btn btn-primary"
-														href="./memberView.html" role="button">전송</a>
-												</div>
-											</div>
-										</div>
-									</div>
+									value="<c:out value="${item.ifmeEmailFull}"/>">
 							</tr>
 						</tbody>
 					</table>
@@ -444,7 +370,7 @@ body {
 				</thead>
 				<tr>
 					<th class="table-secondary">국적</th>
-					<td><select class="form-select"
+					<td><select class=""
 						aria-label="Default select example">
 							<option selected>대한민국</option>
 							<option>미국</option>
@@ -452,105 +378,115 @@ body {
 							<option>기타</option>
 					</select></td>
 					<th class="table-secondary">좋아하는색깔</th>
-					<th><input type="color"
-						class="form-control form-control-color" id="exampleColorInput"
-						value="#563d7c" title="Choose your color"></th>
+					<th><input type="text"
+						class="" id=""
+						value="<c:out value="${item.ifmmFavoriteColor}" />" title=""> 						
+						</th>
+						
+						
 					<th class="table-secondary">취미</th>
 
 					<td><div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value="38"
 								<c:if test="${item.ifmhHobbyCd eq 38}">checked</c:if>> <label
-								class="form-check-label" for="flexCheckDefault"> 영화감상 </label>
+								class="" for="flexCheckDefault"> 영화감상 </label>
 						</div>
 
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value="39"
 								<c:if test="${item.ifmhHobbyCd eq 39}">checked</c:if>> <label
-								class="form-check-label" for="flexCheckDefault"> 골프 </label>
+								class="" for="flexCheckDefault"> 골프 </label>
 						</div>
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault"> <label class="form-check-label"
+								id=""> <label class=""
 								for="flexCheckDefault"> 음악감상 </label>
 						</div> <br>
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckChecked"> <label class="form-check-label"
+								id=""> <label class=""
 								for="flexCheckChecked"> 트레킹 </label>
 						</div>
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault"> <label class="form-check-label"
+								id=""> <label class=""
 								for="flexCheckDefault"> 서핑 </label>
 						</div>
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckChecked"> <label class="form-check-label"
+								id=""> <label class=""
 								for="flexCheckChecked"> 피아노 </label>
 						</div></td>
 				</tr>
 				<tr>
 					<th class="table-secondary">결혼유무</th>
-					<td><select class="form-select">
-							<option value="1" selected>YES</option>
+					<td><select class="" >
+							<option value="1">YES</option>
 							<option value="2">NO</option>
 					</select></td>
+
+										
+<%-- 				<td scope="row"> <select class=""><c:if test="${item.ifmmMarriageCd eq 13}">
+											<c:out value="기혼" />
+										</c:if> <c:if test="${item.ifmmMarriageCd eq 12}">
+											<c:out value="미혼" />
+										</c:if> 	</select></td> --%>
 					<th class="table-secondary">자녀수</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value="2"></td>
+					<td><input type="text" class="" id=""
+					value="<c:out value="${item.ifmmChildrenNum}" />"></td>
 					<th class="table-secondary">결혼기념일</th>
 					<td><div class="form-floating mb-3">
-							<input type="date" class="form-control" id="floatingInput"
-								value="2016-04-16">
+							<input type="text" class="" id=""
+								value="<c:out value="${item.ifmmMarriageDate}" />">
 						</div></td>
 				<tr>
 					<th class="table-secondary">우편주소</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value="11111"></td>
+					<td><input type="text" class="" id=""
+						value="<c:out value="${item.ifmaZipcode}" />"></td>
 					<th class="table-secondary">주소</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value="서울시 강서구 가양동"></td>
+					<td><input type="text" class="" id=""
+						value="<c:out value="${item.ifmaAddress1}" />"></td>
 					<th class="table-secondary">상세주소</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value="한강타운 105동1108호"></td>
+					<td><input type="text" class="" id=""
+						value="<c:out value="${item.ifmaAddress2}" />"></td>
 				</tr>
 				<tr>
 					<th class="table-secondary">SNS/블로그</th>
-					<td><select class="form-select"
+					<td><select class=""
 						aria-label="Default select example">
 							<option>선택</option>
 							<option>페이스북</option>
-							<option selected>인스타그램</option>
+							<option >인스타그램</option>
 							<option>트위터</option>
 							<option>카카오톡</option>
 							<option>기타</option>
 					</select></td>
 					<th class="table-secondary">계정/주소</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value="2milyjun9"></td>
+					<td><input type="text" class="" id=""
+							value="<c:out value="${item.ifaoUrl}" />"></td>
 					<th class="table-secondary">블로그명</th>
-					<td><input type="text" class="form-control" id="floatingInput"
-						value=""></td>
+					<td><input type="text" class="" id=""
+						value="<c:out value="${item.ifaoTitle}" />"></td>
 				</tr>
 				<tr>
 					<th class="table-secondary">개인정보유효기간</th>
-					<td><select class="form-select"
+					<td><select class=""
 						aria-label="Default select example">
-							<option value="1" selected>1년</option>
+							<option value="1" >1년</option>
 							<option value="2">3년</option>
 							<option value="3">5년</option>
 					</select></td>
 					<th class="table-secondary">모바일마케팅동의</th>
-					<td><select class="form-select"
+					<td><select class=""
 						aria-label="Default select example">
 							<option value="1">YES</option>
-							<option value="2" selected>NO</option>
+							<option value="2" >NO</option>
 					</select></td>
 					<th class="table-secondary">이메일마케팅동의</th>
-					<td><select class="form-select"
+					<td><select class=""
 						aria-label="Default select example">
 							<option value="1">YES</option>
-							<option value="2" selected>NO</option>
+							<option value="2" >NO</option>
 					</select></td>
 				</tr>
 			</table>
@@ -566,36 +502,53 @@ body {
 				</thead>
 				<tr>
 					<th class="table-secondary">가입일자</th>
-					<td>2022.02.15 11:30 am</td>
+					<td><c:out value="${item.regDateTime}" /></td>
 					<th class="table-secondary">최종접속일</th>
-					<td>2022.02.15 11:30 am</td>
+					<td><c:out value="${item.regDateTime}" /></td>
 				</tr>
 				<tr>
 					<th class="table-secondary">최종수정일</th>
-					<td>2022.02.17 11:30 am</td>
+					<td><c:out value="${item.modDateTime}" /></td>
 					<th class="table-secondary">최종수정자</th>
-					<td>김수현(000001)</td>
+					<td><c:out value="${item.modSeq}" /></td>
 				</tr>
 			</table>
 		</div>
-		</div>
-		</div>
+
 
 
 		<!-- 기본값 히든처리 -->
-		<input type="hidden" name="ifmmSeq"
-			value="<c:out value="${rt.ifmmSeq}"/>"> <input type="hidden"
-			name="ifmmSeq" value="<c:out value="${rt.ifmmAdminNy}"/>"> <input
+		<input type="hidden" name="thisPage"
+			value="<c:out value="${vo.thisPage}"/>"> <input type="hidden"
+			name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+		<input type="hidden" name="shMemberValue"
+			value="<c:out value="${vo.shMemberValue}"/>"> <input
+			type="hidden" name=""> <input type="hidden" name="ifmmSeq"
+			value="<c:out value="${item.ifmmSeq}"/>"> <input
+			type="hidden" name="ifmmSeq"
+			value="<c:out value="${item.ifmmAdminNy}"/>"> <input
 			type="hidden" name="ifmmDelNy"
-			value="<c:out value="${rt.ifmmDelNy}"/>"> <br>
+			value="<c:out value="${item.ifmmDelNy}"/>"> <br>
 
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
 
+				<a
+					href="/infra/member/memberList?thisPage=${vo.thisPage}&shOption=<c:out value=
+"${vo.shMemberOption}"/>&shValue=<c:out value="${vo.shMemberValue}"/>">
+					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
+						class="btn btn-sm btn-outline-primary">목록</button>
+				</a>
+
+
 				<!-- Button trigger modal -->
-				<button type="submit" value="제출"
-					class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-					data-bs-target="#저장">저장</button>
+				<a
+					href="/infra/member/memberList?thisPage=${vo.thisPage}&shOption=<c:out value=
+"${vo.shMemberOption}"/>&shValue=<c:out value="${vo.shMemberValue}"/>">
+					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
+						class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+						data-bs-target="#저장">저장</button>
+				</a>
 				<!-- Modal -->
 				<div class="modal fade" id="저장" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -623,18 +576,17 @@ body {
 		</div>
 	</main>
 
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
 
 	<script type="text/javascript">
-		/* globals Chart:false, feather:false */
 
-		(function() {
-			'use strict'
+$("#btnSubmit").on("click",function() {
+	if (!checkNull($("#ifmmNickname"), $("#ifmmNickname").val(),"코드그룹이름을 입력해 주세요!"))	retrun	false;
+</script>
 
-			feather.replace({
-				'aria-hidden' : 'true'
-			})
 
-	</script>
 
 
 	<script
@@ -660,6 +612,5 @@ body {
   function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
   
 </script>
-	</bo
-				dy>
+</body>
 </html>

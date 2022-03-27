@@ -143,4 +143,14 @@ public class ProductController {
   return "redirect:/product/productMainUser";
   }
 	
+	
+	@RequestMapping(value = "/product/productPurchase") //상품구매
+	public String productPuchase(Product dto, ProductVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		service.productPurchase(dto);
+		redirectAttributes.addAttribute("ifmmSeq", dto.getIfmmSeq()); // get방식
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage()); // get방식
+		redirectAttributes.addAttribute("shOption", vo.getShProductOption()); // get방식
+		redirectAttributes.addAttribute("shValue", vo.getShProductValue()); // get방식
+		return "redirect:/product/productViewUser?acprSeq=" + dto.getAcprSeq() + makeQueryString(vo);
+	}
 }

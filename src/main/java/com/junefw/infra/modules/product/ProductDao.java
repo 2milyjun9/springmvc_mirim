@@ -51,7 +51,7 @@ public class ProductDao {
 		return sqlSession.selectList(namespace + ".productMainUser", vo);
 	}
 	public Product productViewUser(ProductVo vo) {   // 상품뷰
-		return sqlSession.selectOne(namespace + ".productViewAUser", vo);
+		return sqlSession.selectOne(namespace + ".productViewUser", vo);
 	}
 	public int insertProductUser(Product dto) {  //상품등록
 		return sqlSession.insert(namespace + ".insertProductUser", dto);
@@ -60,12 +60,14 @@ public class ProductDao {
 		return sqlSession.update(namespace + ".updateProductUser", dto);
 	}
 	//진짜삭제
-	public int productDeleteUser(ProductVo vo) { 
+	public int productDeleteUser(ProductVo vo) {   //진짜삭제
 		return sqlSession.delete(namespace+ ".productDeleteUser", vo);
 		}
 	//가짜삭제
-	public int productUpdateDeleteUser(ProductVo vo) { 
+	public int productUpdateDeleteUser(ProductVo vo) { //가짜삭제
 		return sqlSession.update(namespace + ".productUpdateDeleteUser", vo); 
 		}
-
+	public int productPurchase(Product dto) { //경매신청
+		return sqlSession.update(namespace + ".productPurchase", dto); 
+		}
 }

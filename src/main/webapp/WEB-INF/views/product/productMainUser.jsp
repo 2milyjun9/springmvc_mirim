@@ -65,7 +65,7 @@ a { /*링크 줄안가게하기*/
 }
 </style>
 
-<title>Auctionary Main</title>
+<title> Main</title>
 </head>
 
 <body>
@@ -207,7 +207,9 @@ a { /*링크 줄안가게하기*/
 				<div class="row row-cols-1 row-cols-md-3 g-4">
 					<div class="col">
 						<div class="card">
-							<img src="..." class="card-img-top" alt="...">
+							<img
+		src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"
+							 class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">
 									<a
@@ -292,7 +294,32 @@ a { /*링크 줄안가게하기*/
 	<br>
 	<br>
 	<br>
-
+	<c:out value="${vo.startPage}" />
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/product/productMainUser?thisPage=${vo.startPage - 1}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
+						varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link"
+									href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
 	<!--  -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

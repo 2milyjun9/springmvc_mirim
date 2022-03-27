@@ -66,7 +66,7 @@ goList = function(){
 };
 
 goEdit = function(){
-	$("#formView").attr("action", "/infra/code/codeGroupEditForm");
+	$("#formView").attr("action", "/infra/code/codeGroupForm2");
 	$("#formView").submit();
 };
 

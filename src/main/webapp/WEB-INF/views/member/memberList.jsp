@@ -17,7 +17,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Auctionary 회원조회</title>
+<title> 회원조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -281,7 +281,6 @@ body {
 				<div style="width: 75%; float: none; margin: 0 auto">
 
 					<form id="" name="" method="get" action="/infra/member/memberList">
-
 						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
 							<option value="1"
@@ -294,42 +293,24 @@ body {
 							<option value="">::휴먼여부::
 							<option value="0"
 								<c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
-
-
-
-							
 							<option value="1"
 								<c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
 
-
-
-
-							
 						</select> <select name="shMemberOption" id="shMemberOption">
 							<option value="">::검색구문::
 							<option value="1"
 								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
 
-
-
-							
 							<option value="2"
 								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>
 								아이디
 							<option value="3"
 								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-
-
-
-							
 							<option value="4"
 								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
 
-
-
-
-							
-						</select> <input type="text" name="shMemberValue" id="shMemberValue"
+						</select> 
+						<input type="text" name="shMemberValue" id="shMemberValue"
 							value="<c:out value="${vo.shMemberValue}"/>">
 						<button class="btn btn-outline-primary" type="submit"
 							name="search" id="btnSubmit4">Search</button>
@@ -465,9 +446,9 @@ body {
 						<button type="button" class="btn btn-sm btn-outline-success">
 							회원추가</button>
 					</a>
-					<button type="button" class="btn btn-sm btn-outline-primary"
+	<!-- 				<button type="button" class="btn btn-sm btn-outline-primary"
 						data-bs-toggle="modal" data-bs-target="#저장">저장</button>
-
+ -->
 					<!-- Modal -->
 					<div class="modal fade" id="저장" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">

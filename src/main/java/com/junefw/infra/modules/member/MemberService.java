@@ -22,6 +22,7 @@ public interface MemberService {
 	// 두리안유저
 	int insertMemberUser(Member dto) throws Exception; //회원등록
 	int updateMemberUser(Member dto) throws Exception; //회원수정
+	public Member memberViewUser(MemberVo vo) throws Exception;  //회원뷰
 
 
 }
