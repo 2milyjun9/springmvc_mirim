@@ -6,8 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
-
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -17,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title> 회원조회</title>
+<title>회원조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -155,7 +153,7 @@ body {
 	<header
 		class="navbar navbar-dark sticky-top bg-secondary text-white flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
-			href="../main/main.html"> Auctionary</a>
+			href="../main/mainAdmin"> Auctionary</a>
 		<button class="navbar-toggler position-absolute d-md-none collapsed"
 			type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 			aria-controls="sidebarMenu" aria-expanded="false"
@@ -194,52 +192,6 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#cs"
-								aria-expanded="false">C/S</button>
-							<div class="collapse" id="cs">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;고객센터</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;리뷰관리</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#리포트">리포트</button>
-							<div class="collapse" id="리포트">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;일간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;주간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;월간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;연간</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#관리자메뉴">관리자메뉴</button>
-							<div class="collapse" id="관리자메뉴">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;시스템관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;메뉴관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;권한관리</a></li>
-								</ul>
-							</div>
-						</li>
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
@@ -250,7 +202,6 @@ body {
 						</a>
 						<ul class="dropdown-menu text-small shadow"
 							aria-labelledby="dropdownUser3">
-							<li><a class="dropdown-item" href="#">결재</a></li>
 							<li><a class="dropdown-item" onclick="showPopup();">프로필수정</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">로그아웃</a></li>
@@ -264,8 +215,7 @@ body {
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">회원조회</h1>
-
-
+					
 					<!-- 웹버전기본정보테이블//모바일감춤 -->
 					<div class="d-none d-xl-block ">
 						<div class="btn-group me-2">
@@ -279,8 +229,10 @@ body {
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
 				<div style="width: 75%; float: none; margin: 0 auto">
-
-					<form id="" name="" method="get" action="/infra/member/memberList">
+					<form id="formList" name="formList" method="post" action="/infra/member/memberList">
+					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
+					<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
+						
 						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
 							<option value="1"
@@ -289,35 +241,30 @@ body {
 							<option value="0"
 								<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>
 								N
-						</select> <select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
+						</select> 
+						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
 							<option value="">::휴먼여부::
 							<option value="0"
 								<c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
 							<option value="1"
 								<c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
-
-						</select> <select name="shMemberOption" id="shMemberOption">
+						</select> 
+						<select name="shMemberOption" id="shMemberOption">
 							<option value="">::검색구문::
 							<option value="1"
 								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
-
 							<option value="2"
-								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>
-								아이디
+								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
 							<option value="3"
 								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
 							<option value="4"
 								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
-
 						</select> 
-						<input type="text" name="shMemberValue" id="shMemberValue"
-							value="<c:out value="${vo.shMemberValue}"/>">
-						<button class="btn btn-outline-primary" type="submit"
-							name="search" id="btnSubmit4">Search</button>
-						<!-- 		<input type="reset" name="reset">  -->
-
+						<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+						<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit4">Search</button>
+						
 						<br> <br> <br>
-
+						
 						<div class="table-responsive" id="mainTable">
 							<table class="table table-striped table-hover"
 								data-toggle="table" data-toolbar=".toolbar"
@@ -353,7 +300,6 @@ body {
 									</c:when>
 									<c:otherwise>
 										<c:forEach items="${list}" var="item" varStatus="status">
-
 											<tbody id="mainTable_tbody">
 												<tr>
 													<td scope="row">
@@ -364,9 +310,10 @@ body {
 														</div>
 													</td>
 													<td><a
+														href="javaScript:goForm('<c:out value="${item.ifmmSeq}"/>')"><c:out value="${item.ifmmName}" /></a> <%-- 	<a
 														href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
 															<c:out value="${item.ifmmName}" />
-													</a></td>
+													</a> --%></td>
 													<td><c:out value="${item.ifmmId}" /></td>
 													<td><c:out value="${item.ifmmNickname}" /></td>
 													<td><c:out value="${item.ifmmDob}" /></td>
@@ -387,8 +334,6 @@ body {
 					</form>
 				</div>
 			</div>
-
-
 
 
 			<!-- 모바일버전테이블//웹감춤 -->
@@ -440,13 +385,68 @@ body {
 			<div class="row text-center" style="width: 100%">
 				<div style="width: 100%; float: none; margin: 0 auto">
 
+			<br> <br>
+			<c:out value="${vo.startPage}" />
+			<nav aria-label="...">
+				<ul class="pagination">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:goList( <c:out value='${vo.startPage - 1}'/>);">
+								Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
+						varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link"
+									href="javascript:goList(<c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="javascript:goList( <c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link"
+							href="javascript:goList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
+			<%-- 겟방식
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/member/memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
+						varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link"
+									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/member/memberList?thisPage=${vo.endPage + 1}">Next</a></li>
+					</c:if>
+				</ul>
+			</nav> --%>
+	
+	
 					<!-- Button trigger modal -->
-
 					<a href="/infra/member/memberFormAdmin">
 						<button type="button" class="btn btn-sm btn-outline-success">
 							회원추가</button>
 					</a>
-	<!-- 				<button type="button" class="btn btn-sm btn-outline-primary"
+					<!-- 				<button type="button" class="btn btn-sm btn-outline-primary"
 						data-bs-toggle="modal" data-bs-target="#저장">저장</button>
  -->
 					<!-- Modal -->
@@ -473,10 +473,7 @@ body {
 						</div>
 					</div>
 
-
-					<button type="button" class="btn btn-sm btn-outline-danger"
-						data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
-
+		<button type="button" class="btn btn-sm btn-outline-danger"	data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
 					<!-- Modal -->
 					<div class="modal fade" id="삭제" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -493,7 +490,7 @@ body {
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">취소</button>
-									<a href="memberList.html">
+									<a href="memberList">
 										<button type="button" class="btn btn-primary">확인</button>
 									</a>
 								</div>
@@ -501,17 +498,15 @@ body {
 						</div>
 					</div>
 
-					<a
-						href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+					<a href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
 &thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
 &shValue=<c:out value="${vo.shMemberValue}"/>">
 						<button type="button" class="btn btn-sm btn-outline-warning">
 							수정</button>
-					</a> <a
-						href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+					</a> 
+					<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
 &thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>"
-						id="btnUpdateDelete">
+&shValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
 						<button type="button" class="btn btn-sm btn-outline-danger">
 							삭제(가짜)</button>
 					</a>
@@ -519,50 +514,7 @@ body {
 			</div>
 
 
-
-
-			<br> <br>
-
-
-			<c:out value="${vo.startPage}" />
-			<nav aria-label="...">
-				<ul class="pagination justify-content-center">
-					<c:if test="${vo.startPage gt vo.pageNumToShow}">
-						<li class="page-item"><a class="page-link"
-							href="/infra/member/memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
-					</c:if>
-					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
-						varStatus="i">
-						<c:choose>
-							<c:when test="${i.index eq vo.thisPage}">
-								<li class="page-item active"><a class="page-link"
-									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${vo.endPage ne vo.totalPages}">
-						<li class="page-item"><a class="page-link"
-							href="/infra/member/memberList?thisPage=${vo.endPage + 1}">Next</a></li>
-					</c:if>
-				</ul>
-			</nav>
-
-			<script type="text/javascript">
-		/* globals Chart:false, feather:false */
-
-		(function() {
-			'use strict'
-
-			feather.replace({
-				'aria-hidden' : 'true'
-			})
-
-	</script>
-
+	
 
 			<script
 				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -577,20 +529,12 @@ body {
 			<script
 				src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 				integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-				crossorigin="anonymous">
-	</script>
-
-
+				crossorigin="anonymous"></script>
 
 			<!-- 팝업 -->
 			<script language="javascript">
   function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
-  </script>
-
-			<!-- 팝업 -->
-			<script language="javascript">
-  function showPopup() { window.open("/infra/member/memberFormAdmin", "회원추가", "width=600, height=500, left=300, top=100"); }
-  </script>
+ 			 </script>
 
 			<!-- 검색 -->
 			<script
@@ -610,8 +554,7 @@ body {
 					retrun
 				false;
 			});
-	
-</script>
+			</script>
 
 			<script type="text/javascript">
 	$("#btnDelete").on("click", function() {
@@ -629,204 +572,24 @@ body {
 			return false;
 		}
 	});
-</script>
+		</script>
 
-			<!-- 전체선택 220320 -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<script src="/infra/resources/js/validation.js"></script>
 			<script type="text/javascript">
-			function allCheck(obj){
-			    var chk = $(obj).is(":checked"); // 체크여부
-
-			    var $inp = $('#mainTable_tbody').find('input#checkValue');
-			    $inp.each(function(i,v){
-			         $(v).prop('checked', chk);
-			    });
+		 goList = function(seq){
+				alert(seq);
+				// form 객체를 가져온다 
+					$("#thisPage").val(seq);
+					$("#formList").submit();
+				//그 가져온 객체를 전달한다.
 			}
-	</script>
-
-			<!-- 	정렬 220320 -->
-			<script>
-/* sortingNumber() : 숫자인 실수만으로 되어있을 때, 적용될 함수 */ 
-
-function sortingNumber( a , b ){  
-
-        if ( typeof a == "number" && typeof b == "number" ) return a - b; 
-
-        // 천단위 쉼표와 공백문자만 삭제하기.  
-        var a = ( a + "" ).replace( /[,\s\xA0]+/g , "" ); 
-        var b = ( b + "" ).replace( /[,\s\xA0]+/g , "" ); 
-
-        var numA = parseFloat( a ) + ""; 
-        var numB = parseFloat( b ) + ""; 
-
-        if ( numA == "NaN" || numB == "NaN" || a != numA || b != numB ) return false; 
-
-        return parseFloat( a ) - parseFloat( b ); 
-} 
-
-
-/* changeForSorting() : 문자열 바꾸기. */ 
-
-function changeForSorting( first , second ){  
-
-        // 문자열의 복사본 만들기. 
-        var a = first.toString().replace( /[\s\xA0]+/g , " " ); 
-        var b = second.toString().replace( /[\s\xA0]+/g , " " ); 
-
-        var change = { first : a, second : b }; 
-
-        if ( a.search( /\d/ ) < 0 || b.search( /\d/ ) < 0 || a.length == 0 || b.length == 0 ) return change; 
-
-        var regExp = /(\d),(\d)/g; // 천단위 쉼표를 찾기 위한 정규식. 
-
-        a = a.replace( regExp , "$1" + "$2" ); 
-        b = b.replace( regExp , "$1" + "$2" ); 
-
-        var unit = 0; 
-        var aNb = a + " " + b; 
-        var numbers = aNb.match( /\d+/g ); // 문자열에 들어있는 숫자 찾기 
-
-        for ( var x = 0; x < numbers.length; x++ ){ 
-
-                var length = numbers[ x ].length; 
-                if ( unit < length ) unit = length; 
-        } 
-
-        var addZero = function( string ){ // 숫자들의 단위 맞추기 
-
-                var match = string.match( /^0+/ ); 
-
-                if ( string.length == unit ) return ( match == null ) ? string : match + string; 
-
-                var zero = "0"; 
-
-                for ( var x = string.length; x < unit; x++ ) string = zero + string; 
-
-                return ( match == null ) ? string : match + string; 
-        }; 
-
-        change.first = a.replace( /\d+/g, addZero ); 
-        change.second = b.replace( /\d+/g, addZero ); 
-
-        return change; 
-} 
-
-
-/* byLocale() */ 
-
-function byLocale(){ 
-
-        var compare = function( a , b ){ 
-
-                var sorting = sortingNumber( a , b ); 
-
-                if ( typeof sorting == "number" ) return sorting; 
-
-                var change = changeForSorting( a , b ); 
-
-                var a = change.first; 
-                var b = change.second; 
-
-                return a.localeCompare( b ); 
-        }; 
-
-        var ascendingOrder = function( a , b ){  return compare( a , b );  }; 
-        var descendingOrder = function( a , b ){  return compare( b , a );  }; 
-
-        return { ascending : ascendingOrder, descending : descendingOrder }; 
-} 
-
-
-/* replacement() */ 
- 
-function replacement( parent ){  
-        var tagName = parent.tagName.toLowerCase(); 
-        if ( tagName == "table" ) parent = parent.tBodies[ 0 ]; 
-        tagName = parent.tagName.toLowerCase(); 
-        if ( tagName == "tbody" ) var children = parent.rows; 
-        else var children = parent.getElementsByTagName( "li" ); 
-
-        var replace = { 
-                order : byLocale(), 
-                index : false, 
-                array : function(){ 
-                        var array = [ ]; 
-                        for ( var x = 0; x < children.length; x++ ) array[ x ] = children[ x ]; 
-                        return array; 
-                }(), 
-                checkIndex : function( index ){ 
-                        if ( index ) this.index = parseInt( index, 10 ); 
-                        var tagName = parent.tagName.toLowerCase(); 
-                        if ( tagName == "tbody" && ! index ) this.index = 0; 
-                }, 
-                getText : function( child ){ 
-                        if ( this.index ) child = child.cells[ this.index ]; 
-                        return getTextByClone( child ); 
-                }, 
-                setChildren : function(){ 
-                        var array = this.array; 
-                        while ( parent.hasChildNodes() ) parent.removeChild( parent.firstChild ); 
-                        for ( var x = 0; x < array.length; x++ ) parent.appendChild( array[ x ] ); 
-                }, 
-                ascending : function( index ){ // 오름차순 
-                        this.checkIndex( index ); 
-                        var _self = this; 
-                        var order = this.order; 
-                        var ascending = function( a, b ){ 
-                                var a = _self.getText( a ); 
-                                var b = _self.getText( b ); 
-                                return order.ascending( a, b ); 
-                        }; 
-                        this.array.sort( ascending ); 
-                        this.setChildren(); 
-                }, 
-                descending : function( index ){ // 내림차순
-                        this.checkIndex( index ); 
-                        var _self = this; 
-                        var order = this.order; 
-                        var descending = function( a, b ){ 
-                                var a = _self.getText( a ); 
-                                var b = _self.getText( b ); 
-                                return order.descending( a, b ); 
-                        }; 
-                        this.array.sort( descending ); 
-                        this.setChildren(); 
-                } 
-        }; 
-        return replace; 
-} 
-
-function getTextByClone( tag ){  
-        var clone = tag.cloneNode( true ); // 태그의 복사본 만들기. 
-        var br = clone.getElementsByTagName( "br" ); 
-        while ( br[0] ){ 
-                var blank = document.createTextNode( " " ); 
-                clone.insertBefore( blank , br[0] ); 
-                clone.removeChild( br[0] ); 
-        } 
-        var isBlock = function( tag ){ 
-                var display = ""; 
-                if ( window.getComputedStyle ) display = window.getComputedStyle ( tag, "" )[ "display" ]; 
-                else display = tag.currentStyle[ "display" ]; 
-                return ( display == "block" ) ? true : false; 
-        }; 
-        var children = clone.getElementsByTagName( "*" ); 
-        for ( var x = 0; x < children.length; x++){ 
-                var child = children[ x ]; 
-                if ( ! ("value" in child) && isBlock(child) ) child.innerHTML = child.innerHTML + " "; 
-        } 
-        var textContent = ( "textContent" in clone ) ? clone.textContent : clone.innerText; 
-        return textContent; 
-} 
-</script>
-
-			<!-- 	정렬 220320 -->
-
-			<script type="text/javascript">
-var myTable = document.getElementById( "mainTable" ); 
-var replace = replacement( myTable ); 
-function sortTD( index ){    replace.ascending( index );    } 
-function reverseTD( index ){    replace.descending( index );    } 
-</script>
+		 goForm = function(seq){
+			 alert(seq);
+					$("#formList").attr("action","/infra/member/memberViewAdmin");
+					$("#formList").submit();
+			}
+ </script>
 </body>
 </html>
 

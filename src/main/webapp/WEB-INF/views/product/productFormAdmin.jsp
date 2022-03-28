@@ -84,40 +84,22 @@
 				<div class="row">
 					<div class="col-md-12 mb-3">
 
-						<div name="ifmmSeq">
-							<c:forEach items="${list}" var="rt" varStatus="status">
-								<option value="${rt.ifmmSeq}">
-									<c:out value="${rt.ifmmName}" /></option>
-							</c:forEach>
-						</div>
 
-
+						<c:forEach items="${list}" var="rt" varStatus="status">
+							<option value="${rt.ifmmSeq}">
+								<c:out value="${rt.ifmmName}" /></option>
+						</c:forEach>
 						<select name="shMemberOption" id="shMemberOption">
 							<option value="">구분
 							<option value="1"
 								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
-
-
-
-							
 							<option value="2"
 								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
-
-
-
-							
 							<option value="3"
 								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
+<%-- 							<option value="4"
+								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처 --%>
 
-
-
-							
-							<option value="4"
-								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
-
-
-
-							
 						</select> <input type="text" name="shMemberValue" id="shMemberValue"
 							placeholder="판매자검색" value="<c:out value="${vo.shMemberValue}"/>">
 						<button type="submit" name="search" id="ifmmSeq">Search</button>
@@ -130,21 +112,13 @@
 							<option value="">거래방식
 							<option value="1"
 								<c:if test="${vo.acprPickupCd eq 51}"> selected</c:if>>직거래
-
-							
 							<option value="2"
 								<c:if test="${vo.acprPickupCd eq 52 }"> selected</c:if>>
 								택배거래
 							<option value="3"
 								<c:if test="${vo.acprPickupCd eq 53 }"> selected</c:if>>퀵거래
-
-
-
-							
 							<option value="4"
 								<c:if test="${vo.acprPickupCd eq 54 }"> selected</c:if>>협의
-
-							
 						</select>
 					</div>
 				</div>

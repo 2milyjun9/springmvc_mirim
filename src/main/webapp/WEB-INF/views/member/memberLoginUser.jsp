@@ -76,7 +76,7 @@ body {
 }
 </style>
 
-<title>Auctionary 사용자로그인</title>
+<title>사용자로그인</title>
 </head>
 <body>
 

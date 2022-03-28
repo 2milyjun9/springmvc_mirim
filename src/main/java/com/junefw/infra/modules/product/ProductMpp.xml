@@ -45,7 +45,6 @@
 
 <!-- *************************상품(관리자)********************************-->
 
-	
 		<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
 		SELECT
 		*

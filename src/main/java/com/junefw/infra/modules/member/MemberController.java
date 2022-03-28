@@ -8,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.junefw.infra.common.constants.Constants;
+import com.junefw.infra.common.util.UtilDateTime;
+import com.junefw.infra.modules.code.Code;
 import com.junefw.infra.modules.code.CodeServiceImpl;
-import com.junefw.infra.modules.code.CodeVo;
-
 
 @Controller
-public class MemberController {
+public class MemberController /* extends BaseController */ {
 
 	@Autowired
 	MemberServiceImpl service;
@@ -51,20 +52,36 @@ public class MemberController {
 		service.update(dto);
 		return "";
 	}
+	
+	 
 // ******************************두리안 어드민  ******************************** 
 	@RequestMapping(value = "/member/memberList")    //회원리스트
-	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model, Code code) throws Exception {
 		int count = service.selectOneCount(vo);
+		
+		vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ? 1 : vo.getShMemberOptionDate());
+		vo.setShMemberDateStart(vo.getShMemberDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : vo.getShMemberDateStart());
+		vo.setShMemberDateEnd(vo.getShMemberDateEnd() == null ? UtilDateTime.nowString() : vo.getShMemberDateEnd());
+		
 		vo.setParamsPaging(count);
 		if (count != 0) {
 			List<Member> list = service.memberList(vo);
 			model.addAttribute("list", list);
 		} else {
 		}
+		System.out.println("UtilDateTime.nowLocalDateTime():" + UtilDateTime.nowLocalDateTime());
+		System.out.println("UtilDateTime.nowDate():" + UtilDateTime.nowDate());
+		System.out.println("UtilDateTime.nowString():" + UtilDateTime.nowString());
 		return "member/memberList";
 	}
 	@RequestMapping(value = "/member/memberViewAdmin") //회원뷰
 	public String memberViewAdmin(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+		System.out.println("###########################");
+		System.out.println("vo.getShMemberOption(): " + vo.getShMemberOption());
+		System.out.println("vo.getShMemberValue(): " + vo.getShMemberValue());
+		System.out.println("vo.getThispage(): " + vo.getThisPage());
+		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
+		System.out.println("###########################");
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
 		return "member/memberViewAdmin";
@@ -90,14 +107,20 @@ public class MemberController {
 		  return "member/memberEditAdmin"; 
 	}
 	  @RequestMapping(value = "/member/memberUpdtAdmin")  //회원수정받음
-	  public String updateMemberAdmin(Model model, Member dto) throws Exception {
+	  public String updateMemberAdmin(Member dto,MemberVo vo) throws Exception {
 	 service.updateMemberAdmin(dto); 
-	 return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq(); 
+	 return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq() + makeQueryString(vo);
 	 }
-		@RequestMapping(value = "/member/memberLoginAdmin")    //사원로그인
+
+	@RequestMapping(value = "/member/memberLoginAdmin")    //사원로그인
 		public String memberLoginAdmin() throws Exception {
 			return "/member/memberLoginAdmin";
 		}
+	public String makeQueryString(MemberVo vo) {
+	String tmp = "&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShMemberOption() 
+	+ "&shMemberValue=" + vo.getShMemberValue(); return tmp;
+		}
+	
 	// *************************두리안 사용자 *************************************
 	@RequestMapping(value = "/member/memberFormUser")    //회원가입
 	public String memberFormUser(MemberVo vo, Model model) throws Exception {

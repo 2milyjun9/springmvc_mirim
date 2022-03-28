@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.junefw.infra.modules.member.Member;
+import com.junefw.infra.modules.member.MemberVo;
+
 
 
 @Repository
@@ -28,6 +31,11 @@ public class ProductDao {
 	public Product productViewAdmin(ProductVo vo) {   //상품뷰
 		return sqlSession.selectOne(namespace + ".productViewAdmin", vo);
 	}
+
+	/*
+	 * public Member memberViewAdmin(ProductVo vo) { //상품뷰->멤버뷰 return
+	 * sqlSession.selectOne(namespace + ".memberViewAdmin", vo); }
+	 */
 	public int insertProductAdmin(Product dto) {  //상품등록
 		return sqlSession.insert(namespace + ".insertProductAdmin", dto);
 	}
@@ -70,4 +78,6 @@ public class ProductDao {
 	public int productPurchase(Product dto) { //경매신청
 		return sqlSession.update(namespace + ".productPurchase", dto); 
 		}
+
+
 }

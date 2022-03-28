@@ -82,7 +82,7 @@ a { /*링크 줄안가게하기*/
 }
 </style>
 
-<title>Auctionary 관리자로그인</title>
+<title>관리자로그인</title>
 </head>
 
 <!--  <body style="background-image: url(../../../images/xdmin/bg_sky.png);  background-size: cover; ">

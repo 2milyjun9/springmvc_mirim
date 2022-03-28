@@ -46,7 +46,7 @@
 		,#{ifmmName}
 		,0
 		)
-				<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
 		SELECT last_insert_id()
 		</selectKey>
 	</insert>
@@ -88,6 +88,11 @@
 		<choose>
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
+		</choose>
+				<choose>
+			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND  #{shDateEnd}  </when> 
+			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND  #{shDateEnd}  </when>
+			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shDateStart} AND  #{shDateEnd} </when>  
 		</choose>
 		<if test="shIfmmName != null and !shIfmmName.equals('')">
 			AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
@@ -210,15 +215,25 @@
 	</select>
 
 <insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
-		INSERT INTO infrMember(
-		ifmmName
+	INSERT INTO infrMember(
+		ifmmAdminNy
 		,ifmmDormancyNy
+		,ifmmName
 		,ifmmId
 		,ifmmNickname
 		,ifmmPassword
+		,ifmmGrade
+		<choose>
+			<when test="ifmmDob.equals('')">,NULL</when>
+			<otherwise>,#{ifmmDob}</otherwise>
+		</choose>
 		,ifmmGenderCd
 		,ifmmDelny
 		,ifmmSaveCd
+		,ifmmMarriageCd
+		,ifmmMarriageDate
+		,ifmmChildrenNum
+		,ifmmFavoriteColor
 		,ifmmEmailConsentNy
 		,ifmmSmsConsentNy
 		,ifmmPushConsentNy
@@ -229,22 +244,28 @@
 		,regDateTimeSvr
 		)
 		VALUES (
-		#{ifmmName}
+		0
 		,0
+		,#{ifmmName}
 		,#{ifmmId}
 		,#{ifmmNickname}
 		,#{ifmmPassword}
+		,100
 		,#{ifmmGenderCd}
 		,0
-		,6
-		,0
-		,0
-		,0
+		,#{ifmmSaveCd}
+		,#{ifmmMarriageCd}
+		,#{ifmmMarriageDate}
+		,#{ifmmChildrenNum}
+		,#{ifmmFavoriteColor}
+		,#{ifmmEmailConsentNy}
+		,#{ifmmSmsConsentNy}
+		,#{ifmmPushConsentNy}
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}
-		,now()
-		,now()
+		,#{regDateTime}
+		,#{regDateTimeSvr}
 		)
 		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
 			SELECT last_insert_id()
@@ -263,7 +284,7 @@
 
 	<update id="memberEditAdmin">  <!-- 회원수정 -->
 		UPDATE infrMember SET
-		,ifmmPassword
+		ifmmPassword
 		,ifmmGenderCd
 		,ifmmDelny
 		,ifmmSaveCd
@@ -271,7 +292,6 @@
 		,ifmmMarriageDate
 		,ifmmChildrenNum
 		,ifmmFavoriteColor
-		,ifmmRecommenderSeq
 		,ifmmEmailConsentNy
 		,ifmmSmsConsentNy
 		,ifmmPushConsentNy
@@ -282,7 +302,7 @@
 		,modDateTimeSvr
 		)
 		values (
-		,#{ifmmPassword}
+		#{ifmmPassword}
 		,#{ifmmGenderCd}
 		,0
 		,#{ifmmSaveCd}
@@ -294,7 +314,6 @@
 		,#{ifmmEmailConsentNy}
 		,#{ifmmSmsConsentNy}
 		,#{ifmmPushConsentNy}
-		,#{ifmmRecommenderSeq}
 		,#{modIp}
 		,#{modSeq}
 		,#{modDevice}
@@ -454,6 +473,10 @@
 		,ifmmNickname
 		,ifmmPassword
 		,ifmmGrade
+		<choose>
+			<when test="ifmmDob.equals('')">,NULL</when>
+			<otherwise>,#{ifmmDob}</otherwise>
+		</choose>
 		,ifmmGenderCd
 		,ifmmDelny
 		,ifmmSaveCd
@@ -491,8 +514,8 @@
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}
-		,now()
-		,now()
+		,#{regDateTime}
+		,#{regDateTimeSvr}
 		)
 	</insert>
 
@@ -580,8 +603,8 @@
 		,#{modIp}
 		,#{modSeq}
 		,#{modDevice}
-		,now()
-		,now()
+		,#{regDateTime}
+		,#{regDateTimeSvr}
 		) WHERE 1 = 1
 		AND ifmmSeq = #{ifmmSeq}
 	</update>

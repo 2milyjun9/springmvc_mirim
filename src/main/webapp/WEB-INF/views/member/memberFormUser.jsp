@@ -199,7 +199,7 @@ body {
 											<div class="col-md-6 mb-3">
 												<label>결혼여부</label> <select
 													class="custom-select d-block w-100" name="ifmmMarriageCd">
-													<option selected>선택</option>
+				
 													<option value="13">미혼</option>
 													<option value="12">기혼</option>
 												</select>

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.junefw.infra.common.util.UtilDateTime;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -28,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
 	public int update(Member dto) throws Exception {  //회원수정테스트
 		return dao.update(dto);
 	}
+
 	/* ****************두리안 어드민**************** */
 
 	@Override
@@ -44,12 +47,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 	@Override
 	public int insertMemberAdmin(Member dto) throws Exception {  //회원등록
-		return dao.insertMemberAdmin(dto);
+
+		dto.setRegDateTime(UtilDateTime.nowDate());
+		dto.setModDateTime(UtilDateTime.nowDate());
+		dao.insert(dto);
+		/*
+		 * dao.insertEmail(dto); dao.insertPhone(dto); dao.insertAddress(dto);
+		 */
+		return 1;
 	}
+	
 	@Override
 	public int updateMemberAdmin(Member dto) throws Exception { //회원수정
 		return dao.updateMemberAdmin(dto);
 	}
+
+	/*
+	 * @Override public Member selectOneLoginAdmin(Member dto) throws Exception {
+	 * //사원로그인 return dao.selectOneLoginAdmin(dto); }
+	 * 
+	 * 
+	 * public void setRegMod(Member dto) throws Exception{ HttpServletRequest
+	 * httpServletRequest = ((ServletRequestAttributes)
+	 * 
+	 * dto.setRegIp }
+	 */
 	/* ****************두리안 유저**************** */
 	@Override
 	public int insertMemberUser(Member dto) throws Exception {  //회원가입
@@ -63,8 +85,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member memberViewUser(MemberVo vo) throws Exception { //회원뷰
 		return dao.memberViewUser(vo);
 	}
-
-
+	/*
+	 * @Override public Member selectOneLoginUser(Member dto) throws Exception {
+	 * //회원로그인 return dao.selectOneLoginUser(dto); }
+	 */
 	}
 
 

@@ -207,38 +207,7 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#리포트">리포트</button>
-							<div class="collapse" id="리포트">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;일간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;주간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;월간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;연간</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#관리자메뉴">관리자메뉴</button>
-							<div class="collapse" id="관리자메뉴">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;시스템관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;메뉴관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;권한관리</a></li>
-								</ul>
-							</div>
-						</li>
+	
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
@@ -360,27 +329,39 @@ body {
 						data-toggle="table" data-toolbar=".toolbar" data-sortable="false"
 						data-height="460">
 						<thead>
+
 							<tr>
 								<th>경매자</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">이름</th>
-								<td><a
-									href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-										<c:out value="${item.ifmmName}" />
-								</a></td>
-								<th>아이디</th>
-								<td><c:out value="${item.ifmmId}" /></td>
-							</tr>
-							<tr>
-								<th>닉네임</th>
-								<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
-								<th>생년월일</th>
-								<td><c:out value="${item.ifmmDob}" /></td>
-							</tr>
-						</tbody>
+		<%-- 				<c:choose>
+							<c:when test="${fn:length(list) eq 0}">
+								<tr>
+									<td class="text-center" colspan="9">There is no data!</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${list}" var="item" varStatus="status"> --%>
+									<tbody>
+										<tr>
+											<th scope="row">이름</th>
+											<td><a
+												href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+													<c:out value="${item.ifmmName}" />
+											</a></td>
+											<th>아이디</th>
+											<td><c:out value="${item.ifmmId}" /></td>
+										</tr>
+										<tr>
+											<th>닉네임</th>
+											<td scope="row"><c:out value="${item.ifmmNickname}" /></td>
+											<th>생년월일</th>
+											<td><c:out value="${item.ifmmDob}" /></td>
+										</tr>
+									</tbody>
+<%-- 								</c:forEach>
+							</c:otherwise>
+						</c:choose> --%>
 					</table>
 				</div>
 			</div>
@@ -467,14 +448,14 @@ body {
 							<th>경매자</th>
 						</tr>
 					</thead>
-					<c:choose>
+		<%-- 			<c:choose>
 						<c:when test="${fn:length(list) eq 0}">
 							<tr>
 								<td class="text-center" colspan="9">There is no data!</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${list}" var="item" varStatus="status">
+							<c:forEach items="${list}" var="item" varStatus="status"> --%>
 								<tbody>
 									<tr>
 										<th scope="row" class="table-secondary">이름</th>
@@ -492,9 +473,9 @@ body {
 										<td><c:out value="${item.ifmmDob}" /></td>
 									</tr>
 								</tbody>
-							</c:forEach>
+<%-- 							</c:forEach>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> --%>
 				</table>
 			</div>
 		</div>

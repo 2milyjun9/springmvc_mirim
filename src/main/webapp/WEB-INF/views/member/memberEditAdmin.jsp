@@ -205,38 +205,6 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#리포트">리포트</button>
-							<div class="collapse" id="리포트">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;일간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;주간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;월간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;연간</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#관리자메뉴">관리자메뉴</button>
-							<div class="collapse" id="관리자메뉴">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;시스템관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;메뉴관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;권한관리</a></li>
-								</ul>
-							</div>
-						</li>
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
@@ -534,8 +502,8 @@ body {
 			<div style="width: 100%; float: none; margin: 0 auto">
 
 				<a
-					href="/infra/member/memberList?thisPage=${vo.thisPage}&shOption=<c:out value=
-"${vo.shMemberOption}"/>&shValue=<c:out value="${vo.shMemberValue}"/>">
+					href="/infra/member/memberList?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
+"${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>">
 					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
 						class="btn btn-sm btn-outline-primary">목록</button>
 				</a>
@@ -543,8 +511,8 @@ body {
 
 				<!-- Button trigger modal -->
 				<a
-					href="/infra/member/memberList?thisPage=${vo.thisPage}&shOption=<c:out value=
-"${vo.shMemberOption}"/>&shValue=<c:out value="${vo.shMemberValue}"/>">
+					href="/infra/member/memberList?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
+"${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>">
 					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
 						class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
 						data-bs-target="#저장">저장</button>
@@ -583,7 +551,7 @@ body {
 	<script type="text/javascript">
 
 $("#btnSubmit").on("click",function() {
-	if (!checkNull($("#ifmmNickname"), $("#ifmmNickname").val(),"코드그룹이름을 입력해 주세요!"))	retrun	false;
+	if (!checkNull($("#ifmmNickname"), $("#ifmmNickname").val(),""))	retrun	false;
 </script>
 
 

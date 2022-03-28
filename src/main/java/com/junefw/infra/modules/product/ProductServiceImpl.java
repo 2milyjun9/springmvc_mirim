@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.junefw.infra.modules.member.Member;
+import com.junefw.infra.modules.member.MemberVo;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,6 +23,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product productViewAdmin(ProductVo vo) throws Exception {
 		return dao.productViewAdmin(vo);  //상품뷰
+	}
+
+	/*
+	 * public Member memberViewAdmin(ProductVo vo) { return dao.memberViewAdmin(vo);
+	 * //상품뷰->멤버뷰 }
+	 */
+	@Override
+	public Member memberViewAdmin(MemberVo vo) {
+		return null;
 	}
 	@Override
 	public int insertProductAdmin(Product dto) throws Exception {
@@ -75,4 +87,8 @@ public class ProductServiceImpl implements ProductService {
 	public int productPurchase(Product dto) throws Exception {
 		return dao.productPurchase(dto); 
 	}
+
+
+
+
 }

@@ -209,38 +209,6 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#리포트">리포트</button>
-							<div class="collapse" id="리포트">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;일간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;주간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;월간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;연간</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#관리자메뉴">관리자메뉴</button>
-							<div class="collapse" id="관리자메뉴">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;시스템관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;메뉴관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;권한관리</a></li>
-								</ul>
-							</div>
-						</li>
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
