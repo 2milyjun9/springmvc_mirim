@@ -76,6 +76,10 @@
 
 
 	<!-- ************************************두리안 관리자**************************************************** -->
+	<!-- ************************************두리안 관리자**************************************************** -->
+	<!-- ************************************두리안 관리자**************************************************** -->
+	<!-- ************************************두리안 관리자**************************************************** -->
+	<!-- ************************************두리안 관리자**************************************************** -->
 
 	<sql id="selectCommon">
 		FROM
@@ -89,13 +93,12 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-				<choose>
-			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND  #{shDateEnd}  </when> 
-			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND  #{shDateEnd}  </when>
-			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shDateStart} AND  #{shDateEnd} </when>  
-		</choose>
-		<if test="shIfmmName != null and !shIfmmName.equals('')">
-			AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
+		<choose>
+			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
+			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when>
+			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
+		</choose> 
+		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
@@ -124,16 +127,13 @@
 		,a.ifmmSaveCd
 		,a.ifmmDelNy
 		,a.regDateTime
-		,a.modDateTime
-		,a.modSeq
 		,b.ifmpNumber
 		from
 		infrMember a
 		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
-
 		where
 		1=1
-		<choose>
+			<choose>
 			<when test="shIfmmDelNy == 1">AND ifmmDelNy = 1 </when>   
 			<when test="shIfmmDelNy == 0">AND ifmmDelNy = 0 </when>  
 		</choose>
@@ -141,15 +141,19 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-		<if test="shIfmmName != null and !shIfmmName.equals('')">
-			AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
+				<choose>
+			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
+			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
+			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
+		</choose>
+		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
-			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>
+		<!-- 	<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when> -->
 		</choose>
-				limit  #{startRnumForMysql} , #{rowNumToShow}
+		limit  #{startRnumForMysql} , #{rowNumToShow}
 	</select>
 
 
@@ -213,8 +217,23 @@
 		and a.ifmmDelNy = 0
 		and a.ifmmSeq = #{ifmmSeq}
 	</select>
+	
+		<select id="selectOneMemberAdmin" resultMap="resultMapObj">
+		select
+		*
+		from
+		infrCodegroup 
+		where 1 = 1
+		and ifmmDelNy = 0
+		and ifmmSeq = #{ifmmSeq}
+	</select>
+	
 
-<insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
+	<delete id="delete">
+	DELETE FROM infrMember WHERE ifmmSeq= #{ifmmSeq}
+	</delete>
+
+	<insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
 	INSERT INTO infrMember(
 		ifmmAdminNy
 		,ifmmDormancyNy
@@ -223,10 +242,11 @@
 		,ifmmNickname
 		,ifmmPassword
 		,ifmmGrade
-		<choose>
+	,ifmmDob 
+<!-- 	<choose>
 			<when test="ifmmDob.equals('')">,NULL</when>
 			<otherwise>,#{ifmmDob}</otherwise>
-		</choose>
+		</choose>  -->
 		,ifmmGenderCd
 		,ifmmDelny
 		,ifmmSaveCd
@@ -251,6 +271,7 @@
 		,#{ifmmNickname}
 		,#{ifmmPassword}
 		,100
+		,#{ifmmDob}
 		,#{ifmmGenderCd}
 		,0
 		,#{ifmmSaveCd}
@@ -272,63 +293,8 @@
 		</selectKey>
 	</insert>
 	
-		<select id="selectOneMemberAdmin" resultMap="resultMapObj">
-		select
-		*
-		from
-		infrCodegroup 
-		where 1 = 1
-		and ifmmDelNy = 0
-		and ifmmSeq = #{ifmmSeq}
-	</select>
-
-	<update id="memberEditAdmin">  <!-- 회원수정 -->
-		UPDATE infrMember SET
-		ifmmPassword
-		,ifmmGenderCd
-		,ifmmDelny
-		,ifmmSaveCd
-		,ifmmMarriageCd
-		,ifmmMarriageDate
-		,ifmmChildrenNum
-		,ifmmFavoriteColor
-		,ifmmEmailConsentNy
-		,ifmmSmsConsentNy
-		,ifmmPushConsentNy
-		,modIp
-		,modSeq
-		,modDevice
-		,modDateTime
-		,modDateTimeSvr
-		)
-		values (
-		#{ifmmPassword}
-		,#{ifmmGenderCd}
-		,0
-		,#{ifmmSaveCd}
-		,#{ifmmMarriageCd}
-		,#{ifmmMarriageDate}
-		,#{ifmmChildrenNum}
-		,#{ifmmFavoriteColor}
-		,#{ifmmRecommenderSeq}
-		,#{ifmmEmailConsentNy}
-		,#{ifmmSmsConsentNy}
-		,#{ifmmPushConsentNy}
-		,#{modIp}
-		,#{modSeq}
-		,#{modDevice}
-		,now()
-		,now()
-		) WHERE 1 = 1
-		AND ifmmSeq = #{ifmmSeq}
-	</update>
-
-
-	<delete id="delete">
-	DELETE FROM infrMember WHERE ifmmSeq= #{ifmmSeq}
-	</delete>
-
-	<insert id="insertEmailAdmin">
+	
+	<insert id="insertEmail">
 		INSERT INTO infrMemberEmail (
 		ifmeDefaultNy
 		,ifmeTypeCd
@@ -340,7 +306,7 @@
 		,ifmmSeq
 		)
 		VALUES(
-		#{ifmeDefaultNy}
+		1
 		,#{ifmeTypeCd}
 		,#{ifmeEmailFull}
 		,#{ifmeEmailAccount}
@@ -350,30 +316,30 @@
 		,#{ifmmSeq}
 		)
 </insert>
-
-<insert id="insertPhoneAdmin">
+	
+	
+<insert id="insertPhone">
 		INSERT INTO infrmemberPhone (
 		ifmpDefaultNy
 		,ifmpTypeCd
 		,ifmpDeviceCd
 		,ifmpTelecomCd
 		,ifmpNumber
-		,ifmpDelNY
+		,ifmpDelNy
 		,ifmmSeq
 		)
 		VALUES(
-		#{ifmpDefaultNy}
-		,#{ifmpTypeCd}
-		,#{ifmpDeviceCd}
+		1
+	 ,#{ifmpTypeCd}
+		,#{ifmpDeviceCd} 
 		,#{ifmpTelecomCd}
 		,#{ifmpNumber}
-		,#{ifmpDelNY}
 		,0
 		,#{ifmmSeq}
 		)
-</insert>
-
-<insert id="insertAddressAdmin">
+</insert >
+	
+	<insert id="insertAddress">
 		INSERT INTO infrMemberAddress (
 		ifmaDefaultNy
 		,ifmaTypeCd
@@ -381,11 +347,11 @@
 		,ifmaAddress1
 		,ifmaAddress2
 		,ifmaZipcode
-		,ifmeDelNY
+		,ifmaDelNy
 		,ifmmSeq
 		)
 		VALUES(
-		#{ifmaDefaultNy}
+		1
 		,#{ifmaTypeCd}
 		,#{ifmaTitle}
 		,#{ifmaAddress1}
@@ -396,6 +362,125 @@
 		)
 </insert>
 
+<insert id="insertJoinQna">
+		INSERT INTO infrMemberJoinQna (
+		ifjqQuestionCd
+		,ifjqAnswer
+		,ifjqDelNy
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifjqQuestionCd}
+		,#{ifjqDelNy}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
+ 
+<insert id="insertAddressOnline">
+		INSERT INTO infrMemberAddressOnline (
+		ifaoTypeCd
+		,ifaoDefaultNy
+		,ifaoSnsTypeCd
+		,ifaoUrl
+		,ifaoTitle
+		,ifaoDelNy
+		,ifmmSeq
+		)
+		VALUES(
+		#{ifaoTypeCd}
+		,1
+		,#{ifaoSnsTypeCd}
+		,#{ifaoUrl}
+		,#{ifaoTitle}
+		,0
+		,#{ifmmSeq}
+		)
+</insert>
+
+	<update id="updateMemberAdmin">  <!-- 회원수정 -->
+		UPDATE infrMember SET
+		ifmmPassword  =  #{ifmmPassword}
+		,ifmmGenderCd =  #{ifmmGenderCd}
+		,ifmmDelny =  '0'
+		,ifmmSaveCd =  #{ifmmSaveCd}
+        ,ifmmMarriageCd =  #{ifmmMarriageCd}
+		,ifmmMarriageDate =  #{ifmmMarriageDate}
+    	,ifmmChildrenNum  =  #{ifmmChildrenNum}
+		,ifmmFavoriteColor =  #{ifmmFavoriteColor}
+		,ifmmEmailConsentNy =  #{ifmmEmailConsentNy}
+		,ifmmSmsConsentNy =  #{ifmmSmsConsentNy}
+		,ifmmPushConsentNy =  #{ifmmPushConsentNy}
+		,modIp =  #{modIp}
+		,modSeq =  #{modSeq}
+		,modDevice =  #{modDevice}
+		,modDateTime =  now()
+		,modDateTimeSvr =  now()
+		WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+	</update>
+
+	<update id="updateEmail">
+	UPDATE infrMemberEmail SET
+		ifmeDefaultNy = '1'
+		,ifmeTypeCd =  #{ifmeTypeCd}
+		,ifmeEmailFull =  #{ifmeEmailFull} 
+		,ifmeEmailAccount =  #{ifmeEmailAccount}
+		,ifmeEmailDomain =  #{ifmeEmailDomain}
+		,ifmeEmailDomainCd =  #{ifmeEmailDomainCd}
+		,ifmeDelNY = '0'
+		WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+</update>
+
+
+<update id="updatePhone">
+	UPDATE infrMemberPhone SET
+		ifmpDefaultNy =  1
+		,ifmpTypeCd = #{ifmpTypeCd}
+		,ifmpDeviceCd = #{ifmpDeviceCd}
+		,ifmpTelecomCd = #{ifmpTelecomCd}
+		,ifmpNumber =  #{ifmpNumber}
+		,ifmpDelNY= 0
+		WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+</update>
+
+
+<update id="updateAddress">
+	UPDATE infrMemberAddress SET
+		ifmaDefaultNy = 1
+		,ifmaTypeCd =  #{ifmaTypeCd}
+		,ifmaTitle = #{ifmaTitle}
+		,ifmaAddress1  = #{ifmaAddress1}
+		,ifmaAddress2  = #{ifmaAddress2}
+		,ifmaZipcode  = #{ifmaZipcode}
+		,ifmeDelNY = 0
+		WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+		
+</update>
+
+<update id="updateJoinQna">
+		UPDATE infrMemberJoinQna SET
+		ifjqQuestionCd =  #{ifjqQuestionCd}
+		,ifjqAnswer =  	#{ifjqAnswer}
+		,ifjqDelNy =  0
+		WHERE 1 =1 
+		AND ifmmSeq = #{ifmmSeq}
+		
+</update>
+
+<update id="updateAddressOnline">
+		UPDATE infrMemberAddressOnline SET
+		ifaoTypeCd  =  #{ifaoTypeCd}
+		,ifaoDefaultNy  =  1
+		,ifaoSnsTypeCd  =  #{ifaoSnsTypeCd}
+		,ifaoUrl  =  #{ifaoUrl}
+		,ifaoTitle  =  #{ifaoTitle}
+		WHERE 1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+</update>
 	<!-- **********************두리안 사용자******************** -->
 	<!-- **********************두리안 사용자******************** -->
 	<!-- **********************두리안 사용자******************** -->
@@ -520,53 +605,7 @@
 	</insert>
 
 
-<insert id="insertEmailUser">
-		INSERT INTO infrMemberEmail (
-		ifmeDefaultNy
-		,ifmeTypeCd
-		,ifmeEmailFull
-		,ifmeEmailAccount
-		,ifmeEmailDomain
-		,ifmeEmailDomainCd
-		,ifmeDelNY
-		,ifmmSeq
-		)
-		VALUES(
-		#{ifmeDefaultNy}
-		,#{ifmeTypeCd}
-		,#{ifmeEmailFull}
-		,#{ifmeEmailAccount}
-		,#{ifmeEmailDomain}
-		,#{ifmeEmailDomainCd}
-		,0
-		,#{ifmmSeq}
-		)
-</insert>
-
-
-<insert id="insertPhoneUser">
-		INSERT INTO infrmemberPhone (
-		ifmpDefaultNy
-		,ifmpTypeCd
-		,ifmpDeviceCd
-		,ifmpTelecomCd
-		,ifmpNumber
-		,ifmpDelNY
-		,ifmmSeq
-		)
-		VALUES(
-		#{ifmpDefaultNy}
-		,#{ifmpTypeCd}
-		,#{ifmpDeviceCd}
-		,#{ifmpTelecomCd}
-		,#{ifmpNumber}
-		,#{ifmpDelNY}
-		,0
-		,#{ifmmSeq}
-		)
-</insert>
-
-	<update id="memberEditUser">  <!-- 회원수정 -->
+	<update id="updateMemberUser">  <!-- 회원수정 -->
 		UPDATE infrMember SET
 		,ifmmPassword
 		,ifmmGenderCd

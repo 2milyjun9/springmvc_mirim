@@ -7,60 +7,6 @@ import java.util.Date;
 public class Member /* extends Base */ {
 	
 
-	public String getRegIp() {
-		return regIp;
-	}
-	public void setRegIp(String regIp) {
-		this.regIp = regIp;
-	}
-	public String getRegSeq() {
-		return regSeq;
-	}
-	public void setRegSeq(String regSeq) {
-		this.regSeq = regSeq;
-	}
-	public Integer getRegDevice() {
-		return regDevice;
-	}
-	public void setRegDevice(Integer regDevice) {
-		this.regDevice = regDevice;
-	}
-	public Date getRegDateTimeSvr() {
-		return regDateTimeSvr;
-	}
-	public void setRegDateTimeSvr(Date regDateTimeSvr) {
-		this.regDateTimeSvr = regDateTimeSvr;
-	}
-	public String getModIp() {
-		return modIp;
-	}
-	public void setModIp(String modIp) {
-		this.modIp = modIp;
-	}
-	public String getModSeq() {
-		return modSeq;
-	}
-	public void setModSeq(String modSeq) {
-		this.modSeq = modSeq;
-	}
-	public Integer getModDevice() {
-		return modDevice;
-	}
-	public void setModDevice(Integer modDevice) {
-		this.modDevice = modDevice;
-	}
-	public Date getModDateTimeSvr() {
-		return modDateTimeSvr;
-	}
-	public void setModDateTimeSvr(Date modDateTimeSvr) {
-		this.modDateTimeSvr = modDateTimeSvr;
-	}
-	public Date getRegDateTime() {
-		return regDateTime;
-	}
-	public Date getModDateTime() {
-		return modDateTime;
-	}
 	/* infrmember */
 	private String ifmmSeq;
 	private Integer ifmmAdminNy;
@@ -611,15 +557,70 @@ public class Member /* extends Base */ {
 	public void setIfnaDelNy(Integer ifnaDelNy) {
 		this.ifnaDelNy = ifnaDelNy;
 	}
-	public void setRegDateTime(Date nowDate) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setModDateTime(Date nowDate) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	public String getRegIp() {
+		return regIp;
+	}
+	public void setRegIp(String regIp) {
+		this.regIp = regIp;
+	}
+	public String getRegSeq() {
+		return regSeq;
+	}
+	public void setRegSeq(String regSeq) {
+		this.regSeq = regSeq;
+	}
+	public Integer getRegDevice() {
+		return regDevice;
+	}
+	public void setRegDevice(Integer regDevice) {
+		this.regDevice = regDevice;
+	}
+	public Date getRegDateTimeSvr() {
+		return regDateTimeSvr;
+	}
+	public void setRegDateTimeSvr(Date regDateTimeSvr) {
+		this.regDateTimeSvr = regDateTimeSvr;
+	}
+	public String getModIp() {
+		return modIp;
+	}
+	public void setModIp(String modIp) {
+		this.modIp = modIp;
+	}
+	public String getModSeq() {
+		return modSeq;
+	}
+	public void setModSeq(String modSeq) {
+		this.modSeq = modSeq;
+	}
+	public Integer getModDevice() {
+		return modDevice;
+	}
+	public void setModDevice(Integer modDevice) {
+		this.modDevice = modDevice;
+	}
+	public Date getModDateTimeSvr() {
+		return modDateTimeSvr;
+	}
+	public void setModDateTimeSvr(Date modDateTimeSvr) {
+		this.modDateTimeSvr = modDateTimeSvr;
+	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	
+	public Date setRegDateTime(Date nowDate) {   //여기맞는지손봐야함
+		return regDateTime;
+		
+	}
+	public Date setModDateTime(Date nowDate) {
+		return modDateTime;
+		
+	}
 
 	
 }

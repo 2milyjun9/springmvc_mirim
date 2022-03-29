@@ -178,24 +178,24 @@ body {
 									<button class="accordion-button collapsed" type="button"
 										data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
 										aria-expanded="false" aria-controls="flush-collapseOne">
-										+ 선택입력 (입력시 수수료5회면제)</button>
+										+ 선택입력 (클릭 시 닫힘)</button>
 								</h2>
-								<div id="flush-collapseOne" class="accordion-collapse collapse"
+								<div id="flush-collapseOne" class="accordion-collapse collapse show"
 									aria-labelledby="flush-headingOne"
 									data-bs-parent="#accordionFlushExample">
 									<div class="accordion-body">
 
 
 										<div class="row">
-											<div class="col-md-6 mb-3">
+			<!-- 								<div class="col-md-6 mb-3">
 												<label>국적</label> <select
 													class="custom-select d-block w-100" name="ifnaName">
 													<option value="">대한민국</option>
 													<option value="">미국</option>
 													<option value="">일본</option>
 												</select>
-
-											</div>
+											</div> -->
+											
 											<div class="col-md-6 mb-3">
 												<label>결혼여부</label> <select
 													class="custom-select d-block w-100" name="ifmmMarriageCd">
@@ -205,18 +205,18 @@ body {
 												</select>
 											</div>
 
-											<div class="row">
+						
 												<div class="col-md-6 mb-3">
 													<label>자녀수</label> <input type="text" class="form-control"
 														name="ifmmChildrenNum">
 
 												</div>
-												<div class="col-md-6 mb-3">
+							<!-- 					<div class="col-md-6 mb-3">
 													<label>결혼기념일<span class="text-muted">&nbsp;</span></label>
 													<input type="date" class="form-control"
 														name="ifmmMarriagDate">
-												</div>
-											</div>
+												</div> -->
+								
 
 
 											<div class="row">
@@ -279,7 +279,7 @@ body {
 													class="form-control" name="ifaoUrl" placeholder="">
 											</div>
 										</div>
-										<div class="row">
+								<!-- 		<div class="row">
 											<div class="col">
 												<br> 취미 <br>
 												<div class="form-check form-check-inline ">
@@ -319,7 +319,7 @@ body {
 														피아노 </label>
 												</div>
 											</div>
-										</div>
+										</div> -->
 
 									</div>
 								</div>

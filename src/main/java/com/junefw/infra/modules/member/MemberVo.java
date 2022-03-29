@@ -5,19 +5,12 @@ import java.util.Date;
 public class MemberVo {
 
 
-	public String getShMemberOption() {
-		return shMemberOption;
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
 	}
-	public void setShMemberOption(String shMemberOption) {
-		this.shMemberOption = shMemberOption;
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
 	}
-	public String getShMemberValue() {
-		return shMemberValue;
-	}
-	public void setShMemberValue(String shMemberValue) {
-		this.shMemberValue = shMemberValue;
-	}
-
 
 
 	//common
@@ -33,7 +26,6 @@ public class MemberVo {
 	private String ShMemberDateEnd;
 	private String ShMemberDateStart;
 	
-
 	//paging	
 		private int thisPage = 1;									// 현재 페이지
 		private int rowNumToShow = 10;								// 화면에 보여줄 데이터 줄 갯수
@@ -96,6 +88,9 @@ public void setParamsPaging(int totalRowsParam) {
 		System.out.println("getStartRnumForMysql(): " + startRnumForMysql);
 }
 
+
+//선택삭제
+private String[] checkboxSeqArray;
 
 
 /* infrmember */
@@ -740,6 +735,21 @@ public Integer getIfnaDelNy() {
 }
 public void setIfnaDelNy(Integer ifnaDelNy) {
 	this.ifnaDelNy = ifnaDelNy;
+}
+
+
+
+public String getShMemberOption() {
+	return shMemberOption;
+}
+public void setShMemberOption(String shMemberOption) {
+	this.shMemberOption = shMemberOption;
+}
+public String getShMemberValue() {
+	return shMemberValue;
+}
+public void setShMemberValue(String shMemberValue) {
+	this.shMemberValue = shMemberValue;
 }
 
 

@@ -171,39 +171,11 @@ body {
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#상품관리">상품관리</button>
-							<div class="collapse" id="상품관리">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="../product/productList.html"
-										class="link-dark rounded"> &nbsp; &nbsp;등록상품조회</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="mb-1">
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#회원관리">회원관리</button>
-							<div class="collapse" id="회원관리">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;회원조회</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;회원수정</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#cs"
-								aria-expanded="false">C/S</button>
-							<div class="collapse" id="cs">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;고객센터</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;리뷰관리</a></li>
-								</ul>
-							</div>
 						</li>
 					</ul>
 					<div class="dropdown border-top">
@@ -215,7 +187,6 @@ body {
 						</a>
 						<ul class="dropdown-menu text-small shadow"
 							aria-labelledby="dropdownUser3">
-							<li><a class="dropdown-item" href="#">결재</a></li>
 							<li><a class="dropdown-item" onclick="showPopup();">프로필수정</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">로그아웃</a></li>
@@ -336,7 +307,7 @@ body {
 						<th scope="col" colspan="5" style="text-align: left">선택입력</th>
 					</tr>
 				</thead>
-				<tr>
+<%-- 				<tr>
 					<th class="table-secondary">국적</th>
 					<td><select class=""
 						aria-label="Default select example">
@@ -385,7 +356,7 @@ body {
 								id=""> <label class=""
 								for="flexCheckChecked"> 피아노 </label>
 						</div></td>
-				</tr>
+				</tr> --%>
 				<tr>
 					<th class="table-secondary">결혼유무</th>
 					<td><select class="" >
@@ -486,37 +457,36 @@ body {
 
 
 		<!-- 기본값 히든처리 -->
-		<input type="hidden" name="thisPage"
-			value="<c:out value="${vo.thisPage}"/>"> <input type="hidden"
-			name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
-		<input type="hidden" name="shMemberValue"
-			value="<c:out value="${vo.shMemberValue}"/>"> <input
-			type="hidden" name=""> <input type="hidden" name="ifmmSeq"
-			value="<c:out value="${item.ifmmSeq}"/>"> <input
-			type="hidden" name="ifmmSeq"
-			value="<c:out value="${item.ifmmAdminNy}"/>"> <input
-			type="hidden" name="ifmmDelNy"
-			value="<c:out value="${item.ifmmDelNy}"/>"> <br>
+		<input type="hidden" name="thisPage" value="<c:out value="${vo.thisPage}"/>"> 
+		<input type="hidden" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+		<input type="hidden" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+		<input type="hidden" name=""> 
+		<input type="hidden" name="ifmmSeq" value="<c:out value="${item.ifmmSeq}"/>"> 
+		<input type="hidden" name="ifmmSeq" value="<c:out value="${item.ifmmAdminNy}"/>"> 
+		<input type="hidden" name="ifmmDelNy" value="<c:out value="${item.ifmmDelNy}"/>"> <br>
 
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
 
-				<a
+	<%-- 			<a
 					href="/infra/member/memberList?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
 "${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>">
 					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
-						class="btn btn-sm btn-outline-primary">목록</button>
-				</a>
-
+						class="btn btn-sm btn-outline-secondary">목록</button>
+				</a> --%>
+				
+				<a href="javascript:goList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
 
 				<!-- Button trigger modal -->
 				<a
-					href="/infra/member/memberList?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
+					href="/infra/member/memberEditAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
 "${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>">
 					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
 						class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
 						data-bs-target="#저장">저장</button>
 				</a>
+				
+				
 				<!-- Modal -->
 				<div class="modal fade" id="저장" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -533,7 +503,7 @@ body {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">취소</button>
-								<a href="memberList.html">
+								<a href="memberEditAdmin">
 									<button type="button" class="btn btn-primary">저장</button>
 								</a>
 							</div>
@@ -544,18 +514,15 @@ body {
 		</div>
 	</main>
 
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/infra/resources/js/validation.js"></script>
-
 	<script type="text/javascript">
 
-$("#btnSubmit").on("click",function() {
-	if (!checkNull($("#ifmmNickname"), $("#ifmmNickname").val(),""))	retrun	false;
+	  goList = function(){
+		  	$("#formView").attr("action", "/infra/member/memberList");
+		  	$("#formView").submit();
+		  };
 </script>
-
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -565,8 +532,6 @@ $("#btnSubmit").on("click",function() {
 		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
 		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
 		crossorigin="anonymous"></script>
-
-
 
 	<!-- 기본템플릿 -->
 	<script
@@ -578,7 +543,9 @@ $("#btnSubmit").on("click",function() {
 	<!-- 팝업 -->
 	<script language="javascript">
   function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
+  </script>
   
-</script>
+
+
 </body>
 </html>

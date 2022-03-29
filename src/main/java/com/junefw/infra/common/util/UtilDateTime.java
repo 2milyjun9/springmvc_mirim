@@ -43,6 +43,8 @@ public class UtilDateTime {
 		return localDateTimeNewString;
 	}
 
-
+	public static String addStringTime(String date) {
+		return date + " 00:00:00";
+	}
 	
 }

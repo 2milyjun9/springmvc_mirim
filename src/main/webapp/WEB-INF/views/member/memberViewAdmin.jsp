@@ -6,6 +6,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
+<% pageContext.setAttribute("br", "\n"); %>  <!-- 설명엔터 -->
+
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -15,6 +18,10 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
+
+
+
+
 <title> 회원뷰</title>
 
 <link rel="canonical"
@@ -175,39 +182,11 @@ body {
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#상품관리">상품관리</button>
-							<div class="collapse" id="상품관리">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="../product/productList.html"
-										class="link-dark rounded"> &nbsp; &nbsp;등록상품조회</a></li>
-								</ul>
-							</div>
 						</li>
 						<li class="mb-1">
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#회원관리">회원관리</button>
-							<div class="collapse" id="회원관리">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="./memberList.html" class="link-dark rounded">
-											&nbsp; &nbsp;회원조회</a></li>
-									<li><a href="./memberEdit.html" class="link-dark rounded">
-											&nbsp; &nbsp;회원수정</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#cs"
-								aria-expanded="false">C/S</button>
-							<div class="collapse" id="cs">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;고객센터</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;리뷰관리</a></li>
-								</ul>
-							</div>
 						</li>
 					</ul>
 					<div class="dropdown border-top">
@@ -219,7 +198,6 @@ body {
 						</a>
 						<ul class="dropdown-menu text-small shadow"
 							aria-labelledby="dropdownUser3">
-							<li><a class="dropdown-item" href="#">결재</a></li>
 							<li><a class="dropdown-item" onclick="showPopup();">프로필수정</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">로그아웃</a></li>
@@ -230,6 +208,17 @@ body {
 			</nav>
 		</div>
 	</div>
+
+
+<form id="formView" action="" method="post">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+	<input type="hidden" id="shIfmmDelNy" name="shIfmmDelNy" value="<c:out value="${vo.shIfmmDelNy}"/>">
+	<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
+	<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+	<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+</form>
+
 
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div
@@ -269,9 +258,12 @@ body {
 							<th>기본정보</th>
 						</tr>
 					</thead>
+		
+
 					<tbody>
 						<div class="btn-toolbar mb-2 mb-md-0">
 							<div class="btn-group me-2">
+								
 								<tr>
 									<th scope="row">이름</th>
 									<td><a href="member/memberEditAdmin"><c:out
@@ -279,6 +271,7 @@ body {
 									<th>아이디</th>
 									<td><c:out value="${item.ifmmId}" /></td>
 								</tr>
+								
 								<tr>
 									<th>성별</th>
 									<td scope="row"><c:if test="${item.ifmmGenderCd eq 3}">
@@ -289,16 +282,32 @@ body {
 									<th>생년월일</th>
 									<td><c:out value="${item.ifmmDob}" /></td>
 								</tr>
+								
 								<tr>
 									<th>연락처</th>
 									<td><c:if test="${item.ifmpTelecomCd eq 28}"> <c:out value="SKT" /> </c:if> 
 								<c:if test="${item.ifmpTelecomCd eq 29}"> <c:out value="KT" /> 	</c:if>
 								 <c:if test="${item.ifmpTelecomCd eq 30}"> <c:out value="LGU" /> </c:if>
 								<c:if test="${item.ifmpTelecomCd eq 31}"> 	<c:out value="기타" /> 	</c:if>
-									<c:out value="${item.ifmpNumber}" /> </td>
+				
+				<c:set var="numberPhone" value="${item.ifmpNumber }"/>
+                	<c:choose>
+                		<c:when test="${fn:length(numberPhone) eq 10 }">
+							<c:out value="${fn:substring(numberPhone,0,3)}"/>
+							- <c:out value="${fn:substring(numberPhone,3,6)}"/>
+							- <c:out value="${fn:substring(numberPhone,6,10)}"/>
+                		</c:when>
+                		<c:otherwise>
+							<c:out value="${fn:substring(numberPhone,0,3)}"/>
+							- <c:out value="${fn:substring(numberPhone,3,7)}"/>
+							- <c:out value="${fn:substring(numberPhone,7,11)}"/>
+                		</c:otherwise>
+               		</c:choose></td>
 									<th>이메일</th>
 									<td><c:out value="${item.ifmeEmailFull}" /></td>
 								</tr>
+							</div>
+						</div>
 					</tbody>
 				</table>
 			</div>
@@ -309,6 +318,7 @@ body {
 			<div style="width: 100%; white-space: nowrap">
 				<div class="table-responsive">
 					<table class="table table-hover">
+	
 						<thead>
 							<tr>
 								<th>기본정보</th>
@@ -325,7 +335,7 @@ body {
 										<div class="collapse collapse-horizontal"
 											id="collapseWidthExample">
 											<div class="card card-body" style="width: 200px;">
-												<img src="../../../images/user/mirim.jpg">
+												<img src="..........">
 											</div>
 										</div>
 									</div></th>
@@ -346,7 +356,8 @@ body {
 									</c:if> 
 									<c:if test="${item.ifmmGenderCd eq 4}">
 										<c:out value="여성" />
-									</c:if></td>
+									</c:if> 				
+									</td>
 								<th class="table-secondary">생년월일</th>
 								<td><c:out value="${item.ifmmDob}" /></td>
 							</tr>
@@ -452,21 +463,21 @@ body {
 							<th scope="col" colspan="5" style="text-align: left">선택입력</th>
 						</tr>
 					</thead>
-					<tr>
+<%-- 					<tr>
 						<th class="table-secondary">국적</th>
 						<td></td>
 						<th class="table-secondary">좋아하는색깔</th>
 						<td><c:out value="${item.ifmmFavoriteColor}" /></td>
 						<th class="table-secondary">취미</th>
 						<td>
-		<%-- 	<c:if test="${item.ifmhHobbyCd eq 38}"> <c:out value="영화감상" /> </c:if> 
+		<c:if test="${item.ifmhHobbyCd eq 38}"> <c:out value="영화감상" /> </c:if> 
 						<c:if test="${item.ifmhHobbyCd eq 39}">	<c:out value="골프" /> </c:if>
 						<c:if test="${item.ifmhHobbyCd eq 40}">	<c:out value="음악감상" /> </c:if>
 						<c:if test="${item.ifmhHobbyCd eq 41}">	<c:out value="트래킹" /> </c:if>
 						<c:if test="${item.ifmhHobbyCd eq 42}">	<c:out value="서핑" /> </c:if>
-						<c:if test="${item.ifmhHobbyCd eq 43}">	<c:out value="피아노" /> </c:if>  --%>
+						<c:if test="${item.ifmhHobbyCd eq 43}">	<c:out value="피아노" /> </c:if>  
 						</td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<th class="table-secondary">결혼유무</th>
 							<td scope="row"><c:if test="${item.ifmmMarriageCd eq 13}">
@@ -548,12 +559,19 @@ body {
 				<tr>
 					<th class="table-secondary">상담내역</th>
 					<td>
-						<div class="form-floating">
+		<div class="form-floating">
 							<textarea class="form-control" placeholder="100자 이내 "
-					<%-- 			<c:out value="${item.}" />  --%>
 								style="height: 100px"></textarea>
-							<label for="floatingTextarea2">이곳에 작성해주세요.</label>
+							<label for="ifmmDesc">이곳에 작성해주세요.</label>
 						</div>
+						
+<%-- 						선생님기본소스
+  <div class="col-sm-6 mt-3 mt-sm-0">
+            <label for="ifmmDesc" class="form-label">설명</label>
+            <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p>
+            <p><c:out value="${fn:replace(item.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p>
+        </div> --%>
+ 
 					</td>
 				</tr>
 			</table>
@@ -605,28 +623,53 @@ body {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">취소</button>
-								<a href="memberView.html">
+								<a href="/infra/member/memberViewAdmin?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">">
 									<button type="button" class="btn btn-primary">저장</button>
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
+				
+<a href="javascript:goEdit();">	<button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
+<a href="javascript:goList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
+<a id="btnDelete" href="/infra/member/memberDele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
+ <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(진짜) </button></a>
+<a id="btnUpdateDelete" href="/infra/member/memberNele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
+ <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(가짜) </button></a>
 
-<a
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+goList = function(){
+	$("#formView").attr("action", "/infra/member/memberList");
+	$("#formView").submit();
+};
+
+goEdit = function(){
+	$("#formView").attr("action", "/infra/member/memberEditAdmin");
+	$("#formView").submit();
+};
+</script>
+
+
+
+<%--  <a
 						href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
 &thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
 &shValue=<c:out value="${vo.shMemberValue}"/>">
 						<button type="button" class="btn btn-sm btn-outline-warning">
 							수정</button>
-					</a> <a
-						href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+					</a> --%> 
+					
+<%-- 					<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
 &thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>"
-						id="btnUpdateDelete">
+&shValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
 						<button type="button" class="btn btn-sm btn-outline-danger">
-							삭제(가짜)</button>
-					</a>
+							삭제(가짜)</button> </a> --%>
+							
 			</div>
 		</div>
 	</main>
@@ -634,17 +677,8 @@ body {
 	<br>
 	<br>
 
-	<script type="text/javascript">
-		/* globals Chart:false, feather:false */
 
-		(function() {
-			'use strict'
 
-			feather.replace({
-				'aria-hidden' : 'true'
-			})
-
-	</script>
 
 	<!-- 팝업 -->
 	<script language="javascript">

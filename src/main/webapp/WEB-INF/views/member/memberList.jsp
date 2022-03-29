@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
+<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -70,7 +72,6 @@ body {
 	height: 16px;
 	vertical-align: text-bottom;
 }
-
 /*
  * Sidebar
 */
@@ -97,7 +98,6 @@ body {
 		top: 5rem;
 	}
 }
-
 .sidebar-sticky {
 	position: relative;
 	top: 0;
@@ -107,25 +107,20 @@ body {
 	overflow-y: auto;
 	/* Scrollable contents if viewport is shorter than content. */
 }
-
 .sidebar .nav-link {
 	font-weight: 500;
 	color: #333;
 }
-
 .sidebar .nav-link .feather {
 	margin-right: 4px;
 	color: #727272;
 }
-
 .sidebar .nav-link.active {
 	color: #2470dc;
 }
-
 .sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
 	color: inherit;
 }
-
 .sidebar-heading {
 	font-size: .75rem;
 	text-transform: uppercase;
@@ -139,11 +134,18 @@ body {
 	padding-bottom: .75rem;
 	font-size: 1rem;
 }
-
 .navbar .navbar-toggler {
 	top: .25rem;
 	right: 1rem;
 }
+/* 	#border {   /* 검색틀 */
+		border: 1px solid;
+		border-color: gray; 
+		border-top-style : non;
+		border-left-style : non;
+		border-bottom-style : non;
+		border-left-style : non;
+	} */
 </style>
 </head>
 <body>
@@ -172,25 +174,25 @@ body {
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#상품관리">상품관리</button>
-							<div class="collapse" id="상품관리">
+<!-- 							<div class="collapse" id="상품관리">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
 									<li><a href="../product/productList.html"
 										class="link-dark rounded"> &nbsp; &nbsp;등록상품조회</a></li>
 								</ul>
-							</div>
+							</div> -->
 						</li>
 						<li class="mb-1">
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#회원관리">회원관리</button>
-							<div class="collapse" id="회원관리">
+<!-- 							<div class="collapse" id="회원관리">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
 									<li><a href="../../member/memberList.html"
 										class="link-dark rounded"> &nbsp; &nbsp;회원조회</a></li>
 									<li><a href="#" class="link-dark rounded"> &nbsp;
 											&nbsp;회원수정</a></li>
 								</ul>
-							</div>
+							</div> -->
 						</li>
 					</ul>
 					<div class="dropdown border-top">
@@ -225,73 +227,76 @@ body {
 				</div>
 			</main>
 
-
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
 				<div style="width: 75%; float: none; margin: 0 auto">
+				
 					<form id="formList" name="formList" method="post" action="/infra/member/memberList">
+	<!-- 선택삭제 -->	<input type="hidden" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
+	<!-- 선택삭제 -->	<input type="hidden" name="checkboxSeqArray"> 					
+					
 					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
 					<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
 						
+							<select name="shMemberOptionDate" id="shMemberOptionDate">
+					<%-- <option value="" <c:if test="${empty vo.shMemberOptionDate}"> selected </c:if>>::날짜검색:: --%>
+							<option value="">::날짜검색::
+							<option value="1" <c:if test="${vo.shMemberOptionDate eq 1 }"> selected</c:if>>가입일
+							<option value="2" <c:if test="${vo.shMemberOptionDate eq 2 }"> selected</c:if>>수정일
+							<option value="3" <c:if test="${vo.shMemberOptionDate eq 3 }"> selected</c:if>>생일
+						</select> 
+					
+			  	
+	<%-- 		<fmt:parseDate var="shMemberDateStart" value="${vo.shMemberDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/>
+    		<input type="text" id="shMemberDateStart" name="shMemberDateStart" value="<fmt:formatDate value="${shMemberDateStart }" pattern="yyyy-MM-dd" />" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> 
+			
+			<fmt:parseDate var="shMemberDateEnd" value="${vo.shMemberDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/>
+			<input type="text" id="shMemberDateEnd" name="shMemberDateEnd" value="<fmt:formatDate value="${shMemberDateEnd }" pattern="yyyy-MM-dd" />" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">	
+		 --%>
+						<br>
+						
 						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
-							<option value="1"
-								<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>
-								Y
-							<option value="0"
-								<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>
-								N
+							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>Y
+							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>N
 						</select> 
-						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy">
+			
+						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy" >
 							<option value="">::휴먼여부::
-							<option value="0"
-								<c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
-							<option value="1"
-								<c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
+							<option value="0" <c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
+							<option value="1" <c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
 						</select> 
-						<select name="shMemberOption" id="shMemberOption">
+			
+						<select name="shMemberOption" id="shMemberOption" >
 							<option value="">::검색구문::
-							<option value="1"
-								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
-							<option value="2"
-								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
-							<option value="3"
-								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-							<option value="4"
-								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
+							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
+							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
+							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
+							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
 						</select> 
-						<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-						<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit4">Search</button>
-						
-						<br> <br> <br>
+					
+					<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+					<button class="" type="submit" name="search" id="btnSubmit4">검색</button>
+					
+						<br> <br>
 						
 						<div class="table-responsive" id="mainTable">
-							<table class="table table-striped table-hover"
-								data-toggle="table" data-toolbar=".toolbar"
+							<table class="table table-striped table-hover" data-toggle="table" data-toolbar=".toolbar"
 								data-sortable="false" data-height="460">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="allCheck"
-											onchange="allCheck(this)"> <label for="allCheck">
-												No. </label></th>
-										<th onclick="sortTD(0)" scope="col">이름 <i
-											class="fas fa-sort"> </i></th>
-										<th onclick="sortTD(1)" scope="col">아이디 <i
-											class="fas fa-sort"> </i></th>
-										<th onclick="sortTD(2)" scope="col">닉네임 <i
-											class="fas fa-sort"> </i>
-										</th>
-										<th onclick="sortTD(3)" scope="col">생년월일 <i
-											class="fas fa-sort"> </i>
-										</th>
-										<th onclick="sortTD(4)" scope="col">연락처 <i
-											class="fas fa-sort"> </i></th>
-										<th onclick="sortTD(5)" scope="col">가입일<i
-											class="fas fa-sort"> </i></th>
+										<th><input type="checkbox" id="checkboxAll"> No.</th>
+										<th  scope="col">이름 <i class="fas fa-sort"> </i></th>
+										<th  scope="col">아이디 <i class="fas fa-sort"> </i></th>
+										<th  scope="col">닉네임 <i class="fas fa-sort"> </i></th>
+										<th  scope="col"> 성별 <i class="fas fa-sort"> </i></th>
+										<th  scope="col">생년월일 <i class="fas fa-sort"> </i> </th>
+										<th  scope="col">연락처 <i class="fas fa-sort"> </i></th>
+										<th  scope="col">가입일<i class="fas fa-sort"> </i></th>
 										<th scope="col">상태</th>
 									</tr>
 								</thead>
-
+					<c:set var="listCodeGender" value="${CodeServiceImpl.selectListCachedCode('2')}"/>
 								<c:choose>
 									<c:when test="${fn:length(list) eq 0}">
 										<tr>
@@ -304,26 +309,37 @@ body {
 												<tr>
 													<td scope="row">
 														<div class="m_check_wrap">
-															<input type="checkbox" class="check_all_list"
-																onclick="checkAllList(event)">
-															<c:out value="${item.ifmmSeq}" />
+															<input type="checkbox" id="checkboxSeq" name="checkboxSeq" value="<c:out value="${item.ifmmSeq}" />" >
 														</div>
 													</td>
-													<td><a
-														href="javaScript:goForm('<c:out value="${item.ifmmSeq}"/>')"><c:out value="${item.ifmmName}" /></a> <%-- 	<a
-														href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
-															<c:out value="${item.ifmmName}" />
-													</a> --%></td>
+													<td>
+													<a href="javaScript:goMemberView('<c:out value="${item.ifmmSeq}"/>')"><c:out value="${item.ifmmName}" /></a>
+<%-- 	겟방식 <a href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>"> 	<c:out value="${item.ifmmName}" />	</a> --%></td>
 													<td><c:out value="${item.ifmmId}" /></td>
 													<td><c:out value="${item.ifmmNickname}" /></td>
+													<td>
+									<c:forEach items="${listCodeGender}" var="itemGender" varStatus="statusGender">
+									<c:if test="${item.ifmmGenderCd eq itemGender.ifcdSeq}"><c:out value="${itemGender.ifcdName}"/></c:if></c:forEach>			
+													</td>
 													<td><c:out value="${item.ifmmDob}" /></td>
-													<td><c:out value="${item.ifmpNumber}" /></td>
+							<%-- 						<td><c:out value="${item.ifmpNumber}" /></td> --%>
+													<td>
+														<c:set var="numberPhone" value="${item.ifmpNumber }"/>
+                	<c:choose>
+                		<c:when test="${fn:length(numberPhone) eq 10 }">
+							<c:out value="${fn:substring(numberPhone,0,3)}"/>
+							- <c:out value="${fn:substring(numberPhone,3,6)}"/>
+							- <c:out value="${fn:substring(numberPhone,6,10)}"/>
+                		</c:when>
+                		<c:otherwise>
+							<c:out value="${fn:substring(numberPhone,0,3)}"/>
+							- <c:out value="${fn:substring(numberPhone,3,7)}"/>
+							- <c:out value="${fn:substring(numberPhone,7,11)}"/>
+                		</c:otherwise>
+               		</c:choose> </td>
 													<td><c:out value="${item.regDateTime}" /></td>
-													<td><c:if test="${item.ifmmDormancyNy eq 0}">
-															<c:out value="활성" />
-														</c:if> <c:if test="${item.ifmmDormancyNy eq 1}">
-															<c:out value="휴먼" />
-														</c:if></td>
+													<td><c:if test="${item.ifmmDormancyNy eq 0}"> <c:out value="활성" /> </c:if>
+														<c:if test="${item.ifmmDormancyNy eq 1}"> <c:out value="휴먼" /> </c:if></td>
 												</tr>
 											</tbody>
 										</c:forEach>
@@ -334,7 +350,8 @@ body {
 					</form>
 				</div>
 			</div>
-
+		</div>
+			
 
 			<!-- 모바일버전테이블//웹감춤 -->
 			<div class=" d-lg-block d-xl-none">
@@ -384,35 +401,29 @@ body {
 
 			<div class="row text-center" style="width: 100%">
 				<div style="width: 100%; float: none; margin: 0 auto">
-
-			<br> <br>
-			<c:out value="${vo.startPage}" />
+			<br> 
+			<br>
 			<nav aria-label="...">
-				<ul class="pagination">
+				<ul class="pagination  justify-content-center">
 					<c:if test="${vo.startPage gt vo.pageNumToShow}">
-						<li class="page-item"><a class="page-link"
-							href="javascript:goList( <c:out value='${vo.startPage - 1}'/>);">
-								Previous</a></li>
+						<li class="page-item"><a class="page-link" href="javascript:goMemberList( <c:out value='${vo.startPage - 1}'/>);"> Previous</a></li>
 					</c:if>
-					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
-						varStatus="i">
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
 						<c:choose>
 							<c:when test="${i.index eq vo.thisPage}">
-								<li class="page-item active"><a class="page-link"
-									href="javascript:goList(<c:out value='${i.index}'/>);">${i.index}</a></li>
+								<li class="page-item active"><a class="page-link" href="javascript:goMemberList(<c:out value='${i.index}'/>);">${i.index}</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="javascript:goList( <c:out value='${i.index}'/>);">${i.index}</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:goMemberList( <c:out value='${i.index}'/>);">${i.index}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${vo.endPage ne vo.totalPages}">
-						<li class="page-item"><a class="page-link"
-							href="javascript:goList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
+						<li class="page-item"><a class="page-link" href="javascript:goMemberList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
 					</c:if>
 				</ul>
 			</nav>
+			
 			<%-- 겟방식
 			<nav aria-label="...">
 				<ul class="pagination justify-content-center">
@@ -442,13 +453,15 @@ body {
 	
 	
 					<!-- Button trigger modal -->
-					<a href="/infra/member/memberFormAdmin">
-						<button type="button" class="btn btn-sm btn-outline-success">
-							회원추가</button>
-					</a>
-					<!-- 				<button type="button" class="btn btn-sm btn-outline-primary"
-						data-bs-toggle="modal" data-bs-target="#저장">저장</button>
- -->
+	<a href = "/infra/member/memberFormAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value="${vo.shMemberOption}"/>
+&shMemberValue=<c:out value="${vo.shMemberValue}"/>">  <button type="button" class="btn btn-sm btn-outline-success"> 회원추가</button>
+					</a> 
+					
+					
+					
+					
+<!-- 			<button type="button" class="btn btn-sm btn-outline-primary"
+						data-bs-toggle="modal" data-bs-target="#저장">저장</button> -->
 					<!-- Modal -->
 					<div class="modal fade" id="저장" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -465,7 +478,7 @@ body {
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">취소</button>
-									<a href="memberList.html">
+									<a href="memberList">
 										<button type="button" class="btn btn-primary">저장</button>
 									</a>
 								</div>
@@ -473,8 +486,8 @@ body {
 						</div>
 					</div>
 
-		<button type="button" class="btn btn-sm btn-outline-danger"	data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
-					<!-- Modal -->
+<!-- 		<button type="button" class="btn btn-sm btn-outline-danger"	data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
+					Modal
 					<div class="modal fade" id="삭제" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -496,25 +509,17 @@ body {
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
-					<a href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>">
-						<button type="button" class="btn btn-sm btn-outline-warning">
-							수정</button>
-					</a> 
 					<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
+&thisPage=<c:out value="${vo.thisPage}"/>&shMemberOption=<c:out value="${vo.shMemberOption}"/>
+&shMemberValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
 						<button type="button" class="btn btn-sm btn-outline-danger">
 							삭제(가짜)</button>
 					</a>
 				</div>
 			</div>
 
-
-	
 
 			<script
 				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -533,7 +538,7 @@ body {
 
 			<!-- 팝업 -->
 			<script language="javascript">
-  function showPopup() { window.open("../main/mainProfileEdit.html", "프로필수정", "width=400, height=300, left=100, top=50"); }
+  function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
  			 </script>
 
 			<!-- 검색 -->
@@ -542,7 +547,7 @@ body {
 			<script src="/infra/resources/js/validation.js"></script>
 			<script type="text/javascript">
 
-	$("#btnSubmit4").on(
+		$("#btnSubmit4").on(
 			"click",
 			function() {
 				if (!checkNull($("#shMemberOption"), $("#shMemberOption").val(),
@@ -554,10 +559,9 @@ body {
 					retrun
 				false;
 			});
-			</script>
-
-			<script type="text/javascript">
-	$("#btnDelete").on("click", function() {
+		
+		
+		$("#btnDelete").on("click", function() {
 		var answer = confirm("삭제하시겠습니까?");
 		if (answer) { //infra/code/codeGroupDele 이동 
 		} else {
@@ -565,30 +569,45 @@ body {
 		}
 	});
 
-	$("#btnUpdateDelete").on("click", function() {
+		$("#btnUpdateDelete").on("click", function() {
 		var answer = confirm("삭제하시겠습니까?");
 		if (answer) { //infra/code/codeGroupNele 이동 
 		} else {
 			return false;
 		}
 	});
-		</script>
 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-			<script src="/infra/resources/js/validation.js"></script>
-			<script type="text/javascript">
-		 goList = function(seq){
+		$("#bunModalDelete").on("click", function() {
+			$("input[name=checkboxSeq]:checked").each(function() { 
+				checkboxSeqArray.push($(this).val());
+			});
+			
+			$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+								
+			form.attr("action", goUrlMultiDele).submit();
+	});
+		
+		goMemberList = function(seq){
 				alert(seq);
 				// form 객체를 가져온다 
 					$("#thisPage").val(seq);
 					$("#formList").submit();
 				//그 가져온 객체를 전달한다.
 			}
-		 goForm = function(seq){
+		 goMemberView = function(seq){
 			 alert(seq);
+					$("#ifmmSeq").val(seq);
 					$("#formList").attr("action","/infra/member/memberViewAdmin");
 					$("#formList").submit();
 			}
+		 
+		 //전체선택
+	$("#checkboxAll").click(function() {
+		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
+		else $("input[name=checkboxSeq]").prop("checked", false);
+	});
+	
+		 
  </script>
 </body>
 </html>
