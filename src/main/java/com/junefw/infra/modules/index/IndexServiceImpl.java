@@ -1,4 +1,4 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class MainServiceImpl implements MainService{
+public class IndexServiceImpl implements IndexService{
 
 	@Autowired
-	MainDao dao;
+	IndexDao dao;
 	
 	/*
 	 * //코드그룹

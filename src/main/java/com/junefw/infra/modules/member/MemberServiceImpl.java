@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.junefw.infra.common.util.UtilDateTime;
-import com.junefw.infra.modules.code.CodeVo;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -75,17 +74,12 @@ public class MemberServiceImpl implements MemberService {
 		 */
 		return 1;
 	}
+	
 
-	/*
-	 * @Override public Member selectOneLoginAdmin(Member dto) throws Exception {
-	 * //사원로그인 return dao.selectOneLoginAdmin(dto); }
-	 * 
-	 * 
-	 * public void setRegMod(Member dto) throws Exception{ HttpServletRequest
-	 * httpServletRequest = ((ServletRequestAttributes)
-	 * 
-	 * dto.setRegIp }
-	 */
+		/*
+		 * public void setRegMod(Member dto) throws Exception{ HttpServletRequest
+		 * httpServletRequest = ((ServletRequestAttributes) dto.setRegIp }
+		 */
 	/* ****************두리안 유저**************** */
 	@Override
 	public int insertMemberUser(Member dto) throws Exception {  //회원가입
@@ -98,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 		dao.insertPhone(dto);
 		dao.insertAddress(dto);
 		dao.insertAddressOnline(dto);
-		dao.insertJoinQna(dto);
+		/* dao.insertJoinQna(dto); */
 		
 		return 1;
 		/* return dao.insertMemberUser(dto); */
@@ -111,18 +105,20 @@ public class MemberServiceImpl implements MemberService {
 		dao.updatePhone(dto);
 		dao.updateAddress(dto);
 		dao.updateAddressOnline(dto);
-		dao.updateJoinQna(dto);
-		
+		/* dao.updateJoinQna(dto); */
 		return 1;
 	}
 	@Override
 	public Member memberViewUser(MemberVo vo) throws Exception { //회원뷰
 		return dao.memberViewUser(vo);
 	}
-	/*
-	 * @Override public Member selectOneLoginUser(Member dto) throws Exception {
-	 * //회원로그인 return dao.selectOneLoginUser(dto); }
-	 */
+
+	@Override
+	public Member selectOneLoginUser(Member dto) { //회원로그인
+		return dao.selectOneLoginUser(dto); 
+	}
+	
+	/* ****************************두리안 공통******************************* */
 	@Override
 	public int deleteMember(MemberVo vo) {   //회원삭제
 		return dao.deleteMember(vo);	
@@ -131,8 +127,23 @@ public class MemberServiceImpl implements MemberService {
 	public int updateDeleteMember(MemberVo vo) throws Exception { //회원가짜삭제 
 		return dao.updateDeleteMember(vo);
 	}
-
-	
+	@Override
+	public int insertEmail(Member dto) throws Exception {  //회원등록 이메일
+		return dao.insertEmail(dto);
+	}
+	@Override
+	public int insertPhone(Member dto) throws Exception {  //회원등록 이메일
+		return dao.insertEmail(dto);
+	}
+	@Override
+	public int insertAddress(Member dto) throws Exception {  //회원등록 이메일
+		return dao.insertAddress(dto);
+	}
+	@Override
+	public int insertAddressOnline(Member dto) throws Exception {  //회원등록 이메일
+		return dao.insertAddressOnline(dto);
 	}
 
 
+	
+}

@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
-
+<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
 
 
 <!doctype html>
@@ -163,7 +163,7 @@ body {
 	<header
 		class="navbar navbar-dark sticky-top bg-secondary text-white flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
-			href="../main/main.html"> Auctionary</a>
+			href="../main/mainAdmin"> Auctionary</a>
 		<button class="navbar-toggler position-absolute d-md-none collapsed"
 			type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 			aria-controls="sidebarMenu" aria-expanded="false"
@@ -236,7 +236,17 @@ body {
 
 	<br>
 
-	<form method="post" action="/infra/member/memberInstAdmin">
+	<form id="formList" name="formList" method="post" action="/infra/member/memberInstAdmin">
+	
+		<!-- 기본값히든처리 -->
+		<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+		<input type="hidden" id="shIfmmDelNy" name="shIfmmDelNy" value="<c:out value="${vo.shIfmmDelNy}"/>">
+		<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
+		<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+		<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+		<c:set var="listCodeGender" value="${CodeServiceImpl.selectListCachedCode('2')}"/>
+		
 			<div class="container">
 			
 			<div class="input-form-backgroud row">
@@ -273,13 +283,24 @@ body {
 							</div>
 							<div class="col-md-6 mb-3">
 								<label>성별</label>
-							<select class="custom-select d-block w-100"
+								
+				<select class="custom-select d-block w-100"
 									name="ifmmGenderCd" required>
 
 									<option value="3">남성</option>
 									<option value="4">여성</option>
 								</select> 
 								
+<%-- 					<select id="ifmmGenderCd" name="ifmmGenderCd" class="custom-select d-block w-100">
+										<option value="">성별</option>
+											<c:forEach items="${listCodeGender}" var="itemGender" varStatus="statusGender">
+		 										<option value="<c:out value="${itemGender.ifcdSeq}"/>"
+													<c:if test="${rt.ifmmGenderCd eq itemGender.ifcdSeq}">selected</c:if>>
+													<c:out value="${itemGender.ifcdName}"/>
+												</option>
+											</c:forEach>
+									</select> --%>
+									
 <%-- 						<select class="custom-select d-block w-100" id="ifmmGenderCd" name="ifmmGenderCd">
 							<option value="">성별</option>
 							<c:forEach items="${codeGender}" var="itemGender" varStatus="statusGender">
@@ -327,8 +348,11 @@ body {
 							<div class="col-md-6 mb-3">
 								<label>휴대폰번호
 									<button type="button" class="btn btn-primary btn-sm">인증</button>
-								</label> <input type="text" class="form-control" name="ifmpNumber"
-									placeholder="" required>
+								</label> 
+								
+								<input type="hidden" class="form-control" id="ifmpDefaultNy"  name="ifmpDefaultNy" value="1">
+								<input type="hidden" class="form-control" id="ifmpTypeCd"  name="ifmpTypeCd" value="21"> 
+								<input type="text" class="form-control" name="ifmpNumber" placeholder="" required>
 								<div class="invalid-feedback">휴대폰번호를 입력해주세요.</div>
 							</div>
 						</div>
@@ -336,7 +360,10 @@ body {
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
-								<label>이메일</label> <input type="email" class="form-control"
+								<label>이메일</label> 
+								<input type="hidden" class="form-control"  id="ifmeDefaultNy"  name="ifmeDefaultNy" value="1">
+								<input type="hidden" class="form-control"  id="ifmeTypeCd"  name="ifmeTypeCd" value="14">
+								<input type="email" class="form-control"
 									name="ifmeEmailFull" placeholder="you@example.com" required>
 								<div class="invalid-feedback">이메일을 입력해주세요.</div>
 							</div>
@@ -391,11 +418,14 @@ body {
 
 												<div class="col-md-6 mb-3">
 													<label>우편번호</label> 
-													<input type="hidden" class="form-control"  id="ifmaDefaultNyArray0"  name="ifmaDefaultNyArray" value="1">
+												<!-- 	<input type="hidden" class="form-control"  id="ifmaDefaultNyArray0"  name="ifmaDefaultNyArray" value="1">
 													<input type="hidden" class="form-control" id="ifmaTypeCdArray0"  name="ifmaTypeCdArray" value="14">
-													<input type="hidden" class="form-control" id="ifmaTitleArray0"  name="ifmaTitleArray" value="">
+													<input type="hidden" class="form-control" id="ifmaTitleArray0"  name="ifmaTitleArray" value=""> -->
+													<input type="hidden" class="form-control"  id="ifmaDefaultNy"  name="ifmaDefaultNy" value="1">
+													<input type="hidden" class="form-control" id="ifmaTypeCd"  name="ifmaTypeCd" value="14">
+													<input type="hidden" class="form-control" id="ifmaTitle"  name="ifmaTitle" value=""> 
 													<input type="text" class="form-control"
-														placeholder="우편번호찾기 클릭" id="ifmaZipcodeArray0"  name="ifmaZipcodeArray" value="" 
+														placeholder="우편번호찾기 클릭" id="ifmaZipcode"  name="ifmaZipcode" value="" 
 														 onclick="sample6_execDaumPostcode()">
 														 
 														 
@@ -412,30 +442,42 @@ body {
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-												<label>주소</label> <input type="text" class="form-control"
-													 id="ifmaAddress1Array0" name="ifmaAddress1Array"  placeholder="주소" value="" readonly>
+												<label>주소</label>
+												<!--  <input type="text" class="form-control"
+													 id="ifmaAddress1Array0" name="ifmaAddress1Array"  placeholder="주소" value="" readonly> -->
+													<input type="hidden" class="form-control"  id="ifmeDefaultNy"  name="ifmeDefaultNy" value="1">
+													<input type="hidden" class="form-control"  id="ifmeTypeCd"  name="ifmeTypeCd" value="44">
+													 <input type="text" class="form-control"
+													 id="ifmaAddress1" name="ifmaAddress1"  placeholder="주소" value="" readonly>
 
 											</div>
 											<div class="col-md-6 mb-3">
-												<label>상세주소<span class="text-muted">&nbsp;</span></label> <input
+												<label>상세주소<span class="text-muted">&nbsp;</span></label> <!-- <input
 													type="text" class="form-control" 
-													id="ifmaAddress2Array0"  name="ifmaAddress2Array" placeholder="상세주소" maxlength="50" value="">
+													id="ifmaAddress2Array0"  name="ifmaAddress2Array" placeholder="상세주소" maxlength="50" value=""> -->
+													<input
+													type="text" class="form-control" 
+													id="ifmaAddress2"  name="ifmaAddress2" placeholder="상세주소" maxlength="50" value="">
 											</div>
 										</div>
 
 
 
 										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label>SNS/홈페이지</label> <select
-													class="custom-select d-block w-100">
-													<option selected>선택</option>
+											<div class="col-md-6 mb-3" >
+												<label>SNS/홈페이지</label> 
+													<input type="hidden" class="form-control"  id="ifaoDefaultNy"  name="ifaoDefaultNy" value="1">
+												<select
+													class="custom-select d-block w-100" name="ifaoSnsTypeCd">
+			<!-- 										<option selected>선택</option> -->
 													<option value="34">페이스북</option>
 													<option value="35">인스타그램</option>
 													<option value="36">트위터</option>
 													<option value="37">카카오톡</option>
+									
 												</select>
-
+								
+	
 											</div>
 											<div class="col-md-6 mb-3">
 												<label>SNS/홈페이지 계정</label> <input type="text"
@@ -592,18 +634,24 @@ body {
 
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
-				<a href="javascript:goList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
-				<button  type="submit" class="btn btn-sm btn-outline-primary" id="btnSubmit">등록 </button>
-					</form>
+				
+				<a href="javascript:goMemberList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
+				<button type="submit" class="btn btn-sm btn-outline-primary" id="btnSubmit">등록 </button>
+					
+					
 				</div>
 			</div>
-	
+		</form>
+	</main>
 	
 
 	<footer class="my-3 text-center text-small">
 		<p class="mb-1">&copy; 2022 Auctionary</p>
 	</footer>
 
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	<!-- 검색 -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -616,8 +664,14 @@ body {
 		});
 	</script>
 
+	<script type="text/javascript">
+			goMemberList = function(){
+				$("#formList").attr("action", "/infra/member/memberList");
+				$("#formList").submit();
+			};
+			</script>
 
-<!--  주소창 다음api  -->
+	<!--  주소창 다음api  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -653,27 +707,23 @@ body {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("ifmaAddress2Array0").value = extraAddr;
+                    document.getElementById("ifmaAddress2").value = extraAddr;
                 
                 } else {
-                    document.getElementById("ifmaAddress2Array0").value = '';
+                    document.getElementById("ifmaAddress2").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('ifmaZipcodeArray0').value = data.zonecode;
-                document.getElementById("ifmaAddress1Array0").value = addr;
+                document.getElementById('ifmaZipcode').value = data.zonecode;
+                document.getElementById("ifmaAddress1").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("ifmaAddress2Array0").focus();
+                document.getElementById("ifmaAddress2").focus();
             }
         }).open();
     }
 </script>
 
 
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ifmmDob").datepicker();

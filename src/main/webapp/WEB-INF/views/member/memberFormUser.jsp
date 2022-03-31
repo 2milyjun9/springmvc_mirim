@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
-
+<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
 
 
 <!DOCTYPE html>
@@ -156,14 +156,18 @@ body {
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
-								<label>이메일</label> <input type="email" class="form-control"
+								<label>이메일</label> 
+								<input type="hidden" class="form-control"  id="ifmeDefaultNy"  name="ifmeDefaultNy" value="1">
+								<input type="hidden" class="form-control"  id="ifmeTypeCd"  name="ifmeTypeCd" value="14">
+								<input type="email" class="form-control"
 									name="ifmeEmailFull" placeholder="you@example.com" required>
 								<div class="invalid-feedback">이메일을 입력해주세요.</div>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label>생년월일<span class="text-muted">&nbsp;</span></label> 
 								<input class="form-control" type="text" id="ifmmDob"
-							name="ifmmDob" placeholder="생년월일" required value="<c:out value="${item.ifmmDob }"/>">
+							name="ifmmDob" placeholder="생년월일" required value="<c:out value="${item.ifmmDob }"/>"
+							autocomplete="off">
 								<div class="invalid-feedback">생년월일을 입력해주세요.</div>
 							</div>
 							
@@ -228,11 +232,10 @@ body {
 
 												<div class="col-md-6 mb-3">
 													<label>우편번호</label> 
-													<input type="hidden" class="form-control"  id="ifmaDefaultNyArray0"  name="ifmaDefaultNyArray" value="1">
-													<input type="hidden" class="form-control" id="ifmaTypeCdArray0"  name="ifmaTypeCdArray" value="14">
-													<input type="hidden" class="form-control" id="ifmaTitleArray0"  name="ifmaTitleArray" value="">
-													<input type="text" class="form-control"
-														placeholder="우편번호찾기" id="ifmaZipcodeArray0"  name="ifmaZipcodeArray" value="" 
+													<input type="hidden" class="form-control"  id="ifmaDefaultNy"  name="ifmaDefaultNy" value="1">
+													<input type="hidden" class="form-control" id="ifmaTypeCd"  name="ifmaTypeCd" value="14">
+													<input type="hidden" class="form-control" id="ifmaTitle"  name="ifmaTitle" value="">
+													<input type="text" class="form-control" placeholder="우편번호찾기" id="ifmaZipcode"  name="ifmaZipcode" value="" 
 														 onclick="sample6_execDaumPostcode()">
 														 
 														 
@@ -249,14 +252,16 @@ body {
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-												<label>주소</label> <input type="text" class="form-control"
-													 id="ifmaAddress1Array0" name="ifmaAddress1Array"  placeholder="주소" value="" readonly>
+												<label>주소</label> 
+												<input type="hidden" class="form-control"  id="ifmeDefaultNy"  name="ifmeDefaultNy" value="1">
+												<input type="hidden" class="form-control"  id="ifmeTypeCd"  name="ifmeTypeCd" value="44">
+												<input type="text" class="form-control" id="ifmaAddress1" name="ifmaAddress1"  placeholder="주소" value="" readonly>
 
 											</div>
 											<div class="col-md-6 mb-3">
 												<label>상세주소<span class="text-muted">&nbsp;</span></label> <input
 													type="text" class="form-control" 
-													id="ifmaAddress2Array0"  name="ifmaAddress2Array" placeholder="상세주소" maxlength="50" value="">
+													id="ifmaAddress2"  name="ifmaAddress2" placeholder="상세주소" maxlength="50" value="">
 											</div>
 										</div>
 
@@ -264,8 +269,10 @@ body {
 
 										<div class="row">
 											<div class="col-md-6 mb-3">
-												<label>SNS/홈페이지</label> <select
-													class="custom-select d-block w-100">
+												<label>SNS/홈페이지</label> 
+													<input type="hidden" class="form-control"  id="ifaoDefaultNy"  name="ifaoDefaultNy" value="1">
+													<select
+													class="custom-select d-block w-100" name="ifaoSnsTypeCd">
 													<option selected>선택</option>
 													<option value="34">페이스북</option>
 													<option value="35">인스타그램</option>
@@ -497,28 +504,30 @@ $("#ifmaAddress1Array0").val('');
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("ifmaAddress2Array0").value = extraAddr;
+                    document.getElementById("ifmaAddress2").value = extraAddr;
                 
                 } else {
-                    document.getElementById("ifmaAddress2Array0").value = '';
+                    document.getElementById("ifmaAddress2").value = '';
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('ifmaZipcodeArray0').value = data.zonecode;
-                document.getElementById("ifmaAddress1Array0").value = addr;
+                document.getElementById('ifmaZipcode').value = data.zonecode;
+                document.getElementById("ifmaAddress1").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("ifmaAddress2Array0").focus();
+                document.getElementById("ifmaAddress2").focus();
             }
         }).open();
     }
 </script>
-			<!-- 검색 -->
-			<script
-				src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-			<script src="/infra/resources/js/validation.js"></script>
-			<script type="text/javascript">
-
-$("#btnSubmit").on(
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<!-- 검색 -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
+	<script type="text/javascript">
+	$("#btnSubmit").on(
 			"click",
 			function() {
 				if (!checkId($("#ifmmId"), $("#ifmmId").val(),
@@ -527,13 +536,10 @@ $("#btnSubmit").on(
 		false;	
 			});
 	
-</script>
+	</script>
 
 
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	---
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ifmmDob").datepicker();

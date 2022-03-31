@@ -7,6 +7,7 @@ import java.util.Date;
 public class Member /* extends Base */ {
 	
 
+
 	/* infrmember */
 	private String ifmmSeq;
 	private Integer ifmmAdminNy;
@@ -30,6 +31,7 @@ public class Member /* extends Base */ {
 	private Integer ifmmSmsConsentNy;
 	private Integer ifmmPushConsentNy;
 	private Integer ifmmDelNy;
+	private String ifmmDesc;
 	
 
 	/* infrmemberphone */
@@ -622,5 +624,12 @@ public class Member /* extends Base */ {
 		
 	}
 
+	public String getIfmmDesc() {
+		return ifmmDesc;
+	}
+	public void setIfmmDesc(String ifmmDesc) {
+		this.ifmmDesc = ifmmDesc;
+	}
+	
 	
 }

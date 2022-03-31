@@ -1,6 +1,6 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
-public class MainVo {
+public class IndexVo {
 	
 	//조건검색할떈 여기, 저장은 기본 코드.java파일 
 	//VO  (셀렉의 where의 부분정도로 생각하면됨)

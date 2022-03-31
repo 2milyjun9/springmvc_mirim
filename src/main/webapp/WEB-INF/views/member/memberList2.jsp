@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
-<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
 
+<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
 
 <!doctype html>
 <html lang="ko">
@@ -227,14 +227,14 @@ body {
 				</div>
 			</main>
 
-	
-			
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
 				<div style="width: 75%; float: none; margin: 0 auto">
+				
 					<form id="formList" name="formList" method="post" action="/infra/member/memberList">
 	<!-- 선택삭제 -->	<input type="hidden" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
 	<!-- 선택삭제 -->	<input type="hidden" name="checkboxSeqArray"> 					
+					
 					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
 					<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
 						
@@ -319,12 +319,9 @@ body {
 													<td><c:out value="${item.ifmmId}" /></td>
 													<td><c:out value="${item.ifmmNickname}" /></td>
 													<td>
-								<%-- 	<c:forEach items="${listCodeGender}" var="itemGender" varStatus="statusGender">
-									<c:if test="${item.ifmmGenderCd eq itemGender.ifcdSeq}"><c:out value="${itemGender.ifcdName}"/></c:if></c:forEach> --%>			
-														<c:if test="${item.ifmmGenderCd eq 3}"><c:out value="남성" /></c:if> 
-														<c:if test="${item.ifmmGenderCd eq 4}"><c:out value="여성" /></c:if>
+									<c:forEach items="${listCodeGender}" var="itemGender" varStatus="statusGender">
+									<c:if test="${item.ifmmGenderCd eq itemGender.ifcdSeq}"><c:out value="${itemGender.ifcdName}"/></c:if></c:forEach>			
 													</td>
-										
 													<td><c:out value="${item.ifmmDob}" /></td>
 													<%-- 	<td><c:out value="${item.ifmpNumber}" /></td> --%>
 													<td>
@@ -402,55 +399,8 @@ body {
 				</div>
 			</div>
 
-					
-<%--  겟방식 페이징과 버튼
-			<nav aria-label="...">
-				<ul class="pagination justify-content-center">
-					<c:if test="${vo.startPage gt vo.pageNumToShow}">
-						<li class="page-item"><a class="page-link"
-							href="/infra/member/memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
-					</c:if>
-					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
-						varStatus="i">
-						<c:choose>
-							<c:when test="${i.index eq vo.thisPage}">
-								<li class="page-item active"><a class="page-link"
-									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${vo.endPage ne vo.totalPages}">
-						<li class="page-item"><a class="page-link"
-							href="/infra/member/memberList?thisPage=${vo.endPage + 1}">Next</a></li>
-					</c:if>
-				</ul>
-			</nav> 
-<a href = "/infra/member/memberFormAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value="${vo.shMemberOption}"/>
-&shMemberValue=<c:out value="${vo.shMemberValue}"/>">  
-<button type="button" class="btn btn-sm btn-outline-success"> 회원추가</button> </a> 
-								
-<a href="/infra/member/memberMultiUele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shMemberOption=<c:out value="${vo.shMemberOption}"/>
-&shMemberValue=<c:out value="${vo.shMemberValue}"/>" id="btnModalNelete">
-		<button type="button" class="btn btn-sm btn-outline-danger"	data-bs-toggle="modal" data-bs-target="#btnModalNelete">삭제</button></a>
 
-<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shMemberOption=<c:out value="${vo.shMemberOption}"/>
-&shMemberValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
-	<button type="button" class="btn btn-sm btn-outline-danger">삭제</button>  </a> 
-							
-<a href = "/infra/member/memberFormAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value="${vo.shMemberOption}"/>
-&shMemberValue=<c:out value="${vo.shMemberValue}"/>">  <button type="button" class="btn btn-sm btn-outline-success"> 회원추가</button>
-	</a> 		
-				 --%>
-		
-			
 
-		<!--포스트 페이징과 버튼 -->
 			<div class="row text-center" style="width: 100%">
 				<div style="width: 100%; float: none; margin: 0 auto">
 			<br> 
@@ -475,16 +425,77 @@ body {
 					</c:if>
 				</ul>
 			</nav>
+			
+			<%-- 겟방식
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/member/memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
+						varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link"
+									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="/infra/member/memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link"
+							href="/infra/member/memberList?thisPage=${vo.endPage + 1}">Next</a></li>
+					</c:if>
+				</ul>
+			</nav> --%>
 	
-<a href="javascript:goMemberForm();"> <button type="button" id = "goMemberForm" class="btn btn-sm btn-outline-success"> 회원등록 </button></a>
-<a href="javascript:goUrlMultiNelete();"> <button type="button" id="goUrlMultiNelete" class="btn btn-sm btn-outline-danger"
-data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 	
-	<div class="modal fade" id="btnModalNelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<!-- Button trigger modal -->
+	<a href = "/infra/member/memberFormAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value="${vo.shMemberOption}"/>
+&shMemberValue=<c:out value="${vo.shMemberValue}"/>">  <button type="button" class="btn btn-sm btn-outline-success"> 회원추가</button>
+					</a> 
+					
+					
+					
+					
+<!-- 			<button type="button" class="btn btn-sm btn-outline-primary"
+						data-bs-toggle="modal" data-bs-target="#저장">저장</button> -->
+					<!-- Modal -->
+					<div class="modal fade" id="저장" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="modal-title">
+									<h5 class="modal-title" id="exampleModalLabel">
+										<i class="fas fa-exclamation-circle"></i>저장 확인!
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">정말 저장하시겠습니까?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">취소</button>
+									<a href="memberList">
+										<button type="button" class="btn btn-primary">저장</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+<!-- 		<button type="button" class="btn btn-sm btn-outline-danger"	data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
+					Modal
+					<div class="modal fade" id="삭제" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">
 										<i class="fas fa-exclamation-circle"></i>삭제 확인!
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -500,9 +511,21 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 								</div>
 							</div>
 						</div>
-					</div>    
+					</div> -->
+
+					<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shMemberOption=<c:out value="${vo.shMemberOption}"/>
+&shMemberValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
+						<button type="button" class="btn btn-sm btn-outline-danger">
+							삭제</button>
+							
+							
+							
+					</a>
 				</div>
-			</div>	
+			</div>
+
+
 			<script
 				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 				integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
@@ -519,15 +542,16 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 				crossorigin="anonymous"></script>
 
 			<!-- 팝업 -->
-			<script language="javascript"> function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
+			<script language="javascript">
+  function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
  			 </script>
 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<!-- 검색 -->
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 			<script src="/infra/resources/js/validation.js"></script>
-			<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-			
-			
 			<script type="text/javascript">
+
 		$("#btnSubmit4").on(
 			"click",
 			function() {
@@ -541,25 +565,6 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 				false;
 			});
 		
-	       $("#btnModalNelete").on("click", function() {
-				$("input[name=checkboxSeq]:checked").each(function() { 
-					checkboxSeqArray.push($(this).val());
-				});
-				
-				$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);			
-				form.attr("action", goUrlMultiNelete).submit();
-				});
-	       
-			$("#btnUpdateDelete").on("click", function() {
-				var answer = confirm("삭제하시겠습니까?");
-				if (answer) { //infra/code/codeGroupNele 이동 
-				} else {
-					return false;
-				}
-			});
-		</script>
-		
-			<script type="text/javascript">
 /* 		
 		$("#btnDelete").on("click", function() {
 		var answer = confirm("삭제하시겠습니까?");
@@ -568,8 +573,26 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 			return false;
 		}
 	});
+
+		$("#btnUpdateDelete").on("click", function() {
+		var answer = confirm("삭제하시겠습니까?");
+		if (answer) { //infra/code/codeGroupNele 이동 
+		} else {
+			return false;
+		}
+	});
+		$("#bunModalDelete").on("click", function() {
+			$("input[name=checkboxSeq]:checked").each(function() { 
+				checkboxSeqArray.push($(this).val());
+			});
+			
+			$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+								
+			form.attr("action", goUrlMultiDele).submit();
+	});  */
+
 		
-/* 	$("#btnDelete").on("click", function(){
+	$("#btnDelete").on("click", function(){
 	      if(   $("inputinput[name=checkboxSeq]:checked").length > 0 {
 	         $("input:hidden[name=exDeleteType]").val(2);
 	         $(".modal-title").text("확 인");
@@ -582,10 +605,34 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 	         $(".modal-body").text("데이터를 선택 해 주세요!");
 	         $("#modalAlert").modal("show");
 	      }
-	          */   
-			</script>
-	
-	 <script type="text/javascript">
+	            
+	         
+	         $("#btnModalUelete").on("click", function(){
+	            $("inputinput[name=checkboxSeq]:checked").each(function() {
+	               checkboxSeqArray.push($(this).val());   
+	            });
+	            
+	            $("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+	            
+	            $("#modalConfirm").modal("hide");
+	            
+	            form.attr("action", "memberMultiUele?mvmmSeq=<c:out value="${rt.mvmmSeq}"/>").submit();
+	         })
+	         
+	         
+	         $("#btnModalDelete").on("click", function(){
+	            $("inputinput[name=checkboxSeq]:checked").each(function() {
+	               checkboxSeqArray.push($(this).val());   
+	            });
+	            
+	            $("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+	            
+	            $("#modalConfirm").modal("hide");
+	            
+	            form.attr("action", "memberMultiUele?mvmmSeq=<c:out value="${rt.mvmmSeq}"/>").submit();
+	         })
+
+				
 		goMemberList = function(seq){
 				alert(seq);
 				// form 객체를 가져온다 
@@ -599,25 +646,15 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 					$("#formList").attr("action","/infra/member/memberViewAdmin");
 					$("#formList").submit();
 			}
-		 goMemberForm = function(seq){
-				$("#ifmmSeq").val(seq);
-				$("#formList").attr("action","/infra/member/memberFormAdmin");
-				$("#formList").submit();
-			}	 
-		 goUrlMultiNelete = function(seq){
-				$("#ifmmSeq").val(seq);
-				$("#formList").attr("action","/infra/member/memberList");
-				$("#formList").submit();
-			}	 
-	 		</script>
-	 		
-	 		
-		 <script type="text/javascript">  //전체선택
-		$("#checkboxAll").click(function() {
+		 
+		 //전체선택
+	$("#checkboxAll").click(function() {
 		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
 		else $("input[name=checkboxSeq]").prop("checked", false);
-		});
-		</script>
+	});
+	
+		 
+ 		</script>
  
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MainDao {
+public class IndexDao {
 	
 	/*@Inject
 	//	@Resource(name = "sqlSession")

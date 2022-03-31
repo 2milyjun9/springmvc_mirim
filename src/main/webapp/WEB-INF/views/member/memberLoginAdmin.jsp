@@ -100,13 +100,12 @@ a { /*링크 줄안가게하기*/
 			<form class="px-4 py-3">
 				<div class="mb-3">
 					<label for="exampleDropdownFormEmail1" class="form-label">아이디</label>
-					<input type="email" class="form-control"
-						id="exampleDropdownFormEmail1" placeholder="사원번호">
+					<input type="text" class="form-control"
+						id="ifmmId" placeholder="사원번호">
 				</div>
 				<div class="mb-3">
 					<label for="exampleDropdownFormPassword1" class="form-label">패스워드</label>
-					<input type="password" class="form-control"
-						id="exampleDropdownFormPassword1" placeholder="비밀번호">
+					<input type="password" class="form-control" id="ifmmPassword" placeholder="비밀번호">
 				</div>
 				<div class="mb-3">
 					<div class="form-check">
@@ -115,7 +114,7 @@ a { /*링크 줄안가게하기*/
 						</label>
 					</div>
 				</div>
-				<button type="submit" class="btn btn-primary">로그인</button>
+				<button type="button" id="btnLogin" class="btn btn-primary">로그인</button>
 			</form>
 		</div>
 	</div>
@@ -125,7 +124,7 @@ a { /*링크 줄안가게하기*/
 
 
 	<!-- 모바일버전로그인창 -->
-	<div class="  d-lg-block d-xl-none">
+<!-- 	<div class="  d-lg-block d-xl-none">
 		<div id=mobilelogin>
 			<form class="px-4 py-3">
 				<div class="mb-3">
@@ -149,20 +148,46 @@ a { /*링크 줄안가게하기*/
 			</form>
 		</div>
 	</div>
-
+ -->
 	<br>
 	<br>
 	<br>
 
-	<!--  -->
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<!-- 검색 -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous">
-		
 	</script>
 
-
+	<script type="text/javascript">
+	$("#btnLogin").on("click", function(){
+		/* if(validation() == false) return false; */
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/infra/member/loginProc"
+			,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
+			,success: function(response) {
+				if(response.rt == "success") {
+					location.href = "/infra/index/indexView";
+				} else {
+					alert("아이디 또는 비밀번호가 맞지 않습니다.");
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});	
+	});
+	</script>
 
 </body>
 </html>

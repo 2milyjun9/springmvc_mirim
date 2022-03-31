@@ -194,20 +194,6 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#cs"
-								aria-expanded="false">C/S</button>
-							<div class="collapse" id="cs">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;고객센터</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;리뷰관리</a></li>
-								</ul>
-							</div>
-						</li>
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
@@ -218,7 +204,6 @@ body {
 						</a>
 						<ul class="dropdown-menu text-small shadow"
 							aria-labelledby="dropdownUser3">
-							<li><a class="dropdown-item" href="#">결재</a></li>
 							<li><a class="dropdown-item" onclick="showPopup();">프로필수정</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">로그아웃</a></li>

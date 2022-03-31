@@ -1,8 +1,8 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
 import java.util.List;
 
-public interface MainService {
+public interface IndexService {
 	/*
 	 * //infrCodeGroup //전체 public abstract 생략 int selectOneCount(MainVo vo) throws
 	 * Exception; List<Main> selectList(MainVo vo) throws Exception; int insert(Main

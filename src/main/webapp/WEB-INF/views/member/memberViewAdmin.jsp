@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
-
+<jsp:useBean id="CodeServiceImpl" class="com.junefw.infra.modules.code.CodeServiceImpl"/>
 <% pageContext.setAttribute("br", "\n"); %>  <!-- 설명엔터 -->
 
 
@@ -162,7 +162,7 @@ body {
 	<header
 		class="navbar navbar-dark sticky-top bg-secondary text-white flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
-			href="../main/main.html"> Auctionary</a>
+			href="../main/mainAdmin"> Auctionary</a>
 		<button class="navbar-toggler position-absolute d-md-none collapsed"
 			type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 			aria-controls="sidebarMenu" aria-expanded="false"
@@ -209,7 +209,7 @@ body {
 		</div>
 	</div>
 
-
+<!-- 기본값 히든처리 -->
 <form id="formView" action="" method="post">
 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
 	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
@@ -217,7 +217,7 @@ body {
 	<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
 	<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
 	<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-</form>
+
 
 
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -258,10 +258,8 @@ body {
 							<th>기본정보</th>
 						</tr>
 					</thead>
-		
-
 					<tbody>
-						<div class="btn-toolbar mb-2 mb-md-0">
+	
 							<div class="btn-group me-2">
 								
 								<tr>
@@ -303,11 +301,12 @@ body {
 							- <c:out value="${fn:substring(numberPhone,7,11)}"/>
                 		</c:otherwise>
                		</c:choose></td>
+               		
 									<th>이메일</th>
 									<td><c:out value="${item.ifmeEmailFull}" /></td>
 								</tr>
 							</div>
-						</div>
+			
 					</tbody>
 				</table>
 			</div>
@@ -547,9 +546,7 @@ body {
 			</div>
 		</div>
 
-
-		<!-- 웹모바일공통테이블 -->
-		<div class="table-responsive">
+	<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -557,25 +554,32 @@ body {
 					</tr>
 				</thead>
 				<tr>
-					<th class="table-secondary">상담내역</th>
-					<td>
-		<div class="form-floating">
+	<!-- 					<th class="table-secondary">상담내역</th>  -->
+				
+          	<td> 
+          	<label for="ifmmDesc" class="form-label"> <%-- <c:out value="${item.ifmmDesc}" /> --%> </label>
+<%--             <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p> --%>
+            <p><c:out value="${fn:replace(item.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p> </td>
+				</tr>
+			</table>
+		</div>
+
+
+<!-- 		미림기존
+				<div class="form-floating">
 							<textarea class="form-control" placeholder="100자 이내 "
 								style="height: 100px"></textarea>
 							<label for="ifmmDesc">이곳에 작성해주세요.</label>
 						</div>
-						
+						 -->
+						 
 <%-- 						선생님기본소스
   <div class="col-sm-6 mt-3 mt-sm-0">
             <label for="ifmmDesc" class="form-label">설명</label>
             <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p>
             <p><c:out value="${fn:replace(item.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p>
         </div> --%>
- 
-					</td>
-				</tr>
-			</table>
-		</div>
+        
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -597,89 +601,58 @@ body {
 				</tr>
 			</table>
 		</div>
-
-
 		<br>
-
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-sm btn-outline-primary"
-					data-bs-toggle="modal" data-bs-target="#저장">저장</button>
-
-				<!-- Modal -->
-				<div class="modal fade" id="저장" tabindex="-1"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">
-									<i class="fas fa-exclamation-circle"></i>저장 확인!
-								</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">정말 저장하시겠습니까?</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">취소</button>
-								<a href="/infra/member/memberViewAdmin?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">">
-									<button type="button" class="btn btn-primary">저장</button>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-<a href="javascript:goEdit();">	<button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
-<a href="javascript:goList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
-<a id="btnDelete" href="/infra/member/memberDele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
- <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(진짜) </button></a>
-<a id="btnUpdateDelete" href="/infra/member/memberNele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
- <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(가짜) </button></a>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script type="text/javascript">
-
-goList = function(){
-	$("#formView").attr("action", "/infra/member/memberList");
-	$("#formView").submit();
-};
-
-goEdit = function(){
-	$("#formView").attr("action", "/infra/member/memberEditAdmin");
-	$("#formView").submit();
-};
-</script>
-
-
-
-<%--  <a
-						href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>">
-						<button type="button" class="btn btn-sm btn-outline-warning">
-							수정</button>
-					</a> --%> 
+	
+<a href="javascript:goMemberEdit();"> <button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
+<a href="javascript:goMemberList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
+<a href="javascript:goMemberNelete();"> <button type="submit" id="" class="btn btn-sm btn-outline-danger"> 삭제(가짜) </button></a>
 					
-<%-- 					<a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
-&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
-&shValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete">
-						<button type="button" class="btn btn-sm btn-outline-danger">
-							삭제(가짜)</button> </a> --%>
-							
 			</div>
 		</div>
 	</main>
+</form>
+
+<%-- <a id="btnDelete" href="/infra/member/memberDele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
+ <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(진짜) </button></a>
+<a id="btnUpdateDelete" href="/infra/member/memberNele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
+ <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(가짜) </button></a> --%>
+<%--  <a href="/infra/member/memberEditAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>"><button type="button" class="btn btn-sm btn-outline-warning">수정</button></a> --%> 		
+<%-- <a href="/infra/member/memberNele?ifmmSeq=<c:out value="${item.ifmmSeq}"/>
+&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shMemberOption}"/>
+&shValue=<c:out value="${vo.shMemberValue}"/>" id="btnUpdateDelete"><button type="button" class="btn btn-sm btn-outline-danger"> 삭제(가짜)</button> </a> --%>
 
 	<br>
 	<br>
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<!-- 검색 -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
 
+	<script type="text/javascript">
+		goMemberList = function(){
+	$("#formView").attr("action", "/infra/member/memberList");
+	$("#formView").submit();
+		};
 
-
-
+		goMemberEdit = function(){
+	$("#formView").attr("action", "/infra/member/memberEditAdmin");
+	$("#formView").submit();
+		};
+		
+		goMemberNelete = function(){
+    $("#ifmmSeq").val(seq);
+	$("#formView").attr("action", "/infra/member/memberNele");
+	$("#formView").submit();
+				};
+	</script>
+	
 	<!-- 팝업 -->
 	<script language="javascript">
   function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
@@ -694,7 +667,6 @@ goEdit = function(){
 		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
 		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
 		crossorigin="anonymous"></script>
-
 
 	<!-- 기본템플릿 -->
 	<script

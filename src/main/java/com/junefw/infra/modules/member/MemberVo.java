@@ -71,7 +71,7 @@ public void setParamsPaging(int totalRowsParam) {
 		if (startRnumForOracle < 1) startRnumForOracle = 1;
 		
 		
-		if (thisPage == 1  /* || thisPage == 0 */) {
+		if (thisPage == 1  || thisPage == 0 ) {
 			startRnumForMysql = 0;
 		} else {
 			startRnumForMysql = ((rowNumToShow * (thisPage-1)));

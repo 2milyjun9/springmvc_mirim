@@ -1,6 +1,6 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
-public class Main {
+public class Index {
 	
 	
 	/* auctproduct */

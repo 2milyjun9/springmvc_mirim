@@ -93,11 +93,11 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-		<choose>
+<!-- 		<choose>
 			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when>
 			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
-		</choose> 
+		</choose>  -->
 		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
@@ -141,11 +141,11 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-				<choose>
+		<!-- 		<choose>
 			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
-		</choose>
+		</choose> -->
 		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
@@ -179,6 +179,7 @@
 		,a.ifmmMarriageCd
 		,a.ifmmMarriageDate
 		,a.ifmmChildrenNum 
+		,a.ifmmDesc
 		,a.regDateTime
 		,a.modDateTime
 		,a.modSeq
@@ -228,11 +229,7 @@
 		and ifmmSeq = #{ifmmSeq}
 	</select>
 	
-
-	<delete id="delete">
-	DELETE FROM infrMember WHERE ifmmSeq= #{ifmmSeq}
-	</delete>
-
+	
 	<insert id="insertMemberAdmin">  <!-- 관리자 멤버등록 -->
 	INSERT INTO infrMember(
 		ifmmAdminNy
@@ -242,7 +239,7 @@
 		,ifmmNickname
 		,ifmmPassword
 		,ifmmGrade
-	,ifmmDob 
+		,ifmmDob 
 <!-- 	<choose>
 			<when test="ifmmDob.equals('')">,NULL</when>
 			<otherwise>,#{ifmmDob}</otherwise>
@@ -402,15 +399,16 @@
 		UPDATE infrMember SET
 		ifmmPassword  =  #{ifmmPassword}
 		,ifmmGenderCd =  #{ifmmGenderCd}
-		,ifmmDelny =  '0'
+		,ifmmDelny =  0
 		,ifmmSaveCd =  #{ifmmSaveCd}
         ,ifmmMarriageCd =  #{ifmmMarriageCd}
-		,ifmmMarriageDate =  #{ifmmMarriageDate}
+<!-- 		,ifmmMarriageDate =  #{ifmmMarriageDate} -->
     	,ifmmChildrenNum  =  #{ifmmChildrenNum}
 		,ifmmFavoriteColor =  #{ifmmFavoriteColor}
 		,ifmmEmailConsentNy =  #{ifmmEmailConsentNy}
 		,ifmmSmsConsentNy =  #{ifmmSmsConsentNy}
 		,ifmmPushConsentNy =  #{ifmmPushConsentNy}
+		,ifmmDesc = #{ifmmDesc}
 		,modIp =  #{modIp}
 		,modSeq =  #{modSeq}
 		,modDevice =  #{modDevice}
@@ -422,13 +420,13 @@
 
 	<update id="updateEmail">
 	UPDATE infrMemberEmail SET
-		ifmeDefaultNy = '1'
+		ifmeDefaultNy = 1
 		,ifmeTypeCd =  #{ifmeTypeCd}
 		,ifmeEmailFull =  #{ifmeEmailFull} 
 		,ifmeEmailAccount =  #{ifmeEmailAccount}
 		,ifmeEmailDomain =  #{ifmeEmailDomain}
 		,ifmeEmailDomainCd =  #{ifmeEmailDomainCd}
-		,ifmeDelNY = '0'
+		,ifmeDelNy = 0
 		WHERE 1 = 1
 		AND ifmmSeq = #{ifmmSeq}
 </update>
@@ -441,7 +439,7 @@
 		,ifmpDeviceCd = #{ifmpDeviceCd}
 		,ifmpTelecomCd = #{ifmpTelecomCd}
 		,ifmpNumber =  #{ifmpNumber}
-		,ifmpDelNY= 0
+		,ifmpDelNy= 0
 		WHERE 1 = 1
 		AND ifmmSeq = #{ifmmSeq}
 </update>
@@ -455,7 +453,7 @@
 		,ifmaAddress1  = #{ifmaAddress1}
 		,ifmaAddress2  = #{ifmaAddress2}
 		,ifmaZipcode  = #{ifmaZipcode}
-		,ifmeDelNY = 0
+		,ifmaDelNy = 0
 		WHERE 1 = 1
 		AND ifmmSeq = #{ifmmSeq}
 		
@@ -646,6 +644,53 @@
 		,#{regDateTimeSvr}
 		) WHERE 1 = 1
 		AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<select id="selectOneIdUser" resultMap="resultMapObj">
+	SELECT
+		a.ifmmSeq
+		,a.ifmmId
+		FROM
+			infrMember a
+		WHERE 1 = 1
+		 	AND a.ifmmId = #{ifmmId}
+	</select>
+	
+	<select id="selectOneLoginUser" resultMap="resultMapObj">
+	SELECT
+		 a.ifmmSeq
+		 ,a.ifmmId
+		 ,a.ifmmName
+		 ,a.ifmmDesc
+		 ,a.ifmmPwdModDate
+	 FROM
+	 	infrMember a
+	 WHERE 1 = 1
+	 AND a.ifmmId = #{ifmmId}
+	 AND a.ifmmPassword = #{ifmmPassword}
+	</select>
+	
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+		<!-- **********************두리안 공통******************** -->
+
+	
+	<delete id="deleteMember"> <!-- 진짜삭제 -->
+	DELETE FROM infrMember 
+	WHERE 
+	ifmmSeq= #{ifmmSeq}
+	</delete>
+
+	<update id="updateDeleteMember">    <!-- 가짜삭제 -->
+	UPDATE infrMember SET 
+		ifmmDelNy = 1 
+		where 1 = 1
+	ifmmSeq= #{ifmmSeq}
 	</update>
 	
 	

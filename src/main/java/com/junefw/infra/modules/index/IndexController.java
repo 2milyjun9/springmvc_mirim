@@ -1,4 +1,4 @@
-package com.junefw.infra.modules.main;
+package com.junefw.infra.modules.index;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class mainController {
+public class IndexController {
 
 	@Autowired
-	MainServiceImpl service;
+	IndexServiceImpl service;
 	
 	/*  **************************** 관리자 ****************************  */
 
-	@RequestMapping(value = "/main/mainAdmin")
-	public String mainAdmin() throws Exception {
-		return "main/mainAdmin";
+	@RequestMapping(value = "/index/indexView")
+	public String indexView() throws Exception {
+		return "index/indexView";
 	}
 
 }

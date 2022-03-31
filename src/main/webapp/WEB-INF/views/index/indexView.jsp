@@ -20,8 +20,7 @@
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
 <!-- 아이콘 -->
-<script src="https://kit.fontawesome.com/0bd8c4f8de.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0bd8c4f8de.js" crossorigin="anonymous"></script>
 
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -192,52 +191,8 @@ body {
 								</ul>
 							</div>
 						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#cs"
-								aria-expanded="false">C/S</button>
-							<div class="collapse" id="cs">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;고객센터</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;리뷰관리</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#리포트">리포트</button>
-							<div class="collapse" id="리포트">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;일간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;주간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;월간</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;연간</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="mb-1">
-							<button
-								class="btn btn-toggle align-items-center rounded collapsed"
-								data-bs-toggle="collapse" data-bs-target="#관리자메뉴">관리자메뉴</button>
-							<div class="collapse" id="관리자메뉴">
-								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;시스템관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;메뉴관리</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;권한관리</a></li>
-								</ul>
-							</div>
-						</li>
+				
+
 					</ul>
 					<div class="dropdown border-top">
 						<a href="#"
@@ -260,7 +215,23 @@ body {
 		<img src="${pageContext.request.contextPath}/resources/xdmin/images/main.jpg"
 			class="rounded mx-auto d-block" alt="..." width="150">
 				<h1 align="center">지켜보고있다</h1>
+				
+				
+	<p align="center"> 
+sessSeq: <c:out value="${sessSeq }"/><br>
+sessName: <c:out value="${sessName }"/><br>
+sessId: <c:out value="${sessId }"/><br><br>
+
+<c:if test="${not empty sessSeq}">
+	<button type="button" class="btn btn-danger btn-sm" name="" id="btnLogout">로그아웃</button>
+</c:if>
+
+
 	</div>
+	
+	
+
+	
 </body>
 
 <script
@@ -286,6 +257,40 @@ body {
   <script language="javascript">
   function showPopup() { window.open("../member/memberLoginAdmin", "로그인", "width=500, height=600, left=300, top=50"); }
   </script>
+  
+  <!-- jquery ui -->
+	<script 	src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<!-- 검색 -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous">
+	</script>
+  
+  <script type="text/javascript">
+	$("#btnLogout").on("click", function(){
+		/* if(validation() == false) return false; */
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/infra/member/logoutProc"
+			,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
+			,success: function(response) {
+				if(response.rt == "success") {
+					location.href = "/infra/index/indexView";
+					alert("정말 로그아웃 하시겠습니까? ")
+				} 
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});	
+	});
+	</script>
 
 </body>
 </html>
