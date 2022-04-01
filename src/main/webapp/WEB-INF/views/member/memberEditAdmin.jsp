@@ -22,6 +22,11 @@
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
+	
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/0bd8c4f8de.js"
 	crossorigin="anonymous"></script>
@@ -279,8 +284,6 @@ body {
 											<c:if test="${item.ifmmGenderCd eq 4}">selected</c:if>>여성</option>
 								</select></td>
 								<th class="table-secondary">생년월일</th>
-			
-						<%-- 		<td><c:out value="${item.ifmmDob}" /></td> --%>
 						<td> <input class="" type="text" id="ifmmDob"
 							name="ifmmDob" autocomplete="off"  value="<c:out value="${item.ifmmDob }"/>">  </td>
 							</tr>
@@ -370,9 +373,11 @@ body {
 					<th class="table-secondary">자녀수</th>
 					<td><input type="text" class="" id="ifmmChildrenNum" name="ifmmChildrenNum" value="<c:out value="${item.ifmmChildrenNum}" />"></td>
 					<th class="table-secondary">결혼기념일</th>
-					<td><div class="form-floating mb-3">
-						<%-- 	<input type="text" class="" id="ifmmMarriageDate" name="ifmmMarriageDate" value="<c:out value="${item.ifmmMarriageDate}" />"> --%>
-						</div></td>
+					
+						
+								<td> <input class="" type="text" id="ifmmMarriageDate"
+							name="ifmmMarriageDate" autocomplete="off"  value="<c:out value="${item.ifmmMarriageDate }"/>">  </td>
+							</tr>
 				<tr>
 					<th class="table-secondary">우편번호</th>
 					<td>
@@ -486,9 +491,11 @@ body {
 					<button type="submit" id="btnSubmit" name="btnSubmit" value="제출"
 						class="btn btn-sm btn-outline-secondary">목록</button> </a>  --%>
 	 				
-<a href="javascript:goMemberView(<c:out value="${vo.thisPage}"/>);"> <button type="button" class="btn btn-sm btn-outline-secondary"> 뒤로가기 </button></a>
-<a href="javascript:goMemberUpdt();"> <button type="submit" id="" name="" value="제출" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-						data-bs-target="#modal">저장</button> </a>
+<a href="javascript:goMemberView('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> <button type="button" class="btn btn-sm btn-outline-secondary"> 취소 </button></a>
+<a href="javascript:goMemberUpdt('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> <button type="submit" id="" name="" value="제출" class="btn btn-sm btn-outline-primary" 
+data-bs-toggle="modal" data-bs-target="#modal">저장</button> </a>
 
 <%-- 겟방식 <a href="/infra/member/memberEditAdmin?thisPage=${vo.thisPage}&shMemberOption=<c:out value=
 "${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>">
@@ -519,24 +526,28 @@ body {
 	</main>
 
 	<br><br>
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<!-- 검색 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/infra/resources/js/validation.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
+	
 	<script type="text/javascript">
 		goMemberView = function(seq){
 					$("#ifmmSeq").val(seq)	
 					$("#formEdit").attr("action","/infra/member/memberViewAdmin");
 					$("#formEdit").submit();
-			}
+			};
+		
+
 		goMemberUpdt = function(seq){
+					$("#ifmmSeq").val(seq)	
 					$("#formEdit").attr("action","/infra/member/memberUpdtAdmin");
 					$("#formEdit").submit();
-			}
-	});
+			};
+
 	</script>
 			
 	<script

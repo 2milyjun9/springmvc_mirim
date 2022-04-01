@@ -21,6 +21,13 @@
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
+
+
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/0bd8c4f8de.js"
 	crossorigin="anonymous"></script>
@@ -677,9 +684,10 @@ body {
 	<script
 		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	<!-- 검색 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/infra/resources/js/validation.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+
+			
 	<script
 		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"

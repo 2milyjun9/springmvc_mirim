@@ -3,6 +3,66 @@ package com.junefw.infra.modules.product;
 public class ProductVo {
 
 
+	
+
+		public String getShMemberOption() {
+		return shMemberOption;
+	}
+
+
+
+	public void setShMemberOption(String shMemberOption) {
+		this.shMemberOption = shMemberOption;
+	}
+
+
+
+	public String getShMemberValue() {
+		return shMemberValue;
+	}
+
+
+
+	public void setShMemberValue(String shMemberValue) {
+		this.shMemberValue = shMemberValue;
+	}
+
+
+
+	public Integer getShProductOptionDate() {
+		return ShProductOptionDate;
+	}
+
+
+
+	public void setShProductOptionDate(Integer shProductOptionDate) {
+		ShProductOptionDate = shProductOptionDate;
+	}
+
+
+
+	public String getShProductDateEnd() {
+		return ShProductDateEnd;
+	}
+
+
+
+	public void setShProductDateEnd(String shProductDateEnd) {
+		ShProductDateEnd = shProductDateEnd;
+	}
+
+
+
+	public String getShProductDateStart() {
+		return ShProductDateStart;
+	}
+
+
+
+	public void setShProductDateStart(String shProductDateStart) {
+		ShProductDateStart = shProductDateStart;
+	}
+
 		//common
 		private String shProductOption;
 		private String shProductValue;
@@ -15,6 +75,10 @@ public class ProductVo {
 		private String shAcprProductName;
 		private String shAcprStatusCd;
 		private String shAcprResultNy;
+		
+		private Integer ShProductOptionDate;
+		private String ShProductDateEnd;
+		private String ShProductDateStart;
 	
 	//paging	
 		private int thisPage = 1;									// 현재 페이지
@@ -1130,30 +1194,6 @@ public String getAcpsDelNy() {
 
 public void setAcpsDelNy(String acpsDelNy) {
 	this.acpsDelNy = acpsDelNy;
-}
-
-
-
-public String getShMemberOption() {
-	return shMemberOption;
-}
-
-
-
-public void setShMemberOption(String shMemberOption) {
-	this.shMemberOption = shMemberOption;
-}
-
-
-
-public String getShMemberValue() {
-	return shMemberValue;
-}
-
-
-
-public void setShMemberValue(String shMemberValue) {
-	this.shMemberValue = shMemberValue;
 }
 
 

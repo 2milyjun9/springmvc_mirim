@@ -245,6 +245,7 @@ body {
 		<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
 		<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
 		<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+		
 		<c:set var="listCodeGender" value="${CodeServiceImpl.selectListCachedCode('2')}"/>
 		
 			<div class="container">
@@ -370,7 +371,7 @@ body {
 							<div class="col-md-6 mb-3">
 								<label>생년월일<span class="text-muted">&nbsp;</span></label> 
 								<input class="form-control" type="text" id="ifmmDob"
-							name="ifmmDob" autocomplete="off" placeholder="생년월일" required value="<c:out value="${item.ifmmDob }"/>">
+							name="ifmmDob" autocomplete="off" placeholder="" required value="<c:out value="${item.ifmmDob }"/>">
 								<div class="invalid-feedback" >생년월일을 입력해주세요.</div>
 							</div>
 						</div>
@@ -649,13 +650,14 @@ body {
 		<p class="mb-1">&copy; 2022 Auctionary</p>
 	</footer>
 
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<!-- 검색 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/infra/resources/js/validation.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
+	
+	
 	<script type="text/javascript">
 		$("#btnSubmit").on("click", function() {
 			if (!checkId($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력 해 주세요!"))
@@ -728,7 +730,6 @@ body {
 		$(document).ready(function() {
 			$("#ifmmDob").datepicker();
 		});
-
 		$.datepicker.setDefaults({
 			dateFormat : 'yy-mm-dd',
 			prevText : '이전 달',
@@ -744,10 +745,12 @@ body {
 			yearSuffix : '년'
 		});
 		
+		</script>
+		
+		<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ifmmMarriageDate").datepicker();
 		});
-
 		$.datepicker.setDefaults({
 			dateFormat : 'yy-mm-dd',
 			prevText : '이전 달',
@@ -763,5 +766,6 @@ body {
 			yearSuffix : '년'
 		});
 	</script>
+	
 </body>
 </html>

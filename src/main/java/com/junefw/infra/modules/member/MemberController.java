@@ -1,6 +1,5 @@
 package com.junefw.infra.modules.member;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import com.junefw.infra.common.constants.Constants;
 import com.junefw.infra.common.util.UtilDateTime;
 import com.junefw.infra.modules.code.Code;
 import com.junefw.infra.modules.code.CodeServiceImpl;
-import com.junefw.infra.modules.code.CodeVo;
+
 
 @Controller
 public class MemberController /* extends BaseController */ {
@@ -79,17 +78,24 @@ public class MemberController /* extends BaseController */ {
 		} else {
 		}
 
-		vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ? 1 : vo.getShMemberOptionDate());
-		vo.setShMemberDateStart(vo.getShMemberDateStart() == null
-				? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL)
-				: UtilDateTime.addStringTime(vo.getShMemberDateStart()));
-		vo.setShMemberDateEnd(vo.getShMemberDateEnd() == null ? UtilDateTime.nowString()
-				: UtilDateTime.addStringTime(vo.getShMemberDateEnd()));
-
 		System.out.println("UtilDateTime.nowLocalDateTime():" + UtilDateTime.nowLocalDateTime());
 		System.out.println("UtilDateTime.nowDate():" + UtilDateTime.nowDate());
 		System.out.println("UtilDateTime.nowString():" + UtilDateTime.nowString());
 
+		
+		/* 00:00:00 에러 수정 소스 
+		 * vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ? 1 :
+		 * vo.getShMemberOptionDate());
+		 * vo.setShMemberDateStart(vo.getShMemberDateStart() == null ?
+		 * UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(),
+		 * Constants.DATE_INTERVAL) :
+		 * UtilDateTime.add00TimeString(vo.getShMemberDateStart()));
+		 * vo.setShMemberDateEnd(vo.getShMemberDateEnd() == null ?
+		 * UtilDateTime.nowString() :
+		 * UtilDateTime.addNowTimeString(vo.getShMemberDateEnd()));
+		 */
+		
+		
 		return "member/memberList";
 	}
 
@@ -140,8 +146,11 @@ public class MemberController /* extends BaseController */ {
 	public String memberUpdtAdmin(@ModelAttribute("vo") Member dto, MemberVo vo) throws Exception {
 		service.updateMemberAdmin(dto);
 		
-		return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq(); 
-		/*+ makeQueryString(vo);*/
+		return "redirect:/member/memberViewAdmin"; 
+		/*
+		 * return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq()+
+		 * makeQueryString(vo);
+		 */
 	}
 
 	@RequestMapping(value = "/member/memberLoginAdmin") // 사원로그인
@@ -279,12 +288,20 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberNele") // 회원가짜삭제
 	public String memberNele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		service.updateDeleteMember(vo);
-		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
-		redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
-		redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
+		/*
+		 * redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+		 * redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
+		 * redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
+		 * redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
+		 * redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
+		 * redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
+		 */
+		
 		return "redirect:/member/memberList";
 	}
 	
+
+	  
 	@RequestMapping(value = "/member/memberMultiDele") // 멀티 진짜삭제
 	public String memberMultiDele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		String[] checkboxSeqArray = vo.getCheckboxSeqArray();

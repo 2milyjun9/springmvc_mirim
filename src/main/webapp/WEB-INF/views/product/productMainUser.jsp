@@ -65,7 +65,7 @@ a { /*링크 줄안가게하기*/
 }
 </style>
 
-<title> Main</title>
+<title>Main</title>
 </head>
 
 <body>
@@ -161,26 +161,29 @@ a { /*링크 줄안가게하기*/
 			</div> -->
 		</div>
 	</nav>
-	
-	
-		<p align="center"> 
-sessSeq: <c:out value="${sessSeq }"/><br>
-sessName: <c:out value="${sessName }"/><br>
-sessId: <c:out value="${sessId }"/><br>
 
-<c:if test="${not empty sessSeq}">
-	<button type="button" class="btn btn-danger btn-sm" name="" id="btnLogout"> </button>
-</c:if>
 
+	<p align="center">
+		sessSeq:
+		<c:out value="${sessSeq }" />
+		<br> sessName:
+		<c:out value="${sessName }" />
+		<br> sessId:
+		<c:out value="${sessId }" />
+		<br>
+
+		<c:if test="${not empty sessSeq}">
+			<button type="button" class="btn btn-danger btn-sm" name=""
+				id="btnLogout"></button>
+		</c:if>
 	<form class="d-flex" id="" name="" method="get"
 		action="/infra/product/productMainUser">
 		<div class="form-check form-check-inline " align="right">
-			
-			<input class="form-check-input" type="checkbox" value="55"
-				id="shAcprStatusCd" name="shAcprStatusCd"> <label
-				class="form-check-label" 	<c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>>
-				경매완료상품 보이지않기</label>
-				
+
+			<input type="hidden" id="shAcprStatusCd" name="shAcprStatusCd" value="55">
+			<input class="form-check-input" type="checkbox" value="55" id="shAcprStatusCd" name="shAcprStatusCd"> <label class="form-check-label"
+				<c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>> 경매완료상품 보이지않기</label>
+
 		</div>
 	</form>
 	<br>
@@ -213,35 +216,48 @@ sessId: <c:out value="${sessId }"/><br>
 			<c:forEach items="${list}" var="item" varStatus="status">
 
 
+				<div class="album py-5 bg-light">
+					<div class="container">
 
-				<div class="row row-cols-1 row-cols-md-3 g-4">
-					<div class="col">
-						<div class="card">
-							<img
-		src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"
-							 class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">
-									<a
-										href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
-										<c:out value="${item.acprProductName}" />
-									</a>
-								</h5>
-								<p class="card-text">
-									<a
-										href="/infra/member/memberViewUser?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+							<div class="col">
+								<div class="card shadow-sm">
+									<svg class="bd-placeholder-img card-img-top" width="100%"
+										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
+										aria-label="Placeholder: Thumbnail"
+										preserveAspectRatio="xMidYMid slice" focusable="false">
+										<title>Placeholder</title><rect width="100%" height="100%"
+											fill="#55595c" />
+										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+
+									<div class="card-body">
+										<a 	href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
+										<p class="card-text"><c:out value="${item.acprProductName}" />
+										</p><p class="card-text"><c:out value="${item.acprDetails}" /></p> </a>
+										
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+											
+											<a href="/infra/member/memberViewUser?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
 										<c:out value="${item.ifmmPhoto}" /> <c:out
 											value="${item.ifmmNickname}" /> <c:out
 											value="${item.ifmmGrade}" />
 									</a>
-								</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
+								<!-- 				<button type="button"
+													class="btn btn-sm btn-outline-secondary">View</button>
+												<button type="button"
+													class="btn btn-sm btn-outline-secondary">Edit</button> -->
+											</div>
+											<small class="text-muted">9 mins</small>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
@@ -305,32 +321,40 @@ sessId: <c:out value="${sessId }"/><br>
 	<br>
 	<br>
 	<c:out value="${vo.startPage}" />
-			<nav aria-label="...">
-				<ul class="pagination justify-content-center">
-					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+	<nav aria-label="...">
+		<ul class="pagination justify-content-center">
+			<c:if test="${vo.startPage gt vo.pageNumToShow}">
+				<li class="page-item"><a class="page-link"
+					href="/infra/product/productMainUser?thisPage=${vo.startPage - 1}">Previous</a></li>
+			</c:if>
+			<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+				<c:choose>
+					<c:when test="${i.index eq vo.thisPage}">
+						<li class="page-item active"><a class="page-link"
+							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+					</c:when>
+					<c:otherwise>
 						<li class="page-item"><a class="page-link"
-							href="/infra/product/productMainUser?thisPage=${vo.startPage - 1}">Previous</a></li>
-					</c:if>
-					<c:forEach begin="${vo.startPage}" end="${vo.endPage}"
-						varStatus="i">
-						<c:choose>
-							<c:when test="${i.index eq vo.thisPage}">
-								<li class="page-item active"><a class="page-link"
-									href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${vo.endPage ne vo.totalPages}">
-						<li class="page-item"><a class="page-link"
-							href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
-					</c:if>
-				</ul>
-			</nav>
-	<!--  -->
+							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${vo.endPage ne vo.totalPages}">
+				<li class="page-item"><a class="page-link"
+					href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
+			</c:if>
+		</ul>
+	</nav>
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/common/js/validation.js"></script>
+
+	<!-- jquery ui -->
+	<script
+		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -347,7 +371,38 @@ sessId: <c:out value="${sessId }"/><br>
 		};
 	</script>
 
-
+	<script type="text/javascript">
+		$("#btnLogout")
+				.on(
+						"click",
+						function() {
+							/* if(validation() == false) return false; */
+							$
+									.ajax({
+										async : true,
+										cache : false,
+										type : "post",
+										url : "/infra/member/logoutProc",
+										data : {
+											"ifmmId" : $("#ifmmId").val(),
+											"ifmmPassword" : $("#ifmmPassword")
+													.val()
+										},
+										success : function(response) {
+											if (response.rt == "success") {
+												location.href = "/infra/product/productMainUser";
+												alert("정말 로그아웃 하시겠습니까? ")
+											}
+										},
+										error : function(jqXHR, textStatus,
+												errorThrown) {
+											alert("ajaxUpdate "
+													+ jqXHR.textStatus + " : "
+													+ jqXHR.errorThrown);
+										}
+									});
+						});
+	</script>
 
 </body>
 </html>

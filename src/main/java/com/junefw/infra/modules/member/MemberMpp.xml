@@ -93,17 +93,17 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-<!-- 		<choose>
+		<choose>
 			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when>
 			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
-		</choose>  -->
+		</choose>  
 		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
-		<!-- 	<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when> -->
+	<!-- 		<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>  -->
 		</choose>
 	</sql>
 
@@ -133,6 +133,7 @@
 		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
 		where
 		1=1
+<!-- 		ORDER BY a.ifmmSeq DESC -->
 			<choose>
 			<when test="shIfmmDelNy == 1">AND ifmmDelNy = 1 </when>   
 			<when test="shIfmmDelNy == 0">AND ifmmDelNy = 0 </when>  
@@ -141,19 +142,20 @@
 			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
 			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
 		</choose>
-		<!-- 		<choose>
+		<choose>
 			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
 			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
-		</choose> -->
+		</choose> 
 		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
 		<choose>
 			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
 			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
-		<!-- 	<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when> -->
+<!-- 			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>  -->
 		</choose>
 		limit  #{startRnumForMysql} , #{rowNumToShow}
+	
 	</select>
 
 
@@ -282,8 +284,8 @@
 		,#{regIp}
 		,#{regSeq}
 		,#{regDevice}
-		,#{regDateTime}
-		,#{regDateTimeSvr}
+		,now()
+		,now()
 		)
 		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
 			SELECT last_insert_id()
@@ -402,7 +404,8 @@
 		,ifmmDelny =  0
 		,ifmmSaveCd =  #{ifmmSaveCd}
         ,ifmmMarriageCd =  #{ifmmMarriageCd}
-<!-- 		,ifmmMarriageDate =  #{ifmmMarriageDate} -->
+        ,ifmmDob = #{ifmmDob}
+ 		,ifmmMarriageDate =  #{ifmmMarriageDate} 
     	,ifmmChildrenNum  =  #{ifmmChildrenNum}
 		,ifmmFavoriteColor =  #{ifmmFavoriteColor}
 		,ifmmEmailConsentNy =  #{ifmmEmailConsentNy}
@@ -690,7 +693,7 @@
 	UPDATE infrMember SET 
 		ifmmDelNy = 1 
 		where 1 = 1
-	ifmmSeq= #{ifmmSeq}
+		ifmmSeq= #{ifmmSeq}
 	</update>
 	
 	

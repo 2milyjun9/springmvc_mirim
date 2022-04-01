@@ -5,12 +5,6 @@ import java.util.Date;
 public class MemberVo {
 
 
-	public String[] getCheckboxSeqArray() {
-		return checkboxSeqArray;
-	}
-	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
-		this.checkboxSeqArray = checkboxSeqArray;
-	}
 
 
 	//common
@@ -18,9 +12,9 @@ public class MemberVo {
 	private String shMemberValue;
 
 	// infrMember Search
-	private String shIfmmDelNy;
+	private Integer shIfmmDelNy;
 	private String shIfmmName;
-	private String shIfmmDormancyNy;
+	private Integer shIfmmDormancyNy;
 	
 	private Integer ShMemberOptionDate;
 	private String ShMemberDateEnd;
@@ -189,24 +183,6 @@ private Integer ifnaDelNy;
 
 
 
-public String getShIfmmDelNy() {
-	return shIfmmDelNy;
-}
-public void setShIfmmDelNy(String shIfmmDelNy) {
-	this.shIfmmDelNy = shIfmmDelNy;
-}
-public String getShIfmmName() {
-	return shIfmmName;
-}
-public void setShIfmmName(String shIfmmName) {
-	this.shIfmmName = shIfmmName;
-}
-public String getShIfmmDormancyNy() {
-	return shIfmmDormancyNy;
-}
-public void setShIfmmDormancyNy(String shIfmmDormancyNy) {
-	this.shIfmmDormancyNy = shIfmmDormancyNy;
-}
 public Integer getShMemberOptionDate() {
 	return ShMemberOptionDate;
 }
@@ -752,6 +728,33 @@ public void setShMemberValue(String shMemberValue) {
 	this.shMemberValue = shMemberValue;
 }
 
+
+
+
+public Integer getShIfmmDelNy() {
+	return shIfmmDelNy;
+}
+public void setShIfmmDelNy(Integer shIfmmDelNy) {
+	this.shIfmmDelNy = shIfmmDelNy;
+}
+public String getShIfmmName() {
+	return shIfmmName;
+}
+public void setShIfmmName(String shIfmmName) {
+	this.shIfmmName = shIfmmName;
+}
+public Integer getShIfmmDormancyNy() {
+	return shIfmmDormancyNy;
+}
+public void setShIfmmDormancyNy(Integer shIfmmDormancyNy) {
+	this.shIfmmDormancyNy = shIfmmDormancyNy;
+}
+public String[] getCheckboxSeqArray() {
+	return checkboxSeqArray;
+}
+public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+	this.checkboxSeqArray = checkboxSeqArray;
+}
 
 
 

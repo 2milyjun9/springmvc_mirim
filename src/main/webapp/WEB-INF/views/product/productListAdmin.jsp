@@ -15,7 +15,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title> 상품조회</title>
+<title>상품조회</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
@@ -239,30 +239,49 @@ body {
 	<div class="d-none d-xl-block ">
 		<div style="width: 75%; float: none; margin: 0 auto">
 
-			<form id="" name="" method="get"
-				action="/infra/product/productListAdmin">
+			<form id="" name="" method="post" action="/infra/product/productListAdmin">
 
-				<select name="shAcprDelNy" id="shAcprDelNy">
-					<option value="">::삭제여부::
-					<option value="1" <c:if test="${vo.shAcprDelNy eq 1 }"> selected </c:if>> Y
-					<option value="0" <c:if test="${vo.shAcprDelNy eq 0 }"> selected  </c:if>> N
-				</select> <select name="shAcprStatusCd" id="shAcprStatusCd">
-					<option value="">::상품상태::
-					<option value="55" <c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>> 경매중
-					<option value="56" <c:if test="${vo.shAcprStatusCd eq 56 }"> selected  </c:if>> 경매완료
-					<option value="57" <c:if test="${vo.shAcprStatusCd eq 57 }"> selected </c:if>> 경매취소
-					<option value="58" <c:if test="${vo.shAcprStatusCd eq 58 }"> selected </c:if>> 경매실패
-				</select> <select name="shProductOption" id="shProductOption">
-					<option value="">::검색구문::
-					<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected </c:if>>이름  <!-- 수정해야함 -->
-					<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected </c:if>>아이디 <!-- 수정해야함 -->
-					<option value="3" <c:if test="${vo.shProductOption eq 3 }"> selected </c:if>> 상품번호
-					<option value="4" <c:if test="${vo.shProductOption eq 4 }"> selected </c:if>> 게시물제목
-					<option value="5" <c:if test="${vo.shProductOption eq 5 }"> selected </c:if>> 게시물내용
-				</select> <input type="text" name="shProductValue" id="shProductValue">
-				<!-- <input type="reset" name="reset"> -->
-				<button class="btn btn-outline-primary" type="submit" name="search" id="btnSubmit5">
-				 Search</button>
+					<select name="shProductOptionDate" id="shProductOptionDate" class="" >
+<%-- 					<option value="" <c:if test="${empty vo.shProductOptionDate}">selected</c:if>>::날짜::</option> --%>
+					<option value="1" <c:if test="${vo.shProductOptionDate eq 1}">selected</c:if>>등록일</option>
+				</select>
+	
+				<fmt:parseDate value="${vo.shProductDateEnd}" var="shProductDateEnd" pattern="yyyy-MM-dd"/>
+				<input type="date" id="" name="shProductDateStart" value="<c:out value="${vo.shProductDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
+		
+				<fmt:parseDate value="${vo.shProductDateEnd}" var="shProductDateEnd" pattern="yyyy-MM-dd"/>
+				<input type="date" id="" name="shProductDateEnd" value="<c:out value="${vo.shProductDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
+			
+				<br>
+						<select name="shAcprDelNy" id="shAcprDelNy">
+							<option value="">::삭제여부::
+							<option value="1"<c:if test="${vo.shAcprDelNy eq 1 }">selected </c:if>>Y
+							<option value="0"<c:if test="${vo.shAcprDelNy eq 0 }">selected </c:if>>N
+						</select> 
+						
+						
+						<select name="shAcprStatusCd" id="shAcprStatusCd">
+							<option value="">::삭제여부::
+							<option value="55"<c:if test="${vo.shAcprStatusCd eq 55 }">selected </c:if>>경매중
+							<option value="56"<c:if test="${vo.shAcprStatusCd eq 56 }">selected </c:if>>경매완료
+							<option value="57"<c:if test="${vo.shAcprStatusCd eq 57 }">selected </c:if>>경매실패
+							<option value="58"<c:if test="${vo.shAcprStatusCd eq 58 }">selected </c:if>>경매취소
+						</select> 
+			
+						<select name="shProductOption" id="shProductOption" >
+							<option value="">::검색구문::
+							<option value="1" <c:if test="${vo.shProductOption eq 1 }"> selected</c:if>>상품번호
+							<option value="2" <c:if test="${vo.shProductOption eq 2 }"> selected</c:if>>게시물명
+							<option value="3" <c:if test="${vo.shProductOption eq 3 }"> selected</c:if>>게시물내용
+							<option value="3" <c:if test="${vo.shProductOption eq 4 }"> selected</c:if>>이름
+						</select> 
+
+
+
+					
+					<input type="text" name="shProductValue" id="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
+					<button class="" type="submit" name="search" id="btnSearch">검색</button> 
+					
 
 
 				<br> <br> <br>
@@ -272,9 +291,7 @@ body {
 						<thead>
 							<tr>
 								<div class="m_check_wrap">
-									<th><input type="checkbox" id="allCheck"
-										onclick="allCheck(event)"> <label for="allCheck">
-											No. </label></th>
+									<th><input type="checkbox" id="checkboxAll" name="checkboxAll"> No.</th>
 								</div>
 
 								<th onclick=sortContent(0) scope="col">게시물제목 <i
@@ -310,17 +327,15 @@ body {
 									<tbody id="mainTable_tbody">
 										<tr>
 											<td scope="row">
-												<div class="m_check_wrap">
-													<input type="checkbox" class="check_all_list" id="agree1"
-														onclick="checkAllList(event)" > <label for="agree1">
-														<c:out value="${item.acprSeq}" />
-													</label>
+												<div class="m_check_wrap">										
+														<input type="checkbox" id="checkboxSeq" name="checkboxSeq" value="<c:out value="${item.acprSeq}" />" >
+															&nbsp;&nbsp;<c:out value="${item.acprSeq}" />
 												</div>
 											</td>
-											<td><a
-												href="/infra/product/productViewAdmin?acprSeq=<c:out value="${item.acprSeq}"/>">
-													<c:out value="${item.acprProductName}" />
-											</a></td>
+<%-- 											<td><a href="/infra/product/productViewAdmin?acprSeq=<c:out value="${item.acprSeq}"/>"> <c:out value="${item.acprProductName}" /> </a></td>
+											 --%>
+											<td>
+											<a href="javaScript:goProductView('<c:out value="${item.acprSeq}"/>')"><c:out value="${item.acprProductName}" /></a></td>
 											<td><c:out value="${item.ifmmName}" /></td>
 											<td><c:out value="${item.ifmmId}" /></td>
 											<td><c:if test="${item.acprStatusCd eq 55}">
@@ -347,9 +362,9 @@ body {
 			</form>
 		</div>
 	</div>
-	</div>
 
-	<!-- 모바일버전테이블//웹감춤 -->
+
+<%-- 	<!-- 모바일버전테이블//웹감춤 -->
 	<div class=" d-lg-block d-xl-none">
 		<div id="mainTable" class="row text-center" style="width: 100%">
 			<div style="width: 98%; float: none; margin: 0 auto">
@@ -379,7 +394,7 @@ body {
 											<td><a href="/infra/product/productViewAdmin"><c:out
 														value="${item.acprProductName}" /></a></td>
 											<td><c:out value="${item.ifmmId}" /></td>
-									<td><c:if test="${item.acprStatusCd eq 55}">
+											<td><c:if test="${item.acprStatusCd eq 55}">
 													<c:out value="경매중" />
 												</c:if> <c:if test="${item.acprStatusCd eq 56}">
 													<c:out value="경매완료" />
@@ -398,7 +413,7 @@ body {
 			</div>
 
 		</div>
-	</div>
+	</div> --%>
 
 
 
@@ -407,11 +422,11 @@ body {
 		<div style="width: 100%; float: none; margin: 0 auto">
 
 			<!-- Button trigger modal -->
-					<a href="/infra/product/productFormAdmin">
-			<button type="button" class="btn btn-sm btn-outline-success"
-				>상품등록</button>
-			<button type="button" class="btn btn-sm btn-outline-primary"
-				data-bs-toggle="modal" data-bs-target="#저장">저장</button> </a>
+			<a href="/infra/product/productFormAdmin">
+				<button type="button" class="btn btn-sm btn-outline-success">상품등록</button>
+				<button type="button" class="btn btn-sm btn-outline-primary"
+					data-bs-toggle="modal" data-bs-target="#저장">저장</button>
+			</a>
 
 			<!-- Modal -->
 			<div class="modal fade" id="저장" tabindex="-1"
@@ -547,10 +562,10 @@ body {
 	</script>
 
 <!-- 검색 -->
-			<script
-				src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-			<script src="/infra/resources/js/validation.js"></script>
-			<script type="text/javascript">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/infra/resources/js/validation.js"></script>
+<script type="text/javascript">
 
 	$("#btnSubmit5").on(
 			"click",
@@ -572,9 +587,68 @@ body {
   function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
   </script>
 
-<!-- 팝업 -->
-<script language="javascript">
-  function showPopup() { window.open("product/productFormAdmin", "상품등록", "width=600, height=500, left=300, top=100"); }
-  </script>
+
+	
+	 <script type="text/javascript">
+		var seq = $("input:hidden[name=ifmmSeq]");
+		
+	 	goMemberList = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").submit();
+			}
+		 goMemberView = function(seq){
+			 alert(seq);
+					$("#ifmmSeq").val(seq);
+					$("#formList").attr("action","/infra/member/memberViewAdmin");
+					$("#formList").submit();
+			}
+		 goMemberForm = function(seq){
+				$("#formList").attr("action","/infra/member/memberFormAdmin");
+				$("#formList").submit();
+			}	 
+		 
+		goMemberMultiNelete = function(seq){
+				$("#ifmmSeq").val(seq);
+				$("#formList").attr("action","/infra/member/memberMultiNele");
+				$("#formList").submit(); 
+			}	 
+
+
+		$("#checkboxAll").click(function() {  //전체선택
+		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
+		else $("input[name=checkboxSeq]").prop("checked", false);
+		});
+
+		$("input[name=checkboxSeq]:checked").each(function() { 
+			var total = $("input[name=checkboxSeq]").length;
+			var checked = $("input[name=checkboxSeq]:checked").length;
+			if(total != checked) $("#checkboxAll").prop("checked", false);
+			else $("#checkboxAll").prop("checked", true);
+		});
+
+		<script type="text/javascript"> 
+		$(document).ready(function() {
+			$("#shProductDateStart").datepicker(); //시작일데이트피커
+			$("#shProductDateEnd").datepicker(); //종료일데이트피커
+		});
+
+		$.datepicker.setDefaults({
+			dateFormat : 'yy-mm-dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			showMonthAfterYear : true,
+			yearSuffix : '년'
+		});
+		</script>
+
+
 
 </html>

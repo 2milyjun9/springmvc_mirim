@@ -44,6 +44,11 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
+
+<!-- jquery ui CSS -->    
+<link href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"> 
+
+
 <style>
 a { /*링크 줄안가게하기*/
 	text-decoration: none;
@@ -233,28 +238,25 @@ body {
 			<div class="d-none d-xl-block ">
 				<div style="width: 75%; float: none; margin: 0 auto">
 					<form id="formList" name="formList" method="post" action="/infra/member/memberList">
-	<!-- 선택삭제 -->	<input type="hidden" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
-	<!-- 선택삭제 -->	<input type="hidden" name="checkboxSeqArray"> 					
+	<!-- 선택삭제 -->	<input type="hidden" id="rowNumToShow" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
+	<!-- 선택삭제 -->	<input type="hidden"  id="checkboxSeqArray" name="checkboxSeqArray"> 					
 					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
 					<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
 						
-							<select name="shMemberOptionDate" id="shMemberOptionDate">
-					<%-- <option value="" <c:if test="${empty vo.shMemberOptionDate}"> selected </c:if>>::날짜검색:: --%>
-							<option value="">::날짜검색::
+		<%-- 			<select name="shMemberOptionDate" id="shMemberOptionDate">
+						 <option value="" <c:if test="${empty vo.shMemberOptionDate}"> selected </c:if>>::날짜검색:: 
+<!-- 							<option value="">::날짜검색:: -->
 							<option value="1" <c:if test="${vo.shMemberOptionDate eq 1 }"> selected</c:if>>가입일
 							<option value="2" <c:if test="${vo.shMemberOptionDate eq 2 }"> selected</c:if>>수정일
 							<option value="3" <c:if test="${vo.shMemberOptionDate eq 3 }"> selected</c:if>>생일
 						</select> 
-					
-			  	
-	<%-- 		<fmt:parseDate var="shMemberDateStart" value="${vo.shMemberDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/>
-    		<input type="text" id="shMemberDateStart" name="shMemberDateStart" value="<fmt:formatDate value="${shMemberDateStart }" pattern="yyyy-MM-dd" />" placeholder="시작일" class="form-control form-control-sm" autocomplete="off"> 
-			
-			<fmt:parseDate var="shMemberDateEnd" value="${vo.shMemberDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/>
-			<input type="text" id="shMemberDateEnd" name="shMemberDateEnd" value="<fmt:formatDate value="${shMemberDateEnd }" pattern="yyyy-MM-dd" />" placeholder="종료일" class="form-control form-control-sm" autocomplete="off">	
-		 --%>
+						  	
+	 		<fmt:parseDate var="shMemberDateStart" value="${vo.shMemberDateStart}" pattern="yyyy-MM-dd"/>
+    		<input type="text" id="shMemberDateStart" name="shMemberDateStart" value="<fmt:formatDate value="${shMemberDateStart}" pattern="yyyy-MM-dd" />" placeholder="시작일" class="" autocomplete="off"> 
+			<fmt:parseDate var="shMemberDateEnd" value="${vo.shMemberDateEnd}" pattern="yyyy-MM-dd"/>
+			<input type="text" id="shMemberDateEnd" name="shMemberDateEnd" value="<fmt:formatDate value="${shMemberDateEnd}" pattern="yyyy-MM-dd" />" placeholder="종료일" class="" autocomplete="off">	
+		
 						<br>
-						
 						<select name="shIfmmDelNy" id="shIfmmDelNy">
 							<option value="">::삭제여부::
 							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>Y
@@ -276,16 +278,56 @@ body {
 						</select> 
 					
 					<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-					<button class="" type="submit" name="search" id="btnSubmit4">검색</button>
+					<button class="" type="submit" name="search" id="btnSubmit">검색</button> --%>
 					
-						<br> <br>
+					
+	
+				<select name="shMemberOptionDate" id="shMemberOptionDate" class="" >
+					<option value="" <c:if test="${empty vo.shMemberOptionDate}">selected</c:if>>::날짜::</option>
+					<option value="1" <c:if test="${vo.shMemberOptionDate eq 1}">selected</c:if>>등록일</option>
+					<option value="2" <c:if test="${vo.shMemberOptionDate eq 2}">selected</c:if>>수정일</option>
+					<option value="3" <c:if test="${vo.shMemberOptionDate eq 3}">selected</c:if>>생일</option>
+				</select>
+	
+				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
+				<input type="date" id="" name="shMemberDateStart" value="<c:out value="${vo.shMemberDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
+		
+				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
+				<input type="date" id="" name="shMemberDateEnd" value="<c:out value="${vo.shMemberDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
+			
+				<br>
+						<select name="shIfmmDelNy" id="shIfmmDelNy">
+							<option value="">::삭제여부::
+							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>Y
+							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>N
+						</select> 
+			
+						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy" >
+							<option value="">::휴먼여부::
+							<option value="0" <c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
+							<option value="1" <c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
+						</select> 
+			
+						<select name="shMemberOption" id="shMemberOption" >
+							<option value="">::검색구문::
+							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
+							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
+							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
+						<%-- 	<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처 --%>
+						</select> 
+					
+					<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+					<button class="" type="submit" name="search" id="btnSearch">검색</button> 
+					
+					<br> <br>
 						
-						<div class="table-responsive" id="mainTable">
+						
+		<div class="table-responsive" id="mainTable">
 							<table class="table table-striped table-hover" data-toggle="table" data-toolbar=".toolbar"
 								data-sortable="false" data-height="460">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="checkboxAll"> No.</th>
+										<th><input type="checkbox" id="checkboxAll" name="checkboxAll"> No.</th>
 										<th  scope="col">이름 <i class="fas fa-sort"> </i></th>
 										<th  scope="col">아이디 <i class="fas fa-sort"> </i></th>
 										<th  scope="col">닉네임 <i class="fas fa-sort"> </i></th>
@@ -476,9 +518,11 @@ body {
 				</ul>
 			</nav>
 	
-<a href="javascript:goMemberForm();"> <button type="button" id = "goMemberForm" class="btn btn-sm btn-outline-success"> 회원등록 </button></a>
-<a href="javascript:goUrlMultiNelete();"> <button type="button" id="goUrlMultiNelete" class="btn btn-sm btn-outline-danger"
-data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
+<a href="javascript:goMemberForm('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> 
+<button type="button" id = "goMemberForm" class="btn btn-sm btn-outline-success"> 회원등록 </button></a>
+
+<button type="button" id="goUrlMultiNelete" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> 
 	
 	<div class="modal fade" id="btnModalNelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -492,17 +536,19 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 								</div>
 								<div class="modal-body">정말 삭제하시겠습니까?</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">취소</button>
-									<a href="memberList">
-										<button type="button" class="btn btn-primary">확인</button>
-									</a>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									
+							<%-- 		<a href="javascript:goMemberMultiNelete('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+	'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');">  --%>
+	<button type="button" class="btn btn-primary" id="btnModalNelete" 	onclick="location.href='javascript:goMemberMultiNelete();'">확인</button>
 								</div>
 							</div>
 						</div>
 					</div>    
 				</div>
 			</div>	
+			
+		
 			<script
 				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
 				integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
@@ -523,75 +569,98 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
  			 </script>
 
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-			<script src="/infra/resources/js/validation.js"></script>
-			<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			<script src="/infra/resources/common/js/validation.js"></script>
 			
+			<!-- jquery ui -->
+			<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 			
-			<script type="text/javascript">
-		$("#btnSubmit4").on(
-			"click",
-			function() {
-				if (!checkNull($("#shMemberOption"), $("#shMemberOption").val(),
-				"검색구문을 선택 해 주세요!"))
-			retrun
-		false;
-				if (!checkNull($("#shMemberValue"), $("#shMemberValue").val(),
-						"검색어를 입력 해 주세요!"))
+		
+	<script type="text/javascript">
+	
+		$("#btnSearch").on( 
+				"click", function() {
+				if (!checkNull($("#shMemberOption"), $("#shMemberOption").val(),"검색구문을 선택해 주세요!")) 
+					return
+					false;
+				if (!checkNull($("#shMemberValue"), $("#shMemberValue").val(),"검색어를 입력 해 주세요!"))
 					retrun
 				false;
 			});
+			</script>
 		
-	       $("#btnModalNelete").on("click", function() {
-				$("input[name=checkboxSeq]:checked").each(function() { 
-					checkboxSeqArray.push($(this).val());
-				});
-				
-				$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);			
-				form.attr("action", goUrlMultiNelete).submit();
-				});
-	       
-			$("#btnUpdateDelete").on("click", function() {
-				var answer = confirm("삭제하시겠습니까?");
-				if (answer) { //infra/code/codeGroupNele 이동 
-				} else {
-					return false;
-				}
-			});
-		</script>
-		
-			<script type="text/javascript">
-/* 		
-		$("#btnDelete").on("click", function() {
+<!-- 	<script type="text/javascript">
+ 겟방식
+	$("#btnDelete").on("click", function() {
 		var answer = confirm("삭제하시겠습니까?");
 		if (answer) { //infra/code/codeGroupDele 이동 
 		} else {
 			return false;
 		}
 	});
-		
-/* 	$("#btnDelete").on("click", function(){
+		$("#btnUpdateDelete").on("click", function() {
+				var answer = confirm("삭제하시겠습니까?");
+				if (answer) { //infra/code/codeGroupNele 이동 
+				} else {
+					return false;
+				}
+			}); 
+		</script> -->
+			
+<!-- 	선생님샘플소스
+	<script type="text/javascript">
+	$("#btnDelete").on("click", function(){
 	      if(   $("inputinput[name=checkboxSeq]:checked").length > 0 {
 	         $("input:hidden[name=exDeleteType]").val(2);
 	         $(".modal-title").text("확 인");
 	         $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-	         $("#btnModalUelete").hide();
-	         $("#btnModalDelete").show();
+        	 $("#btnModalUelete").hide();
+	         $("#btnModalDelete").show(); 
 	         $("#modalConfirm").modal("show");
 	         } else {
 	         $(".modal-title").text("확 인");
 	         $(".modal-body").text("데이터를 선택 해 주세요!");
 	         $("#modalAlert").modal("show");
 	      }
-	          */   
+	});   
+			</script>  -->
+			
+<!-- 			미림활용
+			<script type="text/javascript">
+			$("#btnNelete").on("click", function(){
+	      if(   $("inputinput[name=checkboxSeq]:checked").length > 0 {
+	         $("input:hidden[name=exDeleteType]").val(2);
+	         $(".modal-title").text("확 인");
+	         $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
+/*         	 $("#btnModalUelete").hide(); */
+	         $("#btnModalNelete").show(); 
+	         $("#modalConfirm").modal("show");
+	         } else {
+	         $(".modal-title").text("확 인");
+	         $(".modal-body").text("데이터를 선택 해 주세요!");
+	         $("#modalAlert").modal("show");
+	      }
+	});   
+			</script>   -->
+	
+	
+		<script type="text/javascript">
+	       $("#btnModalNelete").on("click", function() {
+				$("input[name=checkboxSeq]:checked").each(function() { 
+					checkboxSeqArray.push($(this).val());
+			});
+				$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);			
+				form.attr("action", goUrlMultiNelete).submit();
+			});
 			</script>
+
 	
 	 <script type="text/javascript">
-		goMemberList = function(seq){
-				alert(seq);
-				// form 객체를 가져온다 
+		var seq = $("input:hidden[name=ifmmSeq]");
+		
+	 	goMemberList = function(seq){
+			alert(seq);
 					$("#thisPage").val(seq);
 					$("#formList").submit();
-				//그 가져온 객체를 전달한다.
 			}
 		 goMemberView = function(seq){
 			 alert(seq);
@@ -600,25 +669,64 @@ data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> </a>
 					$("#formList").submit();
 			}
 		 goMemberForm = function(seq){
-				$("#ifmmSeq").val(seq);
 				$("#formList").attr("action","/infra/member/memberFormAdmin");
 				$("#formList").submit();
 			}	 
-		 goUrlMultiNelete = function(seq){
+		 
+		goMemberMultiNelete = function(seq){
 				$("#ifmmSeq").val(seq);
-				$("#formList").attr("action","/infra/member/memberList");
-				$("#formList").submit();
+				$("#formList").attr("action","/infra/member/memberMultiNele");
+				$("#formList").submit(); 
 			}	 
-	 		</script>
-	 		
-	 		
-		 <script type="text/javascript">  //전체선택
-		$("#checkboxAll").click(function() {
+
+
+		$("#checkboxAll").click(function() {  //전체선택
 		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
 		else $("input[name=checkboxSeq]").prop("checked", false);
 		});
+
+		$("input[name=checkboxSeq]:checked").each(function() { 
+			var total = $("input[name=checkboxSeq]").length;
+			var checked = $("input[name=checkboxSeq]:checked").length;
+			if(total != checked) $("#checkboxAll").prop("checked", false);
+			else $("#checkboxAll").prop("checked", true);
+		});
+		
+/* 		$("#btnModalNelete").on("click", function(){
+			$("input[name=checkboxSeq]:checFked").each(function() {
+				checkboxSeqArray.push($(this).val());	
+			});
+			$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);	
+			/* $("#modalConfirm").modal("hide"); */
+			/* $("#formList").attr("action", "memberMultiUele").submit(); 
+	 		$("#formList").attr("action", goUrlMultiUele).submit();
+		}); */
 		</script>
- 
+		
+		
+		<script type="text/javascript"> 
+		$(document).ready(function() {
+			$("#shMemberDateStart").datepicker(); //시작일데이트피커
+			$("#shMemberDateEnd").datepicker(); //종료일데이트피커
+		});
+
+		$.datepicker.setDefaults({
+			dateFormat : 'yy-mm-dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			showMonthAfterYear : true,
+			yearSuffix : '년'
+		});
+		</script>
+		
+	
 </body>
 </html>
 

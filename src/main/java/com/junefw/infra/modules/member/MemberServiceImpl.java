@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMemberAdmin(Member dto) throws Exception {  //회원등록
 
 		dto.setRegDateTime(UtilDateTime.nowDate());
-		dto.setModDateTime(UtilDateTime.nowDate());
+
 	
 		dao.insertMemberAdmin(dto);
 		dao.insertEmail(dto);
@@ -63,6 +63,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int updateMemberAdmin(Member dto) throws Exception { //회원수정
+		
+		dto.setModDateTime(UtilDateTime.nowDate());
 		
 		dao.updateMemberAdmin(dto);
 		dao.updateEmail(dto);
@@ -85,7 +87,6 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMemberUser(Member dto) throws Exception {  //회원가입
 		
 		dto.setRegDateTime(UtilDateTime.nowDate());
-		dto.setModDateTime(UtilDateTime.nowDate());
 	
 		dao.insertMemberAdmin(dto);
 		dao.insertEmail(dto);
@@ -99,6 +100,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public int updateMemberUser(Member dto)  throws Exception{ //회원수정
+		
+		dto.setModDateTime(UtilDateTime.nowDate());
 		
 		dao.updateMemberUser(dto);
 		dao.updateEmail(dto);

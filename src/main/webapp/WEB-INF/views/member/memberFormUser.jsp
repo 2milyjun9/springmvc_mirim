@@ -519,13 +519,16 @@ $("#ifmaAddress1Array0").val('');
         }).open();
     }
 </script>
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<!-- 검색 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/infra/resources/js/validation.js"></script>
+
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
+	
+
 	<script type="text/javascript">
 	$("#btnSubmit").on(
 			"click",

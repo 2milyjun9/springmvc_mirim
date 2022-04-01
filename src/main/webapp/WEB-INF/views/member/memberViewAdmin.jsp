@@ -27,6 +27,13 @@
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
+
+
+
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/0bd8c4f8de.js"
 	crossorigin="anonymous"></script>
@@ -209,15 +216,6 @@ body {
 		</div>
 	</div>
 
-<!-- 기본값 히든처리 -->
-<form id="formView" action="" method="post">
-	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
-	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
-	<input type="hidden" id="shIfmmDelNy" name="shIfmmDelNy" value="<c:out value="${vo.shIfmmDelNy}"/>">
-	<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
-	<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
-	<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-
 
 
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -247,7 +245,7 @@ body {
 
 
 
-		<!-- 모바일버전테이블//웹감춤 -->
+	<%-- 	<!-- 모바일버전테이블//웹감춤 -->
 		<div class=" d-lg-block d-xl-none">
 			<div class="table-responsive">
 				<table class="table table-striped table-hover" id="table"
@@ -311,7 +309,19 @@ body {
 				</table>
 			</div>
 		</div>
+ --%>
+ 
+ <!-- 기본값 히든처리 -->
+<form id="formView" action="" method="post">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+	<input type="hidden" id="shIfmmDelNy" name="shIfmmDelNy" value="<c:out value="${vo.shIfmmDelNy}"/>">
+	<input type="hidden" id="shIfmmName" name="shIfmmName" value="<c:out value="${vo.shIfmmName}"/>">
+	<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+	<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
 
+ 
+ 
 		<!-- 웹버전기본정보테이블//모바일감춤 -->
 		<div class="d-none d-xl-block ">
 			<div style="width: 100%; white-space: nowrap">
@@ -385,7 +395,6 @@ body {
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
-													<form>
 														<div class="mb-3">
 															<label for="recipient-name" class="col-form-label">번호</label>
 															<input type="text" class="form-control"
@@ -396,7 +405,6 @@ body {
 																입력</label>
 															<textarea class="form-control" id="message-text"></textarea>
 														</div>
-													</form>
 												</div>
 												<div class="modal-footer">
 													<a class="btn btn-secondary" href="./memberView.html"
@@ -423,7 +431,6 @@ body {
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
-													<form>
 														<div class="mb-3">
 															<label for="recipient-name" class="col-form-label">E-mail</label>
 															<input type="text" class="form-control"
@@ -434,7 +441,6 @@ body {
 																입력</label>
 															<textarea class="form-control" id="message-text"></textarea>
 														</div>
-													</form>
 												</div>
 												<div class="modal-footer">
 													<a class="btn btn-secondary" href="./memberView.html"
@@ -451,7 +457,7 @@ body {
 			</div>
 		</div>
 
-
+	
 		<br>
 		<!-- 웹버전테이블 // 모바일감춤 -->
 		<div class="d-none d-xl-block ">
@@ -601,14 +607,42 @@ body {
 				</tr>
 			</table>
 		</div>
+		
+</form>
 		<br>
+		
+		
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
 	
-<a href="javascript:goMemberEdit();"> <button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
-<a href="javascript:goMemberList();"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
-<a href="javascript:goMemberNelete();"> <button type="submit" id="" class="btn btn-sm btn-outline-danger"> 삭제(가짜) </button></a>
-					
+<a href="javascript:goMemberEdit('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> <button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
+<a href="javascript:goMemberList('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
+
+<button type="button" id="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> 
+	
+	<div class="modal fade" id="btnModalNelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modal-title">
+										<i class="fas fa-exclamation-circle"></i>삭제 확인!
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">정말 삭제하시겠습니까?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									
+									<a href="javascript:goMemberNelete
+									('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>','<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> 
+	<button type="button" class="btn btn-primary" id=""  >확인</button></a>
+								</div>
+							</div>
+						</div>
+					</div>   	
 			</div>
 		</div>
 	</main>
@@ -627,13 +661,12 @@ body {
 
 	<br>
 	<br>
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<!-- 검색 -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/infra/resources/js/validation.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
 
 	<script type="text/javascript">
 		goMemberList = function(){
@@ -647,12 +680,14 @@ body {
 		};
 		
 		goMemberNelete = function(){
-    $("#ifmmSeq").val(seq);
+	var seq = $("input:hidden[name=ifmmSeq]");
+/* 	var form = $("form[name=formView]"); */
 	$("#formView").attr("action", "/infra/member/memberNele");
 	$("#formView").submit();
-				};
+		};
 	</script>
 	
+			
 	<!-- 팝업 -->
 	<script language="javascript">
   function showPopup() { window.open("/main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
