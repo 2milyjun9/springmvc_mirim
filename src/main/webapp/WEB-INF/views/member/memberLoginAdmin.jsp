@@ -165,6 +165,17 @@ a { /*링크 줄안가게하기*/
 		crossorigin="anonymous">
 	</script>
 
+ 	<script type="text/javascript">
+	$("#btnSubmit").on(
+			"click",
+			function() {
+				if (!checkId($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력 해 주세요!"))
+			retrun
+		false;	
+			});
+	</script>
+	
+	
 	<script type="text/javascript">
 	$("#btnLogin").on("click", function(){
 		/* if(validation() == false) return false; */

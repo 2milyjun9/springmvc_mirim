@@ -31,6 +31,7 @@ public class MemberController /* extends BaseController */ {
 	public String memberListTest(MemberVo vo, Model model) throws Exception {
 		List<Member> list = service.selectList(vo);
 		model.addAttribute("list", list);
+		System.out.println("asdfasdfasdf");
 		return "member/memberListTest";
 	}
 
@@ -83,7 +84,7 @@ public class MemberController /* extends BaseController */ {
 		System.out.println("UtilDateTime.nowString():" + UtilDateTime.nowString());
 
 		
-		/* 00:00:00 에러 수정 소스 
+		/* 00:00:00  수정 소스 
 		 * vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ? 1 :
 		 * vo.getShMemberOptionDate());
 		 * vo.setShMemberDateStart(vo.getShMemberDateStart() == null ?
@@ -222,6 +223,7 @@ public class MemberController /* extends BaseController */ {
 		 httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
 		 httpSession.setAttribute("sessId", rtMember.getIfmmId());
 		 httpSession.setAttribute("sessName", rtMember.getIfmmName());
+		 httpSession.setAttribute("sessNickname", rtMember.getIfmmNickname());
 		 
 		 returnMap.put("rt", "success"); } else { returnMap.put("rt", "fail"); } }
 		 else { returnMap.put("rt", "fail"); } return returnMap; }
@@ -272,9 +274,9 @@ public class MemberController /* extends BaseController */ {
 		returnMap.put("rt", "success");
 		return returnMap;
 	}
-	// *************************두리안 공통 *************************************
-	// *************************두리안 공통 *************************************
-	// *************************두리안 공통 *************************************
+	// ************************* 공통 *************************************
+	// ************************* 공통 *************************************
+	// ************************* 공통 *************************************
 
 	@RequestMapping(value = "/member/memberDele") // 회원삭제
 	public String memberDele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
@@ -288,14 +290,13 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberNele") // 회원가짜삭제
 	public String memberNele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		service.updateDeleteMember(vo);
-		/*
-		 * redirectAttributes.addAttribute("thisPage", vo.getThisPage());
-		 * redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
-		 * redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
-		 * redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
-		 * redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
-		 * redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
-		 */
+		
+		 redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+		 redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
+		 redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
+		 redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
+		 redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
+		 redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
 		
 		return "redirect:/member/memberList";
 	}

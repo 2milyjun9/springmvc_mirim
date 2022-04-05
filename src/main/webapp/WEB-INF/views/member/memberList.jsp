@@ -242,86 +242,73 @@ body {
 	<!-- 선택삭제 -->	<input type="hidden"  id="checkboxSeqArray" name="checkboxSeqArray"> 					
 					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
 					<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
-						
-		<%-- 			<select name="shMemberOptionDate" id="shMemberOptionDate">
-						 <option value="" <c:if test="${empty vo.shMemberOptionDate}"> selected </c:if>>::날짜검색:: 
-<!-- 							<option value="">::날짜검색:: -->
-							<option value="1" <c:if test="${vo.shMemberOptionDate eq 1 }"> selected</c:if>>가입일
-							<option value="2" <c:if test="${vo.shMemberOptionDate eq 2 }"> selected</c:if>>수정일
-							<option value="3" <c:if test="${vo.shMemberOptionDate eq 3 }"> selected</c:if>>생일
-						</select> 
-						  	
-	 		<fmt:parseDate var="shMemberDateStart" value="${vo.shMemberDateStart}" pattern="yyyy-MM-dd"/>
-    		<input type="text" id="shMemberDateStart" name="shMemberDateStart" value="<fmt:formatDate value="${shMemberDateStart}" pattern="yyyy-MM-dd" />" placeholder="시작일" class="" autocomplete="off"> 
-			<fmt:parseDate var="shMemberDateEnd" value="${vo.shMemberDateEnd}" pattern="yyyy-MM-dd"/>
-			<input type="text" id="shMemberDateEnd" name="shMemberDateEnd" value="<fmt:formatDate value="${shMemberDateEnd}" pattern="yyyy-MM-dd" />" placeholder="종료일" class="" autocomplete="off">	
+					</form>
+	
+	
+	
+	<form class="row gx-3 gy-2 align-items-center">
+	<div class="col-lg-2 col-md-6 col-sm-12">
+	 			<select class="form-select form-select-sm" name="shMemberOptionDate" id="shMemberOptionDate" style="width:150px" >
+					<option value="" <c:if test="${empty vo.shMemberOptionDate}">selected</c:if>>::날짜::</option>
+					<option value="1" <c:if test="${vo.shMemberOptionDate eq 1}">selected</c:if>>등록일</option>
+					<option value="2" <c:if test="${vo.shMemberOptionDate eq 2}">selected</c:if>>수정일</option>
+					<option value="3" <c:if test="${vo.shMemberOptionDate eq 3}">selected</c:if>>생일</option>
+				</select>
+			</div>
+				
+	 	<div class="col-lg-2 col-md-6 col-sm-12">
+				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
+				<input class="form-control form-select-sm" type="date" id="" name="shMemberDateStart" style="width:150px" value="<c:out value="${vo.shMemberDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
+				</div>
+				
+		<div class="col-lg-2 col-md-6 col-sm-12">
+				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
+				<input class="form-control form-select-sm" type="date" id="" name="shMemberDateEnd"  style="width:150px" value="<c:out value="${vo.shMemberDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
+				</div>
 		
-						<br>
-						<select name="shIfmmDelNy" id="shIfmmDelNy">
+		</form>
+				<br>
+				
+				<form class="row gx-3 gy-2 align-items-center">
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm" name="shIfmmDelNy" id="shIfmmDelNy" style="width:150px">
 							<option value="">::삭제여부::
 							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>Y
 							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>N
 						</select> 
-			
-						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy" >
+					</div>
+					
+					
+	<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm" name="shIfmmDormancyNy" id="shIfmmDormancyNy" style="width:150px">
 							<option value="">::휴먼여부::
 							<option value="0" <c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
 							<option value="1" <c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
-						</select> 
+						</select>
+						</div>
 			
-						<select name="shMemberOption" id="shMemberOption" >
+			<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm" name="shMemberOption" id="shMemberOption" style="width:150px">
 							<option value="">::검색구문::
 							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
 							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
 							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
 							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
 						</select> 
+						</div>	
 					
-					<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-					<button class="" type="submit" name="search" id="btnSubmit">검색</button> --%>
+				<div class="col-lg-2 col-md-6 col-sm-12">
+					<input  class="form-control form-control-sm" type="text" name="shMemberValue" id="shMemberValue" style="width:150px" value="<c:out value="${vo.shMemberValue}"/>">
+					</div>
 					
-					
-	
-				<select name="shMemberOptionDate" id="shMemberOptionDate" class="" >
-					<option value="" <c:if test="${empty vo.shMemberOptionDate}">selected</c:if>>::날짜::</option>
-					<option value="1" <c:if test="${vo.shMemberOptionDate eq 1}">selected</c:if>>등록일</option>
-					<option value="2" <c:if test="${vo.shMemberOptionDate eq 2}">selected</c:if>>수정일</option>
-					<option value="3" <c:if test="${vo.shMemberOptionDate eq 3}">selected</c:if>>생일</option>
-				</select>
-	
-				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
-				<input type="date" id="" name="shMemberDateStart" value="<c:out value="${vo.shMemberDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
-		
-				<fmt:parseDate value="${vo.shMemberDateEnd}" var="shMemberDateEnd" pattern="yyyy-MM-dd"/>
-				<input type="date" id="" name="shMemberDateEnd" value="<c:out value="${vo.shMemberDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
-			
-				<br>
-						<select name="shIfmmDelNy" id="shIfmmDelNy">
-							<option value="">::삭제여부::
-							<option value="1"<c:if test="${vo.shIfmmDelNy eq 1 }">selected </c:if>>Y
-							<option value="0"<c:if test="${vo.shIfmmDelNy eq 0 }">selected </c:if>>N
-						</select> 
-			
-						<select name="shIfmmDormancyNy" id="shIfmmDormancyNy" >
-							<option value="">::휴먼여부::
-							<option value="0" <c:if test="${vo.shIfmmDormancyNy eq 0 }"> selected</c:if>>N
-							<option value="1" <c:if test="${vo.shIfmmDormancyNy eq 1 }"> selected</c:if>>Y
-						</select> 
-			
-						<select name="shMemberOption" id="shMemberOption" >
-							<option value="">::검색구문::
-							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
-							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
-							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-						<%-- 	<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처 --%>
-						</select> 
-					
-					<input type="text" name="shMemberValue" id="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
-					<button class="" type="submit" name="search" id="btnSearch">검색</button> 
-					
+					<div class="col-sm-3">
+					<button class="btn btn-primary" type="submit" name="search" id="btnSearch">검색</button> 
+					</div>
+					</form>		
+
 					<br> <br>
-						
-						
+					
+					
 		<div class="table-responsive" id="mainTable">
 							<table class="table table-striped table-hover" data-toggle="table" data-toolbar=".toolbar"
 								data-sortable="false" data-height="460">
@@ -394,7 +381,6 @@ body {
 								</c:choose>
 							</table>
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>

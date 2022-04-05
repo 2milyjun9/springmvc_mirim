@@ -76,39 +76,89 @@
 	<br>
 	<form method="post" action="/infra/product/productInstAdmin">
 
-
+		<!-- 기본값히든처리 -->
+		<input type="hidden" id="shAcprDelNy" name="shAcprDelNy" value="<c:out value="${vo.shAcprDelNy}"/>">
+		<input type="hidden" id="shProductOption" name="shProductOption" value="<c:out value="${vo.shProductOption}"/>">
+		<input type="hidden" id="shProductValue" name="shProductValue" value="<c:out value="${vo.shProductValue}"/>">			
+		<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq"> 
+		
+		
+		
 		<div class="container">
 			<div class="input-form col-md-9 mx-auto">
 				<h3 align="center">상품등록</h3>
+				
 				<br>
+				
+			<form class="row gx-3 gy-2 align-items-center">
 				<div class="row">
 					<div class="col-md-12 mb-3">
 
-
-						<c:forEach items="${list}" var="rt" varStatus="status">
-							<option value="${rt.ifmmSeq}">
-								<c:out value="${rt.ifmmName}" /></option>
-						</c:forEach>
-						<select name="shMemberOption" id="shMemberOption">
-							<option value="">구분
+					<%-- 		<c:forEach items="${list}" var="item" varStatus="status">
+							<option value="${item.ifmmSeq}"> <c:out value="${item.ifmmName}" /></option>
+		
+						<select name="shMemberOption" id="shMemberOption"> <option value="">구분
+						<option value="<c:out value="${item.ifmmSeq}"/>"
+					<c:if test="${param.shIfmmSeq eq item.ifmmSeq}"> selected</c:if>> 이름
+					<c:out value="${item.ifmmName}" />
+							<option value="<c:out value="${item.ifmmSeq}"/>"
+					<c:if test="${param.shIfmmSeq eq item.ifmmSeq}"> selected</c:if>> 아이디
+					<c:out value="${item.ifmmId}" />
+							<option value="<c:out value="${item.ifmmSeq}"/>"
+					<c:if test="${param.shIfmmSeq eq item.ifmmSeq}"> selected</c:if>> 닉네임
+					<c:out value="${item.ifmmNickname}" /> 
 							<option value="1"
 								<c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
 							<option value="2"
 								<c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
 							<option value="3"
 								<c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-<%-- 							<option value="4"
-								<c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처 --%>
-
-						</select> <input type="text" name="shMemberValue" id="shMemberValue"
-							placeholder="판매자검색" value="<c:out value="${vo.shMemberValue}"/>">
-						<button type="submit" name="search" id="ifmmSeq">Search</button>
-						<br> <br> 카테고리 : 대분류 <select name="infrCategory"
-							style="width: 200px">
-							<option value="">전체</option>
-						</select> 중분류 <select name="subCategory" style="width: 200px">
-							<option value="">전체</option>
-						</select> <br> <br> <select name="acprPickupCd" id="acprPickupCd">
+						</select>
+						</c:forEach> --%>
+						
+			<div class="row">
+				<div class="col-md-3 mb-3">
+						<select class="form-select form-select" name="shMemberOption" id="shMemberOption" style="width:150px">
+							<option value="">::검색구문::
+						
+							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
+							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
+							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
+							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
+						
+						</select> 
+				</div>
+				<div class="col-md-6 mb-3">	
+					<input  class="form-control form-control" type="text" name="shMemberValue" id="shMemberValue" 
+					placeholder="판매자검색"  style="width:150px"  value="<c:out value="${vo.shMemberValue}"/>">
+				</div>
+				<div class="col-md-3 mb-3">
+					<button class="btn btn-secondary" type="submit" name="search" id="ifmmSeq">검색</button> 
+				</div>
+			</div>
+			
+		</div>
+	</form>			
+					 <hr>
+		
+	
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<select class="form-select form-select" name="infrCategory" style="width: 200px">
+							<option value="">대분류</option>
+						</select> 
+					</div>
+					<div class="col-md-6 mb-3">
+						<select class="form-select form-select" name="subCategory" style="width: 200px">
+							<option value=""> 중분류 </option>
+						</select> 
+					</div>
+				</div>
+						<br> 
+				<div class="row">
+					<div class="col-md-12 mb-3">
+						<select class="form-select form-select" name="acprPickupCd" id="acprPickupCd">
 							<option value="">거래방식
 							<option value="1"
 								<c:if test="${vo.acprPickupCd eq 51}"> selected</c:if>>직거래
@@ -122,6 +172,7 @@
 						</select>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input class="form-control" type="text" name="acprProductName"
@@ -134,21 +185,14 @@
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input class="form-control" type="text" id="acprPriceStart"
-							name="acprPriceStart" placeholder="최소가격"> <br> <input
-							class="form-control" type="text" id="acprEndDate"
+							name="acprPriceStart" placeholder="최소가격"> <br> 
+							
+							<input class="form-control" type="text" id="acprEndDate"
 							name="acprEndDate" placeholder="경매마김일"
 							value="<c:out value="${item.acprEndDate}"/>">
 					</div>
 				</div>
-				<!-- 						<div class="col-md-6 mb-3">
-							<select  class="form-select form-select-sm" id="ifmpTelecomCd" name="ifmpTelecomCd">
-								<option value="">통신사</option>
-								<option value="28">SKT</option>
-								<option value="29">KT</option>
-								<option value="30">LGU</option>
-								<option value="31">기타</option>
-							</select> <input type="text" name="ifmpNumber" placeholder="연락처">
-						</div> -->
+		
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input type="file" class="form-control" id="acimFile?"> <label
@@ -158,18 +202,22 @@
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id=""
+							<input type="checkbox" class="custom-control-input" id="aggrement1"
 								required> <label class="custom-control-label"
-								for="aggrement">개인정보 수집 및 이용에 동의합니다. </label>
+								for="aggrement1">개인정보 수집 및 이용에 동의합니다. </label>
+						</div>
+
 						</div>
 						<br>
+										<div class="col-md-12 mb-3">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id=""
+							<input type="checkbox" class="custom-control-input" id="aggrement2"
 								required> <label class="custom-control-label"
-								for="aggrement"> 진행 약관에 동의합니다. </label>
+								for="aggrement2"> 진행 약관에 동의합니다. </label>
+						</div>
 						</div>
 					</div>
-				</div>
+
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<button class="btn btn-primary btn-sm btn-block" type="submit"
@@ -183,9 +231,10 @@
 							type="hidden" name="">
 					</div>
 				</div>
+				
 			</div>
 		</div>
-	</form>
+
 
 	<script type="text/javascript">
 		$(document)
@@ -408,9 +457,13 @@
 	</script>
 
 
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
+		
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("acprEndDate").datepicker();

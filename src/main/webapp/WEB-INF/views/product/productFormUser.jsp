@@ -15,7 +15,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title> 상품등록 </title>
 
-
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
+	
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -85,6 +89,20 @@ body {
 					<div class="col-md-12 mb-3">
 	<img src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"  class="rounded mx-auto d-block" alt="..." width="200px"
 						height="100px">
+						
+							<p align="right">
+		<b><c:out value="${sessName}" /></b> 님 환영합니다. </p>
+		
+		
+				<!-- 기본값히든처리 -->
+		<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+
+		<input type="hidden" id="shMemberOption" name="shMemberOption" value="<c:out value="${vo.shMemberOption}"/>">
+		<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
+		
+		
+		
 						<br>  카테고리 : 대분류 <select name="infrCategory"
 							style="width: 200px">
 							<option value="" >전체</option>
@@ -111,40 +129,42 @@ body {
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input class="form-control" type="text" name="acprProductName"
-							placeholder="상품제목  (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)"> <br> 
+							placeholder="상품제목  (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)" required> <br> 
 							<input class="form-control"
-							type="text" name="acprDetails" placeholder="상품내용 (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)" style="height: 200px">
+							type="text" name="acprDetails" placeholder="상품내용 (모델명, 브랜드명 등이 들어가면 검색률이 높아집니다)" 
+							style="height: 200px" required>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input class="form-control" type="text" id="acprPriceStart"
-							name="acprPriceStart" placeholder="최소가격"> <br> <input
+							name="acprPriceStart" placeholder="최소가격" required> <br> 
+						<input
 							class="form-control" type="text" id="acprEndDate"
 							name="acprEndDate" placeholder="경매마김일 "
-							value="<c:out value="${item.acprEndDate}"/>">
+							value="<c:out value="${item.acprEndDate}"/>" required 	autocomplete="off">
 					</div>
 				</div>
 	
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<input type="file" class="form-control" id="acimFile?"> <label
-							class="input-group-text" for="">Upload</label>
+							class="input-group-text" for="" required>Upload</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id=""
-								> <label class="custom-control-label"
-								for="aggrement">개인정보 수집 및 이용에 동의합니다. </label>
+							<input type="checkbox" class="custom-control-input" id="aggrement1"
+								required > <label class="custom-control-label"
+								for="aggrement1" >개인정보 수집 및 이용에 동의합니다. </label>
 						</div>
 						<br>
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
-								id="" > <label
-								class="custom-control-label" for="aggrement"> 진행 약관에
+								id="aggrement2"  required> <label
+								class="custom-control-label" for="aggrement2"> 진행 약관에
 								동의합니다. </label>
 						</div>
 					</div>
@@ -381,11 +401,13 @@ body {
 						});
 	</script>
 
-
-	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<script type="text/javascript">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+		
+		<script type="text/javascript">
 		$(document).ready(function() {
 			$("acprEndDate").datepicker();
 		});
@@ -404,7 +426,7 @@ body {
 			showMonthAfterYear : true,
 			yearSuffix : '년'
 		});
-	</script>
+		</script>
 
 	<footer class="my-3 text-center text-small">
 		<p class="mb-1">&copy; 2022 Auctionary</p>
@@ -419,22 +441,8 @@ body {
 		window.addEventListener('load', () => { const forms = document.getElementsByClassName('validation-form'); Array.prototype.filter.call(forms, (form) => { form.addEventListener('submit', function (event) { if (form.checkValidity() === false) { event.preventDefault(); event.stopPropagation(); } form.classList.add('was-validated'); }, false); }); }, false); 
 	</script>
 
-<!-- 검색 -->
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-			<script src="/infra/resources/js/validation.js"></script>
-			<script type="text/javascript">
 
-$("#btnSubmit").on(
-			"click",
-			function() {
-				if (!checkId($("#ifmmId"), $("#ifmmId").val(),
-				"아이디를 입력 해 주세요!"))
-			retrun
-		false;	
-			});
-	
-</script>
+
 
 </body>
 </html>

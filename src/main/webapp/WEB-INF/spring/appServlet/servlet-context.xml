@@ -24,17 +24,20 @@
 	<context:component-scan base-package="com.junefw.infra" />
 	
 		<!-- session interceptor s 2022.03.13 for logincheck -->
-<!-- 	<interceptors>
+ 	<interceptors>
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/resources/**" />	
-			<exclude-mapping path="/member/loginFormAdmin" /> 		 로그인필요없는곳들
-			<exclude-mapping path="/member/loginFormUser" />
+			<exclude-mapping path="/member/memberLoginAdmin" /> 		<!--  로그인필요없는곳들 -->
+			<exclude-mapping path="/member/memberLoginUser" />
 			<exclude-mapping path="/member/loginProc" />
+			<exclude-mapping path="/index/indexView" />
+			<exclude-mapping path="/product/productMainUser" />
+			<exclude-mapping path="/product/productViewUser" />
 			<exclude-mapping path="/member/findIdPwdForm" />
 		<beans:bean id="checkLoginSessionInterception" class="com.junefw.infra.common.interceptor.CheckLoginSessionInterception"/> 
 		</interceptor>
-	</interceptors>	 -->
+	</interceptors>	  
 	
 	<!-- session interceptor e 2022.03.13 for logincheck -->
 	

@@ -108,15 +108,22 @@ body {
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label>비밀번호</label> <input type="password" class="form-control"
-									name="ifmmPassword" placeholder="" value="" required>
+									name="ifmmPassword" id="ifmmPassword" placeholder="" value="${item.ifmmPassword}" required>
 								<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+									
+									<span id="alert-success" style="display: none; color: blue; text-align: left;">비밀번호가 일치합니다.</span>
 							</div>
+							
 							<div class="col-md-6 mb-3">
-								<label>비밀번호확인</label> <input type="password"
-									class="form-control" placeholder="" value="" required>
+								<label>비밀번호확인</label> <input type="password" class="form-control"  
+								name="ifmmPassword2" id="ifmmPassword2" placeholder="" value="" required>
 								<div class="invalid-feedback">비밀번호를 재차 입력해주세요.</div>
+								
+								<span id="alert-danger" style="display: none; color: red; text-align: left;">비밀번호가 일치하지 않습니다.</span>	
 							</div>
 						</div>
+						
+		  			
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label>닉네임</label> <input type="text" class="form-control"
@@ -527,23 +534,7 @@ $("#ifmaAddress1Array0").val('');
 			<!-- jquery ui -->
 		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 			
-	
-
-	<script type="text/javascript">
-	$("#btnSubmit").on(
-			"click",
-			function() {
-				if (!checkId($("#ifmmId"), $("#ifmmId").val(),
-				"아이디를 입력 해 주세요!"))
-			retrun
-		false;	
-			});
-	
-	</script>
-
-
-
-	<script type="text/javascript">
+		<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ifmmDob").datepicker();
 		});
@@ -563,7 +554,29 @@ $("#ifmaAddress1Array0").val('');
 			yearSuffix : '년'
 		});
 	</script>
+
 	
+	
+	<!-- 비밀번호 일치 체크 -->
+			<script>
+    $('.pw').focusout(function () {
+        var pwd1 = $("#ifmmPassword").val();
+        var pwd2 = $("#ifmmPassword2").val();
+  
+        if ( pwd1 != '' && pwd2 == '' ) {
+            null;
+        } else if (pwd1 != "" || pwd2 != "") {
+            if (pwd1 == pwd2) {
+                $("#alert-success").css('display', 'inline-block');
+                $("#alert-danger").css('display', 'none');
+            } else {
+                $("#alert-success").css('display', 'none');
+                $("#alert-danger").css('display', 'inline-block');
+            }
+        }
+    });
+			</script>
+
 </body>
 </html>
 

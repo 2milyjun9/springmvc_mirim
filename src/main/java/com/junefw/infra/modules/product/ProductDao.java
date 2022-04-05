@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.junefw.infra.modules.member.Member;
-import com.junefw.infra.modules.member.MemberVo;
+
 
 
 
@@ -58,26 +58,34 @@ public class ProductDao {
 	public List<Product> productMainUser(ProductVo vo) {   // 상품리스트 (메인)
 		return sqlSession.selectList(namespace + ".productMainUser", vo);
 	}
+	public List<Product> productMainUser2(ProductVo vo) {   // 상품리스트 (로그인메인)
+		return sqlSession.selectList(namespace + ".productMainUser2", vo);
+	}
 	public Product productViewUser(ProductVo vo) {   // 상품뷰
 		return sqlSession.selectOne(namespace + ".productViewUser", vo);
 	}
+	
 	public int insertProductUser(Product dto) {  //상품등록
 		return sqlSession.insert(namespace + ".insertProductUser", dto);
 	}
 	public int updateProductUser(Product dto) {   //상품수정
 		return sqlSession.update(namespace + ".updateProductUser", dto);
 	}
-	//진짜삭제
-	public int productDeleteUser(ProductVo vo) {   //진짜삭제
-		return sqlSession.delete(namespace+ ".productDeleteUser", vo);
+	
+
+	// *********************************************공통 ****************************
+	
+
+	public int productDelete(ProductVo vo) {   //진짜삭제
+		return sqlSession.delete(namespace+ ".productDelete", vo);
 		}
-	//가짜삭제
-	public int productUpdateDeleteUser(ProductVo vo) { //가짜삭제
-		return sqlSession.update(namespace + ".productUpdateDeleteUser", vo); 
+	public int productUpdateDelete(ProductVo vo) { //가짜삭제
+		return sqlSession.update(namespace + ".productUpdateDelete", vo); 
 		}
 	public int productPurchase(Product dto) { //경매신청
 		return sqlSession.update(namespace + ".productPurchase", dto); 
 		}
-
-
+	 public int insertMember (Product dto) { //상품등록(회원정보)
+		   return sqlSession.insert(namespace + ".insertMember", dto); 
+	   }
 }

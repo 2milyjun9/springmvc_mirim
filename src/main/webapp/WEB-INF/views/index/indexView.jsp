@@ -253,10 +253,6 @@ sessId: <c:out value="${sessId }"/><br><br>
 	
 </script>
 
-<!-- 팝업 -->
-  <script language="javascript">
-  function showPopup() { window.open("../member/memberLoginAdmin", "로그인", "width=500, height=600, left=300, top=50"); }
-  </script>
   
   <!-- jquery ui -->
 	<script 	src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>

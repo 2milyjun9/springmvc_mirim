@@ -155,7 +155,7 @@ body {
 	<header
 		class="navbar navbar-dark sticky-top bg-secondary text-white flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
-			href="../main/main.html"> Auctionary</a>
+			href=""> Auctionary</a>
 		<button class="navbar-toggler position-absolute d-md-none collapsed"
 			type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 			aria-controls="sidebarMenu" aria-expanded="false"
@@ -239,50 +239,67 @@ body {
 	<div class="d-none d-xl-block ">
 		<div style="width: 75%; float: none; margin: 0 auto">
 
-			<form id="" name="" method="post" action="/infra/product/productListAdmin">
+			<form id="formList" name="formList" method="post" action="/infra/product/productListAdmin">
+	<!-- 선택삭제 -->	<input type="hidden" id="rowNumToShow" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
+	<!-- 선택삭제 -->	<input type="hidden"  id="checkboxSeqArray" name="checkboxSeqArray"> 					
+					<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
+					<input type="hidden" id="acprSeq" name="acprSeq"> 
+					</form>
+	
 
-					<select name="shProductOptionDate" id="shProductOptionDate" class="" >
+	<form class="row gx-3 gy-2 align-items-center">
+	<div class="col-lg-2 col-md-6 col-sm-12">
+					<select class="form-select form-select-sm" name="shProductOptionDate" id="shProductOptionDate" class="" >
 <%-- 					<option value="" <c:if test="${empty vo.shProductOptionDate}">selected</c:if>>::날짜::</option> --%>
 					<option value="1" <c:if test="${vo.shProductOptionDate eq 1}">selected</c:if>>등록일</option>
 				</select>
+				</div>
 	
+		<div class="col-lg-2 col-md-6 col-sm-12">
 				<fmt:parseDate value="${vo.shProductDateEnd}" var="shProductDateEnd" pattern="yyyy-MM-dd"/>
-				<input type="date" id="" name="shProductDateStart" value="<c:out value="${vo.shProductDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
-		
+				<input class="form-control form-select-sm" type="date" id="" name="shProductDateStart" value="<c:out value="${vo.shProductDateStart}"/>" placeholder="시작일" class="" autocomplete="off">
+		</div>
+		<div class="col-lg-2 col-md-6 col-sm-12">
 				<fmt:parseDate value="${vo.shProductDateEnd}" var="shProductDateEnd" pattern="yyyy-MM-dd"/>
-				<input type="date" id="" name="shProductDateEnd" value="<c:out value="${vo.shProductDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
-			
+				<input class="form-control form-select-sm" type="date" id="" name="shProductDateEnd" value="<c:out value="${vo.shProductDateEnd}"/>" placeholder="종료일"  class="" autocomplete="off">
+		</div>
+		</form>
 				<br>
-						<select name="shAcprDelNy" id="shAcprDelNy">
+				<form class="row gx-3 gy-2 align-items-center">
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm" name="shAcprDelNy" id="shAcprDelNy">
 							<option value="">::삭제여부::
 							<option value="1"<c:if test="${vo.shAcprDelNy eq 1 }">selected </c:if>>Y
 							<option value="0"<c:if test="${vo.shAcprDelNy eq 0 }">selected </c:if>>N
 						</select> 
-						
-						
-						<select name="shAcprStatusCd" id="shAcprStatusCd">
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm" name="shAcprStatusCd" id="shAcprStatusCd">
 							<option value="">::삭제여부::
 							<option value="55"<c:if test="${vo.shAcprStatusCd eq 55 }">selected </c:if>>경매중
 							<option value="56"<c:if test="${vo.shAcprStatusCd eq 56 }">selected </c:if>>경매완료
 							<option value="57"<c:if test="${vo.shAcprStatusCd eq 57 }">selected </c:if>>경매실패
 							<option value="58"<c:if test="${vo.shAcprStatusCd eq 58 }">selected </c:if>>경매취소
 						</select> 
+			</div>
 			
-						<select name="shProductOption" id="shProductOption" >
+			<div class="col-lg-2 col-md-6 col-sm-12">
+						<select class="form-select form-select-sm"  name="shProductOption" id="shProductOption" >
 							<option value="">::검색구문::
 							<option value="1" <c:if test="${vo.shProductOption eq 1 }"> selected</c:if>>상품번호
 							<option value="2" <c:if test="${vo.shProductOption eq 2 }"> selected</c:if>>게시물명
 							<option value="3" <c:if test="${vo.shProductOption eq 3 }"> selected</c:if>>게시물내용
 							<option value="3" <c:if test="${vo.shProductOption eq 4 }"> selected</c:if>>이름
 						</select> 
-
-
-
-					
-					<input type="text" name="shProductValue" id="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
-					<button class="" type="submit" name="search" id="btnSearch">검색</button> 
-					
-
+			</div>
+			
+			<div class="col-lg-2 col-md-6 col-sm-12">
+					<input class="form-control form-control-sm"  type="text" name="shProductValue" id="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
+				</div>	
+				<div class="col-sm-3">
+					<button class="btn btn-primary" type="submit" name="search" id="btnSearch">검색</button> 
+								</div>	
+		</form>		
 
 				<br> <br> <br>
 				<div class="table-responsive">
@@ -561,10 +578,13 @@ body {
 			}
 	</script>
 
-<!-- 검색 -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/infra/resources/js/validation.js"></script>
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<script src="/infra/resources/common/js/validation.js"></script>
+			
+			<!-- jquery ui -->
+			<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+			
 <script type="text/javascript">
 
 	$("#btnSubmit5").on(
@@ -587,7 +607,18 @@ body {
   function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
   </script>
 
-
+	<script type="text/javascript">
+	
+		$("#btnSearch").on( 
+				"click", function() {
+				if (!checkNull($("#shProductOption"), $("#shProductOption").val(),"검색구문을 선택해 주세요!")) 
+					return
+					false;
+				if (!checkNull($("#shProductValue"), $("#shProductValue").val(),"검색어를 입력 해 주세요!"))
+					retrun
+				false;
+			});
+			</script>
 	
 	 <script type="text/javascript">
 		var seq = $("input:hidden[name=ifmmSeq]");

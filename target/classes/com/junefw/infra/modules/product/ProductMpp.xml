@@ -3,13 +3,12 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
 
 <mapper namespace="com.junefw.infra.modules.product.ProductMpp">
-
-	<resultMap id="resultMapObj"
+<resultMap id="resultMapObj"
 		type="com.junefw.infra.modules.product.Product"></resultMap>
-
-
+		
 <sql id="productCommon">
 		FROM
 		auctProduct a
@@ -25,6 +24,10 @@
 			<when test="shAcprStatusCd == 57">AND acprStatusCd = 57 </when>  
 			<when test="shAcprStatusCd == 58">AND acprStatusCd = 58 </when>  
 		</choose>
+		<choose>
+			<when test="shProductOptionDate == 1">AND a.regDateTime BETWEEN #{shProductDateStart} AND  #{shProductDateEnd}  </when> 
+			<when test="shProductOptionDate == 2">AND a.modDateTime BETWEEN #{shProductDateStart} AND  #{shProductDateEnd}  </when> 
+		</choose> 
 		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
 			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
 		<choose>
@@ -34,6 +37,8 @@
 			<when test="shProductOption == 4">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
 			<when test="shProductOption == 5">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
 		</choose>
+
+		limit  #{startRnumForMysql} , #{rowNumToShow}
 	</sql>
 							
 	<select id="productOneCount" resultType="Integer">   <!-- Common 사용 / 페이징 -->
@@ -126,6 +131,7 @@
 		,a.modDevice
 		,a.modDateTime
 		,a.modDateTimeSvr
+<!-- 		,b.ifmmSeq -->
 		)
 		values (
 		#{acprProductName}
@@ -188,6 +194,7 @@
 		*
 		,b.ifmmName
 		,b.ifmmId
+		,b.ifmmNickname
 		FROM
 		auctProduct a
 		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
@@ -197,6 +204,23 @@
 		order by acprSeq
 	</select>
 
+
+	<select id="productMainUser2" resultMap="resultMapObj">   <!-- 상품리스트 -->
+		SELECT
+		*
+		,b.ifmmName
+		,b.ifmmId
+		,b.ifmmNickname
+		FROM
+		auctProduct a
+		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		WHERE
+		1=1
+		And acprDelNy = 0
+		order by acprSeq
+	</select>
+	
+	
 	<select id="productOneCountUser" resultType="Integer">   <!-- Common 사용 / 페이징 -->
 		SELECT
 		COUNT(*)
@@ -247,6 +271,19 @@
 		</selectKey>
 	</insert>
 	
+		<insert id="insertMember"> <!-- 사용자상품등록 -->
+		insert into infrMember(
+		ifmmSeq
+		)
+		values (
+		#{ifmmSeq}
+		)
+		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+		SELECT last_insert_id()
+		</selectKey>
+	</insert> 
+	
+
 	
 	<select id="productViewUser" resultMap="resultMapObj">  <!-- 상품뷰 -->
 		SELECT

@@ -69,9 +69,11 @@ public class MemberDao {
 
 	// *********************************************두리안 공통 ****************************
 	//진짜삭제
-	public int deleteMember(MemberVo vo) { return sqlSession.delete(namespace+ ".deleteMember", vo);}
+	public int deleteMember(MemberVo vo) { 
+		return sqlSession.delete(namespace+ ".deleteMember", vo);}
 	//가짜삭제
-	public int updateDeleteMember(MemberVo vo) { return sqlSession.update(namespace + ".updateDeleteMember", vo); }
+	public int updateDeleteMember(MemberVo vo) { 
+		return sqlSession.update(namespace + ".updateDeleteMember", vo); }
 
 	 public int insertEmail (Member dto) {
 		   return sqlSession.insert(namespace + ".insertEmail", dto); //회원등록(이메일)

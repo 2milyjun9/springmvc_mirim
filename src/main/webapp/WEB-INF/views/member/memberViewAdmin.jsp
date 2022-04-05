@@ -608,7 +608,7 @@ body {
 			</table>
 		</div>
 		
-</form>
+
 		<br>
 		
 		
@@ -642,11 +642,13 @@ body {
 								</div>
 							</div>
 						</div>
-					</div>   	
+					</div>   
+				
 			</div>
 		</div>
+			</form>	
 	</main>
-</form>
+
 
 <%-- <a id="btnDelete" href="/infra/member/memberDele?ifmmSeq=${item.ifmmSeq}&shMemberOption=<c:out value="${vo.shMemberOption}"/>&shMemberValue=<c:out value="${vo.shMemberValue}"/>&shIfmmDelNy=<c:out value="${vo.shIfmmDelNy}"/>&shIfmmName=<c:out value="${vo.shIfmmName}"/>&thisPage=<c:out value="${vo.thisPage}"/>">
  <button type="button" class="btn btn-sm btn-outline-danger"> 삭제(진짜) </button></a>
@@ -679,8 +681,8 @@ body {
 	$("#formView").submit();
 		};
 		
-		goMemberNelete = function(){
-	var seq = $("input:hidden[name=ifmmSeq]");
+		goMemberNelete = function(seq){
+/* 	var seq = $("input:hidden[name=ifmmSeq]"); */
 /* 	var form = $("form[name=formView]"); */
 	$("#formView").attr("action", "/infra/member/memberNele");
 	$("#formView").submit();

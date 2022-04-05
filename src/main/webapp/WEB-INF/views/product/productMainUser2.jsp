@@ -14,8 +14,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
 <!-- 제이쿼리 ui CSS -->
 <link
 	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
@@ -42,8 +40,6 @@
 	href="https://fonts.googleapis.com/css2?family=Dongle&family=Gowun+Batang&family=Gowun+Dodum&display=swap"
 	rel="stylesheet">
 
-<!--  탭 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <style>
 * {
@@ -169,11 +165,12 @@ a { /*링크 줄안가게하기*/
 						data-bs-toggle="dropdown" aria-expanded="false"> <i
 							class="fas fa-user"> </i>
 					</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+						<ul class="dropdown-menu"
+							aria-labelledby="navbarScrollingDropdown">
 							<li><a class="dropdown-item"
 								href="../product/productFormUser">상품등록</a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">로그아웃</a></li>
+							<li>	<c:if test="${not empty sessSeq}"> <a class="dropdown-item" id="btnLogout">로그아웃</a></c:if> </li>
 						</ul></li>
 				</ul>
 			</div>
@@ -187,7 +184,11 @@ a { /*링크 줄안가게하기*/
 			</div> -->
 		</div>
 	</nav>
-
+<%-- 		<c:if test="${not empty sessSeq}">
+			<button type="button" class="btn btn-danger btn-sm" name=""
+				id="btnLogout"></button>
+		</c:if> --%>
+		
 
 <%-- 		<c:if test="${not empty sessSeq}">
 			<button type="button" class="btn btn-danger btn-sm" name=""
@@ -200,31 +201,29 @@ a { /*링크 줄안가게하기*/
 	<br>
 
 
-<br> <br> 
-
-
-				<img src="https://github.com/mdo.png" alt="mdo" width="50"
-					height="50" class="rounded-circle"> 
-					<b> <c:out
-							value="${item.ifmmNickname}" /> <c:out value="${item.ifmmGrade}" /></b>
+	<div class="dropdown">
+		<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+			aria-expanded="false">정렬 순</button>
+		<ul class="dropdown-menu dropdown-menu-light"
+			aria-labelledby="dropdownMenuButton2">
+			<li><a class="dropdown-item active" href="#">마감임박순</a></li>
+			<li><a class="dropdown-item" href="#">최저가순</a></li>
+			<li><a class="dropdown-item" href="#">최고가순</a></li>
+			<li><hr class="dropdown-divider"></li>
+			<li><a class="dropdown-item" href="#">전체매물보기</a></li>
+		</ul>
+	</div>
 	
+			<div class="form-check form-check-inline" style="float:right">
+			<input type="hidden" id="shAcprStatusCd" name="shAcprStatusCd" value="55">
+			<input class="form-check-input" type="checkbox" value="55" id="shAcprStatusCd" name="shAcprStatusCd"> <label class="form-check-label"
+				<c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>> 경매완료상품 보이지않기</label>
+		</div>
 	<br>
 	<br>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#qwe">경매중</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#asd">경매완료</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#zxc">리뷰</a>
-  </li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="qwe">
+	<!--   <div class="d-none d-xl-block "> 모바일버전감춤 -->
 
-<c:choose>
+	<c:choose>
 		<c:when test="${fn:length(list) eq 0}">
 			<tr>
 				<td class="text-center" colspan="9">There is no data!</td>
@@ -254,6 +253,18 @@ a { /*링크 줄안가게하기*/
 										<p class="card-text"><c:out value="${item.acprProductName}" />
 										</p></a>
 										
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+											<c:out value="${item.ifmmPhoto}" /> 
+											<c:out value="${item.ifmmNickname}" /> 
+											<c:out value="${item.ifmmGrade}" />
+								<!-- 				<button type="button"
+													class="btn btn-sm btn-outline-secondary">View</button>
+												<button type="button"
+													class="btn btn-sm btn-outline-secondary">Edit</button> -->
+											</div>
+											<small class="text-muted">9 mins</small>
+										</div>
 									</div> 
 									
 									</article>
@@ -266,137 +277,148 @@ a { /*링크 줄안가게하기*/
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-	
-  </div>
-  <div class="tab-pane fade" id="asd">
-   
-   
-<c:choose>
-		<c:when test="${fn:length(list) eq 0}">
-			<tr>
-				<td class="text-center" colspan="9">There is no data!</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach items="${list}" var="item" varStatus="status">
 
+	<br>
+	<br>
 
-				<div class="album py-5 bg-light">
-					<div class="container">
-						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-							<div class="col" id="wrap">
-								
-								<div class="card shadow-sm">
-							<article>		<svg class="bd-placeholder-img card-img-top" width="100%"
-										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
-										aria-label="Placeholder: Thumbnail"
-										preserveAspectRatio="xMidYMid slice" focusable="false">
-										<title>Placeholder</title><rect width="100%" height="100%"
-											fill="#55595c" />
-										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	<!-- 검색 -->
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/js/validation.js"></script>
+	<script type="text/javascript">
+		$("#btnSubmit5").on(
+				"click",
+				function() {
+					if (!checkNull($("#shProductOption"), $("#shProductOption")
+							.val(), "검색구문을 선택 해 주세요!"))
+						retrun
+					false;
+					if (!checkNull($("#shProductValue"), $("#shProductValue")
+							.val(), "검색어를 입력 해 주세요!"))
+						retrun
+					false;
+				});
+	</script>
 
-
-									<div class="card-body" id="">
-										<a 	href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
-										<p class="card-text"><c:out value="${item.acprProductName}" />
-										</p></a>
-										
-									</div> 
-									
-									</article>
-								</div>
-							</div>
-						</div>
-					</div>
+	<div class="d-none d-xl-block ">
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<p style="text-align: center;">
+					<b><span style="font-size: 20pt;"> HOT TODAY</span></b> <br> <span
+						style="font-size: 14pt;"> 현재 최다누적ㅇㅇ건</span>
+				</p>
+				<p style="text-align: center; line-height: 1.5;">
+					<br /> <a href=""><img
+						src="${pageContext.request.contextPath}/resources/xdmin/images/shoes.png"
+						class="d-block w-100" alt="..."> </a>
+				</p>
+				<p>
+					<br />
+				</p>
+				<div style="text-align: center; text-color: white;"
+					onClick="close_pop();">
+					<span class="pop_bt" style="font-size: 13pt;"> <a href="">
+							<button type="button" class="btn btn-primary">바로가기</button>
+					</a>
+					</span> <span class="pop_bt" style="font-size: 13pt;">
+						<button type="button" class="btn btn-secondary">닫기</button>
+					</span>
 				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal-->
 
+
+
+	<br>
+	<br>
+	<br>
+	<c:out value="${vo.startPage}" />
+	<nav aria-label="...">
+		<ul class="pagination justify-content-center">
+			<c:if test="${vo.startPage gt vo.pageNumToShow}">
+				<li class="page-item"><a class="page-link"
+					href="/infra/product/productMainUser?thisPage=${vo.startPage - 1}">Previous</a></li>
+			</c:if>
+			<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+				<c:choose>
+					<c:when test="${i.index eq vo.thisPage}">
+						<li class="page-item active"><a class="page-link"
+							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-	
-  </div>
-  <div class="tab-pane fade" id="zxc">
- 
- 
-<c:choose>
-		<c:when test="${fn:length(list) eq 0}">
-			<tr>
-				<td class="text-center" colspan="9">There is no data!</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach items="${list}" var="item" varStatus="status">
+			<c:if test="${vo.endPage ne vo.totalPages}">
+				<li class="page-item"><a class="page-link"
+					href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
+			</c:if>
+		</ul>
+	</nav>
 
 
-				<div class="album py-5 bg-light">
-					<div class="container">
-						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-							<div class="col" id="wrap">
-								
-								<div class="card shadow-sm">
-							<article>		<svg class="bd-placeholder-img card-img-top" width="100%"
-										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
-										aria-label="Placeholder: Thumbnail"
-										preserveAspectRatio="xMidYMid slice" focusable="false">
-										<title>Placeholder</title><rect width="100%" height="100%"
-											fill="#55595c" />
-										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-
-									<div class="card-body" id="">
-										<a 	href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
-										<p class="card-text"><c:out value="${item.acprProductName}" />
-										</p></a>
-										
-									</div> 
-									
-									</article>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-	
-  </div>
-</div>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/infra/resources/common/js/validation.js"></script>
 
 	<!-- jquery ui -->
 	<script
 		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<!-- 검색 -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src="/infra/resources/common/js/validation.js"></script>
 
-			
-	<script
-		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
-
-
-	<!-- 기본템플릿 -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous">
+		
 	</script>
-	
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			$('#myModal').show();
+		});
+		//팝업 Close 기능
+		function close_pop(flag) {
+			$('#myModal').hide();
+		};
+	</script>
 
-	<!--  탭 -->
-	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$("#btnLogout")
+				.on(
+						"click",
+						function() {
+							/* if(validation() == false) return false; */
+							$
+									.ajax({
+										async : true,
+										cache : false,
+										type : "post",
+										url : "/infra/member/logoutProc",
+										data : {
+											"ifmmId" : $("#ifmmId").val(),
+											"ifmmPassword" : $("#ifmmPassword")
+													.val()
+										},
+										success : function(response) {
+											if (response.rt == "success") {
+												location.href = "/infra/product/productMainUser";
+												alert("정말 로그아웃 하시겠습니까? ")
+											}
+										},
+										error : function(jqXHR, textStatus,
+												errorThrown) {
+											alert("ajaxUpdate "
+													+ jqXHR.textStatus + " : "
+													+ jqXHR.errorThrown);
+										}
+									});
+						});
+	</script>
 
 </body>
 </html>
-
-

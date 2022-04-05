@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
+<% pageContext.setAttribute("br", "\n"); %>  <!-- 설명엔터 -->
 
 <!doctype html>
 <html lang="ko">
@@ -20,6 +21,11 @@
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+<!-- 제이쿼리 ui CSS -->
+<link
+	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
+	rel="stylesheet">
+	
 <!-- 아이콘 -->
 <script src="https://kit.fontawesome.com/0bd8c4f8de.js"
 	crossorigin="anonymous"></script>
@@ -44,6 +50,13 @@
 
 
 <style>
+* {
+	font-family: 'Dongle', sans-serif;
+	font-family: 'Gowun Batang', serif;
+	font-family: 'Gowun Dodum', sans-serif;
+	text-decoration-line: none;
+}
+
 a { /*링크 줄안가게하기*/
 	text-decoration: none;
 }
@@ -285,10 +298,11 @@ body {
 							</tr>
 							<tr>
 								<th>경매시작가</th>
-								<td><c:out value="${item.acprPriceStart}" /></td>
+		<%-- 						<td><c:out value="${item.acprPriceStart}" /></td> --%>
+								<td><fmt:formatNumber value="${item.acprPriceStart}" pattern="#,##0" /></td>
 								<th>경매현재가</th>
-								<td><b> <c:out value="${item.acprPriceNow}" />
-								</b></td>
+							<%-- 	<td><b> <c:out value="${item.acprPriceNow}" /> </b></td> --%>
+								<td><fmt:formatNumber value="${item.acprPriceNow}" pattern="#,##0" /></td>
 							</tr>
 
 							<tr>

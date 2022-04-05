@@ -19,20 +19,19 @@ public interface ProductService {
 	
 	public int updateProductAdmin(Product dto) throws Exception; //상품수정
 	int productOneCount(ProductVo vo) throws Exception;   //검색
-	int productDeleteAdmin(ProductVo vo) throws Exception; //진짜삭제
-	int productUpdateDeleteAdmin(ProductVo vo) throws Exception;  //가짜삭제
+
 
 	//  **********auctProduct (User) *****************
-	List<Product> productMainUser(ProductVo vo) throws Exception; //상품리스트_메인
+	List<Product> productMainUser(ProductVo vo) throws Exception; //상품리스트_기본메인
+	List<Product> productMainUser2(ProductVo vo) throws Exception; //상품리스트_로그인메인
 	public int insertProductUser(Product dto) throws Exception; //상품등록
 	public Product productViewUser(ProductVo vo) throws Exception; //상품뷰
 	public int updateProductUser(Product dto) throws Exception; //상품수정
-	int productOneCountUser(ProductVo vo) throws Exception; //검색
-	int productDeleteUser(ProductVo vo) throws Exception; //진짜삭제
-	int productUpdateDeleteUser(ProductVo vo) throws Exception; //가짜삭제
 	int productPurchase(Product dto) throws Exception; // 경매신청
-
-
-
-
+	int productOneCountUser(ProductVo vo) throws Exception; //검색
+	
+	// ****************공통*****************************
+	int productDelete(ProductVo vo) throws Exception; //진짜삭제
+	int productUpdateDelete(ProductVo vo) throws Exception; //가짜삭제
+	int insertMember(Product vo) throws Exception; //회원등록 메일
 }

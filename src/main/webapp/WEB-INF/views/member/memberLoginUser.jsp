@@ -122,7 +122,7 @@ body {
 					<div class="row text-right" style="width: 100%">
 						<div style="width: 100%; float: none; margin: 0 auto">
 							<a href="memberFormUser"> 회원가입 </a> <br> <a
-								href="../main/mainUser"> 상품 먼저 둘러보기 </a> <br> <a
+								href="../Product/ProductMainUser"> 상품 먼저 둘러보기 </a> <br> <a
 								href="..."> 아이디/비밀번호찾기 </a>
 						</div>
 					</div>
@@ -160,7 +160,7 @@ body {
 			,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
 			,success: function(response) {
 				if(response.rt == "success") {
-					location.href = "/infra/product/productMainUser";
+					location.href = "/infra/product/productMainUser2";
 				} else {
 					alert("아이디 또는 비밀번호가 맞지 않습니다.");
 				}
@@ -172,6 +172,44 @@ body {
 	});
 	</script>
 
+
+ 	<script type="text/javascript">
+	$("#btnLogin").on(
+			"click",
+			function() {
+				if (!checkId($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력 해 주세요!"))
+			retrun
+		false;	
+			});
+	</script>
+	
+<!-- 		$("#btnLogin").on("click", function(){
+			if(validation() == false) return false;
+			$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/loginProc"
+				,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/product/productMainUser";
+					} else {
+						alert("회원정보가 없습니다.");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+		});
+		</script> 
+	
+
+	validation = function(){
+		if(!checkNull($("ifmmId"), $.trim($("#ifmmId").val()), "아이디를 입력해 주세요!")) return false;
+		if(!checkNull($("ifmmPassword"), $.trim($("#ifmmPassword").val()), "비밀번호를 입력해 주세요!")) return false;
+	}  -->
 
 
 </body>

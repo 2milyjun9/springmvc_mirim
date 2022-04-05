@@ -285,9 +285,7 @@ body {
 							<div class="col-md-6 mb-3">
 								<label>성별</label>
 								
-				<select class="custom-select d-block w-100"
-									name="ifmmGenderCd" required>
-
+				<select class="custom-select d-block w-100" name="ifmmGenderCd" required>
 									<option value="3">남성</option>
 									<option value="4">여성</option>
 								</select> 

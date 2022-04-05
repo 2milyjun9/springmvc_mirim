@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.junefw.infra.common.util.UtilDateTime;
 import com.junefw.infra.modules.member.Member;
 import com.junefw.infra.modules.member.MemberVo;
 
@@ -35,8 +36,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public int insertProductAdmin(Product dto) throws Exception {
-		return dao.insertProductAdmin(dto); //상품등록
+		/* dto.setRegDateTime(UtilDateTime.nowDate()); */
+		
+		dao.insertProductAdmin(dto);
+		dao.insertMember(dto);
+		
+		return 1; //상품등록
+		/*
+		 * return dao.insertProductAdmin(dto); //상품등록
+		 */	
 	}
+	
 	@Override
 	public int updateProductAdmin(Product dto) throws Exception {
 		return dao.updateProductAdmin(dto); //상품수정
@@ -45,50 +55,58 @@ public class ProductServiceImpl implements ProductService {
 	public int productOneCount(ProductVo vo) throws Exception {
 		return dao.productOneCount(vo); //상품검색
 	}
-	@Override
-	public int productDeleteAdmin(ProductVo vo) throws Exception {
-		return dao.productDeleteAdmin(vo); //진짜삭제
-		}
-	@Override
-	public int productUpdateDeleteAdmin(ProductVo vo) throws Exception {
-		return dao.productUpdateDeleteAdmin(vo); //가짜삭제
-		}
+
 
 	/* ****************Product(User)**************** */
 	@Override
 	public List<Product> productMainUser(ProductVo vo) throws Exception {
-		return dao.productMainUser(vo);  //상품리스트
+		return dao.productMainUser(vo);  //메인
+	}
+	@Override
+	public List<Product> productMainUser2(ProductVo vo) throws Exception {
+		return dao.productMainUser2(vo);  //메인(로그인)
 	}
 	@Override
 	public Product productViewUser(ProductVo vo) throws Exception {
 		return dao.productViewUser(vo);  //상품뷰
 	}
 	@Override
-	public int insertProductUser(Product dto) throws Exception {
-		return dao.insertProductUser(dto); //상품등록
+	public int insertProductUser(Product dto) throws Exception {  //상품등록
+		
+		/* dto.setRegDateTime(UtilDateTime.nowDate()); */
+		dao.insertMember(dto); 
+		dao.insertProductUser(dto);   
+		
+		return 1;
 	}
+	
 	@Override
 	public int updateProductUser(Product dto) throws Exception {
 		return dao.updateProductUser(dto); //상품수정
 	}
-	@Override
-	public int productOneCountUser(ProductVo vo) throws Exception {
-		return dao.productOneCountUser(vo); //상품검색
-	}
-	@Override
-	public int productDeleteUser(ProductVo vo) throws Exception {
-		return dao.productDeleteAdmin(vo); //진짜삭제
-		}
-	@Override
-	public int productUpdateDeleteUser(ProductVo vo) throws Exception {
-		return dao.productUpdateDeleteUser(vo); //가짜삭제
-		}
+
 	@Override
 	public int productPurchase(Product dto) throws Exception {
 		return dao.productPurchase(dto); 
 	}
 
+	/* ****************************두리안 공통******************************* */
 
-
+	@Override
+	public int productOneCountUser(ProductVo vo) throws Exception {
+		return dao.productOneCountUser(vo); //상품검색
+	}
+	@Override
+	public int productDelete(ProductVo vo) throws Exception {
+		return dao.productDelete(vo); //진짜삭제
+		}
+	@Override
+	public int productUpdateDelete(ProductVo vo) throws Exception {
+		return dao.productUpdateDelete(vo); //가짜삭제
+		}
+	@Override
+	public int insertMember(Product dto) throws Exception {
+		return dao.insertMember(dto); //상품등록 회원
+	}
 
 }
