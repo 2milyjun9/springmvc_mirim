@@ -23,6 +23,8 @@
 <c:out value="${item.ifcgName}" />
 |
 <c:out value="${item.ifcgDelNy}" />
+|
+<img src="/infra/resources/uploaded/b0276715-25b5-4ac6-8b29-4d5f646b9b26.png">
 <br>
 
 <!-- <a

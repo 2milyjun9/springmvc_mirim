@@ -253,18 +253,12 @@ body {
 									<div style="min-height: 0px;">
 										<div class="collapse collapse-horizontal"
 											id="collapseWidthExample">
-											<div class="card card-body" style="width: 200px;">
-												<img
-													src="${pageContext.request.contextPath}/resources/xdmin/images/seonwoo3.jpg">
-
-												<div class="input-group mb-3">
-													<input type="file" class="form-control"
-														id="inputGroupFile02"> <label
-														class="input-group-text" for="inputGroupFile02">Upload</label>
-												</div>
+											<div class="card card-body" style="width: 500px;">
+												
+										<input type="file" class="form-control" name="originalFileName">
+											</div>	
 											</div>
 										</div>
-									</div>
 								</th>
 							</tr>
 						</thead>

@@ -31,11 +31,11 @@
 		<if test="shAcprProductName != null and !shAcprProductName.equals('')">
 			AND acprName LIKE concat('%',#{shAcprProductName},'%')</if>
 		<choose>
-		<when test="shMemberOption == 1">AND b.ifmmName LIKE concat('%',#{shMemberOption},'%')</when>
-			<when test="shMemberOption == 2">AND b.ifmmId LIKE concat('%',#{shMemberOption},'%')</when>   
-			<when test="shProductOption == 3">AND a.acprSeq LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 4">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
-			<when test="shProductOption == 5">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
+	
+			<when test="shProductOption == 1">AND a.acprSeq LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 2">AND a.acprProductName LIKE concat('%',#{shProductValue},'%')</when>
+			<when test="shProductOption == 3">AND a.acprDetails LIKE concat('%',#{shProductValue},'%')</when>
+<!-- 			<when test="shProductOption == 4">AND b.ifmmName LIKE concat('%',#{shMemberOption},'%')</when> -->
 		</choose>
 
 		limit  #{startRnumForMysql} , #{rowNumToShow}
@@ -48,7 +48,6 @@
 	</select>
 
 
-<!-- *************************상품(관리자)********************************-->
 
 		<select id="productListAdmin" resultMap="resultMapObj">   <!-- 상품리스트 -->
 		SELECT
@@ -60,7 +59,7 @@
 		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
 		WHERE
 		1=1
-		And acprDelNy = 0
+
 		order by acprSeq
 	</select>
 	
@@ -182,6 +181,53 @@
 		where 1 = 1
 		and ifcgSeq = #{ifcgSeq}
 	</update>
+	
+	
+		<select id="memberList" resultMap="resultMapObj">  <!-- 상품등록에서 멤버리스트검색끌고오기?-->
+		select
+		a.ifmmSeq
+		,a.ifmmAdminNy
+		,a.ifmmDormancyNy
+		,a.ifmmName
+		,a.ifmmNickname
+		,a.ifmmId
+		,a.ifmmGrade
+		,a.ifmmGenderCd
+		,a.ifmmDob
+		,a.ifmmSaveCd
+		,a.ifmmDelNy
+		,a.regDateTime
+		,b.ifmpNumber
+		from
+		infrMember a
+		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq 
+		where
+		1=1
+<!-- 		ORDER BY a.ifmmSeq DESC -->
+			<choose>
+			<when test="shIfmmDelNy == 1">AND ifmmDelNy = 1 </when>   
+			<when test="shIfmmDelNy == 0">AND ifmmDelNy = 0 </when>  
+		</choose>
+		<choose>
+			<when test="shIfmmDormancyNy == 1">AND ifmmDormancyNy = 1 </when> 
+			<when test="shIfmmDormancyNy == 0">AND ifmmDormancyNy = 0 </when>  
+		</choose>
+		<choose>
+			<when test="shMemberOptionDate == 1">AND a.regDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
+			<when test="shMemberOptionDate == 2">AND a.modDateTime BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd}  </when> 
+			<when test="shMemberOptionDate == 3">AND a.ifmmDob BETWEEN #{shMemberDateStart} AND  #{shMemberDateEnd} </when>  
+		</choose> 
+		<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>
+		<choose>
+			<when test="shMemberOption == 1">AND ifmmName LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 2">AND ifmmId LIKE concat('%',#{shMemberValue},'%')</when>
+			<when test="shMemberOption == 3">AND ifmmNickname LIKE concat('%',#{shMemberValue},'%')	</when>
+<!-- 			<when test="shMemberOption == 4">AND ifmpNumber LIKE concat('%',#{shMemberValue},'%')</when>  -->
+		</choose>
+		limit  #{startRnumForMysql} , #{rowNumToShow}
+	
+	</select>
+	
 	
 <!-- *************************상품(사용자)********************************-->
 <!-- *************************상품(사용자)********************************-->
@@ -324,7 +370,7 @@
 				order by a.acprSeq 				
 	</select>
 	
-		<delete id="productDeleteUser"> <!-- 진짜삭제 -->
+	<delete id="productDeleteUser"> <!-- 진짜삭제 -->
 	DELETE FROM infrCodeGroup
 		where 1 = 1
 		and ifcgSeq = #{ifcgSeq}
@@ -338,7 +384,7 @@
 	</update>
 	
 	
-		<select id="productPurchase" resultMap="resultMapObj">   <!-- 경매신청 -->
+	<select id="productPurchase" resultMap="resultMapObj">   <!-- 경매신청 -->
 		select * from auctPurchase
 	</select>
 	

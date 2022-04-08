@@ -3,15 +3,11 @@ package com.junefw.infra.modules.code;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Code {
 	
 	
-	public String getIfcdUseNy() {
-		return ifcdUseNy;
-	}
-	public void setIfcdUseNy(String ifcdUseNy) {
-		this.ifcdUseNy = ifcdUseNy;
-	}
 	private String ifcgSeq;
 	private String ifcgName;
 	private String ifcgNameEng;
@@ -24,6 +20,11 @@ public class Code {
 	
 //	for cache
 	public static List<Code> cachedCodeArrayList = new ArrayList<Code>();	//메모리에 리스트가 상주돼있음
+
+	// uploaded
+	public MultipartFile file;
+	public MultipartFile file1;
+	
 	
 //------------
 	public String getIfcgSeq() {
@@ -69,8 +70,36 @@ public class Code {
 		this.ifcgNameEng = ifcgNameEng;
 	}
 
-	
+
+	public static List<Code> getCachedCodeArrayList() {
+		return cachedCodeArrayList;
+	}
+	public static void setCachedCodeArrayList(List<Code> cachedCodeArrayList) {
+		Code.cachedCodeArrayList = cachedCodeArrayList;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public MultipartFile getFile1() {
+		return file1;
+	}
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
+	}
+	public String getIfcdUseNy() {
+		return ifcdUseNy;
+	}
+	public void setIfcdUseNy(String ifcdUseNy) {
+		this.ifcdUseNy = ifcdUseNy;
+	}
 	//------------
+	public void setOriginalFileName(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

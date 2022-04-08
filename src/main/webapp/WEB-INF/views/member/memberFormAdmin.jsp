@@ -38,8 +38,7 @@
 
 
 <!-- 아이콘 어썸폰트-->
-<script src="https://kit.fontawesome.com/0bd8c4f8de.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0bd8c4f8de.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 
 
@@ -140,9 +139,7 @@ body {
 	text-transform: uppercase;
 }
 
-/*
- * Navbar
- */
+/* Navbar*/
 .navbar-brand {
 	padding-top: .75rem;
 	padding-bottom: .75rem;
@@ -153,6 +150,18 @@ body {
 	top: .25rem;
 	right: 1rem;
 }
+
+.addScroll {
+	overflow-y: auto;
+	height : 90px;
+    background-color: gainsboro;
+}
+
+.input-file-button {
+	padding : auto;
+	cursor : pointer;
+}
+
 </style>
 </head>
 
@@ -236,8 +245,8 @@ body {
 
 	<br>
 
-	<form id="formList" name="formList" method="post" action="/infra/member/memberInstAdmin">
-	
+	<form id="formList" name="formList" method="post" action="/infra/member/memberInstAdmin" enctype="multipart/form-data">
+
 		<!-- 기본값히든처리 -->
 		<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
 		<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
@@ -368,8 +377,9 @@ body {
 							</div>
 							<div class="col-md-6 mb-3">
 								<label>생년월일<span class="text-muted">&nbsp;</span></label> 
-								<input class="form-control" type="text" id="ifmmDob"
-							name="ifmmDob" autocomplete="off" placeholder="" required value="<c:out value="${item.ifmmDob }"/>">
+								
+								<input class="form-control" type="text" id="ifmmDob" name="ifmmDob" 
+								autocomplete="off" placeholder="" required value="<c:out value="${item.ifmmDob }"/>">
 								<div class="invalid-feedback" >생년월일을 입력해주세요.</div>
 							</div>
 						</div>
@@ -454,9 +464,21 @@ body {
 												<label>상세주소<span class="text-muted">&nbsp;</span></label> <!-- <input
 													type="text" class="form-control" 
 													id="ifmaAddress2Array0"  name="ifmaAddress2Array" placeholder="상세주소" maxlength="50" value=""> -->
-													<input
-													type="text" class="form-control" 
+													<input type="text" class="form-control"  
 													id="ifmaAddress2"  name="ifmaAddress2" placeholder="상세주소" maxlength="50" value="">
+											</div>
+										</div>
+
+
+										<div class="row">
+											<div class="col-md-6 mb-3">
+												<label>위도</label>
+													 <input type="text" class="form-control" id="ifmaLat" name="ifmaLat" placeholder="위도" value="" >
+
+											</div>
+											<div class="col-md-6 mb-3">
+												<label>경도</label> 
+													<input type="text" class="form-control"  id="ifmaLng"  name="ifmaLng" placeholder="경도"  value="" >
 											</div>
 										</div>
 
@@ -524,14 +546,31 @@ body {
 												</div>
 											</div>
 										</div> -->
-
+								
+					
+									<div class="row">
+											<div class="col-md-6 mb-3" >
+												<label for="file0" class="form-label input-file-button">이미지 첨부</label> 
+												<input  class="form-control" id="file0" name="file0" type="file" 
+												multiple="multiple" style="display:none;" onChange="upload(0,2);">
+											<div class="addScroll">
+											<ul id="ulFile0" class="list-group"></ul>
+											</div>
+										</div>
+		
+										
+									<div class="col-md-6 mb-3" >
+												<label for="file1" class="form-label input-file-button">파일 첨부 </label> 
+												<input  class="form-control" id="file1" name="file1" type="file" 
+												multiple="multiple" style="display:none;" onChange="upload(1,1);">
+											<div class="addScroll">
+											<ul id="ulFile1" class="list-group"></ul>
+											</div>
+										</div>
 									</div>
+									
 								</div>
-							</div>
-						</div>
 						<br>
-
-
 
 						<div class="row">
 							<div class="col">
@@ -630,7 +669,8 @@ body {
 								이용에 동의합니다.</label>
 						</div>
 						<br>
-
+		<!--지도 <div id="map" style="width:500px;height:400px;"></div> -->
+	
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 100%; float: none; margin: 0 auto">
 				
@@ -669,61 +709,9 @@ body {
 				$("#formList").attr("action", "/infra/member/memberList");
 				$("#formList").submit();
 			};
-			</script>
-
-	<!--  주소창 다음api  -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("ifmaAddress2").value = extraAddr;
-                
-                } else {
-                    document.getElementById("ifmaAddress2").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('ifmaZipcode').value = data.zonecode;
-                document.getElementById("ifmaAddress1").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("ifmaAddress2").focus();
-            }
-        }).open();
-    }
-</script>
-
-
+	</script>
+			
+		
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ifmmDob").datepicker();
@@ -765,5 +753,187 @@ body {
 		});
 	</script>
 	
+	
+			<!--  	다음 맵 api 키값 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6917d9a0f917a910b27b8ae0c84814b&libraries=services"></script>	
+
+<!-- 	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>  -->
+	
+	
+		<!--  우편주소,주소창 다음api  -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+ function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+            	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                   
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                 }
+                 // 건물명이 있고, 공동주택일 경우 추가한다.
+                 if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                 }
+                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                 if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                 }
+                 // 조합된 참고항목을 해당 필드에 넣는다.
+                 document.getElementById("ifmaAddress2").value = extraAddr;
+                
+                } else {
+                    document.getElementById("ifmaAddress2").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('ifmaZipcode').value = data.zonecode;
+                document.getElementById("ifmaAddress1").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("ifmaAddress2").focus();
+                
+				/* lat and lng from address s */
+ 				
+				// 주소-좌표 변환 객체를 생성
+				var geocoder = new daum.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색
+				geocoder.addressSearch(addr, function(result, status) {
+				 
+					// 정상적으로 검색이 완료됐으면,
+					if (status == daum.maps.services.Status.OK) {
+						
+						document.getElementById("ifmaLat").value=result[0].x;
+						document.getElementById("ifmaLng").value=result[0].y;
+/* 						
+						var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+				
+						y = result[0].x;
+						x = result[0].y;
+				
+						// 결과값으로 받은 위치를 마커로 표시합니다.
+						var marker = new daum.maps.Marker({
+							map: map,
+							position: coords
+						});
+				
+						// 인포윈도우로 장소에 대한 설명표시
+						var infowindow = new daum.maps.InfoWindow({
+							content: '<div style="width:150px;text-align:center;padding:5px 0;">좌표위치</div>'
+						});
+				
+						infowindow.open(map,marker);
+				
+						// 지도 중심을 이동
+						map.setCenter(coords);
+						
+						document.getElementById("ifmaLatArray0").value=x;
+						document.getElementById("ifmaLngArray0").value=y;
+ */						
+					}
+				});
+				/* lat and lng from address e */
+            }
+        }).open();       	
+    }
+</script>   
+
+
+	<script src="/infra/resources/common/js/commonXdmin.js"></script>
+	<script src="/infra/resources/common/js/constantsXdmin.js"></script>
+	<script src="/infra/resources/common/js/common.js"></script>
+
+		<script type="text/javascript">
+		
+		upload = function(seq,div){
+			
+		$("#ulFile"+ seq).children().remove();
+		
+		var fileCount = $("input[type=file]")[seq].files.length;
+		
+		if(checkUploadedTotalFileNumber(fileCount,seq) == false) {return false;}
+		
+		var totalFileSize;
+		for (var i = 0; i < fileCount; i++){
+			if(div == 1){
+				if(checkUploadedAllExt($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			}else if (div == 2){
+				if(checkUploadedImageExt($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			}else{
+				return false;
+			}
+			
+			if(checkUploadedEachFileSize($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			totalFileSize += $("input[type=file]")[seq].files[i].size;
+		}
+		if(checkUploadedTotalFileSize(totalFileSize,seq)==false) {return false;}
+		
+		for (var i = 0 ; i<fileCount ; i ++){
+			addUploadLi(seq,i,$("input[type=file]")[seq].files[i].name);
+		}
+		}	
+		
+		addUploadLi = function (seq, index, name){
+			
+			var ul_list = $("#ulFile0");
+			
+			li = '<li id= "li_  '+ seq +'_' + index + ' "class="list-group-item d-flex justify-content-between align-items-center"> ';
+			li = li + name; 
+			li = li + '<span class="badge bg-danger rounded-pill" onClick="delLi(' + seq + ',' +  index + ')"><i class="fa-solid fa-x" style="cursor : pointer;"></i></span>';
+			li = li + '</li>';
+
+			$("#ulFile" + seq).append(li);
+		}
+		
+			delLi = function (seq,index){
+			$("#li_" + seq +"_"+index).remove();
+		}
+			
+		addUploadLi = function (seq, index, name){
+	
+			var ul_list = $("#ulFile1");
+			
+			li = '<li id="li_'+seq+'_'+index+'"class="list-group-item d-flex justify-content-between align-items-center"> ';
+			li = li + name; 
+			li = li + '<span class="badge bg-danger rounded-pill" onClick="delLi('+ seq +','+  index +')"><i class="fa-solid fa-x" style="cursor : pointer;"></i></span>';
+			li = li + '</li>';
+
+			$("#ulFile"+seq).append(li);
+		}
+		
+			delLi = function(seq,index){
+			$("#li_" +seq+"_"+index).remove();
+		}
+			
+			
+		</script> 
+		
+				
+		
 </body>
 </html>

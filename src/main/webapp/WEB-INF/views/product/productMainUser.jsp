@@ -116,23 +116,8 @@ a { /*링크 줄안가게하기*/
 		
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
+			<form class="d-flex">
 
-				<%-- 	<select name="shAcprStatusCd" id="shAcprStatusCd">
-					<option value="">상품상태
-					<option value="55"
-						<c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>>
-						경매중
-					<option value="56"
-						<c:if test="${vo.shAcprStatusCd eq 56 }"> selected  </c:if>>
-						경매완료
-					<option value="57"
-						<c:if test="${vo.shAcprStatusCd eq 57 }"> selected </c:if>>
-						경매취소
-					<option value="58"
-						<c:if test="${vo.shAcprStatusCd eq 58 }"> selected </c:if>>
-						경매실패
-				</select>  --%>
 				<select name="shProductOption" id="shProductOption">
 					<option value="">::검색구문::
 					<option value="3"
@@ -150,9 +135,10 @@ a { /*링크 줄안가게하기*/
 				</select> <input type="text" name="shProductValue" id="shProductValue">
 				<!-- <input type="reset" name="reset"> -->
 				<button class="btn btn-outline-primary" type="submit" name="search"
-					id="btnSubmit5">검색</button>
+					id="btnSearch">검색</button>
 
 			</form>
+			
 			<div align="right">
 				<ul class=" navbar-nav me-auto my-2 my-lg-0
 				navbar-nav-scroll"
@@ -189,9 +175,11 @@ a { /*링크 줄안가게하기*/
 		
 
 
-	<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
-
+	<form class="" id="formList" name="formList" method="post" action="/infra/product/productMainUser">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
+	<input type="hidden" id="acprSeq" name="acprSeq"> 
 	</form>
+	
 	<br>
 
 
@@ -242,10 +230,14 @@ a { /*링크 줄안가게하기*/
 										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
 
-									<div class="card-body" id="">
+									<%-- 겟방식 <div class="card-body" id="">
 										<a 	href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
-										<p class="card-text"><c:out value="${item.acprProductName}" />
-										</p></a>
+										<p class="card-text"><c:out value="${item.acprProductName}" /></p></a> --%>
+										
+										<div class="card-body" id="">
+										<a href="javaScript:goProductView('<c:out value="${item.acprSeq}"/>')">
+										<p class="card-text"><c:out value="${item.acprProductName}" /></p></a>
+										
 										
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
@@ -330,7 +322,7 @@ a { /*링크 줄안가게하기*/
 	<br>
 	<br>
 	<br>
-	<c:out value="${vo.startPage}" />
+<%--  겟방식
 	<nav aria-label="...">
 		<ul class="pagination justify-content-center">
 			<c:if test="${vo.startPage gt vo.pageNumToShow}">
@@ -354,7 +346,30 @@ a { /*링크 줄안가게하기*/
 					href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
 			</c:if>
 		</ul>
-	</nav>
+	</nav> --%>
+
+	<nav aria-label="...">
+				<ul class="pagination  justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.startPage - 1}'/>);"> Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link" href="javascript:goProductList(<c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
+			
+	
 
 
 	<script
@@ -381,38 +396,41 @@ a { /*링크 줄안가게하기*/
 		};
 	</script>
 
+	
 	<script type="text/javascript">
-		$("#btnLogout")
-				.on(
-						"click",
-						function() {
-							/* if(validation() == false) return false; */
-							$
-									.ajax({
-										async : true,
-										cache : false,
-										type : "post",
-										url : "/infra/member/logoutProc",
-										data : {
-											"ifmmId" : $("#ifmmId").val(),
-											"ifmmPassword" : $("#ifmmPassword")
-													.val()
-										},
-										success : function(response) {
-											if (response.rt == "success") {
-												location.href = "/infra/product/productMainUser";
-												alert("정말 로그아웃 하시겠습니까? ")
-											}
-										},
-										error : function(jqXHR, textStatus,
-												errorThrown) {
-											alert("ajaxUpdate "
-													+ jqXHR.textStatus + " : "
-													+ jqXHR.errorThrown);
-										}
-									});
-						});
-	</script>
+		var seq = $("input:hidden[name=acprSeq]");
+		
+		
+	 	goProductList = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").submit();
+			}
+	 	
+	 	goProductView = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").attr("action","/infra/product/prouductViewUser");
+					$("#formList").submit();
+			} 
+	 	
+		 goProductForm = function(seq){
+				$("#formList").attr("action","/infra/product/productFormUser");
+				$("#formList").submit();
+			}	
+		</script>
+		
+		<script type="text/javascript">
+		$("#btnSearch").on( 
+				"click", function() {
+				if (!checkNull($("#shProductOption"), $("#shProductOption").val(),"검색구문을 선택해 주세요!")) 
+					return
+					false;
+				if (!checkNull($("#shProductValue"), $("#shProductValue").val(),"검색어를 입력 해 주세요!"))
+					retrun
+				false;
+			});
+			</script>
 
 </body>
 </html>

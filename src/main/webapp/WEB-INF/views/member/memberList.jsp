@@ -237,6 +237,7 @@ body {
 			<!-- 웹버전기본정보테이블//모바일감춤 -->
 			<div class="d-none d-xl-block ">
 				<div style="width: 75%; float: none; margin: 0 auto">
+				
 					<form id="formList" name="formList" method="post" action="/infra/member/memberList">
 	<!-- 선택삭제 -->	<input type="hidden" id="rowNumToShow" name="rowNumToShow"  value="<c:out value="${vo.rowNumToShow}"/>"> 					
 	<!-- 선택삭제 -->	<input type="hidden"  id="checkboxSeqArray" name="checkboxSeqArray"> 					
@@ -476,8 +477,7 @@ body {
 	</a> 		
 				 --%>
 		
-			
-
+		
 		<!--포스트 페이징과 버튼 -->
 			<div class="row text-center" style="width: 100%">
 				<div style="width: 100%; float: none; margin: 0 auto">
@@ -506,9 +506,11 @@ body {
 	
 <a href="javascript:goMemberForm('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
 '<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> 
-<button type="button" id = "goMemberForm" class="btn btn-sm btn-outline-success"> 회원등록 </button></a>
+<button type="button" id ="goMemberForm" class="btn btn-sm btn-outline-success"> 회원등록 </button></a>
 
-<button type="button" id="goUrlMultiNelete" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> 
+
+
+<button type="button" id="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> 
 	
 	<div class="modal fade" id="btnModalNelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -524,9 +526,16 @@ body {
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 									
-							<%-- 		<a href="javascript:goMemberMultiNelete('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
+							<%--겟방식 <a href="javascript:goMemberMultiNelete('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>',
 	'<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');">  --%>
-	<button type="button" class="btn btn-primary" id="btnModalNelete" 	onclick="location.href='javascript:goMemberMultiNelete();'">확인</button>
+	
+								<a href="javascript:goMemberMultiNelete
+									('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>',
+									'<c:out value="${vo.shMemberValue}"/>','<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>',
+									'<c:out value="${vo.shMemberDateEnd}"/>');"> 
+	
+									<button type="button" class="btn btn-primary" id="btnModalNelete"  >확인</button></a>
+							
 								</div>
 							</div>
 						</div>
@@ -534,6 +543,7 @@ body {
 				</div>
 			</div>	
 			
+			<br><br>
 		
 			<script
 				src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -610,33 +620,15 @@ body {
 	});   
 			</script>  -->
 			
-<!-- 			미림활용
-			<script type="text/javascript">
-			$("#btnNelete").on("click", function(){
-	      if(   $("inputinput[name=checkboxSeq]:checked").length > 0 {
-	         $("input:hidden[name=exDeleteType]").val(2);
-	         $(".modal-title").text("확 인");
-	         $(".modal-body").text("해당 데이터를 삭제하시겠습니까 ?");
-/*         	 $("#btnModalUelete").hide(); */
-	         $("#btnModalNelete").show(); 
-	         $("#modalConfirm").modal("show");
-	         } else {
-	         $(".modal-title").text("확 인");
-	         $(".modal-body").text("데이터를 선택 해 주세요!");
-	         $("#modalAlert").modal("show");
-	      }
-	});   
-			</script>   -->
-	
-	
 		<script type="text/javascript">
-	       $("#btnModalNelete").on("click", function() {
-				$("input[name=checkboxSeq]:checked").each(function() { 
-					checkboxSeqArray.push($(this).val());
-			});
-				$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);			
-				form.attr("action", goUrlMultiNelete).submit();
-			});
+	       $("#btnModalNelete").on("click", function(){
+	   		$("input[name=checkboxSeq]:checked").each(function() {
+	   			checkboxSeqArray.push($(this).val());	
+	   		});
+
+	   		$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+	    	$("#formList").attr("action",goMemberMultiNelete).submit();
+	  	 	});
 			</script>
 
 	
@@ -647,25 +639,24 @@ body {
 			alert(seq);
 					$("#thisPage").val(seq);
 					$("#formList").submit();
-			}
+		};
 		 goMemberView = function(seq){
 			 alert(seq);
 					$("#ifmmSeq").val(seq);
 					$("#formList").attr("action","/infra/member/memberViewAdmin");
 					$("#formList").submit();
-			}
+		};
 		 goMemberForm = function(seq){
 				$("#formList").attr("action","/infra/member/memberFormAdmin");
 				$("#formList").submit();
-			}	 
-		 
+		};	 
 		goMemberMultiNelete = function(seq){
-				$("#ifmmSeq").val(seq);
 				$("#formList").attr("action","/infra/member/memberMultiNele");
 				$("#formList").submit(); 
-			}	 
-
-
+		};
+		</script>
+		
+		 <script type="text/javascript">
 		$("#checkboxAll").click(function() {  //전체선택
 		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
 		else $("input[name=checkboxSeq]").prop("checked", false);
@@ -689,6 +680,12 @@ body {
 		}); */
 		</script>
 		
+	<script type="text/javascript">
+		$("#btnModalNelete").on("click", function() {
+			alert("삭제되었습니다.")
+			} 
+		});
+	</script> 
 		
 		<script type="text/javascript"> 
 		$(document).ready(function() {

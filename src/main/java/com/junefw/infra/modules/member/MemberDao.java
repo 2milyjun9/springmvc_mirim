@@ -89,7 +89,10 @@ public class MemberDao {
 		}
 		public int insertJoinQna(Member dto) {
 			return sqlSession.insert(namespace + ".insertJoinQna", dto); //회원등록(질문)
-			}
+		}
+		public int insertUploaded(Member dto) {
+			return sqlSession.insert(namespace + ".insertUploaded", dto); //회원등록(사진,파일)
+		}
 		public int updateEmail(Member dto) {
 			return sqlSession.update(namespace + ".updateEmail", dto); //회원수정(이메일)
 		}
@@ -105,6 +108,8 @@ public class MemberDao {
 		public int updateJoinQna(Member dto) {
 		 return sqlSession.update(namespace + ".updateJoinQna", dto); //회원등록(질문)
 		}
+	
+		
 		
 	}
 

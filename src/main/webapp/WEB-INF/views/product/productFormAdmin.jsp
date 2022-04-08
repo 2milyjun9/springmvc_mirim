@@ -125,17 +125,17 @@
 							<option value="1" <c:if test="${vo.shMemberOption eq 1 }"> selected</c:if>>이름
 							<option value="2" <c:if test="${vo.shMemberOption eq 2 }"> selected</c:if>>아이디
 							<option value="3" <c:if test="${vo.shMemberOption eq 3 }"> selected</c:if>>닉네임
-							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처
-						
+<%-- 							<option value="4" <c:if test="${vo.shMemberOption eq 4 }"> selected</c:if>>연락처 --%>
 						</select> 
-				</div>
+				</div> 
+	
 				<div class="col-md-6 mb-3">	
 					<input  class="form-control form-control" type="text" name="shMemberValue" id="shMemberValue" 
-					placeholder="판매자검색"  style="width:150px"  value="<c:out value="${vo.shMemberValue}"/>">
+					placeholder="판매자검색 클릭"  style="width:200px"  value=""  required>
 				</div>
-				<div class="col-md-3 mb-3">
-					<button class="btn btn-secondary" type="submit" name="search" id="ifmmSeq">검색</button> 
-				</div>
+ 				<div class="col-md-3 mb-3">
+					<button class="btn btn-secondary" type="submit" name="search" id="" onclick="showPopup();">검색</button> 
+				</div> 
 			</div>
 			
 		</div>
@@ -145,12 +145,12 @@
 	
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<select class="form-select form-select" name="infrCategory" style="width: 200px">
+						<select class="form-select form-select" name="infrCategory" style="width: 200px" required>
 							<option value="">대분류</option>
 						</select> 
 					</div>
 					<div class="col-md-6 mb-3">
-						<select class="form-select form-select" name="subCategory" style="width: 200px">
+						<select class="form-select form-select" name="subCategory" style="width: 200px" >
 							<option value=""> 중분류 </option>
 						</select> 
 					</div>
@@ -158,7 +158,7 @@
 						<br> 
 				<div class="row">
 					<div class="col-md-12 mb-3">
-						<select class="form-select form-select" name="acprPickupCd" id="acprPickupCd">
+						<select class="form-select form-select" name="acprPickupCd" id="acprPickupCd" required>
 							<option value="">거래방식
 							<option value="1"
 								<c:if test="${vo.acprPickupCd eq 51}"> selected</c:if>>직거래
@@ -175,21 +175,21 @@
 				
 				<div class="row">
 					<div class="col-md-12 mb-3">
-						<input class="form-control" type="text" name="acprProductName"
-							placeholder="상품제목"> <br> <input class="form-control"
-							type="text" name="acprDetails" placeholder="상품내용"
-							value="<c:out value="${item.acprDetails}"/>">
+						<input class="form-control" type="text" name="acprProductName" placeholder="상품제목" required> 
+						<br> 
+						<input class="form-control" type="text" name="acprDetails" placeholder="상품내용"
+						value="<c:out value="${item.acprDetails}"/>" required>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-md-12 mb-3">
-						<input class="form-control" type="text" id="acprPriceStart"
-							name="acprPriceStart" placeholder="최소가격"> <br> 
+						<input class="form-control" type="text" id="acprPriceStart" name="acprPriceStart" placeholder="최소가격" required> <br> 
 							
-							<input class="form-control" type="text" id="acprEndDate"
-							name="acprEndDate" placeholder="경매마김일"
-							value="<c:out value="${item.acprEndDate}"/>">
+						<input class="form-control" type="text" id="acprEndDate" name="acprEndDate" autocomplete="off" 
+						value="<c:out value="${item.acprEndDate}"/>" required>
+						
+					
 					</div>
 				</div>
 		
@@ -453,17 +453,24 @@
 											});
 							//*********** 1depth카테고리 선택 후 2depth 생성 END ***********
 
-						});
-	</script>
+						}); 
+		</script>
+							
 
 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="/infra/resources/common/js/validation.js"></script>
 			
 			<!-- jquery ui -->
 		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 			
-		
+			
+			
+		<!-- 팝업 -->
+		<script language="javascript"> function showPopup() { window.open("../member/memberSearch", "회원검색", "width=800, height=900, left=100, top=50"); }
+ 		</script>
+			
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("acprEndDate").datepicker();
@@ -484,6 +491,8 @@
 			yearSuffix : '년'
 		});
 	</script>
+
+
 
 	<footer class="my-3 text-center text-small">
 		<p class="mb-1">&copy; 2022 Auctionary</p>

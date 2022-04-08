@@ -275,7 +275,7 @@ body {
 					</div>
 					<div class="col-lg-2 col-md-6 col-sm-12">
 						<select class="form-select form-select-sm" name="shAcprStatusCd" id="shAcprStatusCd">
-							<option value="">::삭제여부::
+							<option value="">::경매상태::
 							<option value="55"<c:if test="${vo.shAcprStatusCd eq 55 }">selected </c:if>>경매중
 							<option value="56"<c:if test="${vo.shAcprStatusCd eq 56 }">selected </c:if>>경매완료
 							<option value="57"<c:if test="${vo.shAcprStatusCd eq 57 }">selected </c:if>>경매실패
@@ -289,7 +289,7 @@ body {
 							<option value="1" <c:if test="${vo.shProductOption eq 1 }"> selected</c:if>>상품번호
 							<option value="2" <c:if test="${vo.shProductOption eq 2 }"> selected</c:if>>게시물명
 							<option value="3" <c:if test="${vo.shProductOption eq 3 }"> selected</c:if>>게시물내용
-							<option value="3" <c:if test="${vo.shProductOption eq 4 }"> selected</c:if>>이름
+							<option value="4" <c:if test="${vo.shProductOption eq 4 }"> selected</c:if>>이름
 						</select> 
 			</div>
 			
@@ -365,9 +365,9 @@ body {
 													<c:out value="경매실패" />
 												</c:if></td>
 											<td><c:out value="${item.acprStartDate}" /></td>
-											<td><c:out value="${item.acprEndDate}" /></td>
-											<td><c:out value="${item.acprPriceStart}" /></td>
-											<td><c:out value="${item.acprPriceNow}" /></td>
+											<td><c:out value="${item.acprEndDate}" /></td>					
+											<td><fmt:formatNumber value="${item.acprPriceStart}"/></td>
+											<td><fmt:formatNumber value="${item.acprPriceNow}"/></td>
 										</tr>
 
 									</tbody>
@@ -376,7 +376,6 @@ body {
 						</c:choose>
 					</table>
 				</div>
-			</form>
 		</div>
 	</div>
 
@@ -438,37 +437,9 @@ body {
 	<div class="row text-center" style="width: 100%">
 		<div style="width: 100%; float: none; margin: 0 auto">
 
-			<!-- Button trigger modal -->
+	
 			<a href="/infra/product/productFormAdmin">
-				<button type="button" class="btn btn-sm btn-outline-success">상품등록</button>
-				<button type="button" class="btn btn-sm btn-outline-primary"
-					data-bs-toggle="modal" data-bs-target="#저장">저장</button>
-			</a>
-
-			<!-- Modal -->
-			<div class="modal fade" id="저장" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
-								<i class="fas fa-exclamation-circle"></i>저장 확인!
-							</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">정말 저장하시겠습니까?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<a href="memberList.html">
-								<button type="button" class="btn btn-primary">저장</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
+				<button type="button" class="btn btn-sm btn-outline-success">상품등록</button></a>
 
 			<button type="button" class="btn btn-sm btn-outline-danger"
 				data-bs-toggle="modal" data-bs-target="#삭제">삭제</button>
@@ -503,8 +474,7 @@ body {
 	<br>
 	<br>
 
-
-	<c:out value="${vo.startPage}" />
+<%-- 겟방식
 	<nav aria-label="...">
 		<ul class="pagination justify-content-center">
 			<c:if test="${vo.startPage gt vo.pageNumToShow}">
@@ -528,7 +498,28 @@ body {
 					href="/infra/product/productListAdmin?thisPage=${vo.endPage + 1}">Next</a></li>
 			</c:if>
 		</ul>
-	</nav>
+	</nav> --%>
+	
+		<nav aria-label="...">
+				<ul class="pagination  justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.startPage - 1}'/>);"> Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link" href="javascript:goProductList(<c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
 </body>
 
 
@@ -585,23 +576,6 @@ body {
 			<!-- jquery ui -->
 			<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 			
-<script type="text/javascript">
-
-	$("#btnSubmit5").on(
-			"click",
-			function() {
-				if (!checkNull($("#shProductOption"), $("#shProductOption").val(),
-				"검색구문을 선택 해 주세요!"))
-			retrun
-		false;
-				if (!checkNull($("#shProductValue"), $("#shProductValue").val(),
-						"검색어를 입력 해 주세요!"))
-					retrun
-				false;
-			});
-	
-</script>
-
 <!-- 팝업 -->
 <script language="javascript">
   function showPopup() { window.open("main/mainProfileEdit", "프로필수정", "width=400, height=300, left=100, top=50"); }
@@ -621,31 +595,33 @@ body {
 			</script>
 	
 	 <script type="text/javascript">
-		var seq = $("input:hidden[name=ifmmSeq]");
+		var seq = $("input:hidden[name=acprSeq]");
 		
-	 	goMemberList = function(seq){
+	 	goProductList = function(seq){
 			alert(seq);
 					$("#thisPage").val(seq);
 					$("#formList").submit();
-			}
-		 goMemberView = function(seq){
+			};
+	 	goProductView( = function(seq){
 			 alert(seq);
-					$("#ifmmSeq").val(seq);
-					$("#formList").attr("action","/infra/member/memberViewAdmin");
+					$("#acprSeq").val(seq);
+					$("#formList").attr("action","/infra/product/productViewAdmin");
 					$("#formList").submit();
-			}
-		 goMemberForm = function(seq){
-				$("#formList").attr("action","/infra/member/memberFormAdmin");
+			};
+		 gProductForm = function(seq){
+				$("#formList").attr("action","/infra/product/productFormAdmin");
 				$("#formList").submit();
-			}	 
+			};	 
 		 
-		goMemberMultiNelete = function(seq){
-				$("#ifmmSeq").val(seq);
-				$("#formList").attr("action","/infra/member/memberMultiNele");
+		goProductMultiNelete = function(seq){
+				$("#acprSeq").val(seq);
+				$("#formList").attr("action","/infra/product/productMultiNele");
 				$("#formList").submit(); 
-			}	 
+			};	 
 
-
+			</script>
+		
+		<script type="text/javascript"> 
 		$("#checkboxAll").click(function() {  //전체선택
 		if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);
 		else $("input[name=checkboxSeq]").prop("checked", false);
@@ -657,7 +633,8 @@ body {
 			if(total != checked) $("#checkboxAll").prop("checked", false);
 			else $("#checkboxAll").prop("checked", true);
 		});
-
+		</script>
+		
 		<script type="text/javascript"> 
 		$(document).ready(function() {
 			$("#shProductDateStart").datepicker(); //시작일데이트피커

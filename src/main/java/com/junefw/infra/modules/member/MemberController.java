@@ -1,8 +1,10 @@
 package com.junefw.infra.modules.member;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.junefw.infra.common.constants.Constants;
@@ -127,13 +130,28 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberInstAdmin") // 회원등록받음
 	public String memberInstAdmin(MemberVo vo, Model model, Member dto, RedirectAttributes redirectAttributes)
 			throws Exception {
+		
+
+		/* 기존컨트롤러방식
+		 * MultipartFile multipartFile = dto.getFile();
+		 * 
+		 * String fileName = multipartFile.getOriginalFilename(); String ext =
+		 * fileName.substring(fileName.lastIndexOf(".") + 1); String uuid =
+		 * UUID.randomUUID().toString(); String uuidFileName = uuid + "." + ext;
+		 * 
+		 * multipartFile.transferTo(new File(
+		 * "C:/factory/ws_sts_4130/springmvc_mirim/src/main/webapp/resources/uploaded/"
+		 * + uuidFileName));
+		 * 
+		 * dto.setOriginalFileName(fileName); dto.setUuidFileName(uuidFileName);
+		 */
+		
 		service.insertMemberAdmin(dto);
-
+		
 		vo.setIfmmSeq(dto.getIfmmSeq());
-
+		
 		redirectAttributes.addFlashAttribute("vo", vo);
-
-		return "redirect:/member/memberList";
+		return "redirect:/member/memberViewAdmin";
 	}
 
 	@RequestMapping(value = "/member/memberEditAdmin") // 회원수정
@@ -164,6 +182,25 @@ public class MemberController /* extends BaseController */ {
 				+ vo.getShMemberValue();
 		return tmp;
 	}
+
+	
+	@RequestMapping(value = "/member/memberSearch") // 상품등록->회원검색
+	public String memberSearch(@ModelAttribute("vo") MemberVo vo, Model model, Code code) throws Exception {
+
+		int count = service.selectOneCount(vo);
+
+		vo.setParamsPaging(count);
+		if (count != 0) {
+			List<Member> list = service.memberList(vo);
+			model.addAttribute("list", list);
+		} else {
+		}
+		
+		Member rt = service.memberViewAdmin(vo);
+		model.addAttribute("item", rt);
+		return "member/memberSearch";
+	}
+	
 
 	// *************************두리안 사용자 *************************************
 	@RequestMapping(value = "/member/memberFormUser") // 회원가입

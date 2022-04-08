@@ -80,6 +80,8 @@ body {
 </head>
 <body>
 
+<form id="formList" name="formList" method="post" action="">
+</form>
 
 	<div class="container">
 		<div class="input-form-backgroud row">
@@ -107,18 +109,19 @@ body {
 					<div class="row text-center" style="width: 100%">
 						<div style="width: 100%; float: none; margin: 0 auto">
 
-							<button class="btn btn-primary" type="button"  id="btnLogin" name="" value="">로그인</button>
+						<button class="btn btn-primary" type="button" id="btnLogin" name=""  value="">로그인</button>
 						</div>
 					</div>
+					<br> 
+					<div class="mb-3">
+					<a href="javascript:kakaoLogin();">
+					<button class="btn btn-warning btn-lg btn-block" type="submit">Kakao 로그인</button></a>
+					<br><br>
+					<button class="btn btn-primary btn-lg btn-block" type="submit">Facebook 로그인</button>
+					<button class="btn btn-success btn-lg btn-block" type="submit">Naver 로그인</button>
+					</div>
 					<br> <br>
-					<div class="col-md-6 mb-3"></div>
-					<button class="btn btn-warning btn-lg btn-block" type="submit">Kakao
-						로그인</button>
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Facebook
-						로그인</button>
-					<button class="btn btn-success btn-lg btn-block" type="submit">Naver
-						로그인</button>
-					<br> <br>
+					
 					<div class="row text-right" style="width: 100%">
 						<div style="width: 100%; float: none; margin: 0 auto">
 							<a href="memberFormUser"> 회원가입 </a> <br> <a
@@ -182,6 +185,59 @@ body {
 		false;	
 			});
 	</script>
+	
+	
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+ 	<script>
+		window.Kakao.init("b6917d9a0f917a910b27b8ae0c84814b"); //발급받은 키 중 javascript키를 사용해준다.
+		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+		//카카오로그인
+		function kakaoLogin() {
+			Kakao.Auth.authorize({
+				scope:'profile_nickname, profile_image, account_email, gender',
+				success: function(authObj) {
+					console.log(authObj);
+					window.Kakao.API.request({
+						url:'/v2/user/me',
+						success: function(response){
+							console.log(response);
+						}
+					})
+				},
+			redirectUri: 'http://localhost:8080/infra/product/productMainUser2'
+			});
+		} 
+		    </script>
+		
+		
+<!-- 	    <script>
+        window.Kakao.init('b6917d9a0f917a910b27b8ae0c84814b');
+
+        function kakaoLogin() {
+            window.Kakao.Auth.login({
+                scope: 'profile_nickname, profile_image, account_email, gender', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+                success: function(response) {
+                    console.log(response) // 로그인 성공하면 받아오는 데이터
+                    window.Kakao.API.request({ // 사용자 정보 가져오기 
+                        url: '/v2/user/me',
+                        success: (res) => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account)
+                        }
+                    });
+                    redirectUri: 'http://localhost:8080/infra/product/productMainUser2'
+                },
+                fail: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+ -->
+
+
+    
+   
 	
 <!-- 		$("#btnLogin").on("click", function(){
 			if(validation() == false) return false;

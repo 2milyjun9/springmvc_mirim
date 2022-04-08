@@ -246,7 +246,20 @@ body {
 	</div>
 
 
+	 <!-- 기본값 히든처리 -->
+	<form id="formView" action="formView" method="post">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+	<input type="hidden" id="acprSeq" name="acprSeq" value="<c:out value="${vo.acprSeq}"/>">
+	<input type="hidden" id="shAcprDelNy" name="shAcprDelNy" value="<c:out value="${vo.shAcprDelNy}"/>">
+	<input type="hidden" id="shAcprName" name="shAcprName" value="<c:out value="${vo.shAcprName}"/>">
+	<input type="hidden" id="shProductOption" name="shProductOption" value="<c:out value="${vo.shProductOption}"/>">
+	<input type="hidden" id="shProductValue" name="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
+	</form>
+ 
 
+
+<%-- 
 	<!-- 모바일버전테이블//웹감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 		<div class=" d-lg-block d-xl-none">
@@ -298,10 +311,10 @@ body {
 							</tr>
 							<tr>
 								<th>경매시작가</th>
-		<%-- 						<td><c:out value="${item.acprPriceStart}" /></td> --%>
+								<td><c:out value="${item.acprPriceStart}" /></td>
 								<td><fmt:formatNumber value="${item.acprPriceStart}" pattern="#,##0" /></td>
 								<th>경매현재가</th>
-							<%-- 	<td><b> <c:out value="${item.acprPriceNow}" /> </b></td> --%>
+								<td><b> <c:out value="${item.acprPriceNow}" /> </b></td>
 								<td><fmt:formatNumber value="${item.acprPriceNow}" pattern="#,##0" /></td>
 							</tr>
 
@@ -333,14 +346,14 @@ body {
 								<th>경매자</th>
 							</tr>
 						</thead>
-		<%-- 				<c:choose>
+						<c:choose>
 							<c:when test="${fn:length(list) eq 0}">
 								<tr>
 									<td class="text-center" colspan="9">There is no data!</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${list}" var="item" varStatus="status"> --%>
+								<c:forEach items="${list}" var="item" varStatus="status">
 									<tbody>
 										<tr>
 											<th scope="row">이름</th>
@@ -358,14 +371,14 @@ body {
 											<td><c:out value="${item.ifmmDob}" /></td>
 										</tr>
 									</tbody>
-<%-- 								</c:forEach>
+								</c:forEach>
 							</c:otherwise>
-						</c:choose> --%>
+						</c:choose>
 					</table>
 				</div>
 			</div>
 		</div>
-	</main>
+	</main> --%>
 
 	<!-- 웹버전기본정보테이블//모바일감춤 -->
 	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -458,10 +471,15 @@ body {
 								<tbody>
 									<tr>
 										<th scope="row" class="table-secondary">이름</th>
-										<td><a
+								<%-- 		<td><a
 											href="/infra/member/memberViewAdmin?ifmmSeq=<c:out value="${item.ifmmSeq}"/>">
 												<c:out value="${item.ifmmName}" />
-										</a></td>
+										</a></td> --%>
+										
+										<td><a href="javaScript:goMemberView('<c:out value="${item.ifmmSeq}"/>')">
+										<c:out value="${item.ifmmName}" /></a></td>
+										
+										
 										<th class="table-secondary">아이디</th>
 										<td><c:out value="${item.ifmmId}" /></td>
 									</tr>
@@ -527,7 +545,7 @@ body {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">취소</button>
-							<a href="memberView.html">
+							<a href="....">
 								<button type="button" class="btn btn-primary">저장</button>
 							</a>
 						</div>
@@ -545,18 +563,19 @@ body {
 	<br>
 	<br>
 </body>
-<script type="text/javascript">
-		/* globals Chart:false, feather:false */
 
-		(function() {
-			'use strict'
-
-			feather.replace({
-				'aria-hidden' : 'true'
-			})
-
-	</script>
-
+	 <script type="text/javascript">
+		var seq = $("input:hidden[name=ifmmSeq]");
+		var seq = $("input:hidden[name=acprSeq]");
+		
+		 goMemberView = function(seq){
+			 alert(seq);
+					$("#ifmmSeq").val(seq);
+					$("#formView").attr("action","/infra/member/memberViewAdmin");
+					$("#formView").submit();
+		};
+		</script>
+		
 <!-- 팝업 -->
 <script language="javascript">
   function showPopup() { window.open("mainProfileEdit.jsp", "프로필수정", "width=400, height=300, left=100, top=50"); }

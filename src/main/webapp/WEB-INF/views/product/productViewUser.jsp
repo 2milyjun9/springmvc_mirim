@@ -116,9 +116,23 @@ a { /*링크 줄안가게하기*/
 	<p align="right">
 		<b><c:out value="${sessName}" /></b> 님 환영합니다. </p>
 		
+		
+		
+	 <!-- 기본값 히든처리 -->
+	<form id="formView" action="formView" method="post">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
+	<input type="hidden" id="acprSeq" name="acprSeq" value="<c:out value="${vo.acprSeq}"/>">
+	<input type="hidden" id="shAcprDelNy" name="shAcprDelNy" value="<c:out value="${vo.shAcprDelNy}"/>">
+	<input type="hidden" id="shAcprName" name="shAcprName" value="<c:out value="${vo.shAcprName}"/>">
+	<input type="hidden" id="shProductOption" name="shProductOption" value="<c:out value="${vo.shProductOption}"/>">
+	<input type="hidden" id="shProductValue" name="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
+	</form>
+ 
+		
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
+			<form class="d-flex" id="productEdit" name="productEdit" method="post" action="/infra/product/productMainUser">
 
 				<%-- 	<select name="shAcprStatusCd" id="shAcprStatusCd">
 					<option value="">상품상태
@@ -392,5 +406,19 @@ a { /*링크 줄안가게하기*/
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous">
 	</script>
+	
+		<script type="text/javascript">
+		var seq = $("input:hidden[name=acprSeq]");
+		
+		
+	 	goProductEdit = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").attr("action","/infra/product/prouductViewUser");
+					$("#formList").submit();
+			};
+
+		</script>
+		
 
 </html>

@@ -2,6 +2,8 @@ package com.junefw.infra.modules.member;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 /*@SuppressWarnings("all")*/
 public class Member /* extends Base */ {
@@ -13,7 +15,6 @@ public class Member /* extends Base */ {
 	private Integer ifmmAdminNy;
 	private Integer ifmmDormancyNy;
 	private String ifmmName;
-	private String ifmmPhoto;
 	private String ifmmId ;
 	private String ifmmNickname;
 	private Integer ifmmGrade;
@@ -33,7 +34,28 @@ public class Member /* extends Base */ {
 	private Integer ifmmDelNy;
 	private String ifmmDesc;
 	
+	
+	// uploaded
 
+	private MultipartFile[] file0;
+	private MultipartFile[] file1;
+	private MultipartFile file;
+	
+	private String tableName;
+	
+	private String seq;
+	private Integer type;
+	private Integer defaultNy;
+	private Integer sort;
+	private String originalFileName;
+	private String uuidFileName;
+	private String ext;
+	private long size;
+	private Integer delNy;
+	private String pseq;
+
+
+	
 	/* infrmemberphone */
 	private String ifmpSeq;
 	private Integer ifmpDefaultNy;
@@ -63,6 +85,13 @@ public class Member /* extends Base */ {
 	private String ifmaAddress2;
 	private String ifmaZipcode;
 	private Integer ifmaDelNy;
+	private Double ifmaLat;
+	private Double ifmaLng;
+
+	//infrmemberaddressArray
+	private Double[] ifmaLatArray;
+	private Double[] ifmaLngArray;
+	
 	
 	/*infrmemberaddressonline*/
 	private Integer ifaoSeq;
@@ -138,12 +167,6 @@ public class Member /* extends Base */ {
 	}
 	public void setIfmmName(String ifmmName) {
 		this.ifmmName = ifmmName;
-	}
-	public String getIfmmPhoto() {
-		return ifmmPhoto;
-	}
-	public void setIfmmPhoto(String ifmmPhoto) {
-		this.ifmmPhoto = ifmmPhoto;
 	}
 	public String getIfmmId() {
 		return ifmmId;
@@ -629,6 +652,130 @@ public class Member /* extends Base */ {
 	}
 	public void setIfmmDesc(String ifmmDesc) {
 		this.ifmmDesc = ifmmDesc;
+	}
+	
+
+
+	public Double getIfmaLat() {
+		return ifmaLat;
+	}
+	public void setIfmaLat(Double ifmaLat) {
+		this.ifmaLat = ifmaLat;
+	}
+	public Double getIfmaLng() {
+		return ifmaLng;
+	}
+	public void setIfmaLng(Double ifmaLng) {
+		this.ifmaLng = ifmaLng;
+	}
+	public Double[] getIfmaLatArray() {
+		return ifmaLatArray;
+	}
+	public void setIfmaLatArray(Double[] ifmaLatArray) {
+		this.ifmaLatArray = ifmaLatArray;
+	}
+	public Double[] getIfmaLngArray() {
+		return ifmaLngArray;
+	}
+	public void setIfmaLngArray(Double[] ifmaLngArray) {
+		this.ifmaLngArray = ifmaLngArray;
+	}
+	
+	public String getSeq() {
+		return seq;
+	}
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
+	public Integer getDefaultNy() {
+		return defaultNy;
+	}
+	public void setDefaultNy(Integer defaultNy) {
+		this.defaultNy = defaultNy;
+	}
+
+
+	public String getExt() {
+		return ext;
+	}
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
+
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+	public String getUuidFileName() {
+		return uuidFileName;
+	}
+	public void setUuidFileName(String uuidFileName) {
+		this.uuidFileName = uuidFileName;
+	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public void setUuidFilName(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public MultipartFile[] getFile0() {
+		return file0;
+	}
+	public void setFile0(MultipartFile[] file0) {
+		this.file0 = file0;
+	}
+	public MultipartFile[] getFile1() {
+		return file1;
+	}
+	public void setFile1(MultipartFile[] file1) {
+		this.file1 = file1;
+	}
+	
+
+
+	public String getTableName() {
+		return tableName;
+	}
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	public Integer getSort() {
+		return sort;
+	}
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+	public long getSize() {
+		return size;
+	}
+	public void setSize(long size) {
+		this.size = size;
+	}
+	public Integer getDelNy() {
+		return delNy;
+	}
+	public void setDelNy(Integer delNy) {
+		this.delNy = delNy;
+	}
+	public String getPseq() {
+		return pseq;
+	}
+	public void setPseq(String pseq) {
+		this.pseq = pseq;
 	}
 	
 	

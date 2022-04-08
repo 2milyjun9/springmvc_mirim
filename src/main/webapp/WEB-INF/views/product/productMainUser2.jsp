@@ -102,7 +102,7 @@ a { /*링크 줄안가게하기*/
 		<a href="./productMainUser"> <img
 			src="${pageContext.request.contextPath}/resources/xdmin/images/logo1.png"
 			class="rounded mx-auto d-block" alt="..." width="300px"
-			height="150px"></a> <br> <br> <br>
+			height="150px"></a> <br> 
 	</div>
 
 	<!-- 모바일버전로고 -->
@@ -118,23 +118,7 @@ a { /*링크 줄안가게하기*/
 		
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
-
-				<%-- 	<select name="shAcprStatusCd" id="shAcprStatusCd">
-					<option value="">상품상태
-					<option value="55"
-						<c:if test="${vo.shAcprStatusCd eq 55 }"> selected </c:if>>
-						경매중
-					<option value="56"
-						<c:if test="${vo.shAcprStatusCd eq 56 }"> selected  </c:if>>
-						경매완료
-					<option value="57"
-						<c:if test="${vo.shAcprStatusCd eq 57 }"> selected </c:if>>
-						경매취소
-					<option value="58"
-						<c:if test="${vo.shAcprStatusCd eq 58 }"> selected </c:if>>
-						경매실패
-				</select>  --%>
+			<form class="d-flex">
 				<select name="shProductOption" id="shProductOption">
 					<option value="">::검색구문::
 					<option value="3"
@@ -149,12 +133,12 @@ a { /*링크 줄안가게하기*/
 					<option value="5"
 						<c:if test="${vo.shProductOption eq 6 }"> selected </c:if>>
 						닉네임
-				</select> <input type="text" name="shProductValue" id="shProductValue">
-				<!-- <input type="reset" name="reset"> -->
+				</select> 
+				<input type="text" name="shProductValue" id="shProductValue">
 				<button class="btn btn-outline-primary" type="submit" name="search"
-					id="btnSubmit5">검색</button>
-
+					id="btnSearch">검색</button>
 			</form>
+
 			<div align="right">
 				<ul class=" navbar-nav me-auto my-2 my-lg-0
 				navbar-nav-scroll"
@@ -167,37 +151,23 @@ a { /*링크 줄안가게하기*/
 					</a>
 						<ul class="dropdown-menu"
 							aria-labelledby="navbarScrollingDropdown">
-							<li><a class="dropdown-item"
-								href="../product/productFormUser">상품등록</a></li>
+<!-- 				기본방식	<li><a class="dropdown-item"
+								href="../product/productFormUser">상품등록</a></li> -->
+							<li><a class="dropdown-item" href="javaScript:goProductForm()">상품등록</a></li>	
 							<li><hr class="dropdown-divider"></li>
-							<li>	<c:if test="${not empty sessSeq}"> <a class="dropdown-item" id="btnLogout">로그아웃</a></c:if> </li>
+							<li><c:if test="${not empty sessSeq}"> <a class="dropdown-item" id="btnLogout">로그아웃</a></c:if> </li>
 						</ul></li>
 				</ul>
 			</div>
-			<!-- 			<div align="right">
-				<button type="button" class="btn btn-secondary position-relative">
-					<i class="fas fa-comment"></i> <span
-						class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-						<span class="visually-hidden"> New alerts</span>
-					</span>
-				</button>
-			</div> -->
 		</div>
 	</nav>
-<%-- 		<c:if test="${not empty sessSeq}">
-			<button type="button" class="btn btn-danger btn-sm" name=""
-				id="btnLogout"></button>
-		</c:if> --%>
-		
 
-<%-- 		<c:if test="${not empty sessSeq}">
-			<button type="button" class="btn btn-danger btn-sm" name=""
-				id="btnLogout"></button>
-		</c:if> --%>
-		
-	<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
-
+	
+	<form class="" id="formList" name="formList" method="post" action="/infra/product/productMainUser">
+	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
+	<input type="hidden" id="acprSeq" name="acprSeq"> 
 	</form>
+	
 	<br>
 
 
@@ -237,9 +207,9 @@ a { /*링크 줄안가게하기*/
 					<div class="container">
 						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 							<div class="col" id="wrap">
-								
 								<div class="card shadow-sm">
-							<article>		<svg class="bd-placeholder-img card-img-top" width="100%"
+							<article>	
+										<svg class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 										aria-label="Placeholder: Thumbnail"
 										preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -248,10 +218,14 @@ a { /*링크 줄안가게하기*/
 										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
 
-									<div class="card-body" id="">
+								<%-- 	겟방식	<div class="card-body" id="">
 										<a 	href="/infra/product/productViewUser?acprSeq=<c:out value="${item.acprSeq}"/>">
 										<p class="card-text"><c:out value="${item.acprProductName}" />
-										</p></a>
+										</p></a> --%>
+										
+										<div class="card-body" id="">
+										<a href="javaScript:goProductView('<c:out value="${item.acprSeq}"/>')">
+										<p class="card-text"><c:out value="${item.acprProductName}" /></p></a>
 										
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
@@ -280,6 +254,28 @@ a { /*링크 줄안가게하기*/
 
 	<br>
 	<br>
+
+			<nav aria-label="...">
+				<ul class="pagination  justify-content-center">
+					<c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.startPage - 1}'/>);"> Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+								<li class="page-item active"><a class="page-link" href="javascript:goProductList(<c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${i.index}'/>);">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${vo.endPage ne vo.totalPages}">
+						<li class="page-item"><a class="page-link" href="javascript:goProductList( <c:out value='${vo.endPage + 1 }'/>);">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
+
 
 	<!-- 검색 -->
 	<script
@@ -336,31 +332,7 @@ a { /*링크 줄안가게하기*/
 	<br>
 	<br>
 	<br>
-	<c:out value="${vo.startPage}" />
-	<nav aria-label="...">
-		<ul class="pagination justify-content-center">
-			<c:if test="${vo.startPage gt vo.pageNumToShow}">
-				<li class="page-item"><a class="page-link"
-					href="/infra/product/productMainUser?thisPage=${vo.startPage - 1}">Previous</a></li>
-			</c:if>
-			<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
-				<c:choose>
-					<c:when test="${i.index eq vo.thisPage}">
-						<li class="page-item active"><a class="page-link"
-							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="/infra/product/productMainUser?thisPage=${i.index}">${i.index}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${vo.endPage ne vo.totalPages}">
-				<li class="page-item"><a class="page-link"
-					href="/infra/product/productMainUser?thisPage=${vo.endPage + 1}">Next</a></li>
-			</c:if>
-		</ul>
-	</nav>
+
 
 
 	<script
@@ -420,5 +392,39 @@ a { /*링크 줄안가게하기*/
 						});
 	</script>
 
+
+	<script type="text/javascript">
+		var seq = $("input:hidden[name=acprSeq]");
+		
+	 	goProductList = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").submit();
+			}
+	 	
+	 	goProductView = function(seq){
+			alert(seq);
+					$("#thisPage").val(seq);
+					$("#formList").attr("action","/infra/product/prouductViewUser");
+					$("#formList").submit();
+			} 
+		 goProductForm = function(seq){
+				$("#formList").attr("action","/infra/product/productFormUser");
+				$("#formList").submit();
+			}	
+		</script>
+		
+				<script type="text/javascript">
+		$("#btnSearch").on( 
+				"click", function() {
+				if (!checkNull($("#shProductOption"), $("#shProductOption").val(),"검색구문을 선택해 주세요!")) 
+					return
+					false;
+				if (!checkNull($("#shProductValue"), $("#shProductValue").val(),"검색어를 입력 해 주세요!"))
+					retrun
+				false;
+			});
+			</script>
+		
 </body>
 </html>

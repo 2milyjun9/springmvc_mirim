@@ -195,21 +195,17 @@ a { /*링크 줄안가게하기*/
 		</c:if> --%>
 		
 	<form class="d-flex" id="" name="" method="post" action="/infra/product/productMainUser">
-
 	</form>
-	<br>
 
 
 <br> <br> 
 
 
-				<img src="https://github.com/mdo.png" alt="mdo" width="50"
-					height="50" class="rounded-circle"> 
-					<b> <c:out
-							value="${item.ifmmNickname}" /> <c:out value="${item.ifmmGrade}" /></b>
+				<img src="https://github.com/mdo.png" alt="mdo" width="50" height="50" class="rounded-circle"> 
+					<b> <c:out value="${item.ifmmNickname}" /> <c:out value="${item.ifmmGrade}" /></b>
 	
-	<br>
-	<br>
+<br> <br>
+
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#qwe">경매중</a>

@@ -2,9 +2,9 @@ package com.junefw.infra.modules.member;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberVo {
-
-
 
 
 	//common
@@ -92,7 +92,7 @@ private String ifmmSeq;
 private Integer ifmmAdminNy;
 private Integer ifmmDormancyNy;
 private String ifmmName;
-private String ifmmPhoto;
+
 private String ifmmId ;
 private String ifmmNickname;
 private Integer ifmmGrade;
@@ -182,6 +182,15 @@ private String ifnaDesc;
 private Integer ifnaDelNy;
 
 
+// uploaded
+private MultipartFile file;
+private String seq;
+private Integer type;
+private Integer defaultNy;
+private String sort;
+private String originalFileName;
+private String uuidFileName;
+private String ext;
 
 public Integer getShMemberOptionDate() {
 	return ShMemberOptionDate;
@@ -292,12 +301,7 @@ public String getIfmmName() {
 public void setIfmmName(String ifmmName) {
 	this.ifmmName = ifmmName;
 }
-public String getIfmmPhoto() {
-	return ifmmPhoto;
-}
-public void setIfmmPhoto(String ifmmPhoto) {
-	this.ifmmPhoto = ifmmPhoto;
-}
+
 public String getIfmmId() {
 	return ifmmId;
 }
@@ -757,6 +761,59 @@ public void setCheckboxSeqArray(String[] checkboxSeqArray) {
 }
 
 
+
+
+
+
+
+public MultipartFile getFile() {
+	return file;
+}
+public void setFile(MultipartFile file) {
+	this.file = file;
+}
+public String getSeq() {
+	return seq;
+}
+public void setSeq(String seq) {
+	this.seq = seq;
+}
+public Integer getType() {
+	return type;
+}
+public void setType(Integer type) {
+	this.type = type;
+}
+public Integer getDefaultNy() {
+	return defaultNy;
+}
+public void setDefaultNy(Integer defaultNy) {
+	this.defaultNy = defaultNy;
+}
+public String getSort() {
+	return sort;
+}
+public void setSort(String sort) {
+	this.sort = sort;
+}
+public String getOriginalFileName() {
+	return originalFileName;
+}
+public void setOriginalFileName(String originalFileName) {
+	this.originalFileName = originalFileName;
+}
+public String getUuidFileName() {
+	return uuidFileName;
+}
+public void setUuidFileName(String uuidFileName) {
+	this.uuidFileName = uuidFileName;
+}
+public String getExt() {
+	return ext;
+}
+public void setExt(String ext) {
+	this.ext = ext;
+}
 
 
 }

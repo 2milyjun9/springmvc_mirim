@@ -7,13 +7,16 @@
 
 <title>코드그룹 등록</title>
 
-<form id="" name="" method="post" action="/infra/code/codeGroupInst">
+<!-- <form id="" name="" method="post" action="/infra/code/codeGroupInst"> -->
+<form id="formList" name="formList" method="post" action="/infra/code/codeGroupInst" enctype="multipart/form-data">
 	<input type="hidden" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
 	<input type="hidden" name="shOption" value="<c:out value="${vo.shOption}"/>">
 	<input type="hidden" name="shValue" value="<c:out value="${vo.shValue}"/>">
 	<input type="hidden" name="">
 	<input type="text" name="ifcgName"  id="ifcgName"  placeholder="코드그룹">
 <!-- 	<input type="text" name="ifcdName"  id="ifcdName"  placeholder="코드"> -->
+	<input type="file" name="file" >   <!-- multiple생략 -->
+	<input type="file" name="file1" >
 	<input type="submit" id="btnSubmit" value="제출" >
 </form>
 

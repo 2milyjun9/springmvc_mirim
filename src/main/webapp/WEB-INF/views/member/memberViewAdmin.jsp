@@ -335,19 +335,20 @@ body {
 									style="font-size: 30px; text-align: right"><c:out
 										value="${item.ifmmName}" />
 									<button class="btn btn-warning" type="button"
-										data-bs-toggle="collapse"
-										data-bs-target="#collapseWidthExample" aria-expanded="false"
+										data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
 										aria-controls="collapseWidthExample">
 										<i class="fas fa-camera"></i>
 									</button>
-									<div style="min-height: 0px;">
-										<div class="collapse collapse-horizontal"
-											id="collapseWidthExample">
-											<div class="card card-body" style="width: 200px;">
-												<img src="..........">
+										<div class="collapse" id="collapseWidthExample" >
+											<div class="card card-body" style="width: 500px;">
+										
+										<img src="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"/>
+										
+										<a href="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"  
+										download="<c:out value="${item.originalFileName}"/>">다운로드</a><br>
 											</div>
 										</div>
-									</div></th>
+									</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -637,7 +638,9 @@ body {
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 									
 									<a href="javascript:goMemberNelete
-									('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>','<c:out value="${vo.shMemberValue}"/>','<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>','<c:out value="${vo.shMemberDateEnd}"/>');"> 
+									('<c:out value="${item.ifmmSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shMemberOption}"/>',
+									'<c:out value="${vo.shMemberValue}"/>','<c:out value="${vo.shMemberOptionDate}"/>','<c:out value="${vo.shMemberDateStart}"/>',
+									'<c:out value="${vo.shMemberDateEnd}"/>');"> 
 	<button type="button" class="btn btn-primary" id=""  >확인</button></a>
 								</div>
 							</div>
@@ -670,7 +673,7 @@ body {
 		<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 			
 
-	<script type="text/javascript">
+		<script type="text/javascript">
 		goMemberList = function(){
 	$("#formView").attr("action", "/infra/member/memberList");
 	$("#formView").submit();

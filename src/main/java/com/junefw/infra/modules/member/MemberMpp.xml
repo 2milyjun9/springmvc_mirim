@@ -130,7 +130,7 @@
 		,b.ifmpNumber
 		from
 		infrMember a
-		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		left join infrMemberPhone b on b.ifmmSeq = a.ifmmSeq 
 		where
 		1=1
 <!-- 		ORDER BY a.ifmmSeq DESC -->
@@ -190,6 +190,8 @@
 		,b.ifmaAddress1
 		,b.ifmaAddress2
 		,b.ifmaZipCode
+		,b.ifmaLat
+		,b.ifmaLng
  		,c.ifaoTypeCd
 		,c.ifaoSnsTypeCd
 		,c.ifaoTitle
@@ -204,6 +206,8 @@
 		,h.ifmpDeviceCd
 		,h.ifmpTelecomCd
 		,h.ifmpNumber 
+<!-- 	,i.originalFileName
+		,i.uuidFileName -->
 <!-- 		,j.ifmhHobbyCd  -->
 		from
 	infrMember a
@@ -214,6 +218,7 @@
 		left join infrMemberNationality f on f.ifmmSeq = a.ifmmSeq and ifmnDefaultNy = 1
 		left join infrNationality g on g.ifnaSeq = f.ifnaSeq 
 		left join infrMemberPhone h on h.ifmmSeq = a.ifmmSeq and ifmpDefaultNy = 1
+		left join infrMemberUploaded i on i.ifmmSeq = a.ifmmSeq and defaultNy = 1
 <!-- 	left join infrMemberHobby j on j.ifmmSeq = a.ifmmSeq    -->
 		where
 		1=1
@@ -225,7 +230,7 @@
 		select
 		*
 		from
-		infrCodegroup 
+		infrMember
 		where 1 = 1
 		and ifmmDelNy = 0
 		and ifmmSeq = #{ifmmSeq}
@@ -292,7 +297,6 @@
 		</selectKey>
 	</insert>
 	
-	
 	<insert id="insertEmail">
 		INSERT INTO infrMemberEmail (
 		ifmeDefaultNy
@@ -315,6 +319,53 @@
 		,#{ifmmSeq}
 		)
 </insert>
+
+
+	<insert id="insertUploaded">
+		INSERT INTO ${tableName}(
+		defaultNy
+		,type 
+		,sort
+		,originalFileName
+		,uuidFileName
+		,ext
+<!-- 		,size -->
+		,delNY
+		,pseq
+		,ifmmSeq
+		)
+		VALUES(
+		#{defaultNy}
+		,#{type} 
+		,#{sort}
+		,#{originalFileName}
+		,#{uuidFileName}
+		,#{ext}
+<!-- 		,#{size} -->
+		,0
+		,#{pseq}
+		,#{ifmmSeq}
+		)
+</insert>
+	
+<!-- 	<insert id="insertMemberPhoto">
+		INSERT INTO infrMemberUploaded(
+		defaultNy
+		,type 
+		,originalFileName
+		,uuidFileName
+		,delNY
+		,ifmmSeq
+		)
+		VALUES(
+		1
+		,#{type} 
+		,#{originalFileName}
+		,#{uuidFileName}
+		,0
+		,#{ifmmSeq}
+		)
+</insert> -->
 	
 	
 <insert id="insertPhone">
@@ -346,6 +397,8 @@
 		,ifmaAddress1
 		,ifmaAddress2
 		,ifmaZipcode
+		,ifmaLat
+		,ifmaLng
 		,ifmaDelNy
 		,ifmmSeq
 		)
@@ -356,6 +409,8 @@
 		,#{ifmaAddress1}
 		,#{ifmaAddress2}
 		,#{ifmaZipcode}
+		,#{ifmaLat}
+		,#{ifmaLng}
 		,0
 		,#{ifmmSeq}
 		)
@@ -692,7 +747,8 @@
 	<update id="updateDeleteMember">    <!-- 가짜삭제 -->
 	UPDATE infrMember SET 
 		ifmmDelNy = 1 
-		where 1 = 1
+		,ifmmDormancyNy = 1 
+		WHERE
 		ifmmSeq= #{ifmmSeq}
 	</update>
 	

@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.junefw.infra.common.util.UtilDateTime;
+import com.junefw.infra.common.util.UtilUpload;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -45,19 +47,53 @@ public class MemberServiceImpl implements MemberService {
 	public Member memberViewAdmin(MemberVo vo) throws Exception { //회원뷰
 		return dao.memberViewAdmin(vo);
 	}
+	
 	@Override
 	public int insertMemberAdmin(Member dto) throws Exception {  //회원등록
 
+		/*setRegMod(dto);*/
+			
 		dto.setRegDateTime(UtilDateTime.nowDate());
-
-	
 		dao.insertMemberAdmin(dto);
-		dao.insertEmail(dto);
-		dao.insertPhone(dto);
-		dao.insertAddress(dto);
-		dao.insertAddressOnline(dto);
-		/* dao.insertJoinQna(dto); */
+
+		int j = 0;
+		for(MultipartFile multipartFile : dto.getFile0()) {
+			String pathModule = this.getClass().getSimpleName().toString().toLowerCase().replace ("serviceimpl", "");
+			
+			UtilUpload.upload(multipartFile, pathModule, dto);
+
+			dto.setTableName("infrMemberUploaded");
+			dto.setType(0);
+			dto.setDefaultNy(0);
+			dto.setSort(j);
+			dto.setPseq(dto.getIfmmSeq());
+			 
+			dao.insertUploaded(dto);
+	
+			dao.insertEmail(dto);
+			dao.insertPhone(dto);
+			dao.insertAddress(dto);
+			dao.insertAddressOnline(dto);
+			/* dao.insertJoinQna(dto); */
 		
+			j++;
+		}
+		    j = 0;
+			for(MultipartFile multipartFile : dto.getFile1()) {
+				String pathModule = this.getClass().getSimpleName().toString().toLowerCase().replace ("serviceimpl", "");
+				
+				UtilUpload.upload(multipartFile, pathModule, dto);
+
+				dto.setTableName("infrMemberUploaded");
+				dto.setType(1);
+				dto.setDefaultNy(0);
+				dto.setSort(j);
+				dto.setPseq(dto.getIfmmSeq());
+				 
+				dao.insertUploaded(dto);
+			
+				j++;
+	}
 		return 1;
 	}
 	
@@ -71,6 +107,7 @@ public class MemberServiceImpl implements MemberService {
 		dao.updatePhone(dto);
 		dao.updateAddress(dto);
 		dao.updateAddressOnline(dto);
+
 		/*
 		 * dao.updateJoinQna(dto);
 		 */
