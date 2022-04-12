@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.junefw.infra.common.util.UtilDateTime;
+import com.junefw.infra.common.util.UtilUpload;
 import com.junefw.infra.modules.member.Member;
 import com.junefw.infra.modules.member.MemberVo;
 
@@ -77,8 +79,42 @@ public class ProductServiceImpl implements ProductService {
 		dao.insertMember(dto); 
 		dao.insertProductUser(dto);   
 		
+		int j = 0;
+		for(MultipartFile multipartFile : dto.getFile0()) {
+			String pathModule = this.getClass().getSimpleName().toString().toLowerCase().replace ("serviceimpl", "");
+			
+			UtilUpload.uploadProduct(multipartFile, pathModule, dto);
+
+			dto.setTableName("auctProductUploaded");
+			dto.setType(0);
+			dto.setDefaultNy(0);
+			dto.setSort(j);
+			dto.setPseq(dto.getIfmmSeq());
+			 
+			dao.insertUploaded(dto);
+			dao.insertMember(dto); 
+			dao.insertProductUser(dto);   
+		
+			j++;
+		}
+		    j = 0;
+			for(MultipartFile multipartFile : dto.getFile1()) {
+				String pathModule = this.getClass().getSimpleName().toString().toLowerCase().replace ("serviceimpl", "");
+				
+				UtilUpload.uploadProduct(multipartFile, pathModule, dto);
+
+				dto.setTableName("auctProductUploaded");
+				dto.setType(1);
+				dto.setDefaultNy(0);
+				dto.setSort(j);
+				dto.setPseq(dto.getIfmmSeq());
+				 
+			
+				j++;
+	}
 		return 1;
 	}
+
 	
 	@Override
 	public int updateProductUser(Product dto) throws Exception {
@@ -108,5 +144,9 @@ public class ProductServiceImpl implements ProductService {
 	public int insertMember(Product dto) throws Exception {
 		return dao.insertMember(dto); //상품등록 회원
 	}
+	public Product ProductUploaded(ProductVo vo)  throws Exception  { 
+		return dao.ProductUploaded(vo); //상품사진
+	} 
+
 
 }

@@ -226,7 +226,7 @@
 		and a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
-		<select id="selectOneMemberAdmin" resultMap="resultMapObj">
+	<select id="selectOneMemberAdmin" resultMap="resultMapObj">
 		select
 		*
 		from
@@ -332,6 +332,7 @@
 <!-- 		,size -->
 		,delNY
 		,pseq
+		,path
 		,ifmmSeq
 		)
 		VALUES(
@@ -344,29 +345,30 @@
 <!-- 		,#{size} -->
 		,0
 		,#{pseq}
+		,#{path}
 		,#{ifmmSeq}
 		)
 </insert>
 	
-<!-- 	<insert id="insertMemberPhoto">
-		INSERT INTO infrMemberUploaded(
-		defaultNy
-		,type 
-		,originalFileName
-		,uuidFileName
-		,delNY
-		,ifmmSeq
-		)
-		VALUES(
-		1
-		,#{type} 
-		,#{originalFileName}
-		,#{uuidFileName}
-		,0
-		,#{ifmmSeq}
-		)
-</insert> -->
 	
+	<select id="MemberUploaded" resultMap = "resultMapObj">
+		SELECT
+			seq
+			, type
+			, defaultNy
+			, sort
+			, originalFileName
+			, uuidFileName 
+			, ext
+<!-- 			, size -->
+			, delNy
+			, pseq
+			, path
+		FROM
+			infrMemberUploaded
+		WHERE 1=1
+			AND pseq = #{ifmmSeq}
+	</select>
 	
 <insert id="insertPhone">
 		INSERT INTO infrmemberPhone (

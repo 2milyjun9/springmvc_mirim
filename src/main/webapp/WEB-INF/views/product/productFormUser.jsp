@@ -76,6 +76,16 @@ body {
 	-moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
+.addScroll {
+	overflow-y: auto;
+	height : 90px;
+    background-color: gainsboro;
+}
+
+.input-file-button {
+	padding : auto;
+	cursor : pointer;
+}
 </style>
 </head>
 <body>
@@ -147,12 +157,21 @@ body {
 					</div>
 				</div>
 	
+				
 				<div class="row">
 					<div class="col-md-12 mb-3">
-						<input type="file" class="form-control" id="acimFile?"> <label
-							class="input-group-text" for="" required>Upload</label>
-					</div>
-				</div>
+						<label for="file0" class="form-label input-file-button">이미지첨부 </label> 
+							<input  class="form-control" id="file0" name="file0" type="file" 
+								multiple="multiple" style="display:none;" onChange="upload(1,1);">
+							<div class="addScroll">
+							<ul id="ulFile0" class="list-group"></ul>
+								</div>
+							</div>  
+						</div>
+		
+					
+
+				
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<div class="custom-control custom-checkbox">
@@ -169,12 +188,15 @@ body {
 						</div>
 					</div>
 				</div>
+				
+				
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<button class="btn btn-primary btn-sm btn-block" type="submit"
 							id="btnSubmit">등록 완료</button>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</form>

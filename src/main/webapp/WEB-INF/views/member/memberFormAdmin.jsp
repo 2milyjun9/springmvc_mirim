@@ -454,9 +454,9 @@ body {
 												<label>주소</label>
 												<!--  <input type="text" class="form-control"
 													 id="ifmaAddress1Array0" name="ifmaAddress1Array"  placeholder="주소" value="" readonly> -->
-													<input type="hidden" class="form-control"  id="ifmeDefaultNy"  name="ifmeDefaultNy" value="1">
-													<input type="hidden" class="form-control"  id="ifmeTypeCd"  name="ifmeTypeCd" value="44">
-													 <input type="text" class="form-control"
+													<input type="hidden" class="form-control"  id="ifmeDefaultNy" name="ifmeDefaultNy" value="1">
+													<input type="hidden" class="form-control"  id="ifmeTypeCd" name="ifmeTypeCd" value="44">
+													<input type="text" class="form-control"
 													 id="ifmaAddress1" name="ifmaAddress1"  placeholder="주소" value="" readonly>
 
 											</div>
@@ -547,7 +547,7 @@ body {
 											</div>
 										</div> -->
 								
-					
+				
 									<div class="row">
 											<div class="col-md-6 mb-3" >
 												<label for="file0" class="form-label input-file-button">이미지 첨부</label> 
@@ -566,7 +566,7 @@ body {
 											<div class="addScroll">
 											<ul id="ulFile1" class="list-group"></ul>
 											</div>
-										</div>
+										</div>  
 									</div>
 									
 								</div>

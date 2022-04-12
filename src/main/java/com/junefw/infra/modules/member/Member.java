@@ -10,6 +10,12 @@ public class Member /* extends Base */ {
 	
 
 
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	/* infrmember */
 	private String ifmmSeq;
 	private Integer ifmmAdminNy;
@@ -53,7 +59,7 @@ public class Member /* extends Base */ {
 	private long size;
 	private Integer delNy;
 	private String pseq;
-
+	private String path;
 
 	
 	/* infrmemberphone */
@@ -777,6 +783,7 @@ public class Member /* extends Base */ {
 	public void setPseq(String pseq) {
 		this.pseq = pseq;
 	}
+	
 	
 	
 }

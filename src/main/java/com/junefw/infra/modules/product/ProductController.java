@@ -33,9 +33,11 @@ public class ProductController {
 	@RequestMapping(value = "/product/productViewAdmin") // 상품뷰
 	public String productViewAdmin(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
 		Product rt = service.productViewAdmin(vo);
+		
+		
 		model.addAttribute("item", rt);
 
-		
+		model.addAttribute("uploaded", service.ProductUploaded(vo)); /* 상품사진 */
 		/*
 		 * Member rt1 = service.memberViewAdmin(vo); model.addAttribute("item", rt1);
 		 */

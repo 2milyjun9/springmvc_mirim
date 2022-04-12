@@ -31,6 +31,7 @@
 			<exclude-mapping path="/member/memberLoginAdmin" /> 		<!--  로그인필요없는곳들 -->
 			<exclude-mapping path="/member/memberLoginUser" />
 			<exclude-mapping path="/member/loginProc" />
+			<exclude-mapping path="/member/KakaoLgProc" />
 			<exclude-mapping path="/index/indexView" />
 			<exclude-mapping path="/product/productMainUser" />
 			<exclude-mapping path="/product/productViewUser" />
@@ -49,5 +50,11 @@
 		<!-- <beans:property name="maxInMemorySize" value="1048576"/> --> <!-- 1MB -->
 	</beans:bean>
 	<!-- fileUpload e 2022.03.30 -->
+	
+	
+<!-- 	네이버로그인 2022.04.12 -->
+	 <beans:bean id="naverLoginBO" class="com.junefw.infra.common.naver.NaverLoginBO"/>
+<!--    NaverLoginBO Class에 대한 Bean설정 추가 -->
+
 	
 </beans:beans>

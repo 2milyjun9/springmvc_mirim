@@ -90,7 +90,6 @@ public class MemberServiceImpl implements MemberService {
 				dto.setSort(j);
 				dto.setPseq(dto.getIfmmSeq());
 				 
-				dao.insertUploaded(dto);
 			
 				j++;
 	}
@@ -119,6 +118,8 @@ public class MemberServiceImpl implements MemberService {
 		 * public void setRegMod(Member dto) throws Exception{ HttpServletRequest
 		 * httpServletRequest = ((ServletRequestAttributes) dto.setRegIp }
 		 */
+
+	
 	/* ****************두리안 유저**************** */
 	@Override
 	public int insertMemberUser(Member dto) throws Exception {  //회원가입
@@ -184,6 +185,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.insertAddressOnline(dto);
 	}
 
-
+	
+	@Override
+	public Member MemberUploaded(MemberVo vo) throws Exception { //회원사진
+		return dao.MemberUploaded(vo);
+	}
+	
 	
 }

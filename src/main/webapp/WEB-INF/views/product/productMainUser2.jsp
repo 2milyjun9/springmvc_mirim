@@ -170,6 +170,17 @@ a { /*링크 줄안가게하기*/
 	
 	<br>
 
+<!-- 네이버로그인결과 -->
+<font id="name"></font> <!-- (로그인 유저 이름 넣을곳에 사용) -->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+	    var name = ${result}.response.nickname;
+	    $("#name").html(name); //font 부분 텍스트 바꾸는 코드
+	    });
+	  //location.href = "${pageContext.request.contextPath}/";
+</script>
+    
 
 	<div class="dropdown">
 		<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
@@ -346,9 +357,103 @@ a { /*링크 줄안가게하기*/
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous">
+		crossorigin="anonymous"> </script>
 		
-	</script>
+	<!-- 카카오톡로그인 리다이렉트 -->
+	<script type="text/javascript">
+	  Kakao.init("b6917d9a0f917a910b27b8ae0c84814b"); //발급받은 키 중 javascript키를 사용해준다.
+		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+		//카카오로그인 1방식
+		KakaoLogin = function(){ 
+		//리다이렉트 된 후 토큰값을 이용하여 사용자 정보를 받을 코드
+		Kakao.Auth.login({ 
+			success : function(authObj) {		
+				console.log(authObj);
+
+				Kakao.API.request({
+					url : '/v2/user/me',
+					success : function(res) {
+
+						console.log(res);
+						console.log(res.id);
+						console.log(res.kakao_account.email);
+						console.log(res.properties.nickname);
+					}
+				})
+			}
+		});
+	}
+
+
+</script>
+		
+		
+		
+	<!-- 네이버로그인 콜백 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+ 	 var naver_id_login = new naver_id_login("mija45", "http://localhost:8080/infra/product/productMainUser2");
+ 	 // 접근 토큰 값 출력
+ 	 alert(naver_id_login.oauthParams.access_token);
+ 	 // 네이버 사용자 프로필 조회
+ 	 naver_id_login.get_naver_userprofile("naverSignInCallback()");
+ 	 // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+ 	 function naverSignInCallback() {
+    alert(naver_id_login.getProfileData('email'));
+    alert(naver_id_login.getProfileData('nickname'));
+    alert(naver_id_login.getProfileData('age'));
+  }
+</script>
+
+
+<script>
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();  
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '359675522870832 ',    // app_Id 입력
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v13.0'           // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+  };
+ 
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+</script>
+	
+	
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			$('#myModal').show();

@@ -1,11 +1,8 @@
 package com.junefw.infra.modules.member;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.junefw.infra.common.constants.Constants;
+import com.junefw.infra.common.naver.NaverLoginBO;
 import com.junefw.infra.common.util.UtilDateTime;
 import com.junefw.infra.modules.code.Code;
 import com.junefw.infra.modules.code.CodeServiceImpl;
-
 
 @Controller
 public class MemberController /* extends BaseController */ {
@@ -70,6 +69,8 @@ public class MemberController /* extends BaseController */ {
 	}
 
 // ******************************두리안 어드민  ******************************** 
+// ******************************두리안 어드민  ******************************** 
+// ******************************두리안 어드민  ******************************** 
 	@RequestMapping(value = "/member/memberList") // 회원리스트
 	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model, Code code) throws Exception {
 
@@ -86,10 +87,9 @@ public class MemberController /* extends BaseController */ {
 		System.out.println("UtilDateTime.nowDate():" + UtilDateTime.nowDate());
 		System.out.println("UtilDateTime.nowString():" + UtilDateTime.nowString());
 
-		
-		/* 00:00:00  수정 소스 
-		 * vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ? 1 :
-		 * vo.getShMemberOptionDate());
+		/*
+		 * 00:00:00 수정 소스 vo.setShMemberOptionDate(vo.getShMemberOptionDate() == null ?
+		 * 1 : vo.getShMemberOptionDate());
 		 * vo.setShMemberDateStart(vo.getShMemberDateStart() == null ?
 		 * UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(),
 		 * Constants.DATE_INTERVAL) :
@@ -98,8 +98,7 @@ public class MemberController /* extends BaseController */ {
 		 * UtilDateTime.nowString() :
 		 * UtilDateTime.addNowTimeString(vo.getShMemberDateEnd()));
 		 */
-		
-		
+
 		return "member/memberList";
 	}
 
@@ -113,6 +112,9 @@ public class MemberController /* extends BaseController */ {
 		System.out.println("###########################");
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
+
+		model.addAttribute("uploaded", service.MemberUploaded(vo));
+
 		return "member/memberViewAdmin";
 	}
 
@@ -130,10 +132,9 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberInstAdmin") // 회원등록받음
 	public String memberInstAdmin(MemberVo vo, Model model, Member dto, RedirectAttributes redirectAttributes)
 			throws Exception {
-		
 
-		/* 기존컨트롤러방식
-		 * MultipartFile multipartFile = dto.getFile();
+		/*
+		 * 기존컨트롤러방식 MultipartFile multipartFile = dto.getFile();
 		 * 
 		 * String fileName = multipartFile.getOriginalFilename(); String ext =
 		 * fileName.substring(fileName.lastIndexOf(".") + 1); String uuid =
@@ -145,11 +146,11 @@ public class MemberController /* extends BaseController */ {
 		 * 
 		 * dto.setOriginalFileName(fileName); dto.setUuidFileName(uuidFileName);
 		 */
-		
+
 		service.insertMemberAdmin(dto);
-		
+
 		vo.setIfmmSeq(dto.getIfmmSeq());
-		
+
 		redirectAttributes.addFlashAttribute("vo", vo);
 		return "redirect:/member/memberViewAdmin";
 	}
@@ -164,8 +165,8 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberUpdtAdmin") // 회원수정받음
 	public String memberUpdtAdmin(@ModelAttribute("vo") Member dto, MemberVo vo) throws Exception {
 		service.updateMemberAdmin(dto);
-		
-		return "redirect:/member/memberViewAdmin"; 
+
+		return "redirect:/member/memberViewAdmin";
 		/*
 		 * return "redirect:/member/memberViewAdmin?ifmmSeq=" + dto.getIfmmSeq()+
 		 * makeQueryString(vo);
@@ -183,7 +184,6 @@ public class MemberController /* extends BaseController */ {
 		return tmp;
 	}
 
-	
 	@RequestMapping(value = "/member/memberSearch") // 상품등록->회원검색
 	public String memberSearch(@ModelAttribute("vo") MemberVo vo, Model model, Code code) throws Exception {
 
@@ -195,12 +195,11 @@ public class MemberController /* extends BaseController */ {
 			model.addAttribute("list", list);
 		} else {
 		}
-		
+
 		Member rt = service.memberViewAdmin(vo);
 		model.addAttribute("item", rt);
 		return "member/memberSearch";
 	}
-	
 
 	// *************************두리안 사용자 *************************************
 	@RequestMapping(value = "/member/memberFormUser") // 회원가입
@@ -236,81 +235,132 @@ public class MemberController /* extends BaseController */ {
 		return "redirect:/member/memberViewUser?ifmmSeq=" + dto.getIfmmSeq();
 	}
 
-
-	 @RequestMapping(value = "/member/memberLoginUser") 	// 로그인
-	   public String memberLoginUser( Member dto, Model model) throws Exception {
-		  Member rt = service.selectOneLoginUser(dto);		
-		   model.addAttribute("rt", rt);			
-		   return "/member/memberLoginUser"; 			
-	  }   
-	
-		
-		 @ResponseBody
-		 @RequestMapping(value = "/member/loginProc") public Map<String, Object>
-		 loginProc(Member dto, HttpSession httpSession) throws Exception 
-		 { Map<String,Object> returnMap = new HashMap<String, Object>();
-
-		 Member rtMember = service.selectOneLoginUser(dto);
-		 
-		 if(rtMember != null) { // rtMember = service.selectOneLogin(dto);
-		 
-		 if(rtMember.getIfmmSeq() != null) { httpSession.setMaxInactiveInterval( 60 *Constants.SESSION_MINUTE); 
-		 //60second * 30 = 30minute //refsession.setMaxInactiveInterval(-1); // session time unlimited
-
-		 httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
-		 httpSession.setAttribute("sessId", rtMember.getIfmmId());
-		 httpSession.setAttribute("sessName", rtMember.getIfmmName());
-		 httpSession.setAttribute("sessNickname", rtMember.getIfmmNickname());
-		 
-		 returnMap.put("rt", "success"); } else { returnMap.put("rt", "fail"); } }
-		 else { returnMap.put("rt", "fail"); } return returnMap; }
-		 
-
-		/*
-		 * @ResponseBody
-		 * 
-		 * @RequestMapping(value = "/member/loginProc") public Map<String, Object>
-		 * loginProc(Member dto, HttpSession httpSession) throws Exception { Map<String,
-		 * Object> returnMap = new HashMap<String, Object>();
-		 * 
-		 * Member rtMember = service.selectOneLoginUser(dto);
-		 * 
-		 * if(rtMember != null) { // rtMember = service.selectOneLogin(dto);
-		 * 
-		 * if(rtMember2 != null) { httpSession.setMaxInactiveInterval( 60 *
-		 * Constants.SESSION_MINUTE); //60second * 30 = 30minute //ref
-		 * session.setMaxInactiveInterval(-1); // session time unlimited
-		 * 
-		 * httpSession.setAttribute("sessSeq", rtMember2.getIfmmSeq());
-		 * httpSession.setAttribute("sessId", rtMember2.getIfmmId());
-		 * httpSession.setAttribute("sessName", rtMember2.getIfmmName());
-		 * 
-		 * rtMember2.setIflgResultNy(1); service.insertLogLogin(rtMember2);
-		 * 
-		 * Date date = rtMember2.getIfmmPwdModDate(); LocalDateTime
-		 * ifmmPwdDateLocalDateTime = LocalDateTime.ofInstant(date,
-		 * toInstant(),ZondId,systemDefault());
-		 * 
-		 * returnMap.put("rt", "success"); } else {
-		 * dto.setIfmmSeq(rtMember.getIfmmSeq(); dto.setIflgResultNy(0);
-		 * service.insertLogLogin(dto);
-		 * 
-		 * returnMap.put("rt", "fail");
-		 * 
-		 * } } else { dto.setIflgResultNy(0); service.insertLogLogin(dto);
-		 * 
-		 * returnMap.put("rt", "fail"); } return returnMap; }
-		 */
-	
+	@RequestMapping(value = "/member/memberLoginUser") // 로그인
+	public String memberLoginUser(Member dto, Model model) throws Exception {
+		Member rt = service.selectOneLoginUser(dto);
+		model.addAttribute("rt", rt);
+		return "/member/memberLoginUser";
+	}
 
 	@ResponseBody
-	@RequestMapping(value = "/member/logoutProc")   //로그아웃
+	@RequestMapping(value = "/member/loginProc")
+	public Map<String, Object> loginProc(Member dto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		Member rtMember = service.selectOneLoginUser(dto);
+
+		if (rtMember != null) { // rtMember = service.selectOneLogin(dto);
+
+			if (rtMember.getIfmmSeq() != null) {
+				httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE);
+				// 60second * 30 = 30minute //refsession.setMaxInactiveInterval(-1); // session
+				// time unlimited
+
+				httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
+				httpSession.setAttribute("sessId", rtMember.getIfmmId());
+				httpSession.setAttribute("sessName", rtMember.getIfmmName());
+				httpSession.setAttribute("sessNickname", rtMember.getIfmmNickname());
+
+				returnMap.put("rt", "success");
+			} else {
+				returnMap.put("rt", "fail");
+			}
+		} else {
+			returnMap.put("rt", "fail");
+		}
+		return returnMap;
+	}
+
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value = "/member/loginProc") public Map<String, Object>
+	 * loginProc(Member dto, HttpSession httpSession) throws Exception { Map<String,
+	 * Object> returnMap = new HashMap<String, Object>();
+	 * 
+	 * Member rtMember = service.selectOneLoginUser(dto);
+	 * 
+	 * if(rtMember != null) { // rtMember = service.selectOneLogin(dto);
+	 * 
+	 * if(rtMember2 != null) { httpSession.setMaxInactiveInterval( 60 *
+	 * Constants.SESSION_MINUTE); //60second * 30 = 30minute //ref
+	 * session.setMaxInactiveInterval(-1); // session time unlimited
+	 * 
+	 * httpSession.setAttribute("sessSeq", rtMember2.getIfmmSeq());
+	 * httpSession.setAttribute("sessId", rtMember2.getIfmmId());
+	 * httpSession.setAttribute("sessName", rtMember2.getIfmmName());
+	 * 
+	 * rtMember2.setIflgResultNy(1); service.insertLogLogin(rtMember2);
+	 * 
+	 * Date date = rtMember2.getIfmmPwdModDate(); LocalDateTime
+	 * ifmmPwdDateLocalDateTime = LocalDateTime.ofInstant(date,
+	 * toInstant(),ZondId,systemDefault());
+	 * 
+	 * returnMap.put("rt", "success"); } else {
+	 * dto.setIfmmSeq(rtMember.getIfmmSeq(); dto.setIflgResultNy(0);
+	 * service.insertLogLogin(dto);
+	 * 
+	 * returnMap.put("rt", "fail");
+	 * 
+	 * } } else { dto.setIflgResultNy(0); service.insertLogLogin(dto);
+	 * 
+	 * returnMap.put("rt", "fail"); } return returnMap; }
+	 */
+
+	@ResponseBody
+	@RequestMapping(value = "/member/logoutProc") // 로그아웃
 	public Map<String, Object> logoutProc(HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		httpSession.invalidate();
 		returnMap.put("rt", "success");
 		return returnMap;
 	}
+
+	@ResponseBody // 카카오 로그인
+	@RequestMapping(value = "/member/KakaoLgProc")
+	public Map<String, Object> KakaoLgProc(@RequestParam("ifmmName") String name, Member dto, HttpSession httpSession)
+			throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+		System.out.println(name);
+		httpSession.setAttribute("sessName", name);
+		httpSession.setAttribute("sessId", "카카오 회원입니다");
+		httpSession.setAttribute("sessSeq", "카카오 회원입니다");
+
+		returnMap.put("item", "success");
+
+		return returnMap;
+	}
+
+	/*
+	 * NaverLoginBO private NaverLoginBO naverLoginBO; NaverLoginBO
+	 * 
+	 * @Autowired private void setNaverLoginBO(NaverLoginBO naverLoginBO){
+	 * this.naverLoginBO = naverLoginBO; }
+	 * 
+	 * @RequestMapping("/user/loginForm") //네이버 로그인 public ModelAndView
+	 * login(HttpSession session) { 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출
+	 * String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+	 * 
+	 * 생성한 인증 URL을 View로 전달 return new ModelAndView("/user/login/loginForm", "url",
+	 * naverAuthUrl); }
+	 * 
+	 * @RequestMapping("/user/callback") public String callback(@RequestParam String
+	 * code, @RequestParam String state, HttpSession session) throws IOException {
+	 * OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code,
+	 * state);
+	 * 
+	 * //로그인 사용자 정보를 읽어온다. String apiResult =
+	 * naverLoginBO.getUserProfile(oauthToken); //
+	 * System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+	 * session.setAttribute("result", apiResult);
+	 * System.out.println("result"+apiResult);
+	 * 
+	 * session.setAttribute("sessSeq", 0); //생략 가능
+	 * 
+	 * return "redirect:/product/productMainUser2"; //사용자설정 }
+	 * 
+	 */
 	// ************************* 공통 *************************************
 	// ************************* 공통 *************************************
 	// ************************* 공통 *************************************
@@ -327,19 +377,17 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberNele") // 회원가짜삭제
 	public String memberNele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		service.updateDeleteMember(vo);
-		
-		 redirectAttributes.addAttribute("thisPage", vo.getThisPage());
-		 redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
-		 redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
-		 redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
-		 redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
-		 redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
-		
+
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
+		redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
+		redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
+		redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
+		redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
+
 		return "redirect:/member/memberList";
 	}
-	
 
-	  
 	@RequestMapping(value = "/member/memberMultiDele") // 멀티 진짜삭제
 	public String memberMultiDele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		String[] checkboxSeqArray = vo.getCheckboxSeqArray();

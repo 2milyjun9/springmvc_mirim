@@ -321,7 +321,10 @@ body {
 	<input type="hidden" id="shMemberValue" name="shMemberValue" value="<c:out value="${vo.shMemberValue}"/>">
 
  
+ <br><br>
  
+ 
+						
 		<!-- 웹버전기본정보테이블//모바일감춤 -->
 		<div class="d-none d-xl-block ">
 			<div style="width: 100%; white-space: nowrap">
@@ -329,10 +332,11 @@ body {
 					<table class="table table-hover">
 	
 						<thead>
-							<tr>
+<%-- 							<tr>
 								<th>기본정보</th>
 								<th scope="col" colspan="5" class="text-warning"
-									style="font-size: 30px; text-align: right"><c:out
+									style="font-size: 30px; text-align: right">
+									<c:out
 										value="${item.ifmmName}" />
 									<button class="btn btn-warning" type="button"
 										data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
@@ -342,16 +346,33 @@ body {
 										<div class="collapse" id="collapseWidthExample" >
 											<div class="card card-body" style="width: 500px;">
 										
-										<img src="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"/>
+										<img src="${path}/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"/>
+										<br>
 										
-										<a href="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"  
-										download="<c:out value="${item.originalFileName}"/>">다운로드</a><br>
+							
+										<a href="${path}/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"  
+										download="<c:out value="${item.originalFileName}"/>">
+												 다운로드 </a><br>
+										
+											
 											</div>
 										</div>
 									</th>
+							</tr> --%>
+							
+							
+							<tr>
+								<th>기본정보</th>
 							</tr>
 						</thead>
 						<tbody>
+						<tr>
+								<th class="table-secondary">이름</th>
+								<td><c:out value="${item.ifmmName}" /></td>
+								<th class="table-secondary">휴먼여부</th>
+								<td><c:if test="${item.ifmmDormancyNy eq 0}"> <c:out value="활성" /> </c:if>
+								<c:if test="${item.ifmmDormancyNy eq 1}"> <c:out value="휴먼" /> </c:if></td>
+							</tr>
 							<tr>
 								<th class="table-secondary">아이디</th>
 								<td><c:out value="${item.ifmmId}" /></td>
@@ -553,7 +574,80 @@ body {
 			</div>
 		</div>
 
-	<div class="table-responsive">
+
+		
+
+
+	<!-- 웹버전기본정보테이블//모바일감춤 -->
+		<div class="d-none d-xl-block ">
+			<div style="width: 100%; white-space: nowrap">
+				<div class="table-responsive">
+					<table class="table table-hover">
+	
+						<thead>
+							<tr>
+								<th>파일</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+												 
+<%-- 						<td>
+						<c:forEach items="${uploaded}" var="uploaded" varStatus="status">
+						<c:if test="${uploaded.type eq 0}">
+						<img src="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" width="200px" />
+						<br>		
+						<a href="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" 
+						download="<c:out value="${uploaded.path}"/><c:out value="${uploaded.originalFileName}"/>">
+						다운로드 </a><br> 
+						</c:if>
+						</c:forEach> </td> --%>
+						
+<%-- 						기본소스(멀티안나옴) --%>
+						<td>
+						<img src="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" width="200px" />
+						<br>		
+						<a href="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" 
+						download="<c:out value="${uploaded.path}"/><c:out value="${uploaded.originalFileName}"/>">
+						다운로드 </a><br>  </td>   
+						
+<%-- 						<td>
+						<c:forEach items="${uploaded}" var="item" varStatus="status">
+						<c:if test="${uploaded.type eq 0}">
+						<img src="<c:out value="${item.path}"/><c:out value="${item.uuidFileName}"/>" width="200px" />
+						</c:if>
+						</c:forEach>
+						<br>		
+						<a href="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" 
+						download="<c:out value="${uploaded.path}"/><c:out value="${uploaded.originalFileName}"/>">
+						다운로드 </a><br>  </td>  --%>
+						
+						
+						</tr>
+						</tbody>
+						</table>
+						</div>
+						</div>
+						</div>
+						
+						
+
+<!-- 		미림기존
+				<div class="form-floating">
+							<textarea class="form-control" placeholder="100자 이내 "
+								style="height: 100px"></textarea>
+							<label for="ifmmDesc">이곳에 작성해주세요.</label>
+						</div>
+						 -->
+						 
+		<%-- 						선생님기본소스
+  		<div class="col-sm-6 mt-3 mt-sm-0">
+            <label for="ifmmDesc" class="form-label">설명</label>
+            <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p>
+            <p><c:out value="${fn:replace(item.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p>
+        </div> --%>
+        
+        	<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -570,23 +664,8 @@ body {
 				</tr>
 			</table>
 		</div>
-
-
-<!-- 		미림기존
-				<div class="form-floating">
-							<textarea class="form-control" placeholder="100자 이내 "
-								style="height: 100px"></textarea>
-							<label for="ifmmDesc">이곳에 작성해주세요.</label>
-						</div>
-						 -->
-						 
-<%-- 						선생님기본소스
-  <div class="col-sm-6 mt-3 mt-sm-0">
-            <label for="ifmmDesc" class="form-label">설명</label>
-            <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p>
-            <p><c:out value="${fn:replace(item.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p>
-        </div> --%>
-        
+		
+		
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>

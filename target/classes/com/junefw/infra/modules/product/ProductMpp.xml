@@ -160,6 +160,35 @@
 		</selectKey>
 	</insert>
 
+	<insert id="insertUploaded">
+		INSERT INTO ${tableName}(
+		defaultNy
+		,type 
+		,sort
+		,originalFileName
+		,uuidFileName
+		,ext
+<!-- 		,size -->
+		,delNY
+		,pseq
+		,path
+		,ifmmSeq
+		)
+		VALUES(
+		#{defaultNy}
+		,#{type} 
+		,#{sort}
+		,#{originalFileName}
+		,#{uuidFileName}
+		,#{ext}
+<!-- 		,#{size} -->
+		,0
+		,#{pseq}
+		,#{path}
+		,#{ifmmSeq}
+		)
+</insert>
+	
 	
 	<update id="updateProductAdmin">  <!-- 상품수정(관리자) -->
 		UPDATE auctProduct SET

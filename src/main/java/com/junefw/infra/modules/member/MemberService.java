@@ -17,7 +17,7 @@ public interface MemberService {
 	public Member memberViewAdmin(MemberVo vo) throws Exception;  //회원뷰
 	public int insertMemberAdmin(Member dto) throws Exception;  //회원등록
 	int updateMemberAdmin(Member dto) throws Exception; //회원수정
-
+	public Member MemberUploaded(MemberVo vo) throws Exception; //회원업로드
 
 	// 두리안유저
 	int insertMemberUser(Member dto) throws Exception; //회원등록

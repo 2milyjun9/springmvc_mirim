@@ -7,6 +7,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberVo {
 
 
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+
 	//common
 	private String shMemberOption;
 	private String shMemberValue;
@@ -191,6 +199,7 @@ private String sort;
 private String originalFileName;
 private String uuidFileName;
 private String ext;
+private String path;
 
 public Integer getShMemberOptionDate() {
 	return ShMemberOptionDate;
@@ -814,6 +823,8 @@ public String getExt() {
 public void setExt(String ext) {
 	this.ext = ext;
 }
+
+
 
 
 }

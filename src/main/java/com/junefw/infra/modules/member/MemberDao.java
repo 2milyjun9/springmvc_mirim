@@ -44,6 +44,7 @@ public class MemberDao {
 		return sqlSession.update(namespace + ".updateMemberAdmin", dto); //회원수정
 	}
 
+	
 //	public Member selectOneIdAdmin(Member dto) {
 //		 return sqlSession.selectOne(namespace + ".selectOneIdAdmin", dto); //사원로그인셀렉
 //	}
@@ -109,7 +110,9 @@ public class MemberDao {
 		 return sqlSession.update(namespace + ".updateJoinQna", dto); //회원등록(질문)
 		}
 	
-		
+		public Member MemberUploaded(MemberVo vo) {
+			return sqlSession.selectOne(namespace + ".MemberUploaded", vo);  //회원사진
+		}
 		
 	}
 

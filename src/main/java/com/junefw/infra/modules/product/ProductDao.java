@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.junefw.infra.modules.member.Member;
+import com.junefw.infra.modules.member.MemberVo;
 
 
 
@@ -51,6 +52,10 @@ public class ProductDao {
 		return sqlSession.update(namespace + ".productUpdateDeleteAdmin", vo); 
 		}
 	
+	public Member ProductrUploaded(MemberVo vo) {
+		return sqlSession.selectOne(namespace + ".ProductrUploaded", vo);  //상품사진등록
+	}
+	
 	//  **********auctProduct (사용자) *****************
 	public int productOneCountUser(ProductVo vo) {   //상품검색
 		return sqlSession.selectOne(namespace+".productOneCountUser", vo);
@@ -88,4 +93,12 @@ public class ProductDao {
 	 public int insertMember (Product dto) { //상품등록(회원정보)
 		   return sqlSession.insert(namespace + ".insertMember", dto); 
 	   }
+	public void insertUploaded(Product dto) {
+		// TODO Auto-generated method stub
+		
+	}
+	public Product ProductUploaded(ProductVo vo) { //상품사진
+		return sqlSession.selectOne(namespace + ".ProductUploaded", vo);  
+	}
+	
 }
