@@ -36,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
 	public Member memberViewAdmin(MemberVo vo) {
 		return null;
 	}
+	
 	@Override
 	public int insertProductAdmin(Product dto) throws Exception {
 		/* dto.setRegDateTime(UtilDateTime.nowDate()); */

@@ -32,8 +32,12 @@
 			<exclude-mapping path="/member/memberLoginUser" />
 			<exclude-mapping path="/member/loginProc" />
 			<exclude-mapping path="/member/KakaoLgProc" />
+			<exclude-mapping path="/member/NaverLgProc" />
+			<exclude-mapping path="/member/FBLgProc" />
+			<exclude-mapping path="/member/GLgProc" />
 			<exclude-mapping path="/index/indexView" />
 			<exclude-mapping path="/product/productMainUser" />
+			<exclude-mapping path="/product/productMainUser2" />
 			<exclude-mapping path="/product/productViewUser" />
 			<exclude-mapping path="/member/findIdPwdForm" />
 		<beans:bean id="checkLoginSessionInterception" class="com.junefw.infra.common.interceptor.CheckLoginSessionInterception"/> 

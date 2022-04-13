@@ -114,7 +114,7 @@ a { /*링크 줄안가게하기*/
 	</div>
 
 	<p align="right">
-		<b><c:out value="${sessName}" /></b> 님 환영합니다. </p>
+		<b> <font id="name"><c:out value="${sessName}" />	</font> </b> 님 환영합니다.  </p>
 		
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
@@ -170,17 +170,6 @@ a { /*링크 줄안가게하기*/
 	
 	<br>
 
-<!-- 네이버로그인결과 -->
-<font id="name"></font> <!-- (로그인 유저 이름 넣을곳에 사용) -->
-
-<script type="text/javascript">
-  $(document).ready(function() {
-	    var name = ${result}.response.nickname;
-	    $("#name").html(name); //font 부분 텍스트 바꾸는 코드
-	    });
-	  //location.href = "${pageContext.request.contextPath}/";
-</script>
-    
 
 	<div class="dropdown">
 		<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
@@ -389,26 +378,32 @@ a { /*링크 줄안가게하기*/
 		
 		
 		
-	<!-- 네이버로그인 콜백 -->
+	<!-- *************************************네이버로그인 콜백************************************* -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
  	 var naver_id_login = new naver_id_login("mija45", "http://localhost:8080/infra/product/productMainUser2");
  	 // 접근 토큰 값 출력
- 	 alert(naver_id_login.oauthParams.access_token);
+ /* 	 alert(naver_id_login.oauthParams.access_token); */
  	 // 네이버 사용자 프로필 조회
  	 naver_id_login.get_naver_userprofile("naverSignInCallback()");
  	 // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
  	 function naverSignInCallback() {
-    alert(naver_id_login.getProfileData('email'));
-    alert(naver_id_login.getProfileData('nickname'));
-    alert(naver_id_login.getProfileData('age'));
+    alert(naver_id_login.getProfileData('nickname' ));
   }
 </script>
+	<!-- 네이버로그인 완료후 -->
+<script type="text/javascript">
+  $(document).ready(function() {
+	    var name = ${result}.response.nickname;
+	    $("#name").html(name); //font 부분 텍스트 바꾸는 코드
+	    });
+	  //location.href = "${pageContext.request.contextPath}/";
+</script>
+<!-- *************************************네이버로그인 콜백************************************* -->
 
-
+	<!-- *********************************페이스북로그인 리턴********************************* -->
 <script>
-
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
     console.log('statusChangeCallback');
     console.log(response);                   // The current login status of the person.
@@ -419,15 +414,11 @@ a { /*링크 줄안가게하기*/
         'into this webpage.';
     }
   }
-
-
   function checkLoginState() {               // Called when a person is finished with the Login Button.
     FB.getLoginStatus(function(response) {   // See the onlogin handler
       statusChangeCallback(response);
     });
   }
-
-
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '359675522870832 ',    // app_Id 입력
@@ -435,13 +426,10 @@ a { /*링크 줄안가게하기*/
       xfbml      : true,                     // Parse social plugins on this webpage.
       version    : 'v13.0'           // Use this Graph API version for this call.
     });
-
-
     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
       statusChangeCallback(response);        // Returns the login status.
     });
   };
- 
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
@@ -450,9 +438,8 @@ a { /*링크 줄안가게하기*/
         'Thanks for logging in, ' + response.name + '!';
     });
   }
-
 </script>
-	
+	<!-- *********************************페이스북로그인 리턴********************************* -->
 	
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
@@ -464,6 +451,7 @@ a { /*링크 줄안가게하기*/
 		};
 	</script>
 
+<!--  **************************************로그아웃버튼************************************** -->
 	<script type="text/javascript">
 		$("#btnLogout")
 				.on(
@@ -496,7 +484,7 @@ a { /*링크 줄안가게하기*/
 									});
 						});
 	</script>
-
+<!--  **************************************로그아웃버튼************************************** -->
 
 	<script type="text/javascript">
 		var seq = $("input:hidden[name=acprSeq]");
