@@ -130,7 +130,7 @@
 		,a.modDevice
 		,a.modDateTime
 		,a.modDateTimeSvr
-<!-- 		,b.ifmmSeq -->
+	    ,a.ifmmSeq 
 		)
 		values (
 		#{acprProductName}
@@ -154,12 +154,14 @@
 		,#{modDevice}
 		,now()
 		,now()
+		,#{ifmmSeq}
 		)
 	<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>
 	</insert>
 
+	
 	<insert id="insertUploaded">
 		INSERT INTO ${tableName}(
 		defaultNy
@@ -188,7 +190,7 @@
 		,#{ifmmSeq}
 		)
 </insert>
-	
+
 	
 	<update id="updateProductAdmin">  <!-- 상품수정(관리자) -->
 		UPDATE auctProduct SET
@@ -273,6 +275,7 @@
 		FROM
 		auctProduct a
 		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		left join infrMemberUploaded i on i.ifmmSeq = a.ifmmSeq and defaultNy = 1
 		WHERE
 		1=1
 		And acprDelNy = 0
@@ -289,6 +292,7 @@
 		FROM
 		auctProduct a
 		left join infrMember b on b.ifmmSeq = a.ifmmSeq and a.acprDefaultNy = 1
+		left join infrMemberUploaded i on i.ifmmSeq = a.ifmmSeq and defaultNy = 1
 		WHERE
 		1=1
 		And acprDelNy = 0
@@ -301,6 +305,27 @@
 		COUNT(*)
 		<include refid="productCommon"/>
 	</select>
+	
+	<select id="ProductUploaded" resultMap = "resultMapObj">
+		SELECT
+			seq
+			, type
+			, defaultNy
+			, sort
+			, originalFileName
+			, uuidFileName 
+			, ext
+<!-- 			, size -->
+			, delNy
+			, pseq
+			, path
+		FROM
+			infrMemberUploaded
+		WHERE 1=1
+			AND pseq = #{ifmmSeq}
+	</select>
+	
+	
 
 	<insert id="insertProductUser">   <!-- 사용자상품등록 -->
 		INSERT INTO auctProduct(
@@ -321,6 +346,7 @@
 		,regDevice
 		,regDateTime
 		,regDateTimeSvr
+		,ifmmSeq
 		) VALUES
 		(
 		#{acprProductName}
@@ -340,6 +366,7 @@
 		,#{regDevice}
 		,now()
 		,now()
+		,#{ifmmSeq}
 		)
 		<selectKey resultType="String" keyProperty="acprSeq" order="AFTER">
 		SELECT last_insert_id()
@@ -359,7 +386,6 @@
 	</insert> 
 	
 
-	
 	<select id="productViewUser" resultMap="resultMapObj">  <!-- 상품뷰 -->
 		SELECT
 		a.acprSeq
@@ -396,7 +422,7 @@
 		1=1
 		and a.acprDelNy = 0
 		and a.acprSeq = #{acprSeq}
-				order by a.acprSeq 				
+		order by a.acprSeq 				
 	</select>
 	
 	<delete id="productDeleteUser"> <!-- 진짜삭제 -->

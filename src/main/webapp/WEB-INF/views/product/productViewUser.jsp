@@ -119,12 +119,12 @@ a { /*링크 줄안가게하기*/
 		
 		
 	 <!-- 기본값 히든처리 -->
-	<form id="formView" action="formView" method="post">
+	<form id="formView" action="" method="post">
 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
 	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${vo.ifmmSeq}"/>">
 	<input type="hidden" id="acprSeq" name="acprSeq" value="<c:out value="${vo.acprSeq}"/>">
 	<input type="hidden" id="shAcprDelNy" name="shAcprDelNy" value="<c:out value="${vo.shAcprDelNy}"/>">
-	<input type="hidden" id="shAcprName" name="shAcprName" value="<c:out value="${vo.shAcprName}"/>">
+	<input type="hidden" id="shAcprProductName" name="shAcprProductName" value="<c:out value="${vo.shAcprProductName}"/>">
 	<input type="hidden" id="shProductOption" name="shProductOption" value="<c:out value="${vo.shProductOption}"/>">
 	<input type="hidden" id="shProductValue" name="shProductValue" value="<c:out value="${vo.shProductValue}"/>">
 	</form>
@@ -298,7 +298,6 @@ a { /*링크 줄안가게하기*/
 					</table>
 				</div>
 			</div>	
-
 	</main>
 	
 	
@@ -354,62 +353,94 @@ a { /*링크 줄안가게하기*/
 	<br>
 
 		
-		
-	<div class="row text-center" style="width: 100%">
+<!-- 		겟방식 -->
+<%-- 	<div class="row text-center" style="width: 100%">
 		<div style="width: 100%; float: none; margin: 0 auto">
-
-
-			<a
-				href="/infra/product/productMainUser?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
+			<a href="/infra/product/productMainUser?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
 				 <c:out value="${vo.shProductOption}"/>&shValue=<c:out value="${vo.shProductValue}"/>">
 				<button type="button" class="btn btn-sm btn-primary">목록</button>
 			</a> 
-			
-			<a
-				href="/infra/product/productPurchase?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
+			<a href="/infra/product/productPurchase?thisPage=<c:out value="${vo.thisPage}"/>&shProductOption=
 				 <c:out value="${vo.shProductOption}"/>&shValue=<c:out value="${vo.shProductValue}"/>">
 				<button type="button" class="btn btn-sm btn-warning">경매신청</button></a>
-
 		</div>
-	</div>
+	</div> --%>
+	
+	
+	<div class="row text-center" style="width: 100%">
+			<div style="width: 100%; float: none; margin: 0 auto">
+	
+<a href="javascript:goProductEdit('<c:out value="${item.acprSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shProductOption}"/>','<c:out value="${vo.shProductValue}"/>',
+'<c:out value="${vo.shProductOptionDate}"/>','<c:out value="${vo.shProductDateStart}"/>','<c:out value="${vo.shProductDateEnd}"/>');"> <button type="button" class="btn btn-sm btn-outline-warning"> 수정 </button></a>
+<a href="javascript:goProductList('<c:out value="${item.acprSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shProductOption}"/>','<c:out value="${vo.shProductValue}"/>',
+'<c:out value="${vo.shProductOptionDate}"/>','<c:out value="${vo.shProductDateStart}"/>','<c:out value="${vo.shProductDateEnd}"/>');"> <button type="button" class="btn btn-sm btn-outline-secondary"> 목록 </button></a>
+
+<button type="button" id="" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#btnModalNelete"> 삭제 </button> 
+	
+	<div class="modal fade" id="btnModalNelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modal-title">
+										<i class="fas fa-exclamation-circle"></i>삭제 확인!
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">정말 삭제하시겠습니까?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									
+									<a href="javascript:goProductNelete
+									('<c:out value="${item.acprSeq}"/>','<c:out value="${vo.thisPage}"/>','<c:out value="${vo.shProductOption}"/>',
+									'<c:out value="${vo.shProductValue}"/>','<c:out value="${vo.shProductOptionDate}"/>','<c:out value="${vo.shProductDateStart}"/>',
+									'<c:out value="${vo.shProductDateEnd}"/>');"> 
+	<button type="button" class="btn btn-primary" id=""  >확인</button></a>
+								</div>
+							</div>
+						</div>
+					</div>   
+				
+			</div>
+		</div>
 
 	<br>
 	<br>
 	
 </body>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/infra/resources/common/js/validation.js"></script>
 
 	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 
-
-
-
-<script
-	src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-	integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-	integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-	crossorigin="anonymous"></script>
-
-
-
-<!-- 기본템플릿 -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous">
-	</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+			integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+			integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+			crossorigin="anonymous"></script>
+		
+		<!-- 기본템플릿 -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous">
+			</script>
+			
+			
+<!-- 		****************************포스트방식**************************** -->
 	
 		<script type="text/javascript">
 		var seq = $("input:hidden[name=acprSeq]");
 		
+		goProductist = function(){
+			$("#formList").attr("action", "/infra/product/ProductMainUser2");
+			$("#formList").submit();
+				};
 		
 	 	goProductEdit = function(seq){
 			alert(seq);
@@ -418,7 +449,11 @@ a { /*링크 줄안가게하기*/
 					$("#formList").submit();
 			};
 
+		goProductNelete = function(seq){
+					$("#formView").attr("action", "/infra/product/productNele");
+					$("#formView").submit();
+						};
 		</script>
-		
+<!-- 		****************************포스트방식**************************** -->		
 
 </html>

@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
 	public int insertProductUser(Product dto) throws Exception {  //상품등록
 		
 		/* dto.setRegDateTime(UtilDateTime.nowDate()); */
-		dao.insertMember(dto); 
+
 		dao.insertProductUser(dto);   
 		
 		int j = 0;
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
 			dto.setPseq(dto.getIfmmSeq());
 			 
 			dao.insertUploaded(dto);
-			dao.insertMember(dto); 
+			/* dao.insertMember(dto); */
 			dao.insertProductUser(dto);   
 		
 			j++;
@@ -145,9 +145,10 @@ public class ProductServiceImpl implements ProductService {
 	public int insertMember(Product dto) throws Exception {
 		return dao.insertMember(dto); //상품등록 회원
 	}
-	public Product ProductUploaded(ProductVo vo)  throws Exception  { 
-		return dao.ProductUploaded(vo); //상품사진
-	} 
 
+	@Override
+	public Product ProductUploaded(ProductVo vo) throws Exception { //상품사진
+		return dao.ProductUploaded(vo);
+	}
 
 }

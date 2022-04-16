@@ -410,7 +410,7 @@ a { /*링크 줄안가게하기*/
 	 	goProductView = function(seq){
 			alert(seq);
 					$("#thisPage").val(seq);
-					$("#formList").attr("action","/infra/product/prouductViewUser");
+					$("#formList").attr("action","/infra/product/productViewUser");
 					$("#formList").submit();
 			} 
 	 	

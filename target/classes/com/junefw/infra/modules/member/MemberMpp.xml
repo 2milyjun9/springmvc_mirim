@@ -371,7 +371,7 @@
 	</select>
 	
 <insert id="insertPhone">
-		INSERT INTO infrmemberPhone (
+		INSERT INTO infrMemberPhone (
 		ifmpDefaultNy
 		,ifmpTypeCd
 		,ifmpDeviceCd

@@ -14,6 +14,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- 네이버로그인 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <!-- 제이쿼리 ui CSS -->
 <link
 	href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css"
@@ -163,7 +167,7 @@ a { /*링크 줄안가게하기*/
 	</nav>
 
 	
-	<form class="" id="formList" name="formList" method="post" action="/infra/product/productMainUser">
+	<form class="" id="formList" name="formList" method="post" action="/infra/product/productMainUser2">
 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>"> 
 	<input type="hidden" id="acprSeq" name="acprSeq"> 
 	</form>
@@ -213,9 +217,10 @@ a { /*링크 줄안가게하기*/
 										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 										aria-label="Placeholder: Thumbnail"
 										preserveAspectRatio="xMidYMid slice" focusable="false">
-										<title>Placeholder</title><rect width="100%" height="100%"
-											fill="#55595c" />
-										<text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+										<title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" />
+										<text x="50%" y="50%" fill="#eceeef" dy=".3em">
+										<img src="<c:out value="${uploaded.path}"/><c:out value="${uploaded.uuidFileName}"/>" />
+										</text></svg>
 
 
 								<%-- 	겟방식	<div class="card-body" id="">
@@ -334,21 +339,19 @@ a { /*링크 줄안가게하기*/
 	<br>
 
 
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- *******************************기본소스들******************************* -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/infra/resources/common/js/validation.js"></script>
 
 	<!-- jquery ui -->
-	<script
-		src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<script src="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"> </script>
 		
-	<!-- 카카오톡로그인 리다이렉트 -->
+	<!-- *******************************카카오톡로그인 리다이렉트******************************** -->
 	<script type="text/javascript">
 	  Kakao.init("b6917d9a0f917a910b27b8ae0c84814b"); //발급받은 키 중 javascript키를 사용해준다.
 		console.log(Kakao.isInitialized()); // sdk초기화여부판단
@@ -362,7 +365,6 @@ a { /*링크 줄안가게하기*/
 				Kakao.API.request({
 					url : '/v2/user/me',
 					success : function(res) {
-
 						console.log(res);
 						console.log(res.id);
 						console.log(res.kakao_account.email);
@@ -372,26 +374,24 @@ a { /*링크 줄안가게하기*/
 			}
 		});
 	}
-
-
 </script>
 		
-		
-		
+			
 	<!-- *************************************네이버로그인 콜백************************************* -->
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript">
- 	 var naver_id_login = new naver_id_login("mija45", "http://localhost:8080/infra/product/productMainUser2");
+
+<!-- 	<script type="text/javascript">
+ 	 var naver_id_login = new naver_id_login("mija345", "http://localhost:8080/infra/product/productMainUser2");
  	 // 접근 토큰 값 출력
  /* 	 alert(naver_id_login.oauthParams.access_token); */
  	 // 네이버 사용자 프로필 조회
  	 naver_id_login.get_naver_userprofile("naverSignInCallback()");
  	 // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
  	 function naverSignInCallback() {
-    alert(naver_id_login.getProfileData('nickname' ));
+    alert(naver_id_login.getProfileData('nickname'));
   }
-</script>
+	</script> -->
+	
+	
 	<!-- 네이버로그인 완료후 -->
 <script type="text/javascript">
   $(document).ready(function() {
@@ -421,7 +421,7 @@ a { /*링크 줄안가게하기*/
   }
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '359675522870832 ',    // app_Id 입력
+      appId      : '359675522870832',    // app_Id 입력
       cookie     : true,                     // Enable cookies to allow the server to access the session.
       xfbml      : true,                     // Parse social plugins on this webpage.
       version    : 'v13.0'           // Use this Graph API version for this call.
@@ -441,6 +441,7 @@ a { /*링크 줄안가게하기*/
 </script>
 	<!-- *********************************페이스북로그인 리턴********************************* -->
 	
+	<!--  ******************************** 광고 모달 ************************************** -->
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			$('#myModal').show();
@@ -450,7 +451,8 @@ a { /*링크 줄안가게하기*/
 			$('#myModal').hide();
 		};
 	</script>
-
+	<!--  ******************************** 광고 모달 ************************************** -->
+	
 <!--  **************************************로그아웃버튼************************************** -->
 	<script type="text/javascript">
 		$("#btnLogout")
@@ -486,7 +488,9 @@ a { /*링크 줄안가게하기*/
 	</script>
 <!--  **************************************로그아웃버튼************************************** -->
 
-	<script type="text/javascript">
+
+<!--  **************************************포스트 기능************************************** -->
+	<script type="text/javaScript">
 		var seq = $("input:hidden[name=acprSeq]");
 		
 	 	goProductList = function(seq){
@@ -498,7 +502,7 @@ a { /*링크 줄안가게하기*/
 	 	goProductView = function(seq){
 			alert(seq);
 					$("#thisPage").val(seq);
-					$("#formList").attr("action","/infra/product/prouductViewUser");
+					$("#formList").attr("action","/infra/product/productViewUser");
 					$("#formList").submit();
 			} 
 		 goProductForm = function(seq){
@@ -506,7 +510,9 @@ a { /*링크 줄안가게하기*/
 				$("#formList").submit();
 			}	
 		</script>
-		
+	<!--  **************************************포스트 기능************************************** -->
+	
+	<!--  **************************************알럿 기능************************************** -->	
 				<script type="text/javascript">
 		$("#btnSearch").on( 
 				"click", function() {
@@ -518,6 +524,6 @@ a { /*링크 줄안가게하기*/
 				false;
 			});
 			</script>
-		
+	<!--  **************************************알럿 기능************************************** -->	
 </body>
 </html>

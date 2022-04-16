@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -236,9 +237,8 @@ public class MemberController /* extends BaseController */ {
 		return "redirect:/member/memberViewUser?ifmmSeq=" + dto.getIfmmSeq();
 	}
 
-	
 	/* **************************로그인 ***************************/
-	
+
 	@RequestMapping(value = "/member/memberLoginUser") // 기본로그인
 	public String memberLoginUser(Member dto, Model model) throws Exception {
 		Member rt = service.selectOneLoginUser(dto);
@@ -312,13 +312,18 @@ public class MemberController /* extends BaseController */ {
 	 */
 
 	@ResponseBody
-	@RequestMapping(value = "/member/logoutProc") // 기본 로그아웃
+	@RequestMapping(value = "/member/logoutProc") // 로그아웃
 	public Map<String, Object> logoutProc(HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		httpSession.invalidate();
 		returnMap.put("rt", "success");
 		return returnMap;
 	}
+
+	/* *********************************sns연동로그인 *****************************/
+	/* *********************************sns연동로그인 *****************************/
+	/* *********************************sns연동로그인 *****************************/
+	/* *********************************sns연동로그인 *****************************/
 
 	@ResponseBody // 카카오 로그인 PR
 	@RequestMapping(value = "/member/KakaoLgProc")
@@ -327,61 +332,50 @@ public class MemberController /* extends BaseController */ {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		System.out.println(name);
 		httpSession.setAttribute("sessName", name);
-		/*
-		 * httpSession.setAttribute("sessId", "카카오 회원입니다");
-		 * httpSession.setAttribute("sessSeq", "카카오 회원입니다");
-		 */
+		httpSession.setAttribute("sessId", "카카오 회원입니다");
+		httpSession.setAttribute("sessSeq", "카카오 회원입니다");
 		returnMap.put("item", "success");
 		return returnMap;
 	}
 
-	/* 네이버 로그인 미림소스 */
-	/*
-	 * private NaverLoginBO naverLoginBO;
-	 * @Autowired private void setNaverLoginBO(NaverLoginBO naverLoginBO){
-	 * this.naverLoginBO = naverLoginBO; }
-	 * 
-	 * @RequestMapping("/member/meberLoginUser") //네이버 로그인 public ModelAndView
-	 * login(HttpSession session) { 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출
-	 * String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session); 생성한 인증 URL을
-	 * View로 전달 return new ModelAndView("/product/productMainUser2", "url",
-	 * naverAuthUrl); }
-	 */
+	// 네이버 로그인
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
 
-	/* 네이버 로그인2 */
-	 private NaverLoginBO naverLoginBO;
-	 @Autowired private void setNaverLoginBO(NaverLoginBO naverLoginBO){
-	 this.naverLoginBO = naverLoginBO; }
-	 
-	 @RequestMapping(value = "/member/memberLoginUser", method = { RequestMethod.GET, RequestMethod.POST }) 
-	 public String userLogin(Model model, HttpSession session) {
-     /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-	 String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-	 System.out.println("네이버:" + naverAuthUrl);
-	 model.addAttribute("url",naverAuthUrl); 
-	 return "/member/memberLoginUser";
-	 
-	 }
-	 
-
-	// 네이버 로그인 PR
-	 	@RequestMapping(value = "/member/NaverLgProc", method = { RequestMethod.GET, RequestMethod.POST }) 
-		public String NaverLgProc(@RequestParam String code, @RequestParam String state, HttpSession session)
-		throws IOException {
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		// 로그인 사용자 정보를 읽어온다.
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
-		session.setAttribute("result", apiResult);
-		System.out.println("result" + apiResult);
-		
-		session.setAttribute("sessSeq", 0); // 생략 가능
-		/* 네이버 로그인 성공 페이지 View 호출 */
-		return "redirect:/product/productMainUser2";
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
 	}
 
-	// 페북 로그인 PR
-	@ResponseBody
+	// 네이버 로그인
+	@RequestMapping(value = "/member/memberLoginUser", method = { RequestMethod.GET, RequestMethod.POST })
+	public String userLogin(Model model, HttpSession session) {
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		System.out.println("네이버:" + naverAuthUrl);
+		model.addAttribute("url", naverAuthUrl);
+		/* 생성한 인증 URL을 View로 전달 */
+		return "/member/memberLoginUser";
+	}
+	// 네이버 로그인 PR
+    @RequestMapping(value = "/member/NaverLgProc", method = { RequestMethod.GET, RequestMethod.POST })	//네이버 로그인
+    public ModelAndView  NaverLgProc(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		
+		//로그인 사용자 정보를 읽어온다.
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+        session.setAttribute("result", apiResult);
+        System.out.println("result"+apiResult);
+        
+        session.setAttribute("sessSeq", 0); //생략 가능
+        /* 네이버 로그인 성공 페이지 View 호출 */
+		/* return "redirect:/infra/product/productMainUser2"; */
+		return new ModelAndView("callback", "result", apiResult);
+    }	
+	
+	
+	@ResponseBody // 페북 로그인 PR
 	@RequestMapping(value = "/member/FBLgProc")
 	public Map<String, Object> FBLgProc(@RequestParam("ifmmName") String name, Member dto, HttpSession httpSession)
 			throws Exception {
@@ -393,23 +387,19 @@ public class MemberController /* extends BaseController */ {
 		returnMap.put("item", "success");
 		return returnMap;
 	}
-	
 
-	@ResponseBody //구글 로그인
+	@ResponseBody // 구글 로그인 PR
 	@RequestMapping(value = "/member/GLgProc")
-	public Map<String, Object> GLgProc(@RequestParam("ifmmName")String name,Member dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> GLgProc(@RequestParam("ifmmName") String name, Member dto, HttpSession httpSession)
+			throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		
 		System.out.println(name);
-		httpSession.setAttribute("sessName",name);
-		httpSession.setAttribute("sessId","구글 회원입니다");
-		httpSession.setAttribute("sessSeq","구글 회원입니다");
-	
+		httpSession.setAttribute("sessName", name);
+		httpSession.setAttribute("sessId", "구글 회원입니다");
+		httpSession.setAttribute("sessSeq", "구글 회원입니다");
 		returnMap.put("rt", "success");
-		
 		return returnMap;
 	}
-
 
 	// ************************* 공통 *************************************
 	// ************************* 공통 *************************************
@@ -427,14 +417,12 @@ public class MemberController /* extends BaseController */ {
 	@RequestMapping(value = "/member/memberNele") // 회원가짜삭제
 	public String memberNele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		service.updateDeleteMember(vo);
-
 		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
 		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());
 		redirectAttributes.addAttribute("ifmmDelNy", vo.getIfmmDelNy());
 		redirectAttributes.addAttribute("ifmmName", vo.getIfmmName());
 		redirectAttributes.addAttribute("shMemberOption", vo.getShMemberOption());
 		redirectAttributes.addAttribute("shMemberValue", vo.getShMemberValue());
-
 		return "redirect:/member/memberList";
 	}
 

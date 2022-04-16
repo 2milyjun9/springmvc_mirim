@@ -122,41 +122,35 @@ body {
 					<a href="javascript:kakaoLogin();">  
 					<button class="btn btn-warning btn-lg btn-block" type="button" >Kakao 로그인</button></a>
  					
-		<!-- 			<div id="kakao-login-btn">
-					<button class="btn btn-warning btn-lg btn-block" type="button">Kakao 로그인</button> </div> 
-					<br> -->
 
-				
-						<!-- 네이버 로그인 버튼 노출 영역 -->
- 	    	  <div id="naver_id_login">  </div>  
 			
-				<div class="col-auto linksq" style="margin-left:auto;" onclick="location.href='${URL}';">
+<%-- 				<div class="col-auto linksq" style="margin-left:auto;" onclick="location.href='${URL}';">
 					<div id="naver_id_login" style="display:none;"></div>
 						<div class="circle linksns naverlogin" style="float: none;">
 							<div class="linksns linksen">
-							<button class="btn btn-success btn-lg btn-block" type="button">Naver 로그인</button> 
+							<button class="btn btn-success btn-lg btn-block" type="button" id="naver_id_login">Naver 로그인</button> 
 						</div>
 					</div>
-				</div>
+				</div>  --%>
+
 	
-			
-					<button class="btn btn-light btn-lg btn-block" type="button" id="GgCustomLogin" onclick="javascript:void(0)">Google 로그인</button>
+			<a href = javascript:naver_id_login><button class="btn btn-success btn-lg btn-block" type="button" id="naver_id_login">Naver 로그인</button> </a>
+			<a href = javascript:void(0)><button class="btn btn-light btn-lg btn-block" type="button" id="GgCustomLogin">Google 로그인</button></a>
+
+				
 					<button class="btn btn-primary btn-lg btn-block" type="button" id="btn-facebook" onclick="fnFbCustomLogin();">Facebook 로그인</button>
 				
 				<!-- 	<button class="btn btn-facebook" type="button" id="btn-facebook" onclick="fnFbCustomLogin();"><img src="/resources/xdmin/image/fbicon.png" id="icon"><b> 페이스북</b> 로그인</button>
-						 -->
-				<!-- 
-					The JS SDK Login Button 페이스북
-			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-			<div id="status"> </div>
-			페이스북 로그인 버튼 노출 영역
-						<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="true" data-use-continue-as="false"></div>		
-
+						  -->
+				<!-- 	The JS SDK Login Button 페이스북 -->
+		<!-- 	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+			<div id="status"> </div> -->
+		<!-- 	페이스북 로그인 버튼 노출 영역 -->
+					<!-- 	<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="true" data-use-continue-as="false"></div>		
  -->
+
 					</div>
 					
-				
-			
 					<br> <br>
 					
 					<div class="row text-right" style="width: 100%">
@@ -174,6 +168,8 @@ body {
 	<br>
 	<br>
 	<br>
+	
+	<!-- ******************** 스크립트 소스들 ****************************** -->
 			<!-- 아작스 -->
 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 			<!-- 밸리데이션연결-->
@@ -185,9 +181,8 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"> </script>
+	<!-- ******************** 스크립트 소스들 ****************************** -->
 	
-	
-  	
 <!-- ********************기본 버튼 알럿******************************** -->
 	<script type="text/javascript">
 	$("#btnLogin").on("click", function(){
@@ -212,7 +207,6 @@ body {
 	});
 	</script>
 
-
  	<script type="text/javascript">
 	$("#btnLogin").on(
 			"click",
@@ -224,37 +218,8 @@ body {
 	</script>
 <!-- ********************기본 버튼 알럿******************************** -->	
 
-<!-- 		$("#btnLogin").on("click", function(){
-			if(validation() == false) return false;
-			$.ajax({
-				async: true 
-				,cache: false
-				,type: "post"
-				,url: "/member/loginProc"
-				,data : { "ifmmId" : $("#ifmmId").val(), "ifmmPassword" : $("#ifmmPassword").val()}
-				,success: function(response) {
-					if(response.rt == "success") {
-						location.href = "/product/productMainUser";
-					} else {
-						alert("회원정보가 없습니다.");
-					}
-				}
-				,error : function(jqXHR, textStatus, errorThrown){
-					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-				}
-			});
-		});
-		</script> 
-	
 
-	validation = function(){
-		if(!checkNull($("ifmmId"), $.trim($("#ifmmId").val()), "아이디를 입력해 주세요!")) return false;
-		if(!checkNull($("ifmmPassword"), $.trim($("#ifmmPassword").val()), "비밀번호를 입력해 주세요!")) return false;
-	}  -->
-
-	
-	
-			<!-- ********************카카오로그인********************************** -->
+<!-- ********************카카오로그인********************************** -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	s
 	<!-- 		카카오로그인 1방식 -->
@@ -315,7 +280,6 @@ body {
 	});
 </script>    -->
 
-
 <!-- *********************카카오톡로그인******************************** -->
 <script>
 window.Kakao.init('b6917d9a0f917a910b27b8ae0c84814b');	// 자바스크립트 키 입력
@@ -362,17 +326,17 @@ function kakaoLogin() {
 <!-- *********************카카오톡로그인******************************** -->
 
 <!-- *********************네이버로그인******************************** -->
- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("rC49cHpcIdZZeZUOlBJO", "http://localhost:8080/infra/product/productMainUser2");
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("rC49cHpcIdZZeZUOlBJO","http://localhost:8080/infra/member/NaverLgProc"); // client ID, callBack URL
   	var state = naver_id_login.getUniqState();
   	naver_id_login.setButton("white", 2,40);
-  	naver_id_login.setDomain("http://localhost:8080/infra/member/memberLoginUser");
+  	naver_id_login.setDomain("http://localhost:8080/infra/member/memberLoginUser");	// service URL
   	naver_id_login.setState(state);
   	naver_id_login.setPopup();
   	naver_id_login.init_naver_id_login();
-  </script>
+</script>
 <!-- *********************네이버로그인******************************** -->
 
 
@@ -380,7 +344,7 @@ function kakaoLogin() {
 <!-- *********************페이스북로그인******************************** -->
 <!-- *********************페이스북로그인 1번방식******************************** -->
 <!-- Load the JS SDK asynchronously  페이스북-->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+ <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
 function checkLoginState() {               					//로그인 클릭시 호출
 	    FB.getLoginStatus(function(response) {  
@@ -429,7 +393,7 @@ function fnFbCustomLogin(){
 
 window.fbAsyncInit = function() {
 	FB.init({
-		appId      : '1364487504067524', // 내 앱 ID.
+		appId      : '359675522870832', // 내 앱 ID.
 		cookie     : true,
 		xfbml      : true,
 		version    : 'v13.0'
@@ -445,14 +409,12 @@ window.fbAsyncInit = function() {
 		console.log('Thanks for logging in ' + response.name);
 	});
 } 
-
-
-
-</script>
+</script> 
 <!--**************************** 페이스북 1번방법************************************************* -->
 
 <!--**************************** 페이스북 2번방법************************************************* -->
-<!-- <script>
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=359675522870832" nonce="SiOBIhLG"></script>
+ <script>
 //기존 로그인 상태를 가져오기 위해 Facebook에 대한 호출
 function statusChangeCallback(res){
 	statusChangeCallback(response);
@@ -473,7 +435,6 @@ function fnFbCustomLogin(){
 		}
 	}, {scope: 'public_profile,email'});
 }
-
 window.fbAsyncInit = function() {
 	FB.init({
 		appId      : '359675522870832', // 내 앱 ID를 입력한다.
@@ -483,14 +444,13 @@ window.fbAsyncInit = function() {
 	});
 	FB.AppEvents.logPageView();   
 };
-</script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=359675522870832" nonce="SiOBIhLG"></scri -->pt>
+</script> -->
+
 <!--**************************** 페이스북 2번방법************************************************* -->
 
 <!-- *********************************구글로그인********************************************* -->
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script>
-
-//처음 실행하는 함수
 function init() {
 	gapi.load('auth2', function() {
 		gapi.auth2.init();

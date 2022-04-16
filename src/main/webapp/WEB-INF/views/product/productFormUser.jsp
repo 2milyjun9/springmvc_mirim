@@ -162,16 +162,15 @@ body {
 					<div class="col-md-12 mb-3">
 						<label for="file0" class="form-label input-file-button">이미지첨부 </label> 
 							<input  class="form-control" id="file0" name="file0" type="file" 
-								multiple="multiple" style="display:none;" onChange="upload(1,1);">
+								multiple="multiple" style="display:none;" onChange="upload(0,2);">
 							<div class="addScroll">
 							<ul id="ulFile0" class="list-group"></ul>
 								</div>
 							</div>  
 						</div>
+	
 		
-					
 
-				
 				<div class="row">
 					<div class="col-md-12 mb-3">
 						<div class="custom-control custom-checkbox">
@@ -431,7 +430,7 @@ body {
 		
 		<script type="text/javascript">
 		$(document).ready(function() {
-			$("acprEndDate").datepicker();
+			$("#acprEndDate").datepicker();
 		});
 
 		$.datepicker.setDefaults({
@@ -464,8 +463,76 @@ body {
 	</script>
 
 
+<!-- **************************************업로드************************************** -->
+	<script src="/infra/resources/common/js/common.js"></script>
+	<script src="/infra/resources/common/js/commonXdmin.js"></script>
+	<script src="/infra/resources/common/js/constantsXdmin.js"></script>
 
+		<script type="text/javascript">
+		
+		upload = function(seq,div){
+			
+		$("#ulFile"+ seq).children().remove();
+		
+		var fileCount = $("input[type=file]")[seq].files.length;
+		
+		if(checkUploadedTotalFileNumber(fileCount,seq) == false) {return false;}
+		
+		var totalFileSize;
+		for (var i = 0; i < fileCount; i++){
+			if(div == 1){
+				if(checkUploadedAllExt($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			}else if (div == 2){
+				if(checkUploadedImageExt($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			}else{
+				return false;
+			}
+			
+			if(checkUploadedEachFileSize($("input[type=file]")[seq].files[i].name,seq)==false) {return false;}
+			totalFileSize += $("input[type=file]")[seq].files[i].size;
+		}
+		if(checkUploadedTotalFileSize(totalFileSize,seq)==false) {return false;}
+		
+		for (var i = 0 ; i<fileCount ; i ++){
+			addUploadLi(seq,i,$("input[type=file]")[seq].files[i].name);
+		}
+		}	
+		
+		addUploadLi = function (seq, index, name){
+			
+			var ul_list = $("#ulFile0");
+			
+			li = '<li id= "li_  '+ seq +'_' + index + ' "class="list-group-item d-flex justify-content-between align-items-center"> ';
+			li = li + name; 
+			li = li + '<span class="badge bg-danger rounded-pill" onClick="delLi(' + seq + ',' +  index + ')"><i class="fa-solid fa-x" style="cursor : pointer;"></i></span>';
+			li = li + '</li>';
 
+			$("#ulFile" + seq).append(li);
+		}
+		
+			delLi = function (seq,index){
+			$("#li_" + seq +"_"+index).remove();
+		}
+			
+		addUploadLi = function (seq, index, name){
+	
+			var ul_list = $("#ulFile1");
+			
+			li = '<li id="li_'+seq+'_'+index+'"class="list-group-item d-flex justify-content-between align-items-center"> ';
+			li = li + name; 
+			li = li + '<span class="badge bg-danger rounded-pill" onClick="delLi('+ seq +','+  index +')"><i class="fa-solid fa-x" style="cursor : pointer;"></i></span>';
+			li = li + '</li>';
+
+			$("#ulFile"+seq).append(li);
+		}
+		
+			delLi = function(seq,index){
+			$("#li_" +seq+"_"+index).remove();
+		}
+			
+			
+		</script> 
+<!-- **************************************업로드************************************** -->
 </body>
 </html>
 

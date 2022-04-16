@@ -1,7 +1,7 @@
 
-document.write("<script src='infra/resources/common/js/common.js'></script>");
-document.write("<script src='infra/resources/xdmin/js/constantsXdmin.js'></script>");
-document.write("<script src='infra/resources/xdmin/js/calidationXdmin.js'></script>");
+document.write("<script src='/infra/resources/common/js/common.js'></script>");
+document.write("<script src='/infra/resources/xdmin/js/commonXdmin.js'></script>");
+document.write("<script src='/infra/resources/xdmin/js/constantsXdmin.js'></script>");
 
 /*checkUploadedTotalFileNumber = function(totalSize, seq){
 	if(totalSize > MAX_TOTAL_FILE_NUMBER){

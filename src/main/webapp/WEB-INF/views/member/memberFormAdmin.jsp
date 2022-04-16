@@ -863,7 +863,7 @@ body {
     }
 </script>   
 
-
+<!-- **************************************업로드************************************** -->
 	<script src="/infra/resources/common/js/commonXdmin.js"></script>
 	<script src="/infra/resources/common/js/constantsXdmin.js"></script>
 	<script src="/infra/resources/common/js/common.js"></script>

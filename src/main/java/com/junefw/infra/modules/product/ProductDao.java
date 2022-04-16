@@ -93,12 +93,11 @@ public class ProductDao {
 	 public int insertMember (Product dto) { //상품등록(회원정보)
 		   return sqlSession.insert(namespace + ".insertMember", dto); 
 	   }
-	public void insertUploaded(Product dto) {
-		// TODO Auto-generated method stub
-		
+	public int insertUploaded(Product dto) { //상품사진
+		return sqlSession.insert(namespace + ".insertUploaded", dto); //회원등록(사진,파일)
 	}
 	public Product ProductUploaded(ProductVo vo) { //상품사진
-		return sqlSession.selectOne(namespace + ".ProductUploaded", vo);  
+		return sqlSession.selectOne(namespace + ".MemberUploaded", vo);  
 	}
 	
 }

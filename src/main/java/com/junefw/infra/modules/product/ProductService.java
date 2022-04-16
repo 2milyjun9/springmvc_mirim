@@ -29,6 +29,8 @@ public interface ProductService {
 	public int updateProductUser(Product dto) throws Exception; //상품수정
 	int productPurchase(Product dto) throws Exception; // 경매신청
 	int productOneCountUser(ProductVo vo) throws Exception; //검색
+	public Product ProductUploaded(ProductVo vo) throws Exception; //상품사진업로드
+
 	
 	// ****************공통*****************************
 	int productDelete(ProductVo vo) throws Exception; //진짜삭제

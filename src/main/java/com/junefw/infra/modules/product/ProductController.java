@@ -72,7 +72,7 @@ public class ProductController {
 		 * + makeQueryString(vo);
 		 */
 		redirectAttributes.addFlashAttribute("vo", vo);
-		return "redirect:/product/ProductView";
+		return "redirect:/product/ProductViewUser";
 	}
 
 	@RequestMapping(value = "/product/productEditAdmin") // 상품수정
@@ -98,7 +98,7 @@ public class ProductController {
 	// ******************************* auctProduct(User) *********************
 	// ******************************* auctProduct(User) *********************
 	// ******************************* auctProduct(User) *********************
-	@RequestMapping(value = "/product/productMainUser") // 메인페이지 
+	@RequestMapping(value = "/product/productMainUser") // 메인페이지
 	public String productMainUser(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
 		int count = service.productOneCountUser(vo);
 		vo.setParamsPaging(count);
@@ -110,7 +110,7 @@ public class ProductController {
 		return "product/productMainUser";
 	}
 
-	@RequestMapping(value = "/product/productMainUser2") // 로그인 메인페이지 
+	@RequestMapping(value = "/product/productMainUser2") // 로그인 메인페이지
 	public String productMainUser2(@ModelAttribute("vo") ProductVo vo, Model model) throws Exception {
 		int count = service.productOneCountUser(vo);
 		vo.setParamsPaging(count);
@@ -157,6 +157,7 @@ public class ProductController {
 	public String productInstUser(Product dto, ProductVo vo, Model model, RedirectAttributes redirectAttributes)
 			throws Exception {
 		service.insertProductUser(dto);
+		
 		vo.setIfmmSeq(dto.getIfmmSeq());
 		vo.setAcprSeq(dto.getAcprSeq());
 
@@ -169,7 +170,7 @@ public class ProductController {
 		 * get방식 redirectAttributes.addAttribute("shValue", vo.getShProductValue()); //
 		 * get방식
 		 */
-		return "redirect:/product/productView";
+		return "redirect:/product/productViewUser";
 		/*
 		 * return "redirect:/product/productViewUser?acprSeq=" + dto.getAcprSeq() +
 		 * makeQueryString(vo);
