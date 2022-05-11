@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.junefw.infra.common.util.UtilDateTime;
+
 import com.junefw.infra.common.util.UtilUpload;
 import com.junefw.infra.modules.member.Member;
 import com.junefw.infra.modules.member.MemberVo;
@@ -77,7 +77,6 @@ public class ProductServiceImpl implements ProductService {
 	public int insertProductUser(Product dto) throws Exception {  //상품등록
 		
 		/* dto.setRegDateTime(UtilDateTime.nowDate()); */
-
 		dao.insertProductUser(dto);   
 		
 		int j = 0;
@@ -90,11 +89,11 @@ public class ProductServiceImpl implements ProductService {
 			dto.setType(0);
 			dto.setDefaultNy(0);
 			dto.setSort(j);
-			dto.setPseq(dto.getIfmmSeq());
-			 
+			dto.setPseq(dto.getAcprSeq());
+			dto.setIfmmSeq(dto.getIfmmSeq());
+			
 			dao.insertUploaded(dto);
-			/* dao.insertMember(dto); */
-			dao.insertProductUser(dto);   
+
 		
 			j++;
 		}
@@ -108,8 +107,8 @@ public class ProductServiceImpl implements ProductService {
 				dto.setType(1);
 				dto.setDefaultNy(0);
 				dto.setSort(j);
-				dto.setPseq(dto.getIfmmSeq());
-				 
+				dto.setPseq(dto.getAcprSeq());
+				dto.setIfmmSeq(dto.getIfmmSeq());
 			
 				j++;
 	}

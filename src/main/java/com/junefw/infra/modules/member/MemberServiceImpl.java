@@ -96,6 +96,9 @@ public class MemberServiceImpl implements MemberService {
 		return 1;
 	}
 	
+
+	
+	
 	@Override
 	public int updateMemberAdmin(Member dto) throws Exception { //회원수정
 		
@@ -191,5 +194,13 @@ public class MemberServiceImpl implements MemberService {
 		return dao.MemberUploaded(vo);
 	}
 	
+	@Override
+	public int insertRest(Member dto) throws Exception {   //포스트맨인서트
+		return dao.insertRest(dto);
+	}
+	public int updateRest(Member dto) throws Exception { //포스트맨수정
+		return dao.updateRest(dto);
+		
+	}
 	
 }

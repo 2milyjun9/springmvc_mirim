@@ -171,30 +171,26 @@ body {
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#상품관리">상품관리</button>
-							<div class="collapse" id="상품관리">
+							<!-- <div class="collapse" id="상품관리">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
 									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;등록상품조회</a></li>
+											&nbsp;상품조회</a></li>
 								</ul>
-							</div>
+							</div> -->
 						</li>
 						<li class="mb-1">
 							<button
 								class="btn btn-toggle align-items-center rounded collapsed"
 								data-bs-toggle="collapse" data-bs-target="#회원관리">회원관리</button>
-							<div class="collapse" id="회원관리">
+						<!-- 	<div class="collapse" id="회원관리">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ">
 									<li><a href="../member/memberList.html" class="link-dark rounded">
 											&nbsp; &nbsp;회원조회</a></li>
-									<li><a href="#" class="link-dark rounded"> &nbsp;
-											&nbsp;회원수정</a></li>
 								</ul>
-							</div>
+							</div> -->
 						</li>
-				
-
 					</ul>
-					<div class="dropdown border-top">
+<%-- 					<div class="dropdown border-top">
 						<a href="#"
 							class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
 							id="dropdownUser3" data-bs-toggle="dropdown"> 
@@ -206,7 +202,7 @@ body {
 							<li><a class="dropdown-item" onclick="showPopup();">로그인</a></li>
 						</ul>
 
-					</div>
+					</div> --%>
 				</div>
 			</nav>
 		</div>

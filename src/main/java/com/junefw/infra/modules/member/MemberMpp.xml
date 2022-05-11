@@ -754,6 +754,25 @@
 		ifmmSeq= #{ifmmSeq}
 	</update>
 	
+		<insert id="insertRest">
+			insert into infrMember (
+				ifmmId
+				, ifmmName
+				, ifmmDelNy
+				, ifmmPassword
+			) values (
+				#{ifmmId}
+				, #{ifmmName}
+				, 0
+				, #{ifmmPassword}
+			)
+	</insert>	
 	
+		<update id="updateRest"> 
+		UPDATE infrMember SET
+		ifmmName = #{ifmmName}
+		where 1 = 1
+		and ifmmSeq = #{ifmmSeq}
+	</update>
 </mapper>
 

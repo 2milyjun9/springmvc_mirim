@@ -97,7 +97,7 @@ public class ProductDao {
 		return sqlSession.insert(namespace + ".insertUploaded", dto); //회원등록(사진,파일)
 	}
 	public Product ProductUploaded(ProductVo vo) { //상품사진
-		return sqlSession.selectOne(namespace + ".MemberUploaded", vo);  
+		return sqlSession.selectOne(namespace + ".ProductUploaded", vo);  
 	}
 	
 }

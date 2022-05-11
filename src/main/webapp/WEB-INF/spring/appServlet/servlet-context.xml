@@ -40,6 +40,7 @@
 			<exclude-mapping path="/product/productMainUser2" />
 			<exclude-mapping path="/product/productViewUser" />
 			<exclude-mapping path="/member/findIdPwdForm" />
+			<exclude-mapping path="/rest/**" />
 		<beans:bean id="checkLoginSessionInterception" class="com.junefw.infra.common.interceptor.CheckLoginSessionInterception"/> 
 		</interceptor>
 	</interceptors>	  

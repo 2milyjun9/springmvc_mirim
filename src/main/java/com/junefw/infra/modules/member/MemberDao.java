@@ -38,12 +38,15 @@ public class MemberDao {
 		return sqlSession.selectOne(namespace + ".memberViewAdmin", vo); //회원뷰
 	}
 	public int insertMemberAdmin(Member dto) {
-		return sqlSession.insert(namespace + ".insertMemberAdmin", dto); //회원등록
+		return sqlSession.insert(namespace + ".insertMemberAdmin", dto); //회원등록	
 	}
+
 	public int updateMemberAdmin(Member dto) {
 		return sqlSession.update(namespace + ".updateMemberAdmin", dto); //회원수정
 	}
 
+	
+	
 	
 //	public Member selectOneIdAdmin(Member dto) {
 //		 return sqlSession.selectOne(namespace + ".selectOneIdAdmin", dto); //사원로그인셀렉
@@ -113,7 +116,13 @@ public class MemberDao {
 		public Member MemberUploaded(MemberVo vo) {
 			return sqlSession.selectOne(namespace + ".MemberUploaded", vo);  //회원사진
 		}
-		
+		public int insertRest(Member dto) {
+			return sqlSession.insert(namespace + ".insertRest", dto);  //포스트맨등록
+		}
+		public int updateRest(Member dto) {
+			return sqlSession.update(namespace + ".updateRest", dto);  //포스트맨수정
+		}
+	
 	}
 
 	

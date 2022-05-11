@@ -58,6 +58,7 @@ public class ProductController {
 	@RequestMapping(value = "/product/productInstAdmin") // 상품등록받음
 	public String productInstAdmin(Product dto, ProductVo vo, Model model, RedirectAttributes redirectAttributes)
 			throws Exception {
+		
 		service.insertProductAdmin(dto);
 
 		vo.setIfmmSeq(dto.getIfmmSeq());

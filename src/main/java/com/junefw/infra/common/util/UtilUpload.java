@@ -77,10 +77,12 @@ public class UtilUpload {
 
 	}
 	
-	 public static void createPath2 (String path) { File uploadPath = new
-	 File(path);
+	 public static void createPath2 (String path) { 
+		 File uploadPath = new File(path);
 	 
-	 if (!uploadPath.exists()) { uploadPath.mkdir(); } else { // by pass } }
+	 if (!uploadPath.exists()) { 
+		 uploadPath.mkdir(); 
+		 } else {// by pass } }
 	 
 	 }
 

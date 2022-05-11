@@ -267,7 +267,7 @@ body {
 								<th class="table-secondary">아이디</th>
 								<td><c:out value="${item.ifmmId}" /></td>
 								<th class="table-secondary">비밀번호</th>
-								<td><input type="text" name="ifmmPassword" value="<c:out value="${item.ifmmPassword}"/>"></td>
+								<td><input type="text"  name="ifmmPassword" value="<c:out value="${item.ifmmPassword}"/>"></td>
 							</tr>
 							<tr>
 								<th class="table-secondary">성별</th>

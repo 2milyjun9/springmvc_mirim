@@ -9,13 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class Member /* extends Base */ {
 	
 
-
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
 	/* infrmember */
 	private String ifmmSeq;
 	private Integer ifmmAdminNy;
@@ -39,7 +32,7 @@ public class Member /* extends Base */ {
 	private Integer ifmmPushConsentNy;
 	private Integer ifmmDelNy;
 	private String ifmmDesc;
-	
+
 	
 	// uploaded
 
